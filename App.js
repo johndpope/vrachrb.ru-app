@@ -8,17 +8,21 @@ import {
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import WelcomeScreen from './src/screens/WelcomeScreen';
+import AuthScreen from './src/screens/AuthScreen';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator 
+        screenOptions={{
+          headerShown: false
+        }}
+      >
         <Stack.Screen
           name="Home"
-          component={ WelcomeScreen }
+          component={ AuthScreen }
         />
       </Stack.Navigator>
     </NavigationContainer>
