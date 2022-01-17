@@ -1,14 +1,10 @@
 import React, { PropTypes, Component } from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthScreen from './src/screens/AuthScreen';
+import MailLoginScreen from './src/screens/MailLoginScreen';
+import MainScreen from './src/screens/MainScreen'
 
 const Stack = createNativeStackNavigator();
 
@@ -19,22 +15,22 @@ const App = () => {
         screenOptions={{
           headerShown: false
         }}
-      >
+      >     
         <Stack.Screen
-          name="Home"
+          name="MainScreen"
+          component={ MainScreen }
+        />   
+        <Stack.Screen
+          name="AuthScreen"
           component={ AuthScreen }
+        />
+        <Stack.Screen
+          name="MailLoginScreen"
+          component={ MailLoginScreen }
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  mainContent: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-});
 
 export default App;
