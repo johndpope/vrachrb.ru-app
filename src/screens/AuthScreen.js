@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import AuthComponent from '../components/AuthComponent/AuthComponent';
 
-const AuthScreen = ({navigation}) => {
+const AuthScreen = () => {
   return (
     <View style={ styles.mainContent }>
         <StatusBar />
@@ -22,7 +22,7 @@ const AuthScreen = ({navigation}) => {
             alignContent: 'center',
           }}>
           <Image
-            style={ styles.imageStyle={} }
+            style={ styles.imageStyle }
             source={require("../images/logo.png")} 
           />
         </View>

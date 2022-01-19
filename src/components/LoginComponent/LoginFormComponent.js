@@ -1,13 +1,24 @@
 import React, { useState, Component } from 'react'
-import { TextInput, View, StyleSheet, Text } from 'react-native'
+import { TextInput, View, StyleSheet, Button, Text } from 'react-native'
 import RegisterComponent from '../AuthComponent/RegisterComponent';
 import LoginButton from './LoginButton';
 import RecoveryPassword from './RecoveryPassword';
 
 const LoginFormComponent = () => {
-
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    // const [response1, setResponse1] = useState("")
+
+    // let dataFromServer = ""
+
+    // const client = async () => {
+    //     return await fetch("https://jsonplaceholder.typicode.com/users")
+    //         .then((response) => response.json())
+    //         .then(json => {
+    //             dataFromServer = setResponse1(json[1]['name']);
+    //             () => setResponse1(dataFromServer)
+    //         })
+    // }
 
     const checkFilledField = () => {
         if (email && password){

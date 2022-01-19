@@ -1,7 +1,11 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { Component } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 const LoginButton = ({ isFilledForm }) => {
+
+    const navigation = useNavigation()
+
     return (
         <View>
             <TouchableOpacity 
@@ -9,6 +13,11 @@ const LoginButton = ({ isFilledForm }) => {
                     ...styles.btnStyle,
                     backgroundColor: isFilledForm ? '#54B9D1' : '#F3F4F6',
                 }}
+                onPress={() => navigation.reset({
+                                    index: 0,
+                                    routes: [{ name: 'MainScreen' }],
+                            })}
+                disabled={!isFilledForm}
             >
                 <Text style={{ 
                     ...styles.textStyle,
