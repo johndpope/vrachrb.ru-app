@@ -1,63 +1,55 @@
-import { useRoute } from '@react-navigation/native';
-import React, { Component } from 'react'
-import { StyleSheet, View, FlatList } from 'react-native';
+import React, { Component, useEffect, useState } from 'react'
+import { StyleSheet, View, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
 import CabinetCardWidget from '../components/Widgets/Cabinet/CabinetCardWidget';
 import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard';
-
-const DATA = [
-    {
-        id: 1,
-        doctorName: "Педиатр",
-        description: "Специалист для детей и подростков"
-    },
-    {
-        id: 2,
-        doctorName: "Терапевт",
-        description: "Специалист общего профиля"
-    },
-    {
-        id: 3,
-        doctorName: "Гинеколог",
-        description: "Женские заболевания"
-    },
-    {
-        id: 4,
-        doctorName: "Терапевт",
-        description: "Специалист общего профиля"
-    },
-    {
-        id: 5,
-        doctorName: "Гинеколог",
-        description: "Женские заболевания"
-    },
-    {
-        id: 6,
-        doctorName: "Терапевт",
-        description: "Специалист общего профиля"
-    },
-    {
-        id: 7,
-        doctorName: "Гинеколог",
-        description: "Женские заболевания"
-    },
-]
+import ApiURL from '../requests/baseApiURL'
+import Request from '../requests/Request'
 
 const CabinetScreen = () => {
+    const [cabinet, setCabinet] = useState()
+    const [loading, setLoading] = useState(false)
+    
+    const getCabinetData = async () => {
+        setLoading(true)
+        let rep = await Request.post(ApiURL + "GetCabinet", {})
+        // let rep = await fetch(ApiURL + "GetCabinet", {})
+
+        setCabinet(rep)
+        setLoading(false)
+    };
+
+    useEffect(() => {
+        getCabinetData()
+    }, [])
+
     return (
         <View style={ styles.mainContent }>
-            <FlatList 
-                style={{
+            { loading ? <ActivityIndicator size={'large'} /> : (
+                <View style={{
                     width: '100%',
-                }}
-                data={DATA}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => {
-                    return(
-                        <CabinetCardWidget data={ item }/>
-                    )
-                }}
-            />
-            <BottomIssueCard />
+                    height: '100%'
+                }}>
+                    <FlatList 
+                        refreshControl={
+                            <RefreshControl 
+                                refreshing={loading}
+                                onRefresh={() => getCabinetData()}
+                            />
+                        }
+                        style={{
+                            width: '100%',
+                        }}
+                        data={cabinet && cabinet['response']}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item }) => {
+                            return(
+                                <CabinetCardWidget data={ item }/>
+                            )
+                        }}
+                    />
+                    <BottomIssueCard />
+                </View>
+            )}
         </View>
     )
 }

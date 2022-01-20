@@ -1,11 +1,15 @@
-import React, { useEffect, useContext, Component } from 'react'
-import { View, Text } from 'react-native'
-import { ContextApp } from '../store/reducers/Reducer';
+import { useNavigation } from '@react-navigation/native'
+import React, { Component } from 'react'
+import { View, Text, Button } from 'react-native'
 
 const StartScreen = (props) => {
+
+    const navigation = useNavigation()
+
     return (
-        <View>
-            <Text style={{ color: 'black' }}>Hello</Text>
+        <View style={{
+            backgroundColor: '#FFFFFF'
+        }}>
         </View>
     )
 }

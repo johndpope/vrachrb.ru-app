@@ -17,8 +17,8 @@ const SpecialistCardWidget = ({ data }) => {
                         left: '5%',
                         width: '68%',
                     }}>
-                        <Text style={ styles.descriptionText }>{ data.name }</Text>
-                        <Text style={{ ...styles.descriptionText, fontSize: 13, fontWeight: '400' }}>{ data.specialty }</Text>
+                        <Text numberOfLines={2} ellipsizeMode='tail' style={ styles.descriptionText }>{ data.User.first_name + " " + data.User.second_name + " " + data.User.middle_name }</Text>
+                        <Text numberOfLines={2} ellipsizeMode='tail' style={{ ...styles.descriptionText, fontSize: 13, fontWeight: '400' }}>{ data.about }</Text>
                         <View style={ styles.awardTextStyle }>
                             <Image style={{ width: 13, height: 13 }} source={ require('../../../images/star.png') }/>
                             <Text style={{ 
@@ -33,7 +33,7 @@ const SpecialistCardWidget = ({ data }) => {
                                 ...styles.descriptionText, 
                                 fontSize: 13, 
                                 fontWeight: '400',
-                                color: '#AAB2BD' }}>{ data.answer + " - консультаций" }</Text>
+                                color: '#AAB2BD' }}>{ data.answers_count + " - консультаций" }</Text>
                         </View>
                     </View>
                     <Image 
@@ -48,7 +48,7 @@ const SpecialistCardWidget = ({ data }) => {
 
 const styles = StyleSheet.create({
     mainContent: {
-        height: 110,
+        height: 120,
     },
     descriptionText: {
         color: '#434A53',

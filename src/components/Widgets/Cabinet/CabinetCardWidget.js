@@ -21,10 +21,11 @@ const CabinetCardWidget = ({ data }) => {
                     <View style={{
                         position: 'absolute',
                         marginLeft: 'auto',
-                        left: '27%',
+                        left: '26%',
+                        width: '60%'
                     }}>
-                        <Text style={ styles.descriptionText }>{ data.doctorName }</Text>
-                        <Text style={{ ...styles.descriptionText, fontSize: 13, fontWeight: '400' }}>{ data.description }</Text>
+                        <Text numberOfLines={2} ellipsizeMode='tail' style={ styles.descriptionText }>{ data.title }</Text>
+                        <Text numberOfLines={1} ellipsizeMode='tail' style={{ ...styles.descriptionText, fontSize: 13, fontWeight: '400' }}>{ data.description }</Text>
                     </View>
                     <Image 
                         style={{
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     },
     imageStyle: {
         position: 'absolute',
-        left: "5%",
+        left: "3%",
         width: 80,
         height: 80,
         borderRadius: 150,

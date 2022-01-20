@@ -1,7 +1,10 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 
 const Header = () => {
+    const navigation = useNavigation()
+
     return (
       <View style={{
         width: '100%',
@@ -17,9 +20,9 @@ const Header = () => {
           marginTop: 24,
           marginLeft: 24
         }}>Консультация врача</Text>
-        <TouchableOpacity style={{ margin: 10 }} title='gedgh'>
+        {/* <TouchableOpacity style={{ margin: 10 }} title='gedgh'>
           <Image style={{ width: 45, height: '100%' }} source={ require('../../images/shevron_gradient.png') }/>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     )
 }

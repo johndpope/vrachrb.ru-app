@@ -1,33 +1,37 @@
 import React, { useState, Component } from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button, ActivityIndicator } from 'react-native'
+import ApiURL from '../requests/baseApiURL'
+import Request from '../requests/Request'
 
 const TestScreen = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [response, setResponse] = useState("")
-
-    let dataFromServer = ""
+    const [response, setResponse] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     const client = async () => {
-        return await fetch("http://locgergralhost:3232/api/GetCabinet")
-            .then((response) => response.json())
-            .then(json => {
-                dataFromServer = setResponse(json['response'][0]['title']);
-                () => setResponse(dataFromServer)
-            })
+        setLoading(!loading)
+        let rep = await Request.post(ApiURL + "GetCabinet", {})
+        
+        setResponse(rep)
+        setLoading(false)
     }
 
     return (
         <View style={ styles.mainContent }>
-            <Text styles={{
-                color: 'black',
-                fontSize: 20
-            }}>response</Text>
-            <Button 
-                title="Test"
-                onPress={() => client()}
-            />
+            { loading ? <ActivityIndicator size={'large'}/> : (
+                <View>
+                    <Button 
+                        title="Test"
+                        onPress={() => client()}
+                    />
+                    <Text style={{
+                        color: 'black',
+                        fontSize: 20
+                    }}>{ response && response['response'][11]['title'] }</Text>
+                </View>
+            )}
         </View>
     )
 }

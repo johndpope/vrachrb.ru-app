@@ -1,77 +1,58 @@
-import React, { Component } from 'react'
-import { StyleSheet, View, FlatList } from 'react-native';
+import React, { useState, useEffect, Component } from 'react'
+import { StyleSheet, View, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
 import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard';
 import SpecialistCardWidget from '../components/Widgets/Specialist/SpecialistCardWidget';
-
-const DATA = [
-    {
-        id: 1,
-        name: "Елена Геннадьевна Иванова",
-        specialty: "Специалист для детей и подростков",
-        rating: 9.8,
-        answer: 988
-    },
-    {
-        id: 2,
-        name: "Елена Геннадьевна Иванова",
-        specialty: "Специалист для детей и подростков",
-        rating: 9.8,
-        answer: 988
-    },
-    {
-        id: 3,
-        name: "Елена Геннадьевна Иванова",
-        specialty: "Специалист для детей и подростков",
-        rating: 9.8,
-        answer: 988
-    },
-    {
-        id: 4,
-        name: "Елена Геннадьевна Иванова",
-        specialty: "Специалист для детей и подростков",
-        rating: 9.8,
-        answer: 988
-    },
-    {
-        id: 5,
-        name: "Елена Геннадьевна Иванова",
-        specialty: "Специалист для детей и подростков",
-        rating: 9.8,
-        answer: 988
-    },
-    {
-        id: 6,
-        name: "Елена Геннадьевна Иванова",
-        specialty: "Специалист для детей и подростков",
-        rating: 9.8,
-        answer: 988
-    },
-    {
-        id: 7,
-        name: "Елена Геннадьевна Иванова",
-        specialty: "Специалист для детей и подростков",
-        rating: 9.8,
-        answer: 988
-    },
-]
+import ApiURL from '../requests/baseApiURL'
+import Request from '../requests/Request'
 
 
 const SpecialistScreen = () => {
+
+    const [specialist, setSpecialist] = useState()
+    const [loading, setLoading] = useState(false)
+    
+    const getSpecialistData = async () => {
+        setLoading(true)
+        let rep = await Request.post(ApiURL + "Specialist", {})
+        // let rep = await fetch(ApiURL + "GetCabinet", {})
+
+        setSpecialist(rep)
+        setLoading(false)
+    };
+
+    useEffect(() => {
+        getSpecialistData()
+    }, [])
+
+
     return (
         <View style={ styles.mainContent }>
-            <FlatList 
-                style={{
+            { loading ? <ActivityIndicator size={'large'} /> : (
+                <View style={{
                     width: '100%',
-                }}
-                data={DATA}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => {
-                    return(
-                        <SpecialistCardWidget data={ item }/>
-                    )
-                }}
-            />
-            <BottomIssueCard />
+                    height: '100%'
+                }}>
+                    <FlatList 
+                        refreshControl={
+                            <RefreshControl 
+                                refreshing={loading}
+                                onRefresh={() => getSpecialistData()}
+                            />
+                        }
+                        style={{
+                            width: '100%',
+                        }}
+                        data={specialist && specialist['response']}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item }) => {
+                            return(
+                                <SpecialistCardWidget data={ item }/>
+                            )
+                        }}
+                    />
+                    <BottomIssueCard />
+                </View>
+            )}
         </View>
     )
 }

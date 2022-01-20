@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
 
 const BottomIssueCard = () => {
+
+    const navigation = useNavigation()
+
     return (
         <View style={ styles.mainContent }> 
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => navigation.navigate("ModalScreen")}
+            >
                 <LinearGradient 
                         style={ styles.gradientOptions }
                         colors={['#F29F7C', '#F27C83' ]}
