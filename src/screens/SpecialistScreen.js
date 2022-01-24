@@ -13,7 +13,7 @@ const SpecialistScreen = () => {
     
     const getSpecialistData = async () => {
         setLoading(true)
-        let rep = await Request.post(ApiURL + "Specialist", {})
+        let rep = await Request.post(ApiURL + "Specialist")
         // let rep = await fetch(ApiURL + "GetCabinet", {})
 
         setSpecialist(rep)

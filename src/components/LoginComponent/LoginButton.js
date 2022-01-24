@@ -1,10 +1,21 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { Component } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import baseApiURL from '../../requests/baseApiURL'
+import Request from '../../requests/Request'
 
-const LoginButton = ({ isFilledForm }) => {
+const LoginButton = ({ isFilledForm, email, password }) => {
 
     const navigation = useNavigation()
+
+    const login = async () => {
+        let request = await Request.post(baseApiURL + "Signin", data={
+            user: 'hello',
+            password: 'wegweg'
+        })
+
+        console.log(request)
+    }
 
     return (
         <View>
@@ -13,10 +24,11 @@ const LoginButton = ({ isFilledForm }) => {
                     ...styles.btnStyle,
                     backgroundColor: isFilledForm ? '#54B9D1' : '#F3F4F6',
                 }}
-                onPress={() => navigation.reset({
-                                    index: 0,
-                                    routes: [{ name: 'MainScreen' }],
-                            })}
+                // onPress={() => navigation.reset({
+                //                     index: 0,
+                //                     routes: [{ name: 'MainScreen' }],
+                //             })}
+                onPress={() => login()}
                 disabled={!isFilledForm}
             >
                 <Text style={{ 

@@ -47,7 +47,7 @@ const LoginFormComponent = () => {
                 <RecoveryPassword />
             </View>
             <View style={ styles.btnBottom }>
-                <LoginButton isFilledForm={checkFilledField()}/>
+                <LoginButton login={ email } password={ password } isFilledForm={checkFilledField()}/>
                 <RegisterComponent />
             </View>
         </View>

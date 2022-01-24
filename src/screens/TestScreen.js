@@ -44,6 +44,6 @@ const styles = StyleSheet.create({
       alignContent: 'center',
       alignItems: 'center'
     },
-  });
+});
 
 export default TestScreen
