@@ -11,7 +11,7 @@ const CabinetScreen = () => {
     
     const getCabinetData = async () => {
         setLoading(true)
-        let rep = await Request.post(ApiURL + "GetCabinet", {})
+        let rep = await Request.get(ApiURL + "GetCabinet", {})
         // let rep = await fetch(ApiURL + "GetCabinet", {})
 
         setCabinet(rep)

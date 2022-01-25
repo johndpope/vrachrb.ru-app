@@ -1,37 +1,97 @@
 import React, { useState, Component } from 'react'
-import { View, Text, StyleSheet, Button, ActivityIndicator } from 'react-native'
-import ApiURL from '../requests/baseApiURL'
+import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { changeTextData, clickOnButton } from '../store/reducers/AnamnezSlice'
+import AnamnezSlice from '../store/reducers/AnamnezSlice'
 import Request from '../requests/Request'
+import baseApiURL from '../requests/baseApiURL'
+
+export const TestScreen1 = ({ fieldType, index }) => {
+
+    const dispatch = useDispatch()
+
+    return(
+        <TextInput
+            onChangeText={(text) => dispatch(changeTextData({
+                index: index,
+                sh_field_type: {sh_field: fieldType, val: text},
+            }))}
+            style={{
+                borderBottomColor: 'black',
+                width: 200,
+                borderWidth: 2,
+                color: 'black',
+            }}
+        />
+    )
+}
+
+export const TestScreen2 = ({ fieldType, index }) => {
+
+    const dispatch = useDispatch()
+
+    return(
+        <TextInput
+            onChangeText={(text) => dispatch(changeTextData({
+                index: index,
+                sh_field_type: {sh_field: fieldType, val: text},
+            }))}
+            style={{
+                borderBottomColor: 'black',
+                width: 200,
+                borderWidth: 2,
+                color: 'black',
+            }}
+        />
+    )
+}
+
+export const ButtonSender = () => {
+
+    const dispatch = useDispatch()
+
+    return (
+        <TouchableOpacity
+            onPress={() => dispatch(clickOnButton(true))}
+            style={{
+                width: 200,
+                height: 70,
+                backgroundColor: 'green'
+            }}
+        >
+            <Text>Hello</Text>
+        </TouchableOpacity> 
+    )
+}
 
 const TestScreen = () => {
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [response, setResponse] = useState(null)
-    const [loading, setLoading] = useState(false)
+    const text = useSelector(state => state.AnamnezSlice.text)
+    const clicked = useSelector(state => state.AnamnezSlice.clicked)
 
-    const client = async () => {
-        setLoading(!loading)
-        let rep = await Request.post(ApiURL + "GetCabinet", {})
-        
-        setResponse(rep)
-        setLoading(false)
+    const isAuth = async () => {
+        let data = await Request.get(baseApiURL + "is_auth", {})
+
+        console.log(data)
+    }
+
+    const LogOut = async () => {
+        console.log(text)
     }
 
     return (
         <View style={ styles.mainContent }>
-            { loading ? <ActivityIndicator size={'large'}/> : (
-                <View>
-                    <Button 
-                        title="Test"
-                        onPress={() => client()}
-                    />
-                    <Text style={{
-                        color: 'black',
-                        fontSize: 20
-                    }}>{ response && response['response'][11]['title'] }</Text>
-                </View>
-            )}
+            <View>
+                <TestScreen1 index={ 0 } fieldType={ 1 }/>
+                <TestScreen2 index={ 1 } fieldType={ 2 }/>
+                <ButtonSender />
+            </View>
+            <View style={{
+                marginTop: 50
+            }}>
+                <Button title="isAuth" onPress={() => isAuth()}/>
+                <Button title="LogOut" onPress={() => LogOut()}/>
+            </View>
         </View>
     )
 }

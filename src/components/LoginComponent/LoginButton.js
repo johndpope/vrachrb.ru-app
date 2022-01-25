@@ -8,34 +8,10 @@ const LoginButton = ({ isFilledForm, email, password }) => {
 
     const navigation = useNavigation()
 
-    const login = async () => {
-        let request = await Request.post(baseApiURL + "Signin", data={
-            user: 'hello',
-            password: 'wegweg'
-        })
-
-        console.log(request)
-    }
 
     return (
         <View>
-            <TouchableOpacity 
-                style={{ 
-                    ...styles.btnStyle,
-                    backgroundColor: isFilledForm ? '#54B9D1' : '#F3F4F6',
-                }}
-                // onPress={() => navigation.reset({
-                //                     index: 0,
-                //                     routes: [{ name: 'MainScreen' }],
-                //             })}
-                onPress={() => login()}
-                disabled={!isFilledForm}
-            >
-                <Text style={{ 
-                    ...styles.textStyle,
-                    color: isFilledForm ? "#FFFFFF" : "#AAB2BD"
-                }}>Войти</Text>
-            </TouchableOpacity>
+
         </View>
     )
 }

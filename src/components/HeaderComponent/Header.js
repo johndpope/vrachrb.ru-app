@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { useSelector } from 'react-redux'
 
 const Header = () => {
+
     const navigation = useNavigation()
 
     return (

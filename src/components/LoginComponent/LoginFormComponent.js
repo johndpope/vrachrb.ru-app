@@ -1,24 +1,41 @@
 import React, { useState, Component } from 'react'
-import { TextInput, View, StyleSheet, Button, Text } from 'react-native'
+import { TextInput, View, StyleSheet, TouchableOpacity, Text, Button } from 'react-native'
 import RegisterComponent from '../AuthComponent/RegisterComponent';
-import LoginButton from './LoginButton';
+import baseApiURL from '../../requests/baseApiURL';
+import Request from '../../requests/Request';
 import RecoveryPassword from './RecoveryPassword';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveUserData } from '../../store/reducers/LoginSlice';
+import LoginSlice from '../../store/reducers/LoginSlice';
+
 
 const LoginFormComponent = () => {
+
+    const navigation = useNavigation()
+
+    const dispatch = useDispatch()
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    // const [response1, setResponse1] = useState("")
+    const [response, setResponse] = useState("")
 
-    // let dataFromServer = ""
+    const login = async (user, passwd) => {
+        let data = {user: user, password: passwd}
+        let request = await Request.post(baseApiURL + "SignIn", data=data);
+        
+        console.log(request)
 
-    // const client = async () => {
-    //     return await fetch("https://jsonplaceholder.typicode.com/users")
-    //         .then((response) => response.json())
-    //         .then(json => {
-    //             dataFromServer = setResponse1(json[1]['name']);
-    //             () => setResponse1(dataFromServer)
-    //         })
-    // }
+        setResponse(request)
+
+        request['auth'] && dispatch(saveUserData(request))
+
+        request['auth'] && 
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'MainScreen' }],
+            })
+    }
 
     const checkFilledField = () => {
         if (email && password){
@@ -32,13 +49,22 @@ const LoginFormComponent = () => {
         <View style={ styles.mainBlock }>
             <View>
                 <TextInput 
-                    style={ styles.textInputStyle }
+                    style={{
+                        ...styles.textInputStyle,
+                        borderBottomColor: response['error'] ? "#F27C83" : "#E6E9ED"
+                    }}
                     placeholder='Электронная почта'
                     placeholderTextColor="#AAB2BD"
                     onChangeText={text => setEmail(text)}
                 />
+                { response['error'] &&
+                    <Text style={{ color: "#F27C83", fontSize: 15 }}>Неверный логин или пароль</Text>
+                }
                 <TextInput 
-                    style={ styles.textInputStyle }
+                    style={{
+                        ...styles.textInputStyle,
+                        borderBottomColor: response['error'] ? "#F27C83" : "#E6E9ED"
+                    }}
                     placeholder='Пароль'
                     placeholderTextColor="#AAB2BD"
                     onChangeText={passwd => setPassword(passwd)}
@@ -47,7 +73,21 @@ const LoginFormComponent = () => {
                 <RecoveryPassword />
             </View>
             <View style={ styles.btnBottom }>
-                <LoginButton login={ email } password={ password } isFilledForm={checkFilledField()}/>
+                <TouchableOpacity 
+                    style={{ 
+                        ...styles.btnStyle,
+                        backgroundColor: checkFilledField() ? '#54B9D1' : '#F3F4F6',
+                    }}
+                    onPress={
+                        () => login(email, password)
+                    }
+                    disabled={!checkFilledField()}
+                >
+                    <Text style={{ 
+                        ...styles.textStyle,
+                        color: checkFilledField() ? "#FFFFFF" : "#AAB2BD"
+                    }}>Войти</Text>
+                </TouchableOpacity>
                 <RegisterComponent />
             </View>
         </View>
@@ -66,7 +106,6 @@ const styles = StyleSheet.create({
     },
     textInputStyle: {
         borderBottomWidth: 2,
-        borderBottomColor: '#E6E9ED',
         width: 350,
         marginTop: 20,
         fontSize: 17,
@@ -76,9 +115,17 @@ const styles = StyleSheet.create({
     btnBottom: {
         justifyContent: 'center',
         alignItems: 'center'
+    },    
+    textStyle: {
+        color: '#FFFFFF',
+        fontSize: 17
     },
-    overText: {
-
+    btnStyle: {
+        width: 320,
+        height: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 16,
     }
 });
 

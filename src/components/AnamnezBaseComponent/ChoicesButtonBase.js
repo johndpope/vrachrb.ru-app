@@ -9,7 +9,7 @@ const colors = {
     deselectTextType: '#434A53'
 }
 
-const ChoicesButtonBase = () => {
+const ChoicesButtonBase = ({ component }) => {
 
     const [selected, setSelected] = useState(null)
 
@@ -49,7 +49,7 @@ const ChoicesButtonBase = () => {
                     >Нет</Text>
                 </TouchableOpacity> 
             </View>
-            { selected == 1 && <MultiTextBase /> }  
+            { selected == 1 && component }  
         </View>
     )
 }
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     buttonsStyle: {
         height: 55,
-        width: '40%',
+        width: '35%',
         borderRadius: 64,
         justifyContent: 'center',
         alignItems: 'center',
