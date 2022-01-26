@@ -14,7 +14,8 @@ const LoginSlice = createSlice({
             email: "",
             phone: "",
             photo: ""
-        }
+        },
+        test: null
     },
     reducers: {
         saveUserData(state, action){

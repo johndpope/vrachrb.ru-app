@@ -1,10 +1,14 @@
 import React, { useState, Component } from 'react'
-import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity, Image } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeTextData, clickOnButton } from '../store/reducers/AnamnezSlice'
 import AnamnezSlice from '../store/reducers/AnamnezSlice'
 import Request from '../requests/Request'
 import baseApiURL from '../requests/baseApiURL'
+import DocumentPicker from 'react-native-document-picker'
+import UploadFileBase from '../components/AnamnezBaseComponent/UploadFileBase'
+import MultiChoicesBase from '../components/AnamnezBaseComponent/MultiChoicesBase'
+
 
 export const TestScreen1 = ({ fieldType, index }) => {
 
@@ -69,19 +73,40 @@ const TestScreen = () => {
     const text = useSelector(state => state.AnamnezSlice.text)
     const clicked = useSelector(state => state.AnamnezSlice.clicked)
 
+    const [image, setImage] = useState(null)
+
     const isAuth = async () => {
         let data = await Request.get(baseApiURL + "is_auth", {})
 
         console.log(data)
     }
 
+    let count = 0
+
     const LogOut = async () => {
-        console.log(text)
+
+        count += 1
+
+        console.log(count)
     }
+    
+    const a = async () => {
+        const result = await DocumentPicker.pick({
+            type: [DocumentPicker.types.images]
+        });
+
+        console.log(
+            result[0].uri
+        )
+
+        setImage(
+            result[0].uri)
+    }
+    
 
     return (
         <View style={ styles.mainContent }>
-            <View>
+            {/* <View>
                 <TestScreen1 index={ 0 } fieldType={ 1 }/>
                 <TestScreen2 index={ 1 } fieldType={ 2 }/>
                 <ButtonSender />
@@ -91,7 +116,25 @@ const TestScreen = () => {
             }}>
                 <Button title="isAuth" onPress={() => isAuth()}/>
                 <Button title="LogOut" onPress={() => LogOut()}/>
-            </View>
+            </View> */}
+            <TouchableOpacity 
+                onPress={() => a()}
+                style={{
+                    width: 100,
+                    height: 100,
+                    borderColor: '#CCD1D9',
+                    borderWidth: 2,
+                    borderStyle: 'dashed',
+                    borderRadius: 8,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+            }}>
+                <Image style={{ width: image != null ? 100 : 40, height: image != null ? 100 : 40, borderRadius: 8 }} source={ image != null ? {uri: image} : require('../images/plus.png') }/>
+            </TouchableOpacity>
+            {/* <UploadFileBase /> */}
+            {/* <UploadFileBase />
+            <Button title='Add' onPress={() => LogOut()}/> */}
+            <MultiChoicesBase />
         </View>
     )
 }

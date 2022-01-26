@@ -6,7 +6,9 @@ import QuestionTitleBase from '../../components/AnamnezBaseComponent/QuestionTit
 import SingleTextBase from '../../components/AnamnezBaseComponent/SingleTextBase';
 import baseApiURL from '../../requests/baseApiURL';
 import Request from '../../requests/Request';
- 
+import UploadFileBase from '../../components/AnamnezBaseComponent/UploadFileBase'
+
+
 
 const QuestionsScreen = () => {
     const DATA = []
@@ -26,11 +28,11 @@ const QuestionsScreen = () => {
                     item.title.includes("(") && item.title.split('(').pop().split(')')[0]
                 } />,
                 body: item.field_type == "textarea" ? 
-                    <MultiTextBase /> : item.field_type == "input" ? 
+                    <MultiTextBase value /> : item.field_type == "input" ? 
                     <SingleTextBase /> : item.field_type == "yes_no_input" ? 
                     <ChoicesButtonBase component={<SingleTextBase />} /> : item.field_type == "yes_no_textarea" ? 
                     <ChoicesButtonBase component={<MultiTextBase />} /> : item.field_type == "textarea_upload" ?
-                    <ChoicesButtonBase component={<MultiTextBase />} /> : <ChoicesButtonBase component={<MultiTextBase />} />
+                    <UploadFileBase /> : <ChoicesButtonBase component={<MultiTextBase />} /> 
             })
         })
 

@@ -10,23 +10,29 @@ import AuthComponent from '../components/AuthComponent/AuthComponent';
 const AuthScreen = () => {
   return (
     <View style={ styles.mainContent }>
-        <StatusBar />
+      <StatusBar />
         <View style={{
-          flex: 0.1,
-          opacity: 0.3
+          width: '100%',
+          height: '100%',
+          justifyContent: 'space-around'
         }}>
-
-        </View>
           <View style={{
-            alignItems: 'center',
-            alignContent: 'center',
+            flex: 0.1,
+            opacity: 0.3
           }}>
-          <Image
-            style={ styles.imageStyle }
-            source={require("../images/logo.png")} 
-          />
+  
+          </View>
+            <View style={{
+              alignItems: 'center',
+              alignContent: 'center',
+            }}>
+            <Image
+              style={ styles.imageStyle }
+              source={require("../images/logo.png")} 
+            />
+          </View>
+          <AuthComponent />
         </View>
-        <AuthComponent />
     </View>
   );
 };
