@@ -16,7 +16,6 @@ import Request from './src/requests/Request';
 import baseApiURL from './src/requests/baseApiURL';
 
 
-
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -50,11 +49,11 @@ const App = () => {
             headerShadowVisible: false,
           }}
         >    
-          <Stack.Screen
+          {/* <Stack.Screen
             name="TestScreen"
             options={{headerShown: false}}
             component={ TestScreen }
-          />  
+          />   */}
           <Stack.Screen
             name={ "AuthScreen" }
             options={{headerShown: false}}
@@ -71,7 +70,7 @@ const App = () => {
           />
           <Stack.Screen
             name="StartScreen"
-            options={{ header: props => <AnamnezHeader /> }}
+            options={{ header: props => <AnamnezHeader page={1} /> }}
             component={ StartScreen }
           />
           <Stack.Screen
@@ -81,7 +80,7 @@ const App = () => {
           />
           <Stack.Screen
             name="QuestionsScreen"
-            options={{ header: props => <AnamnezHeader /> }}
+            options={{ header: props => <AnamnezHeader page={2} /> }}
             component={ QuestionsScreen }
           />
         </Stack.Navigator>

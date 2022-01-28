@@ -22,7 +22,6 @@ class Request {
 
             return JSON.parse(text);
         } catch (e) {
-            console.log(e);
             return false;
         }
     }
@@ -53,12 +52,9 @@ class Request {
             });
 
             let text = await response.text();
-            if (__DEV__) {
-                console.log('response ' + url, text);
-            }
+
             return JSON.parse(text);
         } catch (e) {
-            console.log(e);
             return false;
         }
     }

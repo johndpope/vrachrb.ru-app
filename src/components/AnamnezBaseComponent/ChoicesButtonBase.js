@@ -1,6 +1,8 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import MultiTextBase from './MultiTextBase';
+import { useDispatch, useSelector } from 'react-redux';
+import { addAnamnezAnswer } from '../../store/reducers/AnamnezSlice';
+import AnamnezSlice from '../../store/reducers/AnamnezSlice';
 
 const colors = {
     selectedButtonAccentType: '#54B9D1',
@@ -9,41 +11,66 @@ const colors = {
     deselectTextType: '#434A53'
 }
 
-const ChoicesButtonBase = ({ component }) => {
+const ChoicesButtonBase = ({ component, index, data}) => {
+
+    const dispatch = useDispatch()
+    const showRequired = useSelector(state => state.AnamnezSlice.showRequiredFields)
 
     const [selected, setSelected] = useState(null)
+    const [require, setRequire] = useState()
+
+    useEffect(() => {
+        showRequired ? setRequire(true) : setRequire(false)
+    }, [showRequired]) 
+
+    const selectItem = (check) => {
+        setSelected(check)
+        setRequire(check ? false : true)
+    }
 
     return (
         <View style={ styles.mainContent }>
             <View style={ styles.choicesButton }>
                 <TouchableOpacity
-                    onPress={() => setSelected(1)}
+                    onPress={() => selectItem(1)}
                     style={{ 
                         ...styles.buttonsStyle,
                         backgroundColor: selected == 1 ? 
-                            colors.selectedButtonAccentType : colors.deselectAccentType 
+                            colors.selectedButtonAccentType : colors.deselectAccentType,
+                        borderWidth: require && data.is_required == "1" ? 2 : 0,
+                        borderColor: require && data.is_required == "1" ? '#F27C83' : '#FFFFFF'
                     }}
                 >
                     <Text 
                         style={{ 
                             ...styles.textStyle,
                             color: selected == 1 ? 
-                                colors.selectedTextType : colors.deselectTextType
+                                colors.selectedTextType : colors.deselectTextType,
                         }}
                     >Да</Text>
                 </TouchableOpacity>   
                 <TouchableOpacity
-                    onPress={() => setSelected(2)}
+                    onPress={() => { 
+                        selectItem(0),
+                        dispatch(addAnamnezAnswer({
+                            index: index,
+                            sh_field_type: {
+                                sh_field: data.id,
+                                bool: "Нет",
+                                val: ""
+                            }
+                        }))
+                    }}
                     style={{ 
                         ...styles.buttonsStyle,
-                        backgroundColor: selected == 2 ? 
+                        backgroundColor: selected == 0 ? 
                             colors.selectedButtonAccentType : colors.deselectAccentType 
                     }}
                 >
                     <Text  
                         style={{ 
                             ...styles.textStyle,
-                            color: selected == 2 ? 
+                            color: selected == 0 ? 
                                 colors.selectedTextType : colors.deselectTextType 
                         }}
                     >Нет</Text>

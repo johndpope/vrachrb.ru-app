@@ -3,26 +3,36 @@ import { createSlice } from "@reduxjs/toolkit";
 const AnamnezSlice = createSlice({
     name: "AnamnezSlice",
     initialState: {
-        text: [],
         clicked: false,
-        anamnezData: []
+        anamnezData: {},
+        selectedSpecialistID: 10,
+        showRequiredFields: null,
+        countRequiredFields: {}
     },
     reducers: {
         clickOnButton(state, action){
             state.clicked = action.payload
         },
-        changeTextData(state, action){
-            state.text[action.payload.index] ? 
-                state.text[action.payload.index] = action.payload.sh_field_type : 
-                state.text.push(action.payload.sh_field_type)
-        },
         addAnamnezAnswer(state, action){
-            state.anamnezData[action.payload.index] ? 
-                state.anamnezData[action.payload.index] = action.payload.sh_field_type : 
-                state.anamnezData.push(action.payload.sh_field_type)
+            state.anamnezData[action.payload.index] = action.payload.sh_field_type
+        },
+        selectSpecialistID(state, action){
+            state.selectedSpecialistID = action.payload
+        },
+        showRequiredFields(state, action){
+            state.showRequiredFields = action.payload
+        },
+        numOfRequiredFields(state, action){
+            state.countRequiredFields[action.payload.index] = action.payload.value
+        },
+        resetAllValues(state, action){
+            state.anamnezData = {};
+            state.showRequiredFields = null;
+            state.countRequiredFields = {};
         }
     }
 })
 
 export default AnamnezSlice.reducer
-export const { changeTextData, clickOnButton } = AnamnezSlice.actions
+export const { addAnamnezAnswer, clickOnButton, selectSpecialistID, 
+    showRequiredFields, numOfRequiredFields, resetAllValues } = AnamnezSlice.actions

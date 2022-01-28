@@ -4,7 +4,7 @@ import MultiTextBase from './MultiTextBase';
 import DocumentPicker from 'react-native-document-picker'
 import uuid from 'react-native-uuid';
 
-const UploadFileBase = () => {
+const UploadFileBase = ({ component }) => {
 
     let ImagesData = [{
         index: 0,
@@ -55,7 +55,9 @@ const UploadFileBase = () => {
                 width: '100%'
             }}
         >
-            <MultiTextBase />
+            {
+                component
+            }
             <View style={{
                 marginTop: 5
             }}>

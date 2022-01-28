@@ -1,13 +1,14 @@
 import React, { useState, Component } from 'react'
 import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity, Image } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeTextData, clickOnButton } from '../store/reducers/AnamnezSlice'
+import { addAnamnezAnswer, clickOnButton } from '../store/reducers/AnamnezSlice'
 import AnamnezSlice from '../store/reducers/AnamnezSlice'
 import Request from '../requests/Request'
 import baseApiURL from '../requests/baseApiURL'
 import DocumentPicker from 'react-native-document-picker'
 import UploadFileBase from '../components/AnamnezBaseComponent/UploadFileBase'
 import MultiChoicesBase from '../components/AnamnezBaseComponent/MultiChoicesBase'
+import MultiTextBase from '../components/AnamnezBaseComponent/MultiTextBase'
 
 
 export const TestScreen1 = ({ fieldType, index }) => {
@@ -70,10 +71,13 @@ export const ButtonSender = () => {
 
 const TestScreen = () => {
 
-    const text = useSelector(state => state.AnamnezSlice.text)
-    const clicked = useSelector(state => state.AnamnezSlice.clicked)
+    
+    const dispatch = useDispatch()
+    // const text = useSelector(state => state.AnamnezSlice.text)
+    const clicked = useSelector(state => state.AnamnezSlice.anamnezData)
 
     const [image, setImage] = useState(null)
+    // const [textInp, setTextInp] = useState()
 
     const isAuth = async () => {
         let data = await Request.get(baseApiURL + "is_auth", {})
@@ -83,11 +87,30 @@ const TestScreen = () => {
 
     let count = 0
 
-    const LogOut = async () => {
+    const LogOut = (text) => {
+        // dispatch(addAnamnezAnswer({
+        //     index: 0,
+        //     sh_field_type: {
+        //         sh_field: 75,
+        //         val: text
+        //     }
+        // }))
 
-        count += 1
+        const DATA = {
+            "0": {
+                test: "hello"
+            },
+            "1": {
+                test: "hello"
+            },
+            "2": {
+                test: "hello"
+            }
+        }
 
-        console.log(count)
+        Object.entries(DATA).forEach(([key, value]) => {
+            console.log(key, value);
+         });
     }
     
     const a = async () => {
@@ -106,35 +129,43 @@ const TestScreen = () => {
 
     return (
         <View style={ styles.mainContent }>
-            {/* <View>
-                <TestScreen1 index={ 0 } fieldType={ 1 }/>
-                <TestScreen2 index={ 1 } fieldType={ 2 }/>
-                <ButtonSender />
+            <View style={{ width: '85%' }}>
+                {/* <View>
+                    <TestScreen1 index={ 0 } fieldType={ 1 }/>
+                    <TestScreen2 index={ 1 } fieldType={ 2 }/>
+                    <ButtonSender />
+                </View>
+                <View style={{
+                    marginTop: 50
+                }}>
+                    <Button title="isAuth" onPress={() => isAuth()}/>
+                    <Button title="LogOut" onPress={() => LogOut()}/>
+                </View> */}
+                <TouchableOpacity 
+                    onPress={() => a()}
+                    style={{
+                        width: 100,
+                        height: 100,
+                        borderColor: '#CCD1D9',
+                        borderWidth: 2,
+                        borderStyle: 'dashed',
+                        borderRadius: 8,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                }}>
+                    <Image style={{ width: image != null ? 100 : 40, height: image != null ? 100 : 40, borderRadius: 8 }} source={ image != null ? {uri: image} : require('../images/plus.png') }/>
+                </TouchableOpacity>
+                {/* <UploadFileBase /> */}
+                {/* <UploadFileBase />
+                <Button title='Add' onPress={() => LogOut()}/> */}
+                {/* <MultiChoicesBase /> */}
+                {/* <MultiTextBase isRequired={1}/> */}
+                <TextInput 
+                    onChangeText={text => LogOut(text)}
+                    style={{ backgroundColor: 'wheat' }} 
+                />
+                <Button title='send' onPress={() => LogOut()}/>
             </View>
-            <View style={{
-                marginTop: 50
-            }}>
-                <Button title="isAuth" onPress={() => isAuth()}/>
-                <Button title="LogOut" onPress={() => LogOut()}/>
-            </View> */}
-            <TouchableOpacity 
-                onPress={() => a()}
-                style={{
-                    width: 100,
-                    height: 100,
-                    borderColor: '#CCD1D9',
-                    borderWidth: 2,
-                    borderStyle: 'dashed',
-                    borderRadius: 8,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-            }}>
-                <Image style={{ width: image != null ? 100 : 40, height: image != null ? 100 : 40, borderRadius: 8 }} source={ image != null ? {uri: image} : require('../images/plus.png') }/>
-            </TouchableOpacity>
-            {/* <UploadFileBase /> */}
-            {/* <UploadFileBase />
-            <Button title='Add' onPress={() => LogOut()}/> */}
-            <MultiChoicesBase />
         </View>
     )
 }
@@ -145,7 +176,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#FFFFFF',
       justifyContent: 'center',
       alignContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
     },
 });
 

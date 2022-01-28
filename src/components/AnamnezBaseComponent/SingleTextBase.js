@@ -1,16 +1,60 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { StyleSheet, TextInput, View, Text } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { addAnamnezAnswer, numOfRequiredFields } from '../../store/reducers/AnamnezSlice';
 
-const SingleTextBase = ({ addText = "" }) => {
+const SingleTextBase = ({ addText = "", isRequired, data, index }) => {
+
+    const dispatch = useDispatch()
+    const showRequired = useSelector(state => state.AnamnezSlice.showRequiredFields)
+    
+    const [require, setRequire] = useState(null)
+    const [textInp, setTextInp] = useState("")
+
+    useEffect(() => {
+        if (isRequired == "1" && require != null){
+            require ? dispatch(numOfRequiredFields(1)) : dispatch(numOfRequiredFields(-1))
+        }
+    }, [require])
+
+    //Глобальная подсвечивание обязательных полей
+    useEffect(() => {
+        if (showRequired != null){
+            (showRequired && textInp == "" ) && isRequired == "1" ? setRequire(true) : setRequire(false)
+        }
+    }, [showRequired]) 
+
+    const checkInputs = (text) => {
+        isRequired == "1" && text != "" ? setRequire(false) : setRequire(true)
+
+        setTextInp(text)        
+        data.field_type == "yes_no_input" ? dispatch(addAnamnezAnswer({
+            index: index,
+            sh_field_type: {
+                sh_field: data.id,
+                bool: text ? "Да" : "Нет",
+                val: text
+            }
+        })) : dispatch(addAnamnezAnswer({
+            index: index,
+            sh_field_type: {
+                sh_field: data.id,
+                val: text
+            }
+        })) 
+    }
+
+
     return ( 
         <View>
             <TextInput 
-                style={ styles.textInputStyle }
+                style={ require ? {...styles.textInputStyle, backgroundColor: '#FFFFFF', borderColor: '#F27C83', borderWidth: 2 } : styles.textInputStyle }
                 multiline={true}
                 textAlign='left'
                 textAlignVertical='top'
-                placeholder='Введите текст'
-                placeholderTextColor={"#AAB2BD"}
+                placeholder={ !require ? 'Введите текст' : 'Введите текст' }
+                placeholderTextColor={ require ? '#F27C83' : "#AAB2BD"}
+                onChangeText={text => checkInputs(text)}
             /> 
             { addText != "" && 
                 <Text style={ styles.additionalFieldStyle }>{ addText }</Text> 
