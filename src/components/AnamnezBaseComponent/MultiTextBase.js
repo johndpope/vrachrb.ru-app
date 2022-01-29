@@ -9,51 +9,48 @@ const MultiTextBase = ({ isRequired, data, index }) => {
 
     const dispatch = useDispatch()
     const showRequired = useSelector(state => state.AnamnezSlice.showRequiredFields)
-    const requiredFields = useSelector(state => state.AnamnezSlice.countRequiredFields)
-
+    
+    const [require, setRequire] = useState()
     const [textInp, setTextInp] = useState("")
 
     //Глобальная подсвечивание обязательных полей
     useEffect(() => {
         if (showRequired != null){
-            (showRequired && textInp == "" ) && (isRequired == "1" && requiredFields[index].value == null) ?
-                dispatch(numOfRequiredFields({index: index, value: true})) : 
-                dispatch(numOfRequiredFields({index: index, value: false}))
+            (showRequired && textInp == "" ) && data.is_required == "1" ? setRequire(true) : setRequire(false)
         }
     }, [showRequired]) 
 
     const checkInputs = (text) => {
-        isRequired == "1" && text != "" ? 
-            dispatch(numOfRequiredFields({index: index, value: false})) : 
-            dispatch(numOfRequiredFields({index: index, value: true}))
-
-        console.log(requiredFields[index] && requiredFields[index].value)
-
+        data.is_required == "1" && text != "" ? setRequire(false) : setRequire(true)
+        
         setTextInp(text)
         data.field_type == "yes_no_textarea" ? dispatch(addAnamnezAnswer({
             index: index,
             sh_field_type: {
                 sh_field: data.id,
                 bool: text ? "Да" : "Нет",
-                val: text
+                val: text,
+                isRequired: data.is_required == "1" ? true : false
+
             }
         })) : dispatch(addAnamnezAnswer({
             index: index,
             sh_field_type: {
                 sh_field: data.id,
-                val: text
+                val: text,
+                isRequired: data.is_required == "1" ? true : false
             }
         })) 
     }
 
     return ( 
         <TextInput 
-            style={ requiredFields[index] && !requiredFields[index].value ? {...styles.textInputStyle, backgroundColor: '#FFFFFF', borderColor: '#F27C83', borderWidth: 2 } : styles.textInputStyle }
+            style={ require ? {...styles.textInputStyle, backgroundColor: '#FFFFFF', borderColor: '#F27C83', borderWidth: 2 } : styles.textInputStyle }
             multiline={true}
             textAlign='left'
             textAlignVertical='top'
-            placeholder={ 'Введите текст' }
-            placeholderTextColor={ requiredFields[index] && !requiredFields[index].value ? '#F27C83' : "#AAB2BD"}
+            placeholder={ !require ? 'Введите текст' : 'Введите текст' }
+            placeholderTextColor={ require ? '#F27C83' : "#AAB2BD"}
             onChangeText={text => checkInputs(text)}
         /> 
     )

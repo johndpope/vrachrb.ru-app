@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { View, Text, Linking, StyleSheet, TouchableOpacity } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { resetAllValues } from '../../store/reducers/AnamnezSlice'
 
 const StartScreen = (props) => {
 
+    const dispatch = useDispatch()
     const navigation = useNavigation()
 
     return (
@@ -23,7 +26,7 @@ const StartScreen = (props) => {
                             ...styles.buttonStyle,
                             marginBottom: 8
                         }}
-                        onPress={ () => navigation.navigate("QuestionsScreen") }
+                        onPress={ dispatch(resetAllValues()) ,() => navigation.navigate("QuestionsScreen") }
                         >
                         <Text style={ styles.textStyle }>Для себя</Text>
                     </TouchableOpacity>

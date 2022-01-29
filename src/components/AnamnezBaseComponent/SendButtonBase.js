@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import AnamnezSlice, { showRequiredFields } from '../../store/reducers/AnamnezSlice';
@@ -6,19 +6,39 @@ import AnamnezSlice, { showRequiredFields } from '../../store/reducers/AnamnezSl
 const SendButtonBase = () => {
 
     const allData = useSelector(state => state.AnamnezSlice.anamnezData)
-    const count = useSelector(state => state.AnamnezSlice.countRequiredFields)
     const dispatch = useDispatch()
 
+    const checkRequiredFields = () => {
+        const keys = Object.keys(allData)
+
+        for (let i = 0; i < keys.length; i++){
+            let value = allData[keys[i]]
+            if ((value.choices && value.choices.length == 0 && value.isRequired) || 
+                (value.val == "" && value.isRequired)){
+                dispatch(showRequiredFields(true))
+
+                return true
+            }
+        }
+
+        return false
+    }
+
+    const sendData = () => {
+        // checkRequiredFields() ? console.log("Missed fields") : console.log("All fields is complete")
+        // console.log(checkRequiredFields())
+        console.log(allData)
+    }
+
     return(
-        <TouchableOpacity onPress={() => { console.log(allData), 
-        count != 0 && dispatch(showRequiredFields(true)), console.log(count) }} style={ styles.buttonStyle }>
+        <TouchableOpacity onPress={() => sendData()} style={ styles.buttonStyle }>
             <Text style={{
                 color: '#FFFFFF',
                 fontSize: 17
             }}>
                 Задать вопрос
             </Text>
-    </TouchableOpacity>
+         </TouchableOpacity>
     )
 }
 

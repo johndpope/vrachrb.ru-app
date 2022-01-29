@@ -13,16 +13,8 @@ const MultiChoicesBase = ({ choices, data, index }) => {
     const [choicesSelected, setChoicesSelected] = useState([])
     const [require, setRequire] = useState(null)
 
-    useEffect(() => {
-        console.log("MultiChoiceBase: " + require)
-        if (data.is_required == "1" && require != null){
-            require ? dispatch(numOfRequiredFields(1)) : dispatch(numOfRequiredFields(-1))
-        }
-    }, [require])
-
     //Глобальная подсвечивание обязательных полей
     useEffect(() => {
-        console.log("MultiChoiceBase showRequired: " + showRequired)
         if (showRequired != null){
             (showRequired && choicesSelected.length == 0 ) && data.is_required == "1" ? setRequire(true) : setRequire(false)
         }
@@ -37,7 +29,8 @@ const MultiChoicesBase = ({ choices, data, index }) => {
             index: index,
             sh_field_type: {
                 sh_field: data.id,
-                choices: prevChoicesSelected
+                choices: prevChoicesSelected,
+                isRequired: data.is_required == "1" ? true : false
             }
         }))
         
@@ -56,7 +49,8 @@ const MultiChoicesBase = ({ choices, data, index }) => {
             index: index,
             sh_field_type: {
                 sh_field: data.id,
-                choices: prevChoicesSelected
+                choices: prevChoicesSelected,
+                isRequired: data.is_required == "1" ? true : false
             }
         }))
 

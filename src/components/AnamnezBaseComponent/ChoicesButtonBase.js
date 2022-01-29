@@ -57,7 +57,8 @@ const ChoicesButtonBase = ({ component, index, data}) => {
                             sh_field_type: {
                                 sh_field: data.id,
                                 bool: "Нет",
-                                val: ""
+                                val: "",
+                                isRequired: data.is_required == "1" ? true : false
                             }
                         }))
                     }}

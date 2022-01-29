@@ -74,7 +74,7 @@ const TestScreen = () => {
     
     const dispatch = useDispatch()
     // const text = useSelector(state => state.AnamnezSlice.text)
-    const clicked = useSelector(state => state.AnamnezSlice.anamnezData)
+    const allData = useSelector(state => state.AnamnezSlice.anamnezData)
 
     const [image, setImage] = useState(null)
     // const [textInp, setTextInp] = useState()
@@ -96,23 +96,46 @@ const TestScreen = () => {
         //     }
         // }))
 
+        // const DATA = 
+        // {"0": 
+        //     {"isRequired": true, "sh_field": "75", "val": ""}, 
+        // "1": 
+        //     {"bool": "Нет", "isRequired": false, "sh_field": "78", "val": ""}, 
+        // "10": {"choices": [], "sh_field": "87"}, 
+        // "11": {"isRequired": true, "sh_field": "88", "val": ""}, "12": {"bool": "Нет", "isRequired": false, "sh_field": "89", "val": ""}, "2": {"bool": "Нет", "isRequired": false, "sh_field": "79", "val": ""}, "3": {"bool": "Нет", "isRequired": false, "sh_field": "80", "val": ""}, "4": {"bool": "Нет", "isRequired": false, "sh_field": "81", "val": ""}, "5": {"isRequired": true, "sh_field": "82", "val": ""}, "6": {"isRequired": false, "sh_field": "83", "val": ""}, "7": {"file": [], "isRequired": false, "sh_field": "84"}, "8": {"file": [], "isRequired": false, "sh_field": "85"}, "9": {"isRequired": true, "sh_field": "86", "val": ""}}
+
+
+        // Object.entries(DATA).forEach(([key, value]) => {
+        //     if ((value.test == "" && value.isReq) || (value.choices && value.choices.length == 0 && value.isReq)){
+        //         console.log("value " + true)
+        //     } else {
+        //         console.log("value " + false)
+        //     }
+        // });
+
         const DATA = {
-            "0": {
-                test: "hello"
-            },
-            "1": {
-                test: "hello"
-            },
-            "2": {
-                test: "hello"
-            }
+            "0": {"isRequired": true, "sh_field": "75", "val": ""},
+            "10": {"isRequired": true, "sh_field": "75", "val": ""},
+            "2": {"isRequired": true, "sh_field": "75", "val": ""},
+            "4": {"isRequired": true, "sh_field": "75", "val": ""}
         }
 
-        Object.entries(DATA).forEach(([key, value]) => {
-            console.log(key, value);
-         });
+        const key1 = Object.keys(DATA)
+
+        for (let i = 0; i < key1.length; i++){
+            if (DATA[key1[i]].sh_field == "76"){
+                return true
+            }
+        }
+        
+        return false
+        // delete DATA[0].test
+        // console.log("")
+        // Object.entries(DATA).forEach(([key, value]) => {
+        //     console.log(key, value);
+        // });
     }
-    
+
     const a = async () => {
         const result = await DocumentPicker.pick({
             type: [DocumentPicker.types.images]
@@ -164,7 +187,7 @@ const TestScreen = () => {
                     onChangeText={text => LogOut(text)}
                     style={{ backgroundColor: 'wheat' }} 
                 />
-                <Button title='send' onPress={() => LogOut()}/>
+                <Button title='send' onPress={() => console.log(LogOut())}/>
             </View>
         </View>
     )

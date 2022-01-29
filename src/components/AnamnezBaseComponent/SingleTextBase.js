@@ -11,21 +11,15 @@ const SingleTextBase = ({ addText = "", isRequired, data, index }) => {
     const [require, setRequire] = useState(null)
     const [textInp, setTextInp] = useState("")
 
-    useEffect(() => {
-        if (isRequired == "1" && require != null){
-            require ? dispatch(numOfRequiredFields(1)) : dispatch(numOfRequiredFields(-1))
-        }
-    }, [require])
-
     //Глобальная подсвечивание обязательных полей
     useEffect(() => {
         if (showRequired != null){
-            (showRequired && textInp == "" ) && isRequired == "1" ? setRequire(true) : setRequire(false)
+            (showRequired && textInp == "" ) && data.is_required == "1" ? setRequire(true) : setRequire(false)
         }
     }, [showRequired]) 
 
     const checkInputs = (text) => {
-        isRequired == "1" && text != "" ? setRequire(false) : setRequire(true)
+        data.is_required == "1" && text != "" ? setRequire(false) : setRequire(true)
 
         setTextInp(text)        
         data.field_type == "yes_no_input" ? dispatch(addAnamnezAnswer({
@@ -33,13 +27,16 @@ const SingleTextBase = ({ addText = "", isRequired, data, index }) => {
             sh_field_type: {
                 sh_field: data.id,
                 bool: text ? "Да" : "Нет",
-                val: text
+                val: text,
+                isRequired: data.is_required == "1" ? true : false
+
             }
         })) : dispatch(addAnamnezAnswer({
             index: index,
             sh_field_type: {
                 sh_field: data.id,
-                val: text
+                val: text,
+                isRequired: data.is_required == "1" ? true : false
             }
         })) 
     }

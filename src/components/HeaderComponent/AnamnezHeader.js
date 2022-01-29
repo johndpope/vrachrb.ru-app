@@ -7,8 +7,6 @@ import { addAnamnezAnswer, resetAllValues, showRequiredFields } from '../../stor
 
 const AnamnezHeader = ({ page }) => {
 
-    const dispatch = useDispatch()
-
     const navigation = useNavigation()
 
     return(
@@ -37,7 +35,6 @@ const AnamnezHeader = ({ page }) => {
             </View>
             <TouchableOpacity 
                 onPress={() => {
-                    dispatch(resetAllValues()),
                     navigation.reset({
                             index: 0,
                             routes: [{ name: 'MainScreen' }],

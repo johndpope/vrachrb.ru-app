@@ -10,7 +10,7 @@ import UploadFileBase from '../../components/AnamnezBaseComponent/UploadFileBase
 import MultiChoicesBase from '../../components/AnamnezBaseComponent/MultiChoicesBase';
 import SendButtonBase from '../../components/AnamnezBaseComponent/SendButtonBase';
 import { useDispatch, useSelector } from 'react-redux'
-import AnamnezSlice, { numOfRequiredFields } from '../../store/reducers/AnamnezSlice'
+import AnamnezSlice, { addAnamnezAnswer, addDefaultCount, numOfRequiredFields } from '../../store/reducers/AnamnezSlice'
 
 const QuestionsScreen = () => {
 
@@ -27,10 +27,71 @@ const QuestionsScreen = () => {
 
         // Заполнение скрина компонентами для отправки листа анамнеза
         rep["response"] && rep["response"].forEach((item, index) => {
-            item.is_required == "1" && dispatch(numOfRequiredFields({
-                index: index,
-                value: null
-            }))
+            switch (item.field_type){
+                case "textarea":
+                    dispatch(addAnamnezAnswer({
+                        index: index,
+                        sh_field_type: {
+                            sh_field: item.id,
+                            val: "",
+                            isRequired: item.is_required == "1" ? true : false
+                        }
+                    }))
+                    break
+                case "input":
+                    dispatch(addAnamnezAnswer({
+                        index: index,
+                        sh_field_type: {
+                            sh_field: item.id,
+                            val: "",
+                            isRequired: item.is_required == "1" ? true : false
+                        }
+                    }))
+                    break
+                case "yes_no_textarea":
+                    dispatch(addAnamnezAnswer({
+                        index: index,
+                        sh_field_type: {
+                            sh_field: item.id,
+                            bool: "Нет",
+                            val: "",
+                            isRequired: item.is_required == "1" ? true : false
+                        },
+                    }))
+                    break
+                case "yes_no_input":
+                    dispatch(addAnamnezAnswer({
+                        index: index,
+                        sh_field_type: {
+                            sh_field: item.id,
+                            bool: "Нет",
+                            val: "",
+                            isRequired: item.is_required == "1" ? true : false
+                        }
+                    }))
+                    break
+                case "choices":
+                    dispatch(addAnamnezAnswer({
+                        index: index,
+                        sh_field_type: {
+                            sh_field: item.id,
+                            choices: [],
+                            isRequired: item.is_required == "1" ? true : false
+                        }
+                    }))
+                    break
+                case "textarea_upload":
+                    dispatch(addAnamnezAnswer({
+                        index: index,
+                        sh_field_type: {
+                            sh_field: item.id,
+                            file: [],
+                            isRequired: item.is_required == "1" ? true : false
+                        }
+                    }))
+                    break
+            }
+
             DATA.push({
                 id: item.id,
                 // Здесь отделение идет на additionalText и mainText
@@ -38,11 +99,11 @@ const QuestionsScreen = () => {
                     item.title.includes("(") && item.title.split('(').pop().split(')')[0]
                 } />,
                 body: item.field_type == "textarea" ? 
-                    <MultiTextBase index={ index } data={ item } isRequired={ item.is_required } /> : item.field_type == "input" ? 
-                    <SingleTextBase index={ index } data={ item } isRequired={ item.is_required } /> : item.field_type == "yes_no_input" ? 
-                    <ChoicesButtonBase index={ index } data={ item } component={<SingleTextBase index={ index } data={ item } isRequired={ item.is_required } />} /> : item.field_type == "yes_no_textarea" ? 
-                    <ChoicesButtonBase index={ index } data={ item } component={<MultiTextBase index={ index } data={ item } isRequired={ item.is_required } />} /> : item.field_type == "textarea_upload" ?
-                    <UploadFileBase index={ index } data={ item } component={<MultiTextBase index={ index } data={ item } isRequired={ item.is_required } />} /> : 
+                    <MultiTextBase index={ index } data={ item } /> : item.field_type == "input" ? 
+                    <SingleTextBase index={ index } data={ item } /> : item.field_type == "yes_no_input" ? 
+                    <ChoicesButtonBase index={ index } data={ item } component={<SingleTextBase index={ index } data={ item } />} /> : item.field_type == "yes_no_textarea" ? 
+                    <ChoicesButtonBase index={ index } data={ item } component={<MultiTextBase index={ index } data={ item } />} /> : item.field_type == "textarea_upload" ?
+                    <UploadFileBase index={ index } data={ item } component={<MultiTextBase index={ index } data={ item } />} /> : 
                     <MultiChoicesBase index={ index } data={ item } choices={ item.field_options.choices }/>
             })
         })
