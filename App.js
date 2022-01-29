@@ -1,4 +1,4 @@
-import React, { useState, Component, useLayoutEffect } from 'react';
+import React, { Component} from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,26 +12,12 @@ import Header from './src/components/HeaderComponent/Header';
 import AnamnezHeader from './src/components/HeaderComponent/AnamnezHeader';
 import ModalScreen from './src/screens/ModalScreen';
 import QuestionsScreen from './src/screens/AnamnezScreens/QuestionsScreen';
-import Request from './src/requests/Request';
-import baseApiURL from './src/requests/baseApiURL';
+import SplashScreen from './src/screens/SplashScreen';
 
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-
-  const [auth, setAuth] = useState()
-
-  const isAuth = async () => {
-    let data = await Request.post(baseApiURL + "Is_auth", {})
-
-    setAuth(data["response"])
-  }
-
-  useLayoutEffect(() => {
-    isAuth()
-  }, [])
-
   return (
       <NavigationContainer>
         <Stack.Navigator 
@@ -54,6 +40,11 @@ const App = () => {
             options={{headerShown: false}}
             component={ TestScreen }
           />   */}
+          <Stack.Screen
+            name={ "SplashScreen" }
+            options={{headerShown: false}}
+            component={ SplashScreen }
+          /> 
           <Stack.Screen
             name={ "AuthScreen" }
             options={{headerShown: false}}

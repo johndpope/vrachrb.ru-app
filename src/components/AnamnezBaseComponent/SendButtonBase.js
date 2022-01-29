@@ -16,11 +16,9 @@ const SendButtonBase = () => {
             if ((value.choices && value.choices.length == 0 && value.isRequired) || 
                 (value.val == "" && value.isRequired)){
                 dispatch(showRequiredFields(true))
-
                 return true
             }
         }
-
         return false
     }
 

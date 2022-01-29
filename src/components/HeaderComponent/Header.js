@@ -1,11 +1,24 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
-import { useSelector } from 'react-redux'
+import { View, Text, TouchableOpacity, Image, ToastAndroid, AlertIOS } from 'react-native'
+import baseApiURL from '../../requests/baseApiURL'
+import Request from '../../requests/Request'
 
 const Header = () => {
 
     const navigation = useNavigation()
+
+    const LogOut = async () => {
+      let data = await Request.post(baseApiURL + "SignOut", {})
+
+      if (Platform.OS === 'android') {
+        ToastAndroid.show(data['response'], ToastAndroid.LONG)
+      } else {
+        AlertIOS.alert(data['response']);
+      }
+
+      navigation.navigate("AuthScreen")
+    }
 
     return (
       <View style={{
@@ -22,9 +35,11 @@ const Header = () => {
           marginTop: 24,
           marginLeft: 24
         }}>Консультация врача</Text>
-        {/* <TouchableOpacity style={{ margin: 10 }} title='gedgh'>
+        <TouchableOpacity style={{ margin: 10 }} title='gedgh'
+          onPress={() => LogOut()}
+        >
           <Image style={{ width: 45, height: '100%' }} source={ require('../../images/shevron_gradient.png') }/>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
     )
 }
