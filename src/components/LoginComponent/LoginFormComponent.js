@@ -23,8 +23,6 @@ const LoginFormComponent = () => {
     const login = async (user, passwd) => {
         let data = {user: user, password: passwd}
         let request = await Request.post(baseApiURL + "SignIn", data=data);
-        
-        console.log(request)
 
         setResponse(request)
 

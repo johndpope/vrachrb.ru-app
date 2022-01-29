@@ -73,12 +73,12 @@ const MultiChoicesBase = ({ choices, data, index }) => {
                                 ...styles.buttonChoiceStyle,
                                 backgroundColor: '#54B9D1',
                                 borderColor: '#FFFFFF'
-                            } : require ? {...styles.buttonChoiceStyle, borderColor: '#F27C83'} : styles.buttonChoiceStyle }
+                            } : require && data.is_required == "1" ? {...styles.buttonChoiceStyle, borderColor: '#F27C83'} : styles.buttonChoiceStyle }
                         >
                             <Text style={ choicesSelected.includes(choiceText) ? {
                                 ...styles.textStyle,
                                 color: '#FFFFFF'
-                            } :styles.textStyle }>{ choiceText.charAt(0).toUpperCase() + choiceText.slice(1) }</Text>
+                            } : styles.textStyle }>{ choiceText.charAt(0).toUpperCase() + choiceText.slice(1) }</Text>
                         </TouchableOpacity>
                     )
                 })

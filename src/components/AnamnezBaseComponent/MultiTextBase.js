@@ -45,12 +45,12 @@ const MultiTextBase = ({ isRequired, data, index }) => {
 
     return ( 
         <TextInput 
-            style={ require ? {...styles.textInputStyle, backgroundColor: '#FFFFFF', borderColor: '#F27C83', borderWidth: 2 } : styles.textInputStyle }
+            style={ require && data.is_required == "1" ? {...styles.textInputStyle, backgroundColor: '#FFFFFF', borderColor: '#F27C83', borderWidth: 2 } : styles.textInputStyle }
             multiline={true}
             textAlign='left'
             textAlignVertical='top'
-            placeholder={ !require ? 'Введите текст' : 'Введите текст' }
-            placeholderTextColor={ require ? '#F27C83' : "#AAB2BD"}
+            placeholder={ 'Введите текст' }
+            placeholderTextColor={ require && data.is_required == "1" ? '#F27C83' : "#AAB2BD"}
             onChangeText={text => checkInputs(text)}
         /> 
     )

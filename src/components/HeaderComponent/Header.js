@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Image, ToastAndroid, AlertIOS } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import baseApiURL from '../../requests/baseApiURL'
 import Request from '../../requests/Request'
 
@@ -10,12 +10,6 @@ const Header = () => {
 
     const LogOut = async () => {
       let data = await Request.post(baseApiURL + "SignOut", {})
-
-      if (Platform.OS === 'android') {
-        ToastAndroid.show(data['response'], ToastAndroid.LONG)
-      } else {
-        AlertIOS.alert(data['response']);
-      }
 
       navigation.navigate("AuthScreen")
     }

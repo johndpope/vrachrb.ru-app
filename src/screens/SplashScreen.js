@@ -23,6 +23,10 @@ const SplashScreen = () => {
     return (
         <View style={styles.mainContent}>
             <Image 
+                style={{
+                    width: 243,
+                    height: 83
+                }}
                 source={ require('../images/logo.png') }
             />
         </View>

@@ -17,6 +17,10 @@ const MailLoginScreen = () => {
                 alignItems: 'center'
             }}>
                 <Image
+                    style={{
+                        width: 243,
+                        height: 83
+                    }}
                     source={require("../images/logo.png")} 
                 />
             </View>
