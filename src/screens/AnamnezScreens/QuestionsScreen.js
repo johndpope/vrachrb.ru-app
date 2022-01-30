@@ -86,6 +86,7 @@ const QuestionsScreen = () => {
                         sh_field_type: {
                             sh_field: item.id,
                             file: [],
+                            val: "",
                             isRequired: item.is_required == "1" ? true : false
                         }
                     }))
