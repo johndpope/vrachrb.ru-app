@@ -26,7 +26,10 @@ const StartScreen = (props) => {
                             ...styles.buttonStyle,
                             marginBottom: 8
                         }}
-                        onPress={ dispatch(resetAllValues()) ,() => navigation.navigate("QuestionsScreen") }
+                        onPress={ () => { 
+                            dispatch(resetAllValues()), 
+                            navigation.navigate("QuestionsScreen") 
+                        }}
                         >
                         <Text style={ styles.textStyle }>Для себя</Text>
                     </TouchableOpacity>

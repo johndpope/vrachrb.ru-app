@@ -20,19 +20,29 @@ const ChoicesButtonBase = ({ component, index, data}) => {
     const [require, setRequire] = useState()
 
     useEffect(() => {
-        showRequired ? setRequire(true) : setRequire(false)
+        showRequired && selected == null ? setRequire(true) : setRequire(false)
     }, [showRequired]) 
 
     const selectItem = (check) => {
         setSelected(check)
-        setRequire(check ? false : true)
+        setRequire(false)
     }
 
     return (
         <View style={ styles.mainContent }>
             <View style={ styles.choicesButton }>
                 <TouchableOpacity
-                    onPress={() => selectItem(1)}
+                    onPress={() => { 
+                        selectItem(1),
+                        dispatch(addAnamnezAnswer({
+                            index: index,
+                            sh_field_type: {
+                                sh_field: data.id,
+                                bool: "Да",
+                                val: "",
+                                isRequired: data.is_required == "1" ? true : false
+                            }
+                        }))}}
                     style={{ 
                         ...styles.buttonsStyle,
                         backgroundColor: selected == 1 ? 
@@ -58,14 +68,16 @@ const ChoicesButtonBase = ({ component, index, data}) => {
                                 sh_field: data.id,
                                 bool: "Нет",
                                 val: "",
-                                isRequired: data.is_required == "1" ? true : false
+                                isRequired: false
                             }
                         }))
                     }}
                     style={{ 
                         ...styles.buttonsStyle,
                         backgroundColor: selected == 0 ? 
-                            colors.selectedButtonAccentType : colors.deselectAccentType 
+                            colors.selectedButtonAccentType : colors.deselectAccentType,
+                        borderWidth: require && data.is_required == "1" ? 2 : 0,
+                        borderColor: require && data.is_required == "1" ? '#F27C83' : '#FFFFFF'
                     }}
                 >
                     <Text  

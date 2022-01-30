@@ -48,7 +48,7 @@ const SingleTextBase = ({ addText = "", isRequired, data, index }) => {
                 style={ require && data.is_required == "1" ? {...styles.textInputStyle, backgroundColor: '#FFFFFF', borderColor: '#F27C83', borderWidth: 2 } : styles.textInputStyle }
                 multiline={true}
                 textAlign='left'
-                textAlignVertical='top'
+                textAlignVertical='center'
                 placeholder={ 'Введите текст' }
                 placeholderTextColor={ require && data.is_required == "1" ? '#F27C83' : "#AAB2BD"}
                 onChangeText={text => checkInputs(text)}
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         fontSize: 17,
         fontWeight: '400',
-        padding: 15,
+        paddingLeft: 15,
         color: '#434A53',
         marginTop: 12
     },

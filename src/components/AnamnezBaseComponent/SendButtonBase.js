@@ -25,7 +25,7 @@ const SendButtonBase = () => {
     const sendData = () => {
         checkRequiredFields() ? console.log("Missed fields") : console.log("All fields is complete")
         console.log(checkRequiredFields())
-        console.log(Object.keys(allData))
+        console.log(allData)
     }
 
     return(
