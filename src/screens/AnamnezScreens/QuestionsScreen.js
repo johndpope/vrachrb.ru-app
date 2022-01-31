@@ -1,5 +1,5 @@
-import React, { Component, useState, useEffect } from 'react';
-import { View, StyleSheet, Text, FlatList, ActivityIndicator } from 'react-native'
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, FlatList, ActivityIndicator } from 'react-native'
 import ChoicesButtonBase from '../../components/AnamnezBaseComponent/ChoicesButtonBase';
 import MultiTextBase from '../../components/AnamnezBaseComponent/MultiTextBase';
 import QuestionTitleBase from '../../components/AnamnezBaseComponent/QuestionTitleBase';
@@ -10,12 +10,12 @@ import UploadFileBase from '../../components/AnamnezBaseComponent/UploadFileBase
 import MultiChoicesBase from '../../components/AnamnezBaseComponent/MultiChoicesBase';
 import SendButtonBase from '../../components/AnamnezBaseComponent/SendButtonBase';
 import { useDispatch, useSelector } from 'react-redux'
-import AnamnezSlice, { addAnamnezAnswer, addDefaultCount, numOfRequiredFields } from '../../store/reducers/AnamnezSlice'
+import { addAnamnezAnswer } from '../../store/reducers/AnamnezSlice'
 
 const QuestionsScreen = () => {
 
     const dispatch = useDispatch()
-    const specialistID = useSelector(state => state.AnamnezSlice.selectedSpecialistID)
+    const specialtyID = useSelector(state => state.AnamnezSlice.selectedSpecialtyID)
 
     const DATA = []
     const [loading, setLoading] = useState(false)
@@ -23,7 +23,8 @@ const QuestionsScreen = () => {
 
     const getAnamnez = async () => {
         setLoading(true)
-        let rep = await Request.get(baseApiURL + "Get_anamnes", {spec_id: specialistID})
+        let rep = await Request.get(baseApiURL + "Get_anamnes", {spec_id:specialtyID})
+        console.log("ANAMNES::"+JSON.stringify(rep))
 
         // Заполнение скрина компонентами для отправки листа анамнеза
         rep["response"] && rep["response"].forEach((item, index) => {
@@ -99,10 +100,10 @@ const QuestionsScreen = () => {
                 header: <QuestionTitleBase question={ item.title.includes("(") ? item.title.split("(")[0] : item.title } additionalField={
                     item.title.includes("(") && item.title.split('(').pop().split(')')[0]
                 } />,
-                body: item.field_type == "textarea" ? 
-                    <MultiTextBase index={ index } data={ item } /> : item.field_type == "input" ? 
-                    <SingleTextBase index={ index } data={ item } /> : item.field_type == "yes_no_input" ? 
-                    <ChoicesButtonBase index={ index } data={ item } component={<SingleTextBase index={ index } data={ item } />} /> : item.field_type == "yes_no_textarea" ? 
+                body: item.field_type == "textarea" ?
+                    <MultiTextBase index={ index } data={ item } /> : item.field_type == "input" ?
+                    <SingleTextBase index={ index } data={ item } /> : item.field_type == "yes_no_input" ?
+                    <ChoicesButtonBase index={ index } data={ item } component={<SingleTextBase index={ index } data={ item } />} /> : item.field_type == "yes_no_textarea" ?
                     <ChoicesButtonBase index={ index } data={ item } component={<MultiTextBase index={ index } data={ item } />} /> : item.field_type == "textarea_upload" ?
                     <UploadFileBase index={ index } data={ item } component={<MultiTextBase index={ index } data={ item } />} /> : 
                     <MultiChoicesBase index={ index } data={ item } choices={ item.field_options.choices }/>

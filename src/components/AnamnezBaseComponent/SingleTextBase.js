@@ -46,7 +46,7 @@ const SingleTextBase = ({ addText = "", isRequired, data, index }) => {
         <View>
             <TextInput 
                 style={ require && data.is_required == "1" ? {...styles.textInputStyle, backgroundColor: '#FFFFFF', borderColor: '#F27C83', borderWidth: 2 } : styles.textInputStyle }
-                multiline={true}
+                multiline={false}
                 textAlign='left'
                 textAlignVertical='center'
                 placeholder={ 'Введите текст' }

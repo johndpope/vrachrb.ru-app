@@ -3,8 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const AnamnezSlice = createSlice({
     name: "AnamnezSlice",
     initialState: {
-        anamnezData: {},
-        selectedSpecialistID: 10,
+        questionBody : "",
+        anamnezData  : {},
+        selectedSpecialistID : 51,
+        selectedSpecialtyID  : 6,
+        userAbout : {},
         showRequiredFields: null,
     },
     reducers: {
@@ -13,17 +16,37 @@ const AnamnezSlice = createSlice({
         },
         selectSpecialistID(state, action){
             state.selectedSpecialistID = action.payload
+            console.log("Specialist id " + state.selectedSpecialistID)
+        },
+        selectSpecialtyID(state, action){
+            state.selectedSpecialtyID = action.payload
+            console.log("Specialty id " + state.selectedSpecialtyID)
         },
         showRequiredFields(state, action){
             state.showRequiredFields = action.payload
+        },
+        setQuestionBody(state, action){
+            state.questionBody = action.payload
+            console.log("Question Body " + state.questionBody)
         },
         resetAllValues(state, action){
             state.anamnezData = {};
             state.showRequiredFields = null;
         },
+
+        setUAKey(state, action){
+            state.userAbout[action.payload.index] = action.payload.body
+            state.userAbout["gender"] = "ж"
+            console.log("UA :: userAbout["+action.payload.index+"] = " + state.userAbout[action.payload.index])
+        },
+        clearUserAbout(state){
+            state.userAbout = {}
+            console.log("UA :: ОЧИЩЕН")
+        },
     }
 })
 
 export default AnamnezSlice.reducer
-export const { addAnamnezAnswer, selectSpecialistID, 
-    showRequiredFields, resetAllValues } = AnamnezSlice.actions
+export const { addAnamnezAnswer, selectSpecialistID, selectSpecialtyID,
+    showRequiredFields, setQuestionBody, resetAllValues,
+    setUAKey, clearUserAbout } = AnamnezSlice.actions

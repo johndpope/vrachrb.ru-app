@@ -1,10 +1,20 @@
 import React, { Component } from 'react'
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {useDispatch} from "react-redux";
+import {setSpecialistData, setSpecialistRoute} from "../../../store/reducers/SpecSlice";
 
 const CabinetCardWidget = ({ data }) => {
+
+    const dispatch = useDispatch()
+
+    function setCabinet(){
+        dispatch(setSpecialistRoute("GetSpecialistBySpecialtyID"))
+        dispatch(setSpecialistData({specialtyId : data.id}))
+    }
+
     return (
         <View style={ styles.mainContent }>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setCabinet()}>
                 <View style={{
                     flexDirection: 'row',
                     alignContent: 'center',

@@ -1,18 +1,26 @@
-import React, { Component, useEffect, useState } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import AnamnezSlice, { showRequiredFields } from '../../store/reducers/AnamnezSlice';
+import { showRequiredFields } from '../../store/reducers/AnamnezSlice';
+import Request from '../../requests/Request';
+import baseApiURL from "../../requests/baseApiURL";
+import {useNavigation} from "@react-navigation/native";
 
 const SendButtonBase = () => {
 
-    const allData = useSelector(state => state.AnamnezSlice.anamnezData)
     const dispatch = useDispatch()
+    const navigation = useNavigation()
+    const questionBody         = useSelector(state => state.AnamnezSlice.questionBody)
+    const anamnezData          = useSelector(state => state.AnamnezSlice.anamnezData)
+    const selectedSpecialistID = useSelector(state => state.AnamnezSlice.selectedSpecialistID)
+    const selectedSpecialtyID  = useSelector(state => state.AnamnezSlice.selectedSpecialtyID)
+    const userAbout            = useSelector(state => state.AnamnezSlice.userAbout)
 
     const checkRequiredFields = () => {
-        const keys = Object.keys(allData)
+        const keys = Object.keys(anamnezData)
 
         for (let i = 0; i < keys.length; i++){
-            let value = allData[keys[i]]
+            let value = anamnezData[keys[i]]
             if ((value.choices && value.choices.length == 0 && value.isRequired) || 
                 (value.val == "" && value.isRequired)){
                 dispatch(showRequiredFields(true))
@@ -22,10 +30,44 @@ const SendButtonBase = () => {
         return false
     }
 
-    const sendData = () => {
-        checkRequiredFields() ? console.log("Missed fields") : console.log("All fields is complete")
-        console.log(checkRequiredFields())
-        console.log(allData)
+    const sendData = async () => {
+        if(!checkRequiredFields()){
+            let sendQuestionData
+            console.log("All fields is complete")
+
+            if(userAbout["first_name"] && userAbout["second_name"] && userAbout["middle_name"] && userAbout["gender"]) {
+                console.log("для близкого")
+                sendQuestionData = {
+                    q_body: questionBody,
+                    qsh_anamnes: JSON.stringify(anamnezData),
+                    q_specialist_id: selectedSpecialistID,
+                    q_specialty_id: selectedSpecialtyID,
+                    user_about : JSON.stringify(userAbout)
+                }
+            } else{
+                console.log("для себя любимого")
+                sendQuestionData = {
+                    q_body: questionBody,
+                    qsh_anamnes: JSON.stringify(anamnezData),
+                    q_specialist_id: selectedSpecialistID,
+                    q_specialty_id: selectedSpecialtyID,
+                }
+            }
+
+            let request = await Request.post(baseApiURL + "Ask_question", sendQuestionData);
+            if(request){
+                if(request["response"]){
+                    console.log(request["response"])
+                    navigation.navigate("MainScreen")
+                } else {
+                    console.log(request["error"])
+                }
+            } else {
+                console.log("Что-то пошло не так...")
+            }
+        } else {
+            console.log("Missed fields")
+        }
     }
 
     return(

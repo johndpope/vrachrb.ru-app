@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { selectSpecialistID } from '../store/reducers/AnamnezSlice';
+import {selectSpecialistID, selectSpecialtyID} from '../store/reducers/AnamnezSlice';
 
 const ModalScreen = () => {
 
@@ -34,7 +34,8 @@ const ModalScreen = () => {
             <View style={ styles.buttonWrapper }>
                 <TouchableOpacity style={ styles.buttonStyle }
                     onPress={() => {
-                        dispatch(selectSpecialistID(51)),
+                        dispatch(selectSpecialistID(51));
+                        dispatch(selectSpecialtyID(6));
                         navigation.navigate("StartScreen")
                     }}
                 >

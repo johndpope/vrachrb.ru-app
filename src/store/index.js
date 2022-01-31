@@ -1,12 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import LoginSlice from './reducers/LoginSlice'
 import AnamnezSlice from './reducers/AnamnezSlice';
+import SpecSlice from "./reducers/SpecSlice";
 
 /**
  * Комбинированный основной редусер из нескольких редусеров*/
 const rootReducer = combineReducers({
     LoginSlice: LoginSlice,
-    AnamnezSlice: AnamnezSlice
+    AnamnezSlice: AnamnezSlice,
+    SpecSlice : SpecSlice
 })
 /**
  * Основной магазин приложения с комбинированным редусером*/

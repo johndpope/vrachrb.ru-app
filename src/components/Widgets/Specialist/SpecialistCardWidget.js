@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react'
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { selectSpecialistID } from '../../../store/reducers/AnamnezSlice';
+import { selectSpecialistID, selectSpecialtyID } from '../../../store/reducers/AnamnezSlice';
 
 const SpecialistCardWidget = ({ data }) => {
 
@@ -11,8 +11,8 @@ const SpecialistCardWidget = ({ data }) => {
     const navigation = useNavigation()
     
     const moveToNextScreen = () => {
-        console.log("SpecialistScreen " + data.specialty_id)
-        dispatch(selectSpecialistID(data.specialty_id))
+        dispatch(selectSpecialistID(data.id))
+        dispatch(selectSpecialtyID(data.specialty_id))
         navigation.navigate("StartScreen")
     }
 
