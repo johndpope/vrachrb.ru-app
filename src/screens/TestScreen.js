@@ -10,7 +10,6 @@ import UploadFileBase from '../components/AnamnezBaseComponent/UploadFileBase'
 import MultiChoicesBase from '../components/AnamnezBaseComponent/MultiChoicesBase'
 import MultiTextBase from '../components/AnamnezBaseComponent/MultiTextBase'
 
-
 export const TestScreen1 = ({ fieldType, index }) => {
 
     const dispatch = useDispatch()
@@ -87,7 +86,7 @@ const TestScreen = () => {
 
     let count = 0
 
-    const LogOut = (text) => {
+    const LogOut = async (text) => {
         // dispatch(addAnamnezAnswer({
         //     index: 0,
         //     sh_field_type: {
@@ -112,23 +111,22 @@ const TestScreen = () => {
         //         console.log("value " + false)
         //     }
         // });
+        let DATA = await Request.get(baseApiURL + "Get_user_questions", {})
 
-        const DATA = {
-            "0": {"isRequired": true, "sh_field": "75", "val": ""},
-            "10": {"isRequired": true, "sh_field": "75", "val": ""},
-            "2": {"isRequired": true, "sh_field": "75", "val": ""},
-            "4": {"isRequired": true, "sh_field": "75", "val": ""}
-        }
+        // const key1 = Object.keys(DATA)
 
-        const key1 = Object.keys(DATA)
-
-        for (let i = 0; i < key1.length; i++){
-            if (DATA[key1[i]].sh_field == "76"){
-                return true
-            }
-        }
+        // for (let i = 0; i < key1.length; i++){
+        //     console.log(DATA[key1[i]])
+        // }
         
-        return false
+        DATA["response"][0]["Question"][0]["Answer"].forEach(element => {
+            console.log(element["body"])
+        });
+
+        console.log(DATA["response"][0]["Question"][0]["Specialtys"])
+        console.log(DATA["response"][0]["Question"][0]["Specialists"][0]["User"]["username"])
+        // let data = await Request.post(baseApiURL + "SignIn", {user: "CLIENT", password: "CLIENT"})
+        // console.log(data)
         // delete DATA[0].test
         // console.log("")
         // Object.entries(DATA).forEach(([key, value]) => {
@@ -141,6 +139,14 @@ const TestScreen = () => {
             type: [DocumentPicker.types.images]
         });
 
+        RNFetchBlob.fs
+            .stat(res.uri)
+            .then((stats) => {
+                console.log(stats.path);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
         console.log(
             result[0].uri
         )
@@ -184,10 +190,10 @@ const TestScreen = () => {
                 {/* <MultiChoicesBase /> */}
                 {/* <MultiTextBase isRequired={1}/> */}
                 <TextInput 
-                    onChangeText={text => LogOut(text)}
+                    // onChangeText={text => LogOut(text)}
                     style={{ backgroundColor: 'wheat' }} 
                 />
-                <Button title='send' onPress={() => console.log(LogOut())}/>
+                <Button title='send' onPress={() => LogOut()}/>
             </View>
         </View>
     )

@@ -14,7 +14,7 @@ const SplashScreen = () => {
       data['response'] && data['response'] == true ? 
         navigation.reset({
             index: 0,
-            routes: [{ name: 'MainScreen' }],
+            routes: [{ name: 'MainNavigationScreen' }],
         }) : 
         navigation.reset({
             index: 0,

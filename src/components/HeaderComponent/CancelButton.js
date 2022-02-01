@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { resetAllValues } from '../../store/reducers/AnamnezSlice';
 
 const CancelButton = () => {
 
@@ -11,7 +13,7 @@ const CancelButton = () => {
             onPress={() => {
                 navigation.reset({
                         index: 0,
-                        routes: [{ name: 'MainScreen' }],
+                        routes: [{ name: 'MainNavigationScreen' }],
                     }) 
                 }}
             style={{

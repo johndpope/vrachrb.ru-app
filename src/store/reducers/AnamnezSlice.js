@@ -30,18 +30,16 @@ const AnamnezSlice = createSlice({
             console.log("Question Body " + state.questionBody)
         },
         resetAllValues(state, action){
+            state.questionBody = "";
             state.anamnezData = {};
             state.showRequiredFields = null;
+            state.userAbout = {};
         },
 
         setUAKey(state, action){
             state.userAbout[action.payload.index] = action.payload.body
             state.userAbout["gender"] = "ж"
             console.log("UA :: userAbout["+action.payload.index+"] = " + state.userAbout[action.payload.index])
-        },
-        clearUserAbout(state){
-            state.userAbout = {}
-            console.log("UA :: ОЧИЩЕН")
         },
     }
 })

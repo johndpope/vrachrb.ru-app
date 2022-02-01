@@ -18,87 +18,33 @@ import BackButton from './src/components/HeaderComponent/BackButton';
 import MessagesScreen from './src/screens/MessagesScreen'
 import ChatScreen from './src/screens/ChatScreen'
 import { Image, TouchableOpacity } from 'react-native';
+import MainNavigationScreen from './src/screens/MainNavigationScreen';
 
 const Stack = createNativeStackNavigator();
-
-export const rightButton = () => {
-
-    const navigation = useNavigation() 
-  
-    return (
-      <TouchableOpacity 
-        onPress={() => { navigation.navigate("MessagesScreen") }}
-        // onPress={() => LogOut()}
-      >
-        <Image style={{ width: 40, height: 40 }} source={ require('./src/images/shevron_gradient.png') } />
-      </TouchableOpacity>
-    )
-} 
 
 const App = () => {
   return (
       <NavigationContainer>
-        <Stack.Navigator
-            screenOptions={{
-                // header: props => <Header />,
-                // title: 'Консультации врача',
-                headerRight: () => rightButton(),
-                headerShown: true,
-                headerBackVisible: true,
-                headerStyle: {
-                    backgroundColor: "#F3F4F6",
-                },
-                // headerTitleAlign: 'center',
-                headerTitleStyle: {
-                    color: "#434A53",
-                    fontWeight: '700',
-                    fontSize: 21,
-                },
-                headerTitle: "Консультация врача",
-                headerShadowVisible: false,
-            }}
-        >
-          {/* <Stack.Screen
-            name="TestScreen"
-            options={{headerShown: false}}
-            component={ TestScreen }
-          />   */}
-          <Stack.Screen
-            name={ "SplashScreen" }
-            options={{headerShown: false}}
-            component={ SplashScreen }
-          />
-          <Stack.Screen
-            name={ "AuthScreen" }
-            options={{headerShown: false}}
-            component={ AuthScreen }
-          />
-          <Stack.Screen
-            name={ "MainScreen" }
-            component={ MainScreen }
-          />
+        <Stack.Navigator>
+            {/* <Stack.Screen
+                name="TestScreen"
+                options={{headerShown: false}}
+                component={ TestScreen }
+            />   */}
             <Stack.Screen
-                name="MessagesScreen"
-                options={{
-                    title: "Консультации",
-                    headerStyle: {
-                        backgroundColor: '#FFFFFF'
-                    },
-                    headerTitleAlign: 'center',
-                    headerTitleStyle: {
-                        color: "#434A53",
-                        fontWeight: '700',
-                        fontSize: 21,
-                    },
-                    headerBackVisible: false,
-                    headerLeft: () => (
-                        <BackButton />
-                    ),
-                    headerRight: () => (
-                        null
-                    )
-                }}
-                component={ MessagesScreen }
+                name={ "SplashScreen" }
+                options={{headerShown: false}}
+                component={ SplashScreen }
+            />
+            <Stack.Screen
+                name={ "AuthScreen" }
+                options={{headerShown: false}}
+                component={ AuthScreen }
+            />
+            <Stack.Screen
+                name={ "MainNavigationScreen" }
+                options={{ headerShown: false }}
+                component={ MainNavigationScreen }
             />
             <Stack.Screen
                 name={ "ChatScreen" }
@@ -124,10 +70,10 @@ const App = () => {
                 component={ ChatScreen }
             />
             <Stack.Screen
-            name="MailLoginScreen"
-            options={{headerShown: false}}
-            component={ MailLoginScreen }
-          />
+                name="MailLoginScreen"
+                options={{headerShown: false}}
+                component={ MailLoginScreen }
+            />
             <Stack.Screen
                 name="StartScreen"
                 // options={{ header: props => <AnamnezHeader page={1} /> }}
@@ -143,6 +89,7 @@ const App = () => {
                         color: '#434A53',
                         fontWeight: '700'
                     },
+                    headerShadowVisible: false,
                     headerTitleAlign: 'center',
                     headerRight: () => (
                         <CancelButton />
@@ -153,11 +100,11 @@ const App = () => {
                 }}
                 component={ StartScreen }
             />
-          <Stack.Screen
-            name="ModalScreen"
-            options={{headerShown: false}}
-            component={ ModalScreen }
-          />
+            <Stack.Screen
+                name="ModalScreen"
+                options={{headerShown: false}}
+                component={ ModalScreen }
+            />
             <Stack.Screen
                 name="QuestionsScreen"
                 // options={{ header: props => <AnamnezHeader page={2} /> }}
@@ -172,6 +119,7 @@ const App = () => {
                         color: '#434A53',
                         fontWeight: '700'
                     },
+                    headerShadowVisible: false,
                     headerTitleAlign: 'center',
                     headerRight: () => (
                         <CancelButton />

@@ -1,8 +1,9 @@
 import React, { Component, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, FlatList, Text, Image, RefreshControl } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, FlatList, Text, Image, RefreshControl, Alert } from 'react-native';
 import MultiTextBase from './MultiTextBase';
 import DocumentPicker from 'react-native-document-picker'
 import uuid from 'react-native-uuid';
+import baseApiURL from "../../requests/baseApiURL";
 
 const UploadFileBase = ({ component }) => {
 
@@ -47,6 +48,41 @@ const UploadFileBase = ({ component }) => {
         imageDataPrev[id].setted = true
 
         setImageData(imageDataPrev)
+        await upload(result)
+    }
+
+    const upload = async (resp) => {
+        console.log(resp)
+        // RNGRP.getRealPathFromURI(resp.).then(filePath =>
+        //     console.log(filePath)
+        // )
+        return;
+        let data = new FormData();
+
+        try {
+            data.append('file', {
+                uri: resp.uri,
+                type: resp.type,
+                name: resp.name || resp.fileName
+            });
+            const response = await fetch(baseApiURL + 'uploader?key=analysis', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                body: data
+            });
+            const text = await response.text();
+            console.log('text', text);
+            let json = JSON.parse(text);
+            if (json.state === 'success') {
+                Alert.alert("Text");
+            } else {
+                Alert.alert(json.message);
+            }
+        } catch (e) {
+            Alert.alert(e);
+        }
     }
 
     return (
