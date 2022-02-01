@@ -58,8 +58,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         padding: 15,
         color: '#434A53',
-        marginTop: 12,
-        marginBottom: 12,
+        marginTop: 8,
 
         height: 120,
         width: '100%',

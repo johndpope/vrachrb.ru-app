@@ -19,7 +19,7 @@ class Request {
             });
 
             let text = await response.text();
-            console.log("RESPONSE::"+text)
+
             return JSON.parse(text);
         } catch (e) {
             return false;
@@ -52,7 +52,7 @@ class Request {
             });
 
             let text = await response.text();
-
+            
             return JSON.parse(text);
         } catch (e) {
             return false;

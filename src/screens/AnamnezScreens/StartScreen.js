@@ -11,13 +11,13 @@ const StartScreen = (props) => {
     const dispatch = useDispatch()
     const navigation = useNavigation()
 
-    const [choice,setChoice] = useState(1)
+    const [choice, setChoice] = useState(1)
     const userAbout    = useSelector(state => state.AnamnezSlice.userAbout)
     const questionBody = useSelector(state => state.AnamnezSlice.questionBody)
 
     const colors = {
         selectedButtonAccentType: '#54B9D1',
-        deselectAccentType: '#FFF'
+        deselectAccentType: '#FFFFFF'
     }
 
     useEffect(() => {
@@ -56,22 +56,28 @@ const StartScreen = (props) => {
                 }}>
                     <TouchableOpacity
                         style={{...styles.buttonStyle,
-                            marginBottom: 8,
+                            marginBottom: choice === 2 ? 8 : 0,
+                            borderWidth: choice === 1 ? 0 : 2,
                             backgroundColor: choice === 1 ?
                                colors.selectedButtonAccentType : colors.deselectAccentType,
                         }}
                         onPress={ () => { setChoice(1); dispatch(resetAllValues())} }
                         >
-                        <Text style={ styles.textStyle }>Для себя</Text>
+                        <Text style={{ ...styles.textStyle,
+                        color: choice === 1 ? "#FFFFFF" : "#434A53" }}>Для себя</Text>
                     </TouchableOpacity>
                     { choice === 1 ? questionBodyComponent : null }
                     <TouchableOpacity
-                        style={{...styles.buttonStyle,
+                        style={{
+                            ...styles.buttonStyle,
+                            borderWidth: choice === 2 ? 0 : 2,
+                            marginTop: choice === 1 ? 8 : 0,
                             backgroundColor: choice === 2 ? colors.selectedButtonAccentType
                                 : colors.deselectAccentType,}}
                         onPress={ () => { setChoice(2); dispatch(resetAllValues())} }
                     >
-                        <Text style={ styles.textStyle }>Для близкого человека</Text>
+                        <Text style={{ ...styles.textStyle,
+                        color: choice === 2 ? "#FFFFFF" : "#434A53", }}>Для близкого человека</Text>
                     </TouchableOpacity>
                     { choice === 2 ? userAboutComponent : null }
                     { choice === 2 ? questionBodyComponent : null }

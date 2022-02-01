@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthScreen from './src/screens/AuthScreen';
 import MailLoginScreen from './src/screens/MailLoginScreen';
@@ -15,9 +15,25 @@ import QuestionsScreen from './src/screens/AnamnezScreens/QuestionsScreen';
 import SplashScreen from './src/screens/SplashScreen';
 import CancelButton from './src/components/HeaderComponent/CancelButton';
 import BackButton from './src/components/HeaderComponent/BackButton';
-
+import MessagesScreen from './src/screens/MessagesScreen'
+import ChatScreen from './src/screens/ChatScreen'
+import { Image, TouchableOpacity } from 'react-native';
 
 const Stack = createNativeStackNavigator();
+
+export const rightButton = () => {
+
+    const navigation = useNavigation() 
+  
+    return (
+      <TouchableOpacity 
+        onPress={() => { navigation.navigate("MessagesScreen") }}
+        // onPress={() => LogOut()}
+      >
+        <Image style={{ width: 40, height: 40 }} source={ require('./src/images/shevron_gradient.png') } />
+      </TouchableOpacity>
+    )
+} 
 
 const App = () => {
   return (
