@@ -32,10 +32,10 @@ const LoginFormComponent = () => {
 
         request['auth'] && dispatch(saveUserData(request))
 
-        request['auth'] && 
+        request['auth'] &&
             navigation.reset({
                 index: 0,
-                routes: [{ name: 'MainScreen' }],
+                routes: [{ name: 'MainNavigationScreen' }],
             })
         setLoading(false)
     }
@@ -51,7 +51,7 @@ const LoginFormComponent = () => {
     return (
         <View style={ styles.mainBlock }>
             <View>
-                <TextInput 
+                <TextInput
                     style={{
                         ...styles.textInputStyle,
                         borderBottomColor: response['error'] ? "#F27C83" : "#E6E9ED"
@@ -63,7 +63,7 @@ const LoginFormComponent = () => {
                 { response['error'] &&
                     <Text style={{ color: "#F27C83", fontSize: 15 }}>Неверный логин или пароль</Text>
                 }
-                <TextInput 
+                <TextInput
                     style={{
                         ...styles.textInputStyle,
                         borderBottomColor: response['error'] ? "#F27C83" : "#E6E9ED"
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     btnBottom: {
         justifyContent: 'center',
         alignItems: 'center'
-    },    
+    },
     textStyle: {
         color: '#FFFFFF',
         fontSize: 17
