@@ -136,6 +136,7 @@ const QuestionsScreen = () => {
                             style={{
                                 width: '100%',
                             }}
+                            showsVerticalScrollIndicator={false}
                             keyExtractor={(item) => item.id}
                             renderItem={({ item }) => {
                                 return(

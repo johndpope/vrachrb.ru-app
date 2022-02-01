@@ -10,10 +10,16 @@ const SplashScreen = () => {
 
     const isAuth = async () => {
       let data = await Request.post(baseApiURL + "Is_auth", {})
-  
+
       data['response'] && data['response'] == true ? 
-        navigation.navigate("MainScreen") : 
-        navigation.navigate("AuthScreen")
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'MainScreen' }],
+        }) : 
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'AuthScreen' }],
+        })
     }
   
     useLayoutEffect(() => {

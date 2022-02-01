@@ -40,6 +40,7 @@ const CabinetScreen = () => {
                             width: '100%',
                         }}
                         data={cabinet && cabinet['response']}
+                        showsVerticalScrollIndicator={false}
                         keyExtractor={(item) => item.id}
                         renderItem={({ item }) => {
                             return(

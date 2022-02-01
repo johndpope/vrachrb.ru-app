@@ -3,7 +3,6 @@ import React, { Component} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthScreen from './src/screens/AuthScreen';
-import RegisterScreen from './src/screens/RegisterScreen';
 import MailLoginScreen from './src/screens/MailLoginScreen';
 import MainScreen from './src/screens/MainScreen'
 import StartScreen from './src/screens/AnamnezScreens/StartScreen';
@@ -14,7 +13,8 @@ import AnamnezHeader from './src/components/HeaderComponent/AnamnezHeader';
 import ModalScreen from './src/screens/ModalScreen';
 import QuestionsScreen from './src/screens/AnamnezScreens/QuestionsScreen';
 import SplashScreen from './src/screens/SplashScreen';
-import RecoveryPasswordScreen from "./src/screens/RecoveryPasswordScreen";
+import CancelButton from './src/components/HeaderComponent/CancelButton';
+import BackButton from './src/components/HeaderComponent/BackButton';
 
 
 const Stack = createNativeStackNavigator();
@@ -22,21 +22,26 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
       <NavigationContainer>
-        <Stack.Navigator 
-          screenOptions={{
-            header: props => <Header />,  
-            headerShown: true,
-            headerBackVisible: false,
-            headerStyle: {
-              backgroundColor: "#F3F4F6",
-            },
-            headerTitleStyle: {
-              color: "#434A53"
-            },
-            headerTitle: "Консультация врача",
-            headerShadowVisible: false,
-          }}
-        >    
+        <Stack.Navigator
+            screenOptions={{
+                // header: props => <Header />,
+                // title: 'Консультации врача',
+                headerRight: () => rightButton(),
+                headerShown: true,
+                headerBackVisible: true,
+                headerStyle: {
+                    backgroundColor: "#F3F4F6",
+                },
+                // headerTitleAlign: 'center',
+                headerTitleStyle: {
+                    color: "#434A53",
+                    fontWeight: '700',
+                    fontSize: 21,
+                },
+                headerTitle: "Консультация врача",
+                headerShadowVisible: false,
+            }}
+        >
           {/* <Stack.Screen
             name="TestScreen"
             options={{headerShown: false}}
@@ -46,48 +51,123 @@ const App = () => {
             name={ "SplashScreen" }
             options={{headerShown: false}}
             component={ SplashScreen }
-          /> 
+          />
           <Stack.Screen
             name={ "AuthScreen" }
             options={{headerShown: false}}
             component={ AuthScreen }
           />
           <Stack.Screen
-              name={ "RecoveryPasswordScreen" }
-              options={{headerShown: false}}
-              component={ RecoveryPasswordScreen }
-          />
-          <Stack.Screen
             name={ "MainScreen" }
             component={ MainScreen }
           />
-          <Stack.Screen
-              name="RegisterScreen"
-              options={{headerShown: false}}
-              component={ RegisterScreen }
-          />
-          <Stack.Screen
+            <Stack.Screen
+                name="MessagesScreen"
+                options={{
+                    title: "Консультации",
+                    headerStyle: {
+                        backgroundColor: '#FFFFFF'
+                    },
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: {
+                        color: "#434A53",
+                        fontWeight: '700',
+                        fontSize: 21,
+                    },
+                    headerBackVisible: false,
+                    headerLeft: () => (
+                        <BackButton />
+                    ),
+                    headerRight: () => (
+                        null
+                    )
+                }}
+                component={ MessagesScreen }
+            />
+            <Stack.Screen
+                name={ "ChatScreen" }
+                options={{
+                    title: "Консультации",
+                    headerStyle: {
+                        backgroundColor: '#FFFFFF'
+                    },
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: {
+                        color: "#434A53",
+                        fontWeight: '700',
+                        fontSize: 21,
+                    },
+                    headerBackVisible: false,
+                    headerLeft: () => (
+                        <BackButton />
+                    ),
+                    headerRight: () => (
+                        null
+                    )
+                }}
+                component={ ChatScreen }
+            />
+            <Stack.Screen
             name="MailLoginScreen"
             options={{headerShown: false}}
             component={ MailLoginScreen }
           />
-          <Stack.Screen
-            name="StartScreen"
-            options={{ header: props => <AnamnezHeader page={1} /> }}
-            component={ StartScreen }
-          />
-          <Stack.Screen
-              name="QuestionsScreen"
-              options={{ header: props => <AnamnezHeader page={2} /> }}
-              component={ QuestionsScreen }
-          />
+            <Stack.Screen
+                name="StartScreen"
+                // options={{ header: props => <AnamnezHeader page={1} /> }}
+                options={{
+                    title: '1/2',
+                    headerBackVisible: false,
+                    headerStyle: {
+                        backgroundColor: '#FFFFFF',
+                        padding: 20
+                    },
+                    headerTitleStyle: {
+                        fontSize: 21,
+                        color: '#434A53',
+                        fontWeight: '700'
+                    },
+                    headerTitleAlign: 'center',
+                    headerRight: () => (
+                        <CancelButton />
+                    ),
+                    headerLeft: () => (
+                        <BackButton />
+                    )
+                }}
+                component={ StartScreen }
+            />
           <Stack.Screen
             name="ModalScreen"
             options={{headerShown: false}}
             component={ ModalScreen }
           />
+            <Stack.Screen
+                name="QuestionsScreen"
+                // options={{ header: props => <AnamnezHeader page={2} /> }}
+                options={{
+                    title: '2/2',
+                    headerBackVisible: false,
+                    headerStyle: {
+                        backgroundColor: '#FFFFFF',
+                    },
+                    headerTitleStyle: {
+                        fontSize: 21,
+                        color: '#434A53',
+                        fontWeight: '700'
+                    },
+                    headerTitleAlign: 'center',
+                    headerRight: () => (
+                        <CancelButton />
+                    ),
+                    headerLeft: () => (
+                        <BackButton />
+                    )
+                }}
+                component={ QuestionsScreen }
+            />
         </Stack.Navigator>
-      </NavigationContainer>  
+      </NavigationContainer>
   );
 };
 
