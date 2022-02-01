@@ -1,9 +1,8 @@
 import React, { Component, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, FlatList, Text, Image, RefreshControl, Alert } from 'react-native';
-import MultiTextBase from './MultiTextBase';
+import { View, StyleSheet, TouchableOpacity, FlatList, Image, Alert } from 'react-native';
 import DocumentPicker from 'react-native-document-picker'
 import uuid from 'react-native-uuid';
-import baseApiURL from "../../requests/baseApiURL";
+import baseURL from "../../requests/baseURL";
 
 const UploadFileBase = ({ component }) => {
 
@@ -48,15 +47,15 @@ const UploadFileBase = ({ component }) => {
         imageDataPrev[id].setted = true
 
         setImageData(imageDataPrev)
-        await upload(result)
+        await upload(result[0])
     }
 
     const upload = async (resp) => {
-        console.log(resp)
-        // RNGRP.getRealPathFromURI(resp.).then(filePath =>
-        //     console.log(filePath)
-        // )
-        return;
+        // console.log(resp)
+        // let path = await RNFetchBlob.fs.stat(resp.uri+"")
+        // console.log("path: "+path)
+        //
+        // return;
         let data = new FormData();
 
         try {
@@ -65,7 +64,7 @@ const UploadFileBase = ({ component }) => {
                 type: resp.type,
                 name: resp.name || resp.fileName
             });
-            const response = await fetch(baseApiURL + 'uploader?key=analysis', {
+            const response = await fetch(baseURL + 'uploader?key=analysis', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'multipart/form-data',

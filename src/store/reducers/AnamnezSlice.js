@@ -30,8 +30,8 @@ const AnamnezSlice = createSlice({
             console.log("Question Body " + state.questionBody)
         },
         resetAllValues(state, action){
-            state.questionBody = "";
             state.anamnezData = {};
+            state.userAbout = {}
             state.showRequiredFields = null;
             state.userAbout = {};
         },
@@ -47,4 +47,4 @@ const AnamnezSlice = createSlice({
 export default AnamnezSlice.reducer
 export const { addAnamnezAnswer, selectSpecialistID, selectSpecialtyID,
     showRequiredFields, setQuestionBody, resetAllValues,
-    setUAKey, clearUserAbout } = AnamnezSlice.actions
+    setUAKey } = AnamnezSlice.actions

@@ -10,7 +10,7 @@ import UploadFileBase from '../../components/AnamnezBaseComponent/UploadFileBase
 import MultiChoicesBase from '../../components/AnamnezBaseComponent/MultiChoicesBase';
 import SendButtonBase from '../../components/AnamnezBaseComponent/SendButtonBase';
 import { useDispatch, useSelector } from 'react-redux'
-import { addAnamnezAnswer } from '../../store/reducers/AnamnezSlice'
+import {addAnamnezAnswer, resetAllValues} from '../../store/reducers/AnamnezSlice'
 
 const QuestionsScreen = () => {
 
@@ -20,6 +20,10 @@ const QuestionsScreen = () => {
     const DATA = []
     const [loading, setLoading] = useState(false)
     const [anamnezData, setAnamnezData] = useState(DATA)
+
+    useEffect(() => {
+        dispatch(resetAllValues())
+    }, [])
 
     const getAnamnez = async () => {
         setLoading(true)

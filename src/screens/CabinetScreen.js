@@ -1,7 +1,6 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
 import CabinetCardWidget from '../components/Widgets/Cabinet/CabinetCardWidget';
-import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard';
 import ApiURL from '../requests/baseApiURL'
 import Request from '../requests/Request'
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { resetAllValues, setQuestionBody } from '../../store/reducers/AnamnezSlice'
+import {resetAllValues, setQuestionBody} from '../../store/reducers/AnamnezSlice'
 import BaseTextInput from "../../components/Widgets/BaseTextInput";
 import NoticeService from "../../components/Widgets/NoticeService";
 
