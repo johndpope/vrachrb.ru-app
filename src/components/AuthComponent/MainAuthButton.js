@@ -1,19 +1,15 @@
-import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, BackHandler } from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 
-const MailLoginButton = (props) => {
+const MainAuthButton = ({text, nav}) => {
     const navigation = useNavigation(); 
 
     return (
-        <View style={{
-            marginTop: 8
-        }}>
-            <TouchableOpacity 
-                style={ styles.btnStyle }
-                onPress={() => navigation.navigate("MailLoginScreen")}
-            >
-                <Text style={ styles.textStyle }>Электронная почта</Text>
+        <View style={{ marginTop: 8 }}>
+            <TouchableOpacity style={ styles.btnStyle }
+                onPress={() => navigation.navigate(nav)}>
+                <Text style={ styles.textStyle }>{text}</Text>
             </TouchableOpacity>
         </View>
     )
@@ -36,4 +32,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default MailLoginButton
+export default MainAuthButton

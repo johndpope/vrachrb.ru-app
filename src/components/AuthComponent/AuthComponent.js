@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import VkLoginButton from './VkLoginButton'
-import MailLoginButton from './MailLoginButton'
-import RegisterComponent from './RegisterComponent'
+import MainAuthButton from './MainAuthButton'
+import SecondAuthButton from './SecondAuthButton'
 
 const AuthComponent = ({ navigation }) => {
     return (
         <View style={ styles.centerComponent }>
             <VkLoginButton />
-            <MailLoginButton />
-            <View>
-                <RegisterComponent />
-            </View>
+            <MainAuthButton   text={"Электронная почта"} nav={"MailLoginScreen"} />
+            <SecondAuthButton text={"Регистрация"} nav={"RegisterScreen"} />
         </View>
     )
 }

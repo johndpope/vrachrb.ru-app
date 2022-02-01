@@ -3,6 +3,7 @@ import React, { Component} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthScreen from './src/screens/AuthScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
 import MailLoginScreen from './src/screens/MailLoginScreen';
 import MainScreen from './src/screens/MainScreen'
 import StartScreen from './src/screens/AnamnezScreens/StartScreen';
@@ -13,6 +14,7 @@ import AnamnezHeader from './src/components/HeaderComponent/AnamnezHeader';
 import ModalScreen from './src/screens/ModalScreen';
 import QuestionsScreen from './src/screens/AnamnezScreens/QuestionsScreen';
 import SplashScreen from './src/screens/SplashScreen';
+import RecoveryPasswordScreen from "./src/screens/RecoveryPasswordScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -49,11 +51,21 @@ const App = () => {
             name={ "AuthScreen" }
             options={{headerShown: false}}
             component={ AuthScreen }
-          /> 
+          />
+          <Stack.Screen
+              name={ "RecoveryPasswordScreen" }
+              options={{headerShown: false}}
+              component={ RecoveryPasswordScreen }
+          />
           <Stack.Screen
             name={ "MainScreen" }
             component={ MainScreen }
-          />  
+          />
+          <Stack.Screen
+              name="RegisterScreen"
+              options={{headerShown: false}}
+              component={ RegisterScreen }
+          />
           <Stack.Screen
             name="MailLoginScreen"
             options={{headerShown: false}}
@@ -65,14 +77,14 @@ const App = () => {
             component={ StartScreen }
           />
           <Stack.Screen
+              name="QuestionsScreen"
+              options={{ header: props => <AnamnezHeader page={2} /> }}
+              component={ QuestionsScreen }
+          />
+          <Stack.Screen
             name="ModalScreen"
             options={{headerShown: false}}
             component={ ModalScreen }
-          />
-          <Stack.Screen
-            name="QuestionsScreen"
-            options={{ header: props => <AnamnezHeader page={2} /> }}
-            component={ QuestionsScreen }
           />
         </Stack.Navigator>
       </NavigationContainer>  

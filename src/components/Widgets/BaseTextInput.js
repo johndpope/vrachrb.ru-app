@@ -42,7 +42,7 @@ const BaseTextInput = ({ customStyle, idDispatch, is_required=true, hint="Вве
             multiline={ multiline }
             textAlign='left'
             textAlignVertical='top'
-            maxLength={maxLength}
+            maxLength={ maxLength }
             placeholder={ hint }
             placeholderTextColor={ require ? '#F27C83' : "#AAB2BD"}
             onChangeText={text => checkInputs(text)}

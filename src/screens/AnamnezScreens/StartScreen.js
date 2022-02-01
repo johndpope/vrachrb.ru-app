@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import {clearUserAbout, resetAllValues} from '../../store/reducers/AnamnezSlice'
+import {clearUserAbout, resetAllValues, setQuestionBody} from '../../store/reducers/AnamnezSlice'
 import BaseTextInput from "../../components/Widgets/BaseTextInput";
 import NoticeService from "../../components/Widgets/NoticeService";
 
@@ -21,7 +21,8 @@ const StartScreen = (props) => {
     }
 
     useEffect(() => {
-        choice === 1 ? dispatch(clearUserAbout()) : null
+        dispatch(clearUserAbout())
+        dispatch(setQuestionBody(""))
     }, [choice])
 
     const goAnamnez = () => {

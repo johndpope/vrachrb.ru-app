@@ -1,6 +1,6 @@
 import React, { useState, Component } from 'react'
 import { TextInput, View, StyleSheet, TouchableOpacity, Text, Button } from 'react-native'
-import RegisterComponent from '../AuthComponent/RegisterComponent';
+import SecondAuthButton from '../AuthComponent/SecondAuthButton';
 import baseApiURL from '../../requests/baseApiURL';
 import Request from '../../requests/Request';
 import RecoveryPassword from './RecoveryPassword';
@@ -8,6 +8,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveUserData } from '../../store/reducers/LoginSlice';
 import LoginSlice from '../../store/reducers/LoginSlice';
+import MainAuthButton from "../AuthComponent/MainAuthButton";
+import BaseSendButton from "../AuthComponent/BaseSendButton";
 
 
 const LoginFormComponent = () => {
@@ -19,10 +21,12 @@ const LoginFormComponent = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [response, setResponse] = useState("")
+    const [loading, setLoading] = useState(false)
 
-    const login = async (user, passwd) => {
-        let data = {user: user, password: passwd}
-        let request = await Request.post(baseApiURL + "SignIn", data=data);
+    const login = async () => {
+        setLoading(true)
+        let data = { user: email, password: password }
+        let request = await Request.post(baseApiURL + "SignIn", data);
 
         setResponse(request)
 
@@ -33,6 +37,7 @@ const LoginFormComponent = () => {
                 index: 0,
                 routes: [{ name: 'MainScreen' }],
             })
+        setLoading(false)
     }
 
     const checkFilledField = () => {
@@ -71,22 +76,8 @@ const LoginFormComponent = () => {
                 <RecoveryPassword />
             </View>
             <View style={ styles.btnBottom }>
-                <TouchableOpacity 
-                    style={{ 
-                        ...styles.btnStyle,
-                        backgroundColor: checkFilledField() ? '#54B9D1' : '#F3F4F6',
-                    }}
-                    onPress={
-                        () => login(email, password)
-                    }
-                    disabled={!checkFilledField()}
-                >
-                    <Text style={{ 
-                        ...styles.textStyle,
-                        color: checkFilledField() ? "#FFFFFF" : "#AAB2BD"
-                    }}>Войти</Text>
-                </TouchableOpacity>
-                <RegisterComponent />
+                <BaseSendButton text={"Войти"} checkFields={checkFilledField} onPress={login} loading={loading}/>
+                <SecondAuthButton text={"Зарегистрироваться"} nav={"RegisterScreen"}/>
             </View>
         </View>
     )

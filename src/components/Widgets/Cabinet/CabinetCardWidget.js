@@ -2,14 +2,17 @@ import React, { Component } from 'react'
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import {useDispatch} from "react-redux";
 import {setSpecialistData, setSpecialistRoute} from "../../../store/reducers/SpecSlice";
+import {useNavigation} from "@react-navigation/native";
 
 const CabinetCardWidget = ({ data }) => {
 
     const dispatch = useDispatch()
+    const navigation = useNavigation()
 
     function setCabinet(){
         dispatch(setSpecialistRoute("GetSpecialistBySpecialtyID"))
         dispatch(setSpecialistData({specialtyId : data.id}))
+        navigation.navigate("Специалист")
     }
 
     return (

@@ -9,7 +9,7 @@ const Header = () => {
     const navigation = useNavigation()
 
     const LogOut = async () => {
-      let data = await Request.post(baseApiURL + "SignOut", {})
+      let data = await Request.get(baseApiURL + "SignOut", {})
 
       navigation.navigate("AuthScreen")
     }
