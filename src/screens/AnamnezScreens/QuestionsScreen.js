@@ -21,10 +21,6 @@ const QuestionsScreen = () => {
     const [loading, setLoading] = useState(false)
     const [anamnezData, setAnamnezData] = useState(DATA)
 
-    useEffect(() => {
-        dispatch(resetAllValues())
-    }, [])
-
     const getAnamnez = async () => {
         setLoading(true)
         let rep = await Request.get(baseApiURL + "Get_anamnes", {spec_id:specialtyID})
@@ -109,7 +105,7 @@ const QuestionsScreen = () => {
                     <SingleTextBase index={ index } data={ item } /> : item.field_type == "yes_no_input" ?
                     <ChoicesButtonBase index={ index } data={ item } component={<SingleTextBase index={ index } data={ item } />} /> : item.field_type == "yes_no_textarea" ?
                     <ChoicesButtonBase index={ index } data={ item } component={<MultiTextBase index={ index } data={ item } />} /> : item.field_type == "textarea_upload" ?
-                    <UploadFileBase index={ index } data={ item } component={<MultiTextBase index={ index } data={ item } />} /> : 
+                    <UploadFileBase index={ index } data={ item } component={<MultiTextBase index={ index } data={ item } />} /> :
                     <MultiChoicesBase index={ index } data={ item } choices={ item.field_options.choices }/>
             })
         })
@@ -120,7 +116,7 @@ const QuestionsScreen = () => {
         })
 
         setAnamnezData(DATA)
-        
+
         setLoading(false)
     }
 
@@ -135,7 +131,7 @@ const QuestionsScreen = () => {
                     <View style={{
                         width: '90%',
                     }}>
-                        <FlatList 
+                        <FlatList
                             data={anamnezData}
                             style={{
                                 width: '100%',

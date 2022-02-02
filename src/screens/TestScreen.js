@@ -119,12 +119,13 @@ const TestScreen = () => {
         //     console.log(DATA[key1[i]])
         // }
         
-        DATA["response"][0]["Question"][0]["Answer"].forEach(element => {
-            console.log(element["body"])
-        });
-
-        console.log(DATA["response"][0]["Question"][0]["Specialtys"])
-        console.log(DATA["response"][0]["Question"][0]["Specialists"][0]["User"]["username"])
+        console.log(DATA["response"][0]["Question"].forEach(element => {
+            // element["Answer"].length != 0 && 
+            //     element["Answer"].forEach(item => {
+            //         console.log(item["question_id"], item["body"])
+            //     })
+            console.log(element["Answer"])
+        }))
         // let data = await Request.post(baseApiURL + "SignIn", {user: "CLIENT", password: "CLIENT"})
         // console.log(data)
         // delete DATA[0].test

@@ -5,6 +5,7 @@ import MessagesScreen from './MessagesScreen';
 import { Image, TouchableOpacity } from 'react-native';
 import BackButton from '../components/HeaderComponent/BackButton';
 import { useNavigation } from '@react-navigation/native';
+import ProfileScreen from './ProfileScreen';
 
 const BottomTab = createBottomTabNavigator()
 
@@ -71,6 +72,36 @@ const MainNavigationScreen = () => {
                     }
                 }}
                 component={ MessagesScreen }
+            />
+            <BottomTab.Screen 
+                name="ProfileScreen" 
+                component={ ProfileScreen } 
+                options={{
+                    title: "Профиль",
+                    headerStyle: {
+                        backgroundColor: '#FFFFFF'
+                    },
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: {
+                        color: "#434A53",
+                        fontWeight: '700',
+                        fontSize: 21,
+                    },
+                    tabBarActiveTintColor: "#54B9D1",
+                    tabBarInactiveTintColor: "#AAB2BD",
+                    headerBackVisible: false,
+                    tabBarIcon: () => {
+                        return (
+                            <Image 
+                                style={{ width: 26, height: 26, borderRadius: 100  }} 
+                                source={ require('../images/oval.png') }/>
+                        )
+                    },
+                    tabBarIconStyle: {  
+                        tabBarActiveTintColor: "#54B9D1",
+                        tabBarInactiveTintColor: "#AAB2BD",
+                    }
+                }}
             />
         </BottomTab.Navigator>
     )
