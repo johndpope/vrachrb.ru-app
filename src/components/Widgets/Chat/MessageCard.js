@@ -5,12 +5,15 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 const MessageCard = ({ item }) => {
 
     const navigation = useNavigation()
-
+    
     return (
         <View style={ styles.mainContent }>
             <TouchableOpacity
                 onPress={() => { 
-                    navigation.navigate("ChatScreen", { item: item }) 
+                    navigation.navigate("ChatScreen", { id: item.id, 
+                                                speciality: item.specialty, 
+                                                spec_name: item.first_name + " " 
+                                                + item.second_name + "." }) 
                 }}
             >
                 <View style={ styles.additionView }>
@@ -22,11 +25,14 @@ const MessageCard = ({ item }) => {
                     </View>
                     <View style={{
                         flexDirection: 'column',
-                        width: '60%',
+                        width: '55%',
+                        justifyContent: 'space-between',
                     }}>
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textSpeciality }>{ item.speciality }</Text>
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textName }>{ item.name }</Text>
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textPreviewMessage }>{ item.message }</Text>
+                        <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textSpeciality }>{ item.specialty }</Text>
+                        <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textName }>{ item.first_name + " " 
+                                                                                                + item.second_name + "." 
+                                                                                                + item.middle_name }</Text>
+                        <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textPreviewMessage }>{ item.body }</Text>
                     </View>
                     <View style={ styles.markRead } />
                 </View>
@@ -72,7 +78,8 @@ const styles = StyleSheet.create({
         width: 10,
         height: 10,
         backgroundColor: '#54B9D1',
-        borderRadius: 100
+        borderRadius: 100,
+        marginRight: 10
     }
 })
 

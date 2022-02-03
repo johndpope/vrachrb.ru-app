@@ -57,7 +57,7 @@ const App = () => {
                     headerTitleStyle: {
                         color: "#434A53",
                         fontWeight: '700',
-                        fontSize: 21,
+                        fontSize: 19,
                     },
                     headerBackVisible: false,
                     headerLeft: () => (
