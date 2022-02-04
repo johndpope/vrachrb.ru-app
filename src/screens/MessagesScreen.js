@@ -1,17 +1,19 @@
-import React, { Component, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View, Text } from 'react-native';
 import MessageCard from '../components/Widgets/Chat/MessageCard'
 import baseApiURL from '../requests/baseApiURL';
 import Request from '../requests/Request';
 
 const MessagesScreen = () => {
 
+    const [response, setResponse] = useState({})
     const [userChats, setUserChats] = useState() 
     const [loading, setLoading] = useState(false)
 
     const DATA = []
 
     const getChats = async () => {
+        setResponse({})
         setLoading(true)
         let response = await Request.get(baseApiURL + "Get_user_questions", {});
 
@@ -26,6 +28,7 @@ const MessagesScreen = () => {
             })
         });
 
+        setResponse(response)
         setUserChats(DATA)
         setLoading(false)
     }
@@ -36,7 +39,10 @@ const MessagesScreen = () => {
 
     return (
         <View style={ styles.mainContent }>
-            { loading ? <ActivityIndicator size={'large'} /> : 
+            { response['error'] &&
+            <Text style={{ color: "#F27C83", fontSize: 30, alignItems: 'center', justifyContent: 'center',}}>{response['error']}</Text>
+            }
+            { loading ? <ActivityIndicator size={'large'} /> :
                 (
                     <FlatList 
                         data={userChats}
@@ -54,7 +60,8 @@ const MessagesScreen = () => {
                             )
                         }}
                     />
-                )}
+                )
+            }
         </View>
     )
 }

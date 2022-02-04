@@ -49,7 +49,7 @@ const RecoveryPasswordComponent = () => {
 
     return (
         <View style={ styles.mainBlock }>
-            <View>
+            <View style={{width: 350}}>
                 <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
                 { response['error'] &&
                 <Text style={styles.negativeResponseStyle}>{response['error']}</Text>

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {resetAllValues, setQuestionBody} from '../../store/reducers/AnamnezSlice'
 import BaseTextInput from "../../components/Widgets/BaseTextInput";
 import NoticeService from "../../components/Widgets/NoticeService";
+import BaseSendButton from "../../components/AuthComponent/BaseSendButton";
+import {MultiPlatform} from "../../components/MultiPlatform";
 
 const StartScreen = (props) => {
 
@@ -26,10 +28,20 @@ const StartScreen = (props) => {
     }, [choice])
 
     const goAnamnez = () => {
+        if(checkFilledFields()) {
+            navigation.navigate("QuestionsScreen")
+        } else {
+            MultiPlatform.ToastShow('Заполните поля')
+        }
+    }
+
+    const checkFilledFields = () => {
         if(choice === 1 && questionBody) {
-            navigation.navigate("QuestionsScreen")
+            return true
         } else if(questionBody && userAbout["first_name"] && userAbout["second_name"] && userAbout["middle_name"]) {
-            navigation.navigate("QuestionsScreen")
+            return true
+        } else {
+            return false
         }
     }
 
@@ -84,10 +96,9 @@ const StartScreen = (props) => {
                 </View>
 
                 <NoticeService/>
-
-                <TouchableOpacity onPress={() => goAnamnez()} style={ styles.goButtonStyle }>
-                    <Text style={{ color: '#FFFFFF', fontSize: 17 }}> Дальше </Text>
-                </TouchableOpacity>
+                <View style={ styles.btnBottom }>
+                    <BaseSendButton text={"Дальше"} checkFields={checkFilledFields} onPress={goAnamnez} />
+                </View>
             </View>
         </View>
     )
@@ -127,6 +138,10 @@ const styles = StyleSheet.create({
     additTextStyle: {
         marginBottom: 12,
         marginLeft: 3 
+    },
+    btnBottom: {
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
     questionBodyStyle: {

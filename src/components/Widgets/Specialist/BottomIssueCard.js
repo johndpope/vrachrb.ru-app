@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
         paddingRight: 16,
         paddingBottom: 3,
         paddingTop: 5,
-        borderRadius: 16,
         backgroundColor: '#FFF',
     },
     gradientOptions: {

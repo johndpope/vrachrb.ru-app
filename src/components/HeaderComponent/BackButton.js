@@ -8,25 +8,17 @@ const BackButton = () => {
     const navigation = useNavigation()
 
     return (
-        // <View style={{
-        //     height: '100%',
-        //     justifyContent: 'center',
-        //     position: 'absolute',
-        //     left: 14
-        // }}>
-            <TouchableOpacity
-                onPress={ () => navigation.goBack() }
-            >
-                <Image  
-                    style={{
-                        width: 28,
-                        height: 23,
-                        tintColor: '#434A53'
-                    }}
-                    source={ backButtonImage }
-                />
-            </TouchableOpacity>
-        // </View>
+        <TouchableOpacity
+            onPress={() => navigation.goBack()}>
+            <Image
+                style={{
+                    width: 28,
+                    height: 23,
+                    tintColor: '#434A53'
+                }}
+                source={backButtonImage}
+            />
+        </TouchableOpacity>
     )
 }
 

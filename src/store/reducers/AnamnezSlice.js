@@ -32,7 +32,6 @@ const AnamnezSlice = createSlice({
         resetAllValues(state, action){
             state.anamnezData = {};
             state.showRequiredFields = null;
-            state.userAbout = {};
         },
 
         setUAKey(state, action){

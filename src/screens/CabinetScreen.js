@@ -8,13 +8,10 @@ const CabinetScreen = () => {
     const [cabinet, setCabinet] = useState()
     const [loading, setLoading] = useState(false)
     
-    const getCabinetData = async () => {
+    const getCabinetData = () => {
         setLoading(true)
-        let rep = await Request.get(ApiURL + "GetCabinet", {})
-        // let rep = await fetch(ApiURL + "GetCabinet", {})
-
-        setCabinet(rep)
-        setLoading(false)
+        Request.get(ApiURL + "GetCabinet", {})
+            .then(response => { setCabinet(response), setLoading(false)})
     };
 
     useEffect(() => {
@@ -24,11 +21,8 @@ const CabinetScreen = () => {
     return (
         <View style={ styles.mainContent }>
             { loading ? <ActivityIndicator size={'large'} /> : (
-                <View style={{
-                    width: '100%',
-                    height: '100%'
-                }}>
-                    <FlatList 
+                <View style={{ width: '100%', height: '100%' }}>
+                    <FlatList
                         refreshControl={
                             <RefreshControl 
                                 refreshing={loading}

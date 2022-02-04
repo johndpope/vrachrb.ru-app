@@ -6,9 +6,7 @@ const RecoveryPassword = () => {
     const navigation = useNavigation();
 
     return (
-        <View style={{
-            marginTop: 22
-        }}>
+        <View style={{marginTop: 22}}>
             <TouchableOpacity onPress={() => navigation.navigate("RecoveryPasswordScreen")}>
                 <Text style={ styles.textStyle }>Восстановить пароль</Text>
             </TouchableOpacity>

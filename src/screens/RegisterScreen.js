@@ -12,14 +12,14 @@ const RegisterScreen = () => {
             backgroundColor: "#F3F4F6"
         }}>
             <View style={{
-                flex: 0.1,
+                flex: 0.2,
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
                 <Image
                     style={{
-                        width: 175,
-                        height: 60
+                        width: 243,
+                        height: 83
                     }}
                     source={require("../images/logo.png")}
                 />

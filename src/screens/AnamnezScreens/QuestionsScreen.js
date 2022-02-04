@@ -23,7 +23,7 @@ const QuestionsScreen = () => {
 
     const getAnamnez = async () => {
         setLoading(true)
-        let rep = await Request.get(baseApiURL + "Get_anamnes", {spec_id:specialtyID})
+        let rep = await Request.get(baseApiURL + "Get_anamnes", { spec_id:specialtyID })
         console.log("ANAMNES::"+JSON.stringify(rep))
 
         // Заполнение скрина компонентами для отправки листа анамнеза

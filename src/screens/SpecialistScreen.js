@@ -15,13 +15,10 @@ const SpecialistScreen = () => {
     const specialistData = useSelector(state => state.SpecSlice.specialistData)
 
     
-    const getSpecialistData = async () => {
+    const getSpecialistData = () => {
         setLoading(true)
-        let rep = await Request.get(ApiURL + specialistRoute, specialistData)
-        // console.log("REP::"+JSON.stringify(rep))
-
-        setSpecialist(rep)
-        setLoading(false)
+        Request.get(ApiURL + specialistRoute, specialistData)
+            .then(response => { setSpecialist(response), setLoading(false)})
     };
 
     useEffect(() => {

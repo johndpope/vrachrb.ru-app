@@ -1,34 +1,64 @@
-import React, { useState, Component, useEffect } from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native'
+import React, { useState } from 'react'
+import { ScrollView, View, StyleSheet, Text, ToastAndroid } from 'react-native'
 import SecondAuthButton from '../AuthComponent/SecondAuthButton';
 import baseApiURL from '../../requests/baseApiURL';
 import Request from '../../requests/Request';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { saveUserData } from '../../store/reducers/LoginSlice';
-import MainAuthButton from "../AuthComponent/MainAuthButton";
 import BaseTextInput from "../AuthComponent/BaseTextInput";
+import BaseSendButton from "../AuthComponent/BaseSendButton";
+import AgreementComponent from "../AuthComponent/AgreementComponent";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import {Picker} from '@react-native-picker/picker';
+import BaseDateTimePicker from "../AuthComponent/BaseDateTimePicker";
+import {MultiPlatform} from "../MultiPlatform";
 
 
 const RegisterFormComponent = () => {
 
     const navigation = useNavigation()
-
     const dispatch = useDispatch()
+
 
     const [name, setName]            = useState("")
     const [familia, setFamilia]      = useState("")
     const [last_name, setLast_name]  = useState("")
-    const [gender, setGender]        = useState("")
+    const [gender, setGender]        = useState("м")
     const [birth_date, setBirth_date]= useState("")
     const [phone, setPhone]          = useState("")
     const [email, setEmail]          = useState("")
     const [password, setPassword]    = useState("")
+    const [password2, setPassword2]  = useState("")
+
+    const [agr1, setAgr1]            = useState(false)
+    const [agr2, setAgr2]      = useState(false)
+    const [agr3, setAgr3]  = useState(false)
 
     const [response, setResponse]    = useState("")
     const [loading, setLoading] = useState(false)
 
+    const agreements = [
+        {
+            "id": "1",
+            "description": "Я понимаю, что все рекомендации носят информационный или консультативный характер и не заменяют очного приема врача, применение полученных рекомендаций производится мной по собственной инициативе и на свой страх и риск",
+        },
+        {
+            "id": "2",
+            "description": "Я согласен и принимаю правила работы на портале",
+            "url": "http://vrachrb.ru/agreement/2/"
+        },
+        {
+            "id": "3",
+            "description": "Я даю своё согласие на обработку персональных данных",
+            "url": "http://vrachrb.ru/agreement/3/"
+        }
+    ]
+
     const register = async () => {
+        if(!validateEmailPhonePass(email,phone)){
+            return
+        }
         setLoading(true)
         let data = {
             name:       name,
@@ -40,7 +70,6 @@ const RegisterFormComponent = () => {
             email:      email,
             password:   password,
         }
-        // console.log(JSON.stringify(data))
         let request = await Request.post(baseApiURL + "Register", data);
 
         setResponse(request)
@@ -51,63 +80,69 @@ const RegisterFormComponent = () => {
         request['response'] &&
             navigation.reset({
                 index: 0,
-                routes: [{ name: 'MainScreen' }],
+                routes: [{ name: 'MainNavigationScreen' }],
             })
 
-        // Alert.alert(
-        //     "Условия пользования сервисом",
-        //     "Вы согласны с действующими требованиями" + <Text></Text>,
-        //     [
-        //         {
-        //             text: "Cancel",
-        //             onPress: () => console.log("Cancel Pressed"),
-        //             style: "cancel"
-        //         },
-        //         { text: "OK", onPress: () => console.log("OK Pressed") }
-        //     ]
-        // );
         setLoading(false)
     }
 
     const checkFilledField = () => {
-        if (name && familia && last_name && gender && birth_date && phone && email && password){
+        if (name && familia && last_name && gender && birth_date && phone && email && password && password2 && agr1 && agr2 && agr3){
             return true
         } else {
             return false
         }
     }
 
+    function validateEmailPhonePass(email,phone) {
+        let regMail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,10})$/;
+        let regPhone = /^\d[\d\(\)\ -]{4,14}\d$/;
+        if(!regMail.test(email)) {
+            MultiPlatform.ToastShow('Введите корректный email')
+            return false;
+        }
+        if(!regPhone.test(phone)) {
+            MultiPlatform.ToastShow('Введите корректный номер телефона')
+            return false;
+        }
+        if(password != password2){
+            MultiPlatform.ToastShow('Пароли не совпадают')
+            return false;
+        }
+        return true
+    }
+
     return (
-        <View style={ styles.mainBlock }>
-            <View>
-                <BaseTextInput response={response} hint={"Имя"} setValue={setName}/>
-                <BaseTextInput response={response} hint={"Фамилия"} setValue={setFamilia}/>
-                <BaseTextInput response={response} hint={"Отчество"} setValue={setLast_name}/>
-                <BaseTextInput response={response} hint={"Пол"} setValue={setGender}/>
-                <BaseTextInput response={response} hint={"Дата рождения"} setValue={setBirth_date}/>
-                <BaseTextInput response={response} hint={"Номер телефона"} setValue={setPhone}/>
-                <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
-                <BaseTextInput response={response} hint={"Пароль"} setValue={setPassword} pass={true}/>
-                { response['error'] &&
-                    <Text style={{ color: "#F27C83", fontSize: 15 }}>{response['error']}</Text>
-                }
-            </View>
+        <View style={styles.mainBlock}>
+            <ScrollView style={{width: 350}}>
+                <View>
+                    <BaseTextInput response={response} hint={"Имя"} setValue={setName}/>
+                    <BaseTextInput response={response} hint={"Фамилия"} setValue={setFamilia}/>
+                    <BaseTextInput response={response} hint={"Отчество"} setValue={setLast_name}/>
+                    <BaseTextInput response={response} hint={"Номер телефона"} setValue={setPhone}/>
+                    <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
+                    <BaseTextInput response={response} hint={"Пароль"} setValue={setPassword} pass={true}/>
+                    <BaseTextInput response={response} hint={"Повторите пароль"} setValue={setPassword2} pass={true}/>
+                    <Picker dropdownIconColor={'black'}
+                            style={styles.pickerStyle}
+                            selectedValue={gender}
+                            onValueChange={(itemValue, itemIndex) => setGender(itemValue)}>
+                        <Picker.Item label="Мужчина" value="м" />
+                        <Picker.Item label="Женщина" value="ж" />
+                    </Picker>
+                    <BaseDateTimePicker text={"Дата рождения"} setValue={setBirth_date}/>
+                </View>
+                <View style={{marginTop: 10}}>
+                    <AgreementComponent setValue={setAgr1} index={0}/>
+                    <AgreementComponent setValue={setAgr2} index={1}/>
+                    <AgreementComponent setValue={setAgr3} index={2}/>
+                </View>
+            </ScrollView>
+            { response['error'] &&
+            <Text style={{ color: "#F27C83", fontSize: 15, paddingBottom: 10}}>{response['error']}</Text>
+            }
             <View style={ styles.btnBottom }>
-                <TouchableOpacity 
-                    style={{ 
-                        ...styles.btnStyle,
-                        backgroundColor: checkFilledField() ? '#54B9D1' : '#F3F4F6',
-                    }}
-                    onPress={
-                        () => register()
-                    }
-                    disabled={!checkFilledField()}
-                >
-                    <Text style={{ 
-                        ...styles.textStyle,
-                        color: checkFilledField() ? "#FFFFFF" : "#AAB2BD"
-                    }}>Зарегистрироваться</Text>
-                </TouchableOpacity>
+                <BaseSendButton text={"Зарегистрироваться"} checkFields={checkFilledField} onPress={register} loading={loading}/>
                 <SecondAuthButton text={"Авторизоваться"} nav={"MailLoginScreen"} />
             </View>
         </View>
@@ -116,13 +151,20 @@ const RegisterFormComponent = () => {
 
 const styles = StyleSheet.create({
     mainBlock: {
-        backgroundColor: 'white',
         flex: 1,
         width: '100%',
+        backgroundColor: 'white',
+        flexDirection: 'column',
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,
         justifyContent: 'space-between',
         alignItems: 'center',
+    },
+    pickerStyle :{
+        height: 50,
+        backgroundColor:"#F3F4F6",
+        color: "black",
+        marginTop: 10,
     },
     textInputStyle: {
         borderBottomWidth: 2,
@@ -133,10 +175,9 @@ const styles = StyleSheet.create({
         color: '#434A53'
     },
     btnBottom: {
-        // flex: 0.7,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 50,
+        marginBottom: 30,
     },
     textStyle: {
         color: '#FFFFFF',

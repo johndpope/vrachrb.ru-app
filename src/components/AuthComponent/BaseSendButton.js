@@ -1,8 +1,7 @@
-import React, {useState} from 'react'
-import {View, Text, StyleSheet, TouchableOpacity, ActivityIndicator} from 'react-native'
-import { useNavigation } from "@react-navigation/native";
+import React from 'react'
+import { Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
 
-const BaseSendButton = ({checkFields, onPress, text, loading}) => {
+const BaseSendButton = ({ checkFields, onPress, text, loading }) => {
 
     return (
         <TouchableOpacity

@@ -10,6 +10,8 @@ import { saveUserData } from '../../store/reducers/LoginSlice';
 import LoginSlice from '../../store/reducers/LoginSlice';
 import MainAuthButton from "../AuthComponent/MainAuthButton";
 import BaseSendButton from "../AuthComponent/BaseSendButton";
+import BaseTextInput from "../AuthComponent/BaseTextInput";
+import {MultiPlatform} from "../MultiPlatform";
 
 
 const LoginFormComponent = () => {
@@ -24,6 +26,9 @@ const LoginFormComponent = () => {
     const [loading, setLoading] = useState(false)
 
     const login = async () => {
+        if(!validateEmail(email)){
+            return
+        }
         setLoading(true)
         let data = { user: email, password: password }
         let request = await Request.post(baseApiURL + "SignIn", data);
@@ -48,31 +53,23 @@ const LoginFormComponent = () => {
         }
     }
 
+    function validateEmail(email,phone) {
+        let regMail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,10})$/;
+        if(!regMail.test(email)) {
+            MultiPlatform.ToastShow('Введите корректный email')
+            return false;
+        }
+        return true
+    }
+
     return (
         <View style={ styles.mainBlock }>
-            <View>
-                <TextInput
-                    style={{
-                        ...styles.textInputStyle,
-                        borderBottomColor: response['error'] ? "#F27C83" : "#E6E9ED"
-                    }}
-                    placeholder='Электронная почта'
-                    placeholderTextColor="#AAB2BD"
-                    onChangeText={text => setEmail(text)}
-                />
+            <View style={{width: 350}}>
+                <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
                 { response['error'] &&
-                    <Text style={{ color: "#F27C83", fontSize: 15 }}>Неверный логин или пароль</Text>
+                <Text style={{ color: "#F27C83", fontSize: 15 }}>Неверный логин или пароль</Text>
                 }
-                <TextInput
-                    style={{
-                        ...styles.textInputStyle,
-                        borderBottomColor: response['error'] ? "#F27C83" : "#E6E9ED"
-                    }}
-                    placeholder='Пароль'
-                    placeholderTextColor="#AAB2BD"
-                    onChangeText={passwd => setPassword(passwd)}
-                    secureTextEntry={true}
-                />
+                <BaseTextInput response={response} hint={"Пароль"} setValue={setPassword} pass={true}/>
                 <RecoveryPassword />
             </View>
             <View style={ styles.btnBottom }>

@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Image } from 'react-native'
 import RecoveryPasswordComponent from "../components/AuthComponent/RecoveryPasswordComponent";
 
-const RegisterScreen = () => {
+const RecoveryPasswordScreen = () => {
     return (
         <View style={{
             flex: 1,
@@ -29,4 +29,4 @@ const RegisterScreen = () => {
     )
 }
 
-export default RegisterScreen
+export default RecoveryPasswordScreen

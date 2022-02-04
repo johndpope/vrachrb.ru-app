@@ -21,7 +21,7 @@ const BaseTextInput = ({ response, setValue, hint, pass=false }) => {
 const styles = StyleSheet.create({
     textInputStyle: {
         borderBottomWidth: 2,
-        width: 350,
+        width: "100%",
         marginTop: 5,
         fontSize: 17,
         borderRadius: 1,

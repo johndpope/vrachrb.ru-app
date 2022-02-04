@@ -15,10 +15,10 @@ import QuestionsScreen from './src/screens/AnamnezScreens/QuestionsScreen';
 import SplashScreen from './src/screens/SplashScreen';
 import CancelButton from './src/components/HeaderComponent/CancelButton';
 import BackButton from './src/components/HeaderComponent/BackButton';
-import MessagesScreen from './src/screens/MessagesScreen'
 import ChatScreen from './src/screens/ChatScreen'
-import { Image, TouchableOpacity } from 'react-native';
 import MainNavigationScreen from './src/screens/MainNavigationScreen';
+import RegisterScreen from "./src/screens/RegisterScreen";
+import RecoveryPasswordScreen from "./src/screens/RecoveryPasswordScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,11 +26,11 @@ const App = () => {
   return (
       <NavigationContainer>
         <Stack.Navigator>
-            {/* <Stack.Screen
-                name="TestScreen"
-                options={{headerShown: false}}
-                component={ TestScreen }
-            />   */}
+            {/*<Stack.Screen*/}
+            {/*    name="TestScreen"*/}
+            {/*    options={{headerShown: false}}*/}
+            {/*    component={ TestScreen }*/}
+            {/*/>  */}
             <Stack.Screen
                 name={ "SplashScreen" }
                 options={{headerShown: false}}
@@ -40,6 +40,21 @@ const App = () => {
                 name={ "AuthScreen" }
                 options={{headerShown: false}}
                 component={ AuthScreen }
+            />
+            <Stack.Screen
+                name="RegisterScreen"
+                options={{headerShown: false}}
+                component={ RegisterScreen }
+            />
+            <Stack.Screen
+                name="RecoveryPasswordScreen"
+                options={{headerShown: false}}
+                component={ RecoveryPasswordScreen }
+            />
+            <Stack.Screen
+                name="MailLoginScreen"
+                options={{headerShown: false}}
+                component={ MailLoginScreen }
             />
             <Stack.Screen
                 name={ "MainNavigationScreen" }
@@ -68,11 +83,6 @@ const App = () => {
                     )
                 }}
                 component={ ChatScreen }
-            />
-            <Stack.Screen
-                name="MailLoginScreen"
-                options={{headerShown: false}}
-                component={ MailLoginScreen }
             />
             <Stack.Screen
                 name="StartScreen"

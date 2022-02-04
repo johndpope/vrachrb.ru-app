@@ -51,13 +51,7 @@ const UploadFileBase = ({ component }) => {
     }
 
     const upload = async (resp) => {
-        // console.log(resp)
-        // let path = await RNFetchBlob.fs.stat(resp.uri+"")
-        // console.log("path: "+path)
-        //
-        // return;
         let data = new FormData();
-
         try {
             data.append('file', {
                 uri: resp.uri,

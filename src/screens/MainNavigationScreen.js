@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainScreen from './MainScreen';
 import MessagesScreen from './MessagesScreen';
@@ -43,8 +43,8 @@ const MainNavigationScreen = () => {
                 }}                
             />
             <BottomTab.Screen 
-                name="MessagesScreen" 
-                component={ MessagesScreen } 
+                name="MessagesScreen"
+                component={ MessagesScreen }
                 options={{
                     title: "Консультации",
                     headerStyle: {
