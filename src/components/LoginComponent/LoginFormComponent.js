@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react'
-import { TextInput, View, StyleSheet, TouchableOpacity, Text, Button } from 'react-native'
+import { TextInput, View, StyleSheet, TouchableOpacity, Text, Button, ScrollView } from 'react-native'
 import SecondAuthButton from '../AuthComponent/SecondAuthButton';
 import baseApiURL from '../../requests/baseApiURL';
 import Request from '../../requests/Request';
@@ -26,9 +26,6 @@ const LoginFormComponent = () => {
     const [loading, setLoading] = useState(false)
 
     const login = async () => {
-        if(!validateEmail(email)){
-            return
-        }
         setLoading(true)
         let data = { user: email, password: password }
         let request = await Request.post(baseApiURL + "SignIn", data);
@@ -53,21 +50,12 @@ const LoginFormComponent = () => {
         }
     }
 
-    function validateEmail(email,phone) {
-        let regMail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,10})$/;
-        if(!regMail.test(email)) {
-            MultiPlatform.ToastShow('Введите корректный email')
-            return false;
-        }
-        return true
-    }
-
     return (
         <View style={ styles.mainBlock }>
             <View style={{width: 350}}>
                 <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
                 { response['error'] &&
-                <Text style={{ color: "#F27C83", fontSize: 15 }}>Неверный логин или пароль</Text>
+                    <Text style={{ color: "#F27C83", fontSize: 15 }}>Неверный логин или пароль</Text>
                 }
                 <BaseTextInput response={response} hint={"Пароль"} setValue={setPassword} pass={true}/>
                 <RecoveryPassword />
@@ -87,8 +75,9 @@ const styles = StyleSheet.create({
         width: '100%',
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         alignItems: 'center',
+        overflow: 'scroll',
     },
     textInputStyle: {
         borderBottomWidth: 2,
@@ -100,7 +89,8 @@ const styles = StyleSheet.create({
     },
     btnBottom: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 25
     },
     textStyle: {
         color: '#FFFFFF',

@@ -88,7 +88,7 @@ const ChatScreen = ({ route }) => {
     }, [])
   
     const onSend = useCallback( async (messages = []) => {
-        let response = await Request.post(baseApiURL + "SendMessage", {question_id: route.params.id, body: messages[0].text})
+        await Request.post(baseApiURL + "SendMessage", {question_id: route.params.id, body: messages[0].text})
         
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
     }, [])
@@ -98,8 +98,8 @@ const ChatScreen = ({ route }) => {
         ) : (
             <GiftedChat
                 textInputStyle={{ color: 'black' }}
-                containerStyle={{ backgroundColor: '#F3F4F6' }}
-                messagesContainerStyle={{ backgroundColor: '#FFFFFF'}}
+                containerStyle={{ backgroundColor: '#F3F4F6', height: '10%' }}
+                messagesContainerStyle={{ backgroundColor: '#FFFFFF', height: '95%'}}
                 placeholder='Сообщение'
                 renderSend={props => customSend(props)}
                 messages={messages}

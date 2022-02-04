@@ -1,36 +1,41 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react';
-import { Button, Image, StyleSheet, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import ProfileDataItem from '../components/Widgets/Profile/ProfileDataItem';
 import baseApiURL from '../requests/baseApiURL';
 import Request from '../requests/Request';
+import LoginSlice from '../store/reducers/LoginSlice';
 
 const ProfileScreen = () => {
 
     const navigation = useNavigation()
+    const selectData = useSelector(state => state.LoginSlice.userData)
 
     const logOut = async () => {
-        let response = await Request.get(baseApiURL + "SignOut", {})
+        // let response = await Request.get(baseApiURL + "SignOut", {})
 
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'AuthScreen' }],
-        })
+        // navigation.reset({
+        //     index: 0,
+        //     routes: [{ name: 'AuthScreen' }],
+        // })
+        console.log(selectData)
     }
 
     return (
         <View style={ styles.mainContent }>
             <View style={{
                 flex: 1,
+                backgroundColor: '#E5E5E5'
             }}>
-
             </View>
             <View style={{
-                flex: 2,
+                flex: 2.2,
                 backgroundColor: '#FFFFFF',
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderTopLeftRadius: 20,
-                borderTopRightRadius: 20
+                borderTopRightRadius: 20,
             }}>
                 <Image style={{
                     width: 230,
@@ -39,10 +44,17 @@ const ProfileScreen = () => {
                     position: 'absolute',
                     top: '-30%'
                 }} source={ require('../images/oval.png') } />
-                <Button 
+                {/* <Button 
                     title='Выход'
                     onPress={() => logOut()}
-                />
+                /> */}
+                <Text style={{ color: 'black', fontSize: 17 }}>{ selectData.first_name + " " + 
+                        selectData.second_name + " " + selectData.middle_name }</Text>
+                <View style={{ width: '85%', marginTop: 30}}>
+                    <ProfileDataItem header="Ваш Email" data={ selectData.email } />
+                    <ProfileDataItem header="Ваш дата рождения" data={ selectData.birth_date.split(" ")[0] } />
+                    <ProfileDataItem header="Ваш номер телефона" data={ selectData.phone } />
+                </View>
             </View>
         </View>
     )

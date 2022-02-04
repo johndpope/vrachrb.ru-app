@@ -9,7 +9,6 @@ import { saveUserData } from '../../store/reducers/LoginSlice';
 import BaseTextInput from "../AuthComponent/BaseTextInput";
 import BaseSendButton from "../AuthComponent/BaseSendButton";
 import AgreementComponent from "../AuthComponent/AgreementComponent";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import {Picker} from '@react-native-picker/picker';
 import BaseDateTimePicker from "../AuthComponent/BaseDateTimePicker";
 import {MultiPlatform} from "../MultiPlatform";
@@ -20,6 +19,12 @@ const RegisterFormComponent = () => {
     const navigation = useNavigation()
     const dispatch = useDispatch()
 
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState(null);
+    const [items, setItems] = useState([
+      {label: 'Мужчина', value: 'м'},
+      {label: 'Женщина', value: 'ж'}
+    ]);
 
     const [name, setName]            = useState("")
     const [familia, setFamilia]      = useState("")
@@ -114,7 +119,7 @@ const RegisterFormComponent = () => {
 
     return (
         <View style={styles.mainBlock}>
-            <ScrollView style={{width: 350}}>
+            <ScrollView style={{width: '90%'}}>
                 <View>
                     <BaseTextInput response={response} hint={"Имя"} setValue={setName}/>
                     <BaseTextInput response={response} hint={"Фамилия"} setValue={setFamilia}/>
@@ -123,13 +128,33 @@ const RegisterFormComponent = () => {
                     <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
                     <BaseTextInput response={response} hint={"Пароль"} setValue={setPassword} pass={true}/>
                     <BaseTextInput response={response} hint={"Повторите пароль"} setValue={setPassword2} pass={true}/>
-                    <Picker dropdownIconColor={'black'}
+                    {/* <Picker dropdownIconColor={'black'}
                             style={styles.pickerStyle}
                             selectedValue={gender}
                             onValueChange={(itemValue, itemIndex) => setGender(itemValue)}>
                         <Picker.Item label="Мужчина" value="м" />
                         <Picker.Item label="Женщина" value="ж" />
-                    </Picker>
+                    </Picker> */}
+                    <DropDownPicker
+                        style={{
+                            backgroundColor: 'white',
+                            borderColor: '#CCD1D9',
+                            borderWidth: 2,
+                            marginTop: 10
+                        }}
+                        dropDownContainerStyle={{
+                            backgroundColor: 'white',
+                            borderColor: '#CCD1D9',
+                            borderWidth: 2
+                        }}
+                        placeholder='Мужчина'
+                        open={open}
+                        value={gender}
+                        items={items}
+                        setOpen={setOpen}
+                        setValue={setGender}
+                        setItems={setItems}
+                    />
                     <BaseDateTimePicker text={"Дата рождения"} setValue={setBirth_date}/>
                 </View>
                 <View style={{marginTop: 10}}>
