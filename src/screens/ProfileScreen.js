@@ -13,13 +13,13 @@ const ProfileScreen = () => {
     const selectData = useSelector(state => state.LoginSlice.userData)
 
     const logOut = async () => {
-        // let response = await Request.get(baseApiURL + "SignOut", {})
+        let response = await Request.get(baseApiURL + "SignOut", {})
 
-        // navigation.reset({
-        //     index: 0,
-        //     routes: [{ name: 'AuthScreen' }],
-        // })
-        console.log(selectData)
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'AuthScreen' }],
+        })
+        // console.log(selectData)
     }
 
     return (
@@ -44,17 +44,17 @@ const ProfileScreen = () => {
                     position: 'absolute',
                     top: '-30%'
                 }} source={ require('../images/oval.png') } />
-                {/* <Button 
-                    title='Выход'
-                    onPress={() => logOut()}
-                /> */}
-                <Text style={{ color: 'black', fontSize: 17 }}>{ selectData.first_name + " " + 
-                        selectData.second_name + " " + selectData.middle_name }</Text>
+                <Text style={{ color: 'black', fontSize: 17 }}>{ selectData.first_name + " " +
+                    selectData.second_name + " " + selectData.middle_name }</Text>
                 <View style={{ width: '85%', marginTop: 30}}>
                     <ProfileDataItem header="Ваш Email" data={ selectData.email } />
                     <ProfileDataItem header="Ваш дата рождения" data={ selectData.birth_date.split(" ")[0] } />
                     <ProfileDataItem header="Ваш номер телефона" data={ selectData.phone } />
                 </View>
+                <Button
+                    title='Выход'
+                    onPress={() => logOut()}
+                />
             </View>
         </View>
     )

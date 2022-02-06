@@ -128,33 +128,13 @@ const RegisterFormComponent = () => {
                     <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
                     <BaseTextInput response={response} hint={"Пароль"} setValue={setPassword} pass={true}/>
                     <BaseTextInput response={response} hint={"Повторите пароль"} setValue={setPassword2} pass={true}/>
-                    {/* <Picker dropdownIconColor={'black'}
+                    <Picker dropdownIconColor={'black'}
                             style={styles.pickerStyle}
                             selectedValue={gender}
                             onValueChange={(itemValue, itemIndex) => setGender(itemValue)}>
                         <Picker.Item label="Мужчина" value="м" />
                         <Picker.Item label="Женщина" value="ж" />
-                    </Picker> */}
-                    <DropDownPicker
-                        style={{
-                            backgroundColor: 'white',
-                            borderColor: '#CCD1D9',
-                            borderWidth: 2,
-                            marginTop: 10
-                        }}
-                        dropDownContainerStyle={{
-                            backgroundColor: 'white',
-                            borderColor: '#CCD1D9',
-                            borderWidth: 2
-                        }}
-                        placeholder='Мужчина'
-                        open={open}
-                        value={gender}
-                        items={items}
-                        setOpen={setOpen}
-                        setValue={setGender}
-                        setItems={setItems}
-                    />
+                    </Picker>
                     <BaseDateTimePicker text={"Дата рождения"} setValue={setBirth_date}/>
                 </View>
                 <View style={{marginTop: 10}}>
