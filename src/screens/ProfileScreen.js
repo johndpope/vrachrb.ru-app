@@ -43,7 +43,7 @@ const ProfileScreen = () => {
                     borderRadius: 200,
                     position: 'absolute',
                     top: '-30%'
-                }} source={ require('../images/oval.png') } />
+                }} source={{ uri: baseURL + "u/i/2/7/a/1.png" }} />
                 <Text style={{ color: 'black', fontSize: 17 }}>{ selectData.first_name + " " +
                     selectData.second_name + " " + selectData.middle_name }</Text>
                 <View style={{ width: '85%', marginTop: 30}}>

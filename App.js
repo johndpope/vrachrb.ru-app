@@ -19,6 +19,7 @@ import ChatScreen from './src/screens/ChatScreen'
 import MainNavigationScreen from './src/screens/MainNavigationScreen';
 import RegisterScreen from "./src/screens/RegisterScreen";
 import RecoveryPasswordScreen from "./src/screens/RecoveryPasswordScreen";
+import DisplayAnamnezScreen from './src/screens/AnamnezScreens/DisplayAnamnezScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -114,6 +115,27 @@ const App = () => {
                 name="ModalScreen"
                 options={{headerShown: false}}
                 component={ ModalScreen }
+            />
+            <Stack.Screen
+                name="DisplayAnamnezScreen"
+                options={{
+                    title: 'Анамнез',
+                    headerBackVisible: false,
+                    headerStyle: {
+                        backgroundColor: '#FFFFFF',
+                    },
+                    headerTitleStyle: {
+                        fontSize: 21,
+                        color: '#434A53',
+                        fontWeight: '700'
+                    },
+                    headerShadowVisible: false,
+                    headerTitleAlign: 'center',
+                    headerLeft: () => (
+                        <BackButton />
+                    )
+                }}
+                component={ DisplayAnamnezScreen }
             />
             <Stack.Screen
                 name="QuestionsScreen"

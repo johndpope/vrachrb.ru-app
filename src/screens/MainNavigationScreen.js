@@ -12,7 +12,9 @@ const BottomTab = createBottomTabNavigator()
 const MainNavigationScreen = () => {
     return (
         <BottomTab.Navigator>
-            <BottomTab.Screen 
+            {
+                false &&
+            (<BottomTab.Screen 
                 name="MainScreen" 
                 component={ MainScreen } 
                 options={{
@@ -41,7 +43,7 @@ const MainNavigationScreen = () => {
                         )
                     },
                 }}                
-            />
+            />)}
             <BottomTab.Screen 
                 name="MessagesScreen"
                 component={ MessagesScreen }

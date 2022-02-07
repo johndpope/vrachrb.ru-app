@@ -9,6 +9,7 @@ import DocumentPicker from 'react-native-document-picker'
 import UploadFileBase from '../components/AnamnezBaseComponent/UploadFileBase'
 import MultiChoicesBase from '../components/AnamnezBaseComponent/MultiChoicesBase'
 import MultiTextBase from '../components/AnamnezBaseComponent/MultiTextBase'
+import Storage from '../storage/Storage'
 
 export const TestScreen1 = ({ fieldType, index }) => {
 
@@ -86,6 +87,19 @@ const TestScreen = () => {
 
     let count = 0
 
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState(null);
+    const [items, setItems] = useState([
+      {label: 'Мужчина', value: 'м'},
+      {label: 'Женщина', value: 'ж'}
+    ]);
+
+    const LogOut1 = async () => {
+        let DATA = await Request.get(baseApiURL + "SignOut", {})
+
+        console.log(DATA)
+    }
+
     const LogOut = async (text) => {
         // dispatch(addAnamnezAnswer({
         //     index: 0,
@@ -111,21 +125,24 @@ const TestScreen = () => {
         //         console.log("value " + false)
         //     }
         // });
-        let DATA = await Request.get(baseApiURL + "Get_user_questions", {})
+        // let DATA = await Request.get(baseApiURL + "Get_user_questions", {})
 
         // const key1 = Object.keys(DATA)
 
         // for (let i = 0; i < key1.length; i++){
         //     console.log(DATA[key1[i]])
         // }
-        
-        console.log(DATA["response"][0]["Question"].forEach(element => {
-            // element["Answer"].length != 0 && 
-            //     element["Answer"].forEach(item => {
-            //         console.log(item["question_id"], item["body"])
-            //     })
-            console.log(element["Answer"])
-        }))
+        // let data = await Request.post(baseApiURL + "SignIn", {user: "CLIENT", password: "CLIENT"})
+        // console.log(data)
+        await Storage.save("hello", "Data")
+        console.log(await Storage.get("hello"))
+        // console.log(DATA["response"][0]["Question"].forEach(element => {
+        //     // element["Answer"].length != 0 && 
+        //     //     element["Answer"].forEach(item => {
+        //     //         console.log(item["question_id"], item["body"])
+        //     //     })
+        //     console.log(element["Answer"])
+        // }))
         // let data = await Request.post(baseApiURL + "SignIn", {user: "CLIENT", password: "CLIENT"})
         // console.log(data)
         // delete DATA[0].test
@@ -194,7 +211,8 @@ const TestScreen = () => {
                     // onChangeText={text => LogOut(text)}
                     style={{ backgroundColor: 'wheat' }} 
                 />
-                <Button title='send' onPress={() => LogOut()}/>
+                <Button title='SignIn' onPress={() => LogOut()}/>                
+                <Button title='LogOut' onPress={() => LogOut1()}/>
             </View>
         </View>
     )
