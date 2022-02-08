@@ -1,23 +1,40 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Button, Image, StyleSheet, Text, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import ProfileDataItem from '../components/Widgets/Profile/ProfileDataItem';
 import baseApiURL from '../requests/baseApiURL';
 import Request from '../requests/Request';
-import LoginSlice from '../store/reducers/LoginSlice';
+import { resetUserData } from '../store/reducers/LoginSlice';
+import Storage from "../storage/Storage";
+import baseURL from "../requests/baseURL";
 
 const ProfileScreen = () => {
 
     const navigation = useNavigation()
+    const dispatch = useDispatch();
     const selectData = useSelector(state => state.LoginSlice.userData)
 
     const logOut = async () => {
         let response = await Request.get(baseApiURL + "SignOut", {})
 
-        navigation.reset({
+        response["response"] && dispatch(resetUserData())
+        && navigation.reset({
             index: 0,
             routes: [{ name: 'AuthScreen' }],
+        })
+        await Storage.save("userData", {
+            auth: false,
+            isSpecialist: false,
+            first_name: "",
+            second_name: "",
+            middle_name: "",
+            username: "",
+            gender: "",
+            birth_date: "",
+            email: "",
+            phone: "",
+            photo: ""
         })
         // console.log(selectData)
     }
@@ -43,7 +60,7 @@ const ProfileScreen = () => {
                     borderRadius: 200,
                     position: 'absolute',
                     top: '-30%'
-                }} source={{ uri: baseURL + "u/i/2/7/a/1.png" }} />
+                }} source={{ uri: baseURL + "u/i/"+selectData.photo }} />
                 <Text style={{ color: 'black', fontSize: 17 }}>{ selectData.first_name + " " +
                     selectData.second_name + " " + selectData.middle_name }</Text>
                 <View style={{ width: '85%', marginTop: 30}}>
@@ -53,7 +70,7 @@ const ProfileScreen = () => {
                 </View>
                 <Button
                     title='Выход'
-                    onPress={() => logOut()}
+                    onPress={() => { logOut()  } }
                 />
             </View>
         </View>

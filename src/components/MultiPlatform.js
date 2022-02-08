@@ -1,9 +1,7 @@
 import React from "react";
 import { ToastAndroid, Platform, AlertIOS } from "react-native";
 /**
- * Класс для работы с AsyncStorage
- * @description
- * Имеет статические поля и методы для работы с стором*/
+ * Класс с Мультиплатформенными методами */
 export class MultiPlatform {
 
     static ToastShow(msg){

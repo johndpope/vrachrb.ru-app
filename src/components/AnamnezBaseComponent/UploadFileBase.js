@@ -4,7 +4,7 @@ import DocumentPicker from 'react-native-document-picker'
 import uuid from 'react-native-uuid';
 import baseURL from "../../requests/baseURL";
 
-const UploadFileBase = ({ component }) => {
+const UploadFileBase = ({ component, index, data }) => {
 
     let ImagesData = [{
         index: 0,
@@ -31,8 +31,6 @@ const UploadFileBase = ({ component }) => {
             type: [DocumentPicker.types.images]
         });
 
-        setImageData(imageDataPrev)
-
         let imageDataPrev = [...imageData]
 
         imageDataPrev[id].image = result[0].uri
@@ -47,36 +45,36 @@ const UploadFileBase = ({ component }) => {
         imageDataPrev[id].setted = true
 
         setImageData(imageDataPrev)
-        await upload(result[0])
+        // await upload(result[0])
     }
 
-    const upload = async (resp) => {
-        let data = new FormData();
-        try {
-            data.append('file', {
-                uri: resp.uri,
-                type: resp.type,
-                name: resp.name || resp.fileName
-            });
-            const response = await fetch(baseURL + 'uploader?key=analysis', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                body: data
-            });
-            const text = await response.text();
-            console.log('text', text);
-            let json = JSON.parse(text);
-            if (json.state === 'success') {
-                Alert.alert("Text");
-            } else {
-                Alert.alert(json.message);
-            }
-        } catch (e) {
-            Alert.alert(e);
-        }
-    }
+    // const upload = async (resp) => {
+    //     let data = new FormData();
+    //     try {
+    //         data.append('file', {
+    //             uri: resp.uri,
+    //             type: resp.type,
+    //             name: resp.name || resp.fileName
+    //         });
+    //         const response = await fetch(baseURL + 'uploader?key=analysis', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data',
+    //             },
+    //             body: data
+    //         });
+    //         const text = await response.text();
+    //         console.log('text', text);
+    //         let json = JSON.parse(text);
+    //         if (json.state === 'success') {
+    //             Alert.alert("Text");
+    //         } else {
+    //             Alert.alert(json.message);
+    //         }
+    //     } catch (e) {
+    //         Alert.alert(e);
+    //     }
+    // }
 
     return (
         <View

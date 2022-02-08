@@ -1,17 +1,15 @@
-import React, { useState, Component } from 'react'
-import { TextInput, View, StyleSheet, TouchableOpacity, Text, Button, ScrollView } from 'react-native'
-import SecondAuthButton from '../AuthComponent/SecondAuthButton';
+import React, { useState } from 'react'
+import { View, StyleSheet, Text } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { saveUserData } from '../../store/reducers/LoginSlice';
+import Storage from "../../storage/Storage";
 import baseApiURL from '../../requests/baseApiURL';
 import Request from '../../requests/Request';
 import RecoveryPassword from './RecoveryPassword';
-import { useNavigation } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
-import { saveUserData } from '../../store/reducers/LoginSlice';
-import LoginSlice from '../../store/reducers/LoginSlice';
-import MainAuthButton from "../AuthComponent/MainAuthButton";
 import BaseSendButton from "../AuthComponent/BaseSendButton";
 import BaseTextInput from "../AuthComponent/BaseTextInput";
-import {MultiPlatform} from "../MultiPlatform";
+import SecondAuthButton from '../AuthComponent/SecondAuthButton';
 
 
 const LoginFormComponent = () => {
@@ -33,12 +31,11 @@ const LoginFormComponent = () => {
         setResponse(request)
 
         request['auth'] && dispatch(saveUserData(request))
-
-        request['auth'] &&
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'MainNavigationScreen' }],
-            })
+        && navigation.reset({
+            index: 0,
+            routes: [{ name: 'MainNavigationScreen' }],
+        })
+        await Storage.save("userData", request)
         setLoading(false)
     }
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { AsyncStorage } from 'react-native';
 
 class Storage {
@@ -6,7 +6,7 @@ class Storage {
         try {
             return await AsyncStorage.setItem(key, JSON.stringify(value));
         } catch (error) {
-            // console.error('AsyncStorage#setItem error: ' + error.message);
+            console.error('AsyncStorage#setItem error: ' + error.message);
         }
     }
 
@@ -17,7 +17,7 @@ class Storage {
                     try {
                         result = JSON.parse(result);
                     } catch (e) {
-                        // console.error('AsyncStorage#getItem error deserializing JSON for key: ' + key, e.message);
+                        console.error('AsyncStorage#getItem error deserializing JSON for key: ' + key, e.message);
                     }
                 }
                 return result;

@@ -14,6 +14,9 @@ const AnamnezSlice = createSlice({
         addAnamnezAnswer(state, action){
             state.anamnezData[action.payload.index] = action.payload.sh_field_type
         },
+        addAnamnezPhoto(state, action){
+            state.anamnezData[action.payload.index].file = action.payload.file
+        },
         selectSpecialistID(state, action){
             state.selectedSpecialistID = action.payload
             console.log("Specialist id " + state.selectedSpecialistID)
