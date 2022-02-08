@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { Component, useCallback, useEffect, useState } from 'react';
-import { TouchableOpacity, Image, ActivityIndicator, StyleSheet, Modal, View, Text } from 'react-native';
-import { GiftedChat, Send } from 'react-native-gifted-chat';
+import { TouchableOpacity, Image, ActivityIndicator, StyleSheet, View, Dimensions, FlatList } from 'react-native';
+import { GiftedChat, InputToolbar, Send } from 'react-native-gifted-chat';
 import baseApiURL from '../requests/baseApiURL';
 import baseURL from '../requests/baseURL';
 import Request from '../requests/Request';
 import ImageView from "react-native-image-viewing";
+import ImagesCustomAction from '../components/Widgets/Chat/ImagesCustomAction';
 
 const customSend = props => {
     return (
@@ -17,13 +18,11 @@ const customSend = props => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}
-        >
-        </Send>
+        />
     )
 }
 
-
-const ChatScreen = ({ route }) => {
+const ChatScreen = ({ route, id }) => {
 
     const DATA = []
 
@@ -35,6 +34,23 @@ const ChatScreen = ({ route }) => {
     const [isModalOpen, setModalOpen] = useState(false)
     const [images, setImages] = useState([])
 
+    const renderCustomToolbar = props => {
+        return (
+            <InputToolbar 
+                {...props}
+                containerStyle={{
+                    backgroundColor: '#ffffff',
+                    paddingHorizontal: 0,
+                    justifyContent: 'flex-end',
+                }}
+                // primaryStyle={{
+                //     paddingVertical: 
+                // }}
+                renderActions={props => <ImagesCustomAction data={props}/>}
+            />
+        )
+    }
+
     const renderMessageImage = (props) => {
         const images = [
           props.currentMessage.image,
@@ -44,7 +60,7 @@ const ChatScreen = ({ route }) => {
                 <TouchableOpacity 
                     style={{ width: 150, height: 100, justifyContent: 'center', 
                         alignItems: 'center', backgroundColor: 'white', borderRadius: 13 }}
-                    onPress={() => navigation.navigate("DisplayAnamnezScreen")}
+                    onPress={() => navigation.navigate("DisplayAnamnezScreen", {id: route.params.id})}
                 >
                     <Image source={ require('../images/text-document.png') } style={{ width: 50, height: 50 }}/>
                 </TouchableOpacity>
@@ -130,7 +146,9 @@ const ChatScreen = ({ route }) => {
     }, [])
 
     return ( loading ? (
-            <ActivityIndicator size={'large'}/>
+            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                <ActivityIndicator size={'large'}/>
+            </View>
         ) : isModalOpen ? (                
         <ImageView 
             images={[{ uri: "http://192.168.2.66:8080/u/i/2/7/a/1.png"}, { uri: "http://192.168.2.66:8080/u/i/2/7/a/1.png"}]} 
@@ -141,11 +159,11 @@ const ChatScreen = ({ route }) => {
         />) : (
             <GiftedChat
                 textInputStyle={{ color: 'black' }}
-                containerStyle={{ backgroundColor: '#F3F4F6', height: '10%' }}
-                messagesContainerStyle={{ backgroundColor: '#FFFFFF', height: '95%'}}
+                messagesContainerStyle={{ backgroundColor: '#FFFFFF', overflow: 'scroll'}}
                 placeholder='Сообщение'
                 renderMessageImage={props => renderMessageImage(props)}
                 renderSend={props => customSend(props)}
+                renderInputToolbar={props => renderCustomToolbar(props)}
                 messages={messages}
                 onSend={messages => onSend(messages)}
                 user={{

@@ -5,7 +5,7 @@ import { addAnamnezAnswer, numOfRequiredFields } from '../../store/reducers/Anam
 import AnamnezSlice from '../../store/reducers/AnamnezSlice';
 
 
-const MultiChoicesBase = ({ setValue, choices, data, index }) => {
+const MultiChoicesBase = ({ choices, data, index }) => {
 
     const dispatch = useDispatch()
     const showRequired = useSelector(state => state.AnamnezSlice.showRequiredFields)
@@ -25,7 +25,14 @@ const MultiChoicesBase = ({ setValue, choices, data, index }) => {
 
         prevChoicesSelected.push(choiceText)
         setChoicesSelected(prevChoicesSelected)
-        setValue(true)
+        dispatch(addAnamnezAnswer({
+            index: index,
+            sh_field_type: {
+                sh_field: data.id,
+                choices: prevChoicesSelected,
+                isRequired: data.is_required == "1" ? true : false
+            }
+        }))
         
         console.log(prevChoicesSelected.length, prevChoicesSelected)
 
@@ -38,7 +45,14 @@ const MultiChoicesBase = ({ setValue, choices, data, index }) => {
         
         prevChoicesSelected.splice(prevChoicesSelected.indexOf(choiceText), 1)
         setChoicesSelected(prevChoicesSelected)
-        setValue(false)
+        dispatch(addAnamnezAnswer({
+            index: index,
+            sh_field_type: {
+                sh_field: data.id,
+                choices: prevChoicesSelected,
+                isRequired: data.is_required == "1" ? true : false
+            }
+        }))
 
         console.log(prevChoicesSelected.length, prevChoicesSelected)
 
