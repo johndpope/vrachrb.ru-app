@@ -12,7 +12,6 @@ const MessagesScreen = () => {
     const [loading, setLoading] = useState(false)
     const isSpecialist = useSelector(state => state.LoginSlice.userData.isSpecialist)
     const route = isSpecialist ? "Get_specialist_questions" : "Get_user_questions"
-    console.log("isSpecialist"+isSpecialist)
 
     const DATA = []
 
@@ -21,7 +20,18 @@ const MessagesScreen = () => {
         setLoading(true)
         let response = await Request.get(baseApiURL + route, {});
 
-        if(!isSpecialist) {
+        if(isSpecialist) {
+            response["response"] && response["response"][0]["Questions"].forEach(element => {
+                DATA.push({
+                    id: element.id,
+                    body: element.body,
+                    specialty: "",
+                    first_name: element["User"].first_name,
+                    second_name: element["User"].second_name[0],
+                    middle_name: element["User"].middle_name[0]
+                })
+            });
+        } else {
             response["response"] && response["response"][0]["Question"].forEach(element => {
                 DATA.push({
                     id: element.id,
@@ -30,17 +40,6 @@ const MessagesScreen = () => {
                     first_name: element["Specialists"][0]["User"].first_name,
                     second_name: element["Specialists"][0]["User"].second_name[0],
                     middle_name: element["Specialists"][0]["User"].middle_name[0]
-                })
-            });
-        } else {
-            response["response"] && response["response"][0]["Questions"].forEach(element => {
-                DATA.push({
-                    id: element.id,
-                    body: element.body,
-                    specialty: element["Specialtys"][0].title,
-                    first_name: element["User"].first_name,
-                    second_name: element["User"].second_name[0],
-                    middle_name: element["User"].middle_name[0]
                 })
             });
         }

@@ -56,7 +56,7 @@ const AnamnezCardItem = ({ item }) => {
                                     })
                                 ) : 
                             ( <Text style={ styles.belowtextStyle }>{ itemsToRender.val }</Text> ,
-                                itemsToRender.file && 
+                                itemsToRender.file ?
                                 <View style={{ width: '100%', marginTop: 10 }}>
                                     {
                                         <FlatList 
@@ -80,7 +80,7 @@ const AnamnezCardItem = ({ item }) => {
                                             }}
                                         />
                                     }
-                                </View>
+                                </View> : <View></View>
                             )
                         }
                     </View>
@@ -89,6 +89,7 @@ const AnamnezCardItem = ({ item }) => {
         </View>
     )
 }
+
 
 const styles = StyleSheet.create({
     mainContent: {
