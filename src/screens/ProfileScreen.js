@@ -59,14 +59,19 @@ const ProfileScreen = () => {
                     height: 230,
                     borderRadius: 200,
                     position: 'absolute',
+                    backgroundColor: '#AAB2BD',
                     top: '-30%'
-                }} source={{ uri: baseURL + "u/i/"+selectData.photo }} />
-                <Text style={{ color: 'black', fontSize: 17 }}>{ selectData.first_name + " " +
-                    selectData.second_name + " " + selectData.middle_name }</Text>
-                <View style={{ width: '85%', marginTop: 30}}>
-                    <ProfileDataItem header="Ваш Email" data={ selectData.email } />
-                    <ProfileDataItem header="Ваш дата рождения" data={ selectData.birth_date.split(" ")[0] } />
-                    <ProfileDataItem header="Ваш номер телефона" data={ selectData.phone } />
+                }} source={ selectData.photo == "" ? require('../images/user.png') : { uri: baseURL + "u/i/"+ selectData.photo }} />
+                <View style={{ flexBasis: '20%', width: '85%' }}>
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={{ color: 'black', fontSize: 17 }}>{ selectData.first_name + " " +
+                            selectData.second_name + " " + selectData.middle_name }</Text>
+                    </View>
+                    <View style={{ marginTop: 30}}>
+                        <ProfileDataItem header="Ваш Email" data={ selectData.email } />
+                        <ProfileDataItem header="Ваш дата рождения" data={ selectData.birth_date.split(" ")[0] } />
+                        <ProfileDataItem header="Ваш номер телефона" data={ selectData.phone } />
+                    </View>
                 </View>
                 <Button
                     title='Выход'

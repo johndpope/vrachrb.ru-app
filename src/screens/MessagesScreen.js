@@ -56,7 +56,9 @@ const MessagesScreen = () => {
     return (
         <View style={ styles.mainContent }>
             { response['error'] &&
-            <Text style={{ color: "#F27C83", fontSize: 30, alignItems: 'center', justifyContent: 'center',}}>{response['error']}</Text>
+                <View style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ color: "#F27C83", fontSize: 30, }}>{response['error']}</Text>
+                </View>
             }
             { loading ? <ActivityIndicator size={'large'} /> :
                 (
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         width: '100%',
-        justifyContent: 'center'
+        justifyContent: 'center',
     }
 })
 

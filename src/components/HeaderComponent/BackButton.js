@@ -12,8 +12,8 @@ const BackButton = () => {
             onPress={() => navigation.goBack()}>
             <Image
                 style={{
-                    width: 28,
-                    height: 23,
+                    width: 35,
+                    height: 50,
                     tintColor: '#434A53'
                 }}
                 source={backButtonImage}

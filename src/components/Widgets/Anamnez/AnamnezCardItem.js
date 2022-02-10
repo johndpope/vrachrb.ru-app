@@ -23,6 +23,13 @@ const AnamnezCardItem = ({ item }) => {
         setImageList(imageDataList)
     }, [])
 
+    const returnTextComponent = (value) => {
+        return (
+            <Text style={ styles.belowtextStyle }>{ "- " + value }</Text>
+        )
+    }
+    // Многострочное, однострочное и многострочное с файлами
+
     return (
         <View style={ styles.mainContent }>
             {
@@ -49,13 +56,21 @@ const AnamnezCardItem = ({ item }) => {
                                 ) : 
                             itemsToRender["choices"] ?
                                 (
-                                    itemsToRender["choices"].map((item) => {
-                                        return (
-                                            <Text style={ styles.belowtextStyle }>{ "- " + item }</Text>
-                                        )
-                                    })
+                                    <View>
+                                        {
+                                            Object.entries(itemsToRender["choices"]).map(([key, value]) => {
+                                                return (
+                                                    <Text key={key} style={ styles.belowtextStyle }>{ "- " + value }</Text>
+                                                )
+                                            })
+                                        }
+                                    </View>
+
+                                    
                                 ) : 
-                            ( <Text style={ styles.belowtextStyle }>{ itemsToRender.val }</Text> ,
+                            (   <View>
+                                    <Text style={ styles.belowtextStyle }>{ itemsToRender.val }</Text>
+                                    {
                                 itemsToRender.file ?
                                 <View style={{ width: '100%', marginTop: 10 }}>
                                     {
@@ -81,7 +96,8 @@ const AnamnezCardItem = ({ item }) => {
                                         />
                                     }
                                 </View> : <View></View>
-                            )
+                                }
+                                </View> ) 
                         }
                     </View>
                 )

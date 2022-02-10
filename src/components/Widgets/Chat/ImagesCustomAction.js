@@ -1,9 +1,8 @@
 import React, { Component, useState } from 'react';
 import { Dimensions, FlatList, Image, TouchableOpacity, View } from 'react-native';
 import DocumentPicker from 'react-native-document-picker'
-import uuid from 'react-native-uuid';
 
-const ImagesCustomAction = ({ data }) => {
+const ImagesCustomAction = ({ data, textInput }) => {
 
     const [imageData, setImageData] = useState([])
 
@@ -19,11 +18,11 @@ const ImagesCustomAction = ({ data }) => {
         const result = await DocumentPicker.pick({
             type: [DocumentPicker.types.images]
         });
-
+        console.log(imageData)
         setImageData(imageDataPrev)
 
         let imageDataPrev = [...imageData]
-        console.log(result)
+
         imageDataPrev.push(
             {
                 id: imageDataPrev.length + 1,
@@ -36,7 +35,7 @@ const ImagesCustomAction = ({ data }) => {
     }
 
     return (
-        <View flex={0.1}>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             {
                 (imageData && imageData.length !== 0) && (
                     <View style={{ width: Dimensions.get('screen').width, height: 70 }}>
@@ -65,9 +64,29 @@ const ImagesCustomAction = ({ data }) => {
                     </View>
                 )
             }
-            <TouchableOpacity style={{ padding: 10 }} onPress={() => imagePick()}>
-                <Image source={ require('../../../images/attach.png') } style={{ width: 23, height: 23 }}/>
-            </TouchableOpacity>
+            {
+                textInput == "" && (
+                    <View style={{ flexDirection: 'row' }}>
+                        <TouchableOpacity style={{ padding: 10 }} onPress={() => imagePick()}>
+                            <Image source={ require('../../../images/attach.png') } style={{ width: 23, height: 23, tintColor: '#AAB2BD' }}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ padding: 10 }} >
+                            <Image source={ require('../../../images/camera.png') } style={{ width: 23, height: 23, tintColor: '#AAB2BD' }}/>
+                        </TouchableOpacity>
+                        {
+                            (imageData && imageData.length !== 0) && (
+                                <TouchableOpacity style={{ padding: 10 }} onPress={() => data.onSend(
+                                    {
+                                        "image": ""
+                                    }
+                                )}>
+                                    <Image source={ require('../../../images/paper-plane.png') } style={{ width: 23, height: 23, tintColor: '#AAB2BD' }}/>
+                                </TouchableOpacity>
+                            )
+                        }
+                    </View>
+                )
+            }
         </View>
     )
 }
