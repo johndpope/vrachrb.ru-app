@@ -1,5 +1,7 @@
 import React from 'react'
-import { View, Text, Linking, StyleSheet } from 'react-native'
+import { View, Text, Linking, StyleSheet, Dimensions } from 'react-native'
+import { RFValue } from 'react-native-responsive-fontsize';
+import { MultiPlatform } from '../MultiPlatform';
 
 const NoticeService = (props) => {
 
@@ -10,6 +12,7 @@ const NoticeService = (props) => {
                 ...styles.additTextStyle
             }}>
                 Консультация в сервисе
+                <Text> </Text>
                 <Text style={{...styles.textStyle, color: '#54B9D1'}}
                     onPress={() => Linking.openURL('http://vrachrb.ru/')}
                 >
@@ -31,10 +34,10 @@ const NoticeService = (props) => {
 const styles = StyleSheet.create({
     textStyle: {
         color: '#434A53',
-        fontSize: 17,
+        fontSize: MultiPlatform.AdaptivePixelsSize(17),
     },
     additTextStyle: {
-        marginBottom: 15,
+        marginBottom: MultiPlatform.AdaptivePixelsSize(15),
         marginLeft: 3
     },
 });

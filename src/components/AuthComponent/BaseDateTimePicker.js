@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { MultiPlatform } from '../MultiPlatform';
 
 
 const BaseDateTimePicker = ({ setValue, text }) => {
@@ -47,8 +48,8 @@ const styles = StyleSheet.create({
         fontSize: 17
     },
     btnStyle: {
-        width: 320,
-        height: 60,
+        width: MultiPlatform.AdaptivePixelsSize(350),
+        height: MultiPlatform.AdaptivePixelsSize(60),
         backgroundColor: '#F3F4F6',
         justifyContent: 'center',
         alignItems: 'center',

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { MultiPlatform } from '../MultiPlatform';
 
 const QuestionTitleBase = ({ question, additionalField = "" }) => {
     return (
@@ -18,11 +20,11 @@ const QuestionTitleBase = ({ question, additionalField = "" }) => {
 const styles = StyleSheet.create({
     questionStyle: {
         color: '#434A53',
-        fontSize: 17,
+        fontSize: MultiPlatform.AdaptivePixelsSize(19),
         fontWeight: '500',
     },
     additionalFieldStyle: {
-        fontSize: 15,
+        fontSize: MultiPlatform.AdaptivePixelsSize(17),
         color: '#AAB2BD',
         fontWeight: '400',
     }

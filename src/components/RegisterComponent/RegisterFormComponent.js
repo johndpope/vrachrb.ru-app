@@ -119,7 +119,10 @@ const RegisterFormComponent = () => {
 
     return (
         <View style={styles.mainBlock}>
-            <ScrollView style={{width: '90%'}}>
+            <ScrollView 
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{flexGrow: 1, justifyContent: 'center', width: '85%', padding: 10}}
+            >
                 <View>
                     <BaseTextInput response={response} hint={"Имя"} setValue={setName}/>
                     <BaseTextInput response={response} hint={"Фамилия"} setValue={setFamilia}/>
@@ -142,14 +145,14 @@ const RegisterFormComponent = () => {
                     <AgreementComponent setValue={setAgr2} index={1}/>
                     <AgreementComponent setValue={setAgr3} index={2}/>
                 </View>
+                <View style={ styles.btnBottom }>
+                    <BaseSendButton text={"Зарегистрироваться"} checkFields={checkFilledField} onPress={register} loading={loading}/>
+                    <SecondAuthButton text={"Авторизоваться"} nav={"MailLoginScreen"} />
+                </View>
             </ScrollView>
             { response['error'] &&
             <Text style={{ color: "#F27C83", fontSize: 15, paddingBottom: 10}}>{response['error']}</Text>
             }
-            <View style={ styles.btnBottom }>
-                <BaseSendButton text={"Зарегистрироваться"} checkFields={checkFilledField} onPress={register} loading={loading}/>
-                <SecondAuthButton text={"Авторизоваться"} nav={"MailLoginScreen"} />
-            </View>
         </View>
     )
 }
@@ -166,16 +169,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     pickerStyle :{
-        height: 50,
+        height: MultiPlatform.AdaptivePixelsSize(50),
         backgroundColor:"#F3F4F6",
         color: "black",
         marginTop: 10,
     },
     textInputStyle: {
         borderBottomWidth: 2,
-        width: 350,
+        width: MultiPlatform.AdaptivePixelsSize(350),
         marginTop: 5,
-        fontSize: 17,
+        fontSize: MultiPlatform.AdaptivePixelsSize(17),
         borderRadius: 1,
         color: '#434A53'
     },
@@ -186,11 +189,11 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         color: '#FFFFFF',
-        fontSize: 17
+        fontSize: MultiPlatform.AdaptivePixelsSize(17)
     },
     btnStyle: {
-        width: 320,
-        height: 60,
+        width: MultiPlatform.AdaptivePixelsSize(320),
+        height: MultiPlatform.AdaptivePixelsSize(60),
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 16,

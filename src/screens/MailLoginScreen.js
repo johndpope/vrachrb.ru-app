@@ -12,7 +12,7 @@ const MailLoginScreen = () => {
             backgroundColor: "#F3F4F6"
         }}>
             <View style={{
-                flex: 0.3,
+                flex: 0.6,
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>

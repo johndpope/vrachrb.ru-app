@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Linking, StyleSheet, Text, View} from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { MultiPlatform } from '../MultiPlatform';
 
 const AgreementComponent = ({ setValue, index }) => {
 
@@ -25,10 +26,10 @@ const AgreementComponent = ({ setValue, index }) => {
     return (
         <View style={styles.checkboxContainer}>
             <BouncyCheckbox
-                size={25}
-                fillColor="red"
+                size={MultiPlatform.AdaptivePixelsSize(35)}
+                fillColor="#58BE3F"
                 unfillColor="#FFFFFF"
-                iconStyle={{ borderColor: "red" }}
+                iconStyle={{ borderColor: "#58BE3F" }}
                 onPress={(isChecked) => {setValue(isChecked)}}
             />
             <Text style={{...styles.label, color:data["url"] ? '#54B9D1' : '#000'}}

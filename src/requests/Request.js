@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Platform } from 'react-native';
 
 class Request {
-    static async post(url, data = "") {
+    static async post(url, data = {}) {
         if (__DEV__) {
              console.log('request to ' + url, data);
         }
@@ -19,7 +19,7 @@ class Request {
             });
 
             let text = await response.text();
-
+            console.log(text)
             return JSON.parse(text);
         } catch (e) {
             return false;

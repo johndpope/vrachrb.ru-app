@@ -1,10 +1,13 @@
-import React, { Component, useState } from 'react';
-import { Dimensions, FlatList, Image, TouchableOpacity, View } from 'react-native';
+import React, { Component, useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Dimensions, FlatList, Image, TouchableOpacity, View } from 'react-native';
 import DocumentPicker from 'react-native-document-picker'
+import CameraPicker, {ImageOrVideo} from 'react-native-image-crop-picker';
 
 const ImagesCustomAction = ({ data, textInput }) => {
 
     const [imageData, setImageData] = useState([])
+    const [serverImage, setServerImage] = useState([])
+    const [loading, setLoading] = useState(false)
 
     const deleteImage = async (id) => {
         let imageDataPrev = [...imageData]
@@ -15,24 +18,105 @@ const ImagesCustomAction = ({ data, textInput }) => {
     }
 
     const imagePick = async () => {
-        const result = await DocumentPicker.pick({
-            type: [DocumentPicker.types.images]
-        });
-        console.log(imageData)
-        setImageData(imageDataPrev)
+        CameraPicker.openPicker({
+            cropping: true,
+            compressImageQuality: 0.8,
+          })
+        .then(image => {  
+            setImageData(imageDataPrev)
 
-        let imageDataPrev = [...imageData]
+            let imageDataPrev = [...imageData]
 
-        imageDataPrev.push(
+            imageDataPrev.push(
+                {
+                    id: imageDataPrev.length + 1,
+                    uri: image.path
+                }
+            )
+            console.log(imageData.length)
+            setImageData(imageDataPrev)
+        })
+    }
+
+    const photoPickFromCamera = () => {
+        try {
+            CameraPicker.openCamera({
+                cropping: true,
+                compressImageQuality: 0.5,
+              })
+            .then(image => {
+                setImageData(imageDataPrev)
+                let imageDataPrev = [...imageData]
+                console.log(image)
+                imageDataPrev.push(
+                    {
+                        id: imageDataPrev.length + 1,
+                        uri: image.path
+                    }
+                )
+                console.log(imageData.length)
+                setImageData(imageDataPrev)
+            })
+        } catch (e){
+            console.log("ERROR")
+        }
+    }
+
+    const upload = async (resp) => {
+        let data = new FormData();
+        try {
+            data.append('file', {
+                uri: resp.path,
+                type: resp.mime,
+                name: resp.path.split("/").reverse()[0]
+            });
+            const response = await fetch(baseURL + 'uploader?key=analysis', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                body: data
+            });
+            const text = await response.text();
+            console.log('text', text);
+            let json = JSON.parse(text);
+            if (json.state === 'success') {
+                return json.filename 
+            } else {
+                Alert.alert(json.message);
+            }
+        } catch (e) {
+            Alert.alert(e);
+        }
+    }
+
+    const uploadAllFiles = async (photos) => {
+        setLoading(true)
+        let serverImagePrev = [...serverImage]
+
+        try {
+            for (let i = 0; i < photos.length; i++){
+                let response = await upload({path: photos[i].uri, mime: "image/jpeg"})
+                serverImagePrev.push(
+                    response
+                )
+            }
+        } catch (e){
+            console.log("ERROR")
+        }
+
+        setServerImage(serverImagePrev)
+        setLoading(false)
+    }
+
+    useEffect(() => {
+        serverImage.length !== 0 && data.onSend(
             {
-                id: imageDataPrev.length + 1,
-                image: result[0].uri
+                "image": serverImage,
+                "text": "Фотография"
             }
         )
-        console.log(imageData.length)
-        setImageData(imageDataPrev)
-        // await upload(result[0])
-    }
+    }, [serverImage])
 
     return (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -56,7 +140,7 @@ const ImagesCustomAction = ({ data, textInput }) => {
                                         >  
                                             <Image style={{ width: '50%', height: '50%' }} source={ require('../../../images/delete_cross.png') }/>
                                         </TouchableOpacity>
-                                        <Image source={{ uri: item.image }} style={{ height: 65, width: 65, marginLeft: 10, borderRadius: 8 }}/>
+                                        <Image source={{ uri: item.uri }} style={{ height: 65, width: 65, marginLeft: 10, borderRadius: 8 }}/>
                                     </View>
                                 )
                             }}
@@ -70,19 +154,28 @@ const ImagesCustomAction = ({ data, textInput }) => {
                         <TouchableOpacity style={{ padding: 10 }} onPress={() => imagePick()}>
                             <Image source={ require('../../../images/attach.png') } style={{ width: 23, height: 23, tintColor: '#AAB2BD' }}/>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ padding: 10 }} >
+                        <TouchableOpacity style={{ padding: 10 }} onPress={
+                            () => photoPickFromCamera()
+                        }>
                             <Image source={ require('../../../images/camera.png') } style={{ width: 23, height: 23, tintColor: '#AAB2BD' }}/>
                         </TouchableOpacity>
                         {
-                            (imageData && imageData.length !== 0) && (
-                                <TouchableOpacity style={{ padding: 10 }} onPress={() => data.onSend(
-                                    {
-                                        "image": ""
-                                    }
-                                )}>
-                                    <Image source={ require('../../../images/paper-plane.png') } style={{ width: 23, height: 23, tintColor: '#AAB2BD' }}/>
-                                </TouchableOpacity>
-                            )
+                            !loading ? 
+                                (imageData && imageData.length !== 0) && (
+                                    <TouchableOpacity 
+                                        style={{ padding: 10 }} 
+                                        onPress={async () => {
+                                            await uploadAllFiles(imageData),
+                                            setImageData([])}}>
+                                        <Image source={ require('../../../images/paper-plane.png') } 
+                                        style={{ width: 23, height: 23, tintColor: '#AAB2BD', tintColor: '#54B9D1' }}/>
+                                    </TouchableOpacity>
+                                ) :
+                                (
+                                    <View style={{ padding: 10, }}>
+                                        <ActivityIndicator style={{ width: 23, height: 23 }} size={'small'}/>
+                                    </View>
+                                )
                         }
                     </View>
                 )

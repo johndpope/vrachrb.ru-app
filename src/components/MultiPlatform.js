@@ -1,5 +1,7 @@
-import React from "react";
-import { ToastAndroid, Platform, AlertIOS } from "react-native";
+import React, { useEffect } from "react";
+import { ToastAndroid, Platform, AlertIOS, Dimensions } from "react-native";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import ScreenOrientationListener from "./ScreenOrientationListener";
 /**
  * Класс с Мультиплатформенными методами */
 export class MultiPlatform {
@@ -9,6 +11,28 @@ export class MultiPlatform {
             ToastAndroid.show(msg, ToastAndroid.LONG)
         } else {
             AlertIOS.alert(msg);
+        }
+    }
+
+    static AdaptivePixelsSize(size){
+        let width = Dimensions.get('screen').width;
+        let height = Dimensions.get('screen').height;
+
+        if (width < height) {
+            return RFValue(size, height)
+        } else {
+            return RFValue(size, width)
+        }
+    }
+
+    static AdaptivePercentSize(size){
+        let width = Dimensions.get('screen').width;
+        let height = Dimensions.get('screen').height;
+
+        if (width < height) {
+            return RFPercentage(size, height)
+        } else {
+            return RFPercentage(size, width)
         }
     }
 }

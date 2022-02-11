@@ -1,8 +1,10 @@
 import React, { Component, useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, FlatList, Image, Alert } from 'react-native';
 import DocumentPicker from 'react-native-document-picker'
+import { RFValue } from 'react-native-responsive-fontsize';
 import uuid from 'react-native-uuid';
 import baseURL from "../../requests/baseURL";
+import { MultiPlatform } from '../MultiPlatform';
 
 const UploadFileBase = ({ component, index, data }) => {
 
@@ -102,7 +104,8 @@ const UploadFileBase = ({ component, index, data }) => {
                                 }
                                 <TouchableOpacity onPress={() => imagePick(item.index)} style={ styles.uploadButtonStyle }>
                                     <Image 
-                                        style={{ width: !item.defaultImage ? 100 : 40, height: !item.defaultImage ? 100 : 40, borderRadius: 8 }} 
+                                        style={{ width: !item.defaultImage ? MultiPlatform.AdaptivePixelsSize(100) : MultiPlatform.AdaptivePixelsSize(40), 
+                                            height: !item.defaultImage ? MultiPlatform.AdaptivePixelsSize(100) : MultiPlatform.AdaptivePixelsSize(40), borderRadius: MultiPlatform.AdaptivePixelsSize(8) }} 
                                         source={ !item.defaultImage ? { uri: item.image } : require('../../images/plus.png')}
                                     />
                                 </TouchableOpacity>
@@ -117,17 +120,17 @@ const UploadFileBase = ({ component, index, data }) => {
 
 const styles = StyleSheet.create({
     additionalFieldStyle: {
-        fontSize: 15,
+        fontSize: MultiPlatform.AdaptivePixelsSize(15),
         color: '#434A53',
         fontWeight: '400',
     },
     uploadButtonStyle: {
-        width: 100,
-        height: 100,
+        width: MultiPlatform.AdaptivePixelsSize(100),
+        height: MultiPlatform.AdaptivePixelsSize(100),
         borderColor: '#CCD1D9',
         borderWidth: 2,
         borderStyle: 'dashed',
-        borderRadius: 8,
+        borderRadius: MultiPlatform.AdaptivePixelsSize(8),
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 15,
@@ -138,8 +141,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 8,
         top: 5,
-        width: 26,
-        height: 26,
+        width: MultiPlatform.AdaptivePixelsSize(26),
+        height: MultiPlatform.AdaptivePixelsSize(26),
         backgroundColor: '#F27C83',
         borderRadius: 50,
         zIndex: 1,

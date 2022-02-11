@@ -1,5 +1,5 @@
 import React, { useState, Component, useEffect } from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, Alert, ScrollView } from 'react-native'
 import SecondAuthButton from '../AuthComponent/SecondAuthButton';
 import baseApiURL from '../../requests/baseApiURL';
 import Request from '../../requests/Request';
@@ -9,6 +9,7 @@ import { saveUserData } from '../../store/reducers/LoginSlice';
 import MainAuthButton from "../AuthComponent/MainAuthButton";
 import BaseTextInput from "../AuthComponent/BaseTextInput";
 import BaseSendButton from "./BaseSendButton";
+import { MultiPlatform } from '../MultiPlatform';
 
 
 const RecoveryPasswordComponent = () => {
@@ -49,19 +50,24 @@ const RecoveryPasswordComponent = () => {
 
     return (
         <View style={ styles.mainBlock }>
-            <View style={{width: 350}}>
-                <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
-                { response['error'] &&
-                <Text style={styles.negativeResponseStyle}>{response['error']}</Text>
-                }
-                { response['response'] &&
-                <Text style={styles.positiveResponseStyle}>{response['response']}</Text>
-                }
-            </View>
-            <View style={ styles.btnBottom }>
-                <BaseSendButton text={"Восстановить"} checkFields={checkFilledField} onPress={register} loading={loading}/>
-                <SecondAuthButton text={"Вернуться"} nav={"AuthScreen"} />
-            </View>
+            <ScrollView                
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{flexGrow: 1, justifyContent: 'center', width: '85%', padding: 10}}
+            >
+                <View style={{width: MultiPlatform.AdaptivePixelsSize(350)}}>
+                    <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
+                    { response['error'] &&
+                    <Text style={styles.negativeResponseStyle}>{response['error']}</Text>
+                    }
+                    { response['response'] &&
+                    <Text style={styles.positiveResponseStyle}>{response['response']}</Text>
+                    }
+                </View>
+                <View style={ styles.btnBottom }>
+                    <BaseSendButton text={"Восстановить"} checkFields={checkFilledField} onPress={register} loading={loading}/>
+                    <SecondAuthButton text={"Вернуться"} nav={"AuthScreen"} />
+                </View>
+            </ScrollView>
         </View>
     )
 }
@@ -69,35 +75,22 @@ const RecoveryPasswordComponent = () => {
 const styles = StyleSheet.create({
     mainBlock: {
         backgroundColor: 'white',
-        flex: 0.7,
+        flex: 0.5,
         width: '100%',
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         alignItems: 'center',
     },
-    textInputStyle: {
-        borderBottomWidth: 2,
-        width: 350,
-        marginTop: 20,
-        fontSize: 17,
-        borderRadius: 1,
-        color: '#434A53'
-    },
     btnBottom: {
+        marginTop: MultiPlatform.AdaptivePixelsSize(25),
+        width: MultiPlatform.AdaptivePixelsSize(350),
         justifyContent: 'center',
         alignItems: 'center'
     },
     textStyle: {
         color: '#FFFFFF',
         fontSize: 17
-    },
-    btnStyle: {
-        width: 320,
-        height: 60,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 16,
     },
     positiveResponseStyle: {
         width: 350,

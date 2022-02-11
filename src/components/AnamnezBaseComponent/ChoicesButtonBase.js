@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addAnamnezAnswer } from '../../store/reducers/AnamnezSlice';
 import AnamnezSlice from '../../store/reducers/AnamnezSlice';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { MultiPlatform } from '../MultiPlatform';
 
 const colors = {
     selectedButtonAccentType: '#54B9D1',
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
         marginTop: 12,
     },
     buttonsStyle: {
-        height: 55,
+        height: MultiPlatform.AdaptivePixelsSize(55),
         width: '35%',
         borderRadius: 64,
         justifyContent: 'center',
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     textStyle: {
-        fontSize: 17,
+        fontSize: MultiPlatform.AdaptivePixelsSize(17),
         color: '#434A53'
     },
 })

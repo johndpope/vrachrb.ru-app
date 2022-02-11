@@ -4,6 +4,8 @@ import CabinetScreen from './CabinetScreen';
 import SpecialistScreen from './SpecialistScreen';
 import { View } from 'react-native';
 import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { MultiPlatform } from '../components/MultiPlatform';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,7 +17,7 @@ const MainScreen = (props) => {
                     tabBarActiveTintColor: "black",
                     tabBarInactiveTintColor: "#FFFFFF",  
                     labelStyle: { 
-                        fontSize: 17,
+                        fontSize: MultiPlatform.AdaptivePixelsSize(17),
                         color: '#AAB2BD',
                     },
                     style: { 
@@ -30,8 +32,7 @@ const MainScreen = (props) => {
                         borderRadius: 3,
                         marginLeft: 11,
                         width: '45%'
-                    },
-                    
+                    }
                 }}
             >
                 <Tab.Screen name="Кабинет" component={ CabinetScreen } />

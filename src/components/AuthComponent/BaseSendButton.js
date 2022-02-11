@@ -1,5 +1,7 @@
 import React from 'react'
-import { Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { Text, StyleSheet, TouchableOpacity, ActivityIndicator, Dimensions } from 'react-native'
+import { RFValue } from 'react-native-responsive-fontsize'
+import { MultiPlatform } from '../MultiPlatform'
 
 const BaseSendButton = ({ checkFields, onPress, text, loading }) => {
 
@@ -27,16 +29,17 @@ const BaseSendButton = ({ checkFields, onPress, text, loading }) => {
 const styles = StyleSheet.create({
     textStyle: {
         color: '#434A53',
-        fontSize: 17
+        fontSize: MultiPlatform.AdaptivePixelsSize(17)
     },
     btnStyle: {
-        width: 320,
-        height: 60,
+        width: '100%',
+        height: MultiPlatform.AdaptivePixelsSize(60),
         backgroundColor: '#FFFFFF',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 16,
-        marginTop: 15
+        marginTop: MultiPlatform.AdaptivePixelsSize(15),
+        marginBottom: 15
     }
 })
 

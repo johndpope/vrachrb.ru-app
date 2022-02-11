@@ -27,6 +27,7 @@ const DisplayAnamnezScreen = ({ route }) => {
                     <FlatList 
                         style={{  width: '85%' }}
                         data={anamnesQuestion}
+                        showsVerticalScrollIndicator={false}
                         keyExtractor={(item) => item.id}
                         renderItem={({ item, index }) => {
                             return (

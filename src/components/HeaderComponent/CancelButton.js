@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 import { useDispatch } from 'react-redux';
 import { resetAllValues } from '../../store/reducers/AnamnezSlice';
+import { MultiPlatform } from '../MultiPlatform';
 
 const CancelButton = () => {
 
@@ -19,7 +21,7 @@ const CancelButton = () => {
             style={{
             }}>
             <Text style={{
-                fontSize: 21,
+                fontSize: MultiPlatform.AdaptivePixelsSize(21),
                 color: '#434A53',
                 fontWeight: '700'
             }}>Отмена</Text>

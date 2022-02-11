@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Image } from 'react-native'
 import RecoveryPasswordComponent from "../components/AuthComponent/RecoveryPasswordComponent";
+import { MultiPlatform } from '../components/MultiPlatform';
 
 const RecoveryPasswordScreen = () => {
     return (
@@ -18,8 +19,8 @@ const RecoveryPasswordScreen = () => {
             }}>
                 <Image
                     style={{
-                        width: 243,
-                        height: 83
+                        width: MultiPlatform.AdaptivePixelsSize(243),
+                        height: MultiPlatform.AdaptivePixelsSize(83)
                     }}
                     source={require("../images/logo.png")}
                 />

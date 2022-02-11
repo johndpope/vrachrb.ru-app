@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { MultiPlatform } from '../../MultiPlatform';
 
 const MessageCard = ({ item }) => {
 
@@ -43,7 +45,7 @@ const MessageCard = ({ item }) => {
 
 const styles = StyleSheet.create({
     mainContent: {
-        height: 110,
+        height: MultiPlatform.AdaptivePixelsSize(110),
         width: '100%',
         borderBottomColor: '#E6E9ED',
         borderBottomWidth: 1,
@@ -56,30 +58,30 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     imageStyle: {
-        width: 80,
-        height: 80,
+        width: MultiPlatform.AdaptivePixelsSize(80),
+        height: MultiPlatform.AdaptivePixelsSize(80),
         borderRadius: 150,
     },
     textSpeciality: {
         color: '#AAB2BD',
-        fontSize: 13
+        fontSize: MultiPlatform.AdaptivePixelsSize(13)
     },
     textName: {
-        fontSize: 19,
+        fontSize: MultiPlatform.AdaptivePixelsSize(19),
         fontWeight: '500',
         color: '#434A53'
     },
     textPreviewMessage: {
         color: '#434A53',
-        fontSize: 17,
+        fontSize: MultiPlatform.AdaptivePixelsSize(17),
         fontWeight: '400'    
     },
     markRead: {
-        width: 10,
-        height: 10,
+        width: MultiPlatform.AdaptivePixelsSize(10),
+        height: MultiPlatform.AdaptivePixelsSize(10),
         backgroundColor: '#54B9D1',
         borderRadius: 100,
-        marginRight: 10
+        marginRight: MultiPlatform.AdaptivePixelsSize(10)
     }
 })
 

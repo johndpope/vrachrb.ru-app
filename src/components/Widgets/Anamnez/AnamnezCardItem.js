@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Image, TouchableOpacity, FlatList } from 'react
 import baseURL from '../../../requests/baseURL'
 import ImageView from "react-native-image-viewing";
 import uuid from 'react-native-uuid';
+import { MultiPlatform } from '../../MultiPlatform';
 
 const AnamnezCardItem = ({ item }) => {
 
@@ -14,7 +15,7 @@ const AnamnezCardItem = ({ item }) => {
     const [currentIndex, setCurrentIndex] = useState()
 
     useEffect(() => {
-        itemsToRender.file && itemsToRender.file.split(';').forEach(element => {
+        (itemsToRender.file && itemsToRender.file != []) && itemsToRender.file.split(';').forEach(element => {
             imageDataList.push(
                 { uri: baseURL + "u/i/" + element }
             )
@@ -23,11 +24,6 @@ const AnamnezCardItem = ({ item }) => {
         setImageList(imageDataList)
     }, [])
 
-    const returnTextComponent = (value) => {
-        return (
-            <Text style={ styles.belowtextStyle }>{ "- " + value }</Text>
-        )
-    }
     // Многострочное, однострочное и многострочное с файлами
 
     return (
@@ -44,7 +40,7 @@ const AnamnezCardItem = ({ item }) => {
                 ) : 
                 (
                     <View>
-                        <Text style={{ color: '#434A53', fontSize: 17, fontWeight: '700' }}>
+                        <Text style={{ color: '#434A53', fontSize: MultiPlatform.AdaptivePixelsSize(19), fontWeight: '700' }}>
                             { item.title }
                         </Text>
                         {
@@ -71,7 +67,7 @@ const AnamnezCardItem = ({ item }) => {
                             (   <View>
                                     <Text style={ styles.belowtextStyle }>{ itemsToRender.val }</Text>
                                     {
-                                itemsToRender.file ?
+                                itemsToRender.file !== undefined ?
                                 <View style={{ width: '100%', marginTop: 10 }}>
                                     {
                                         <FlatList 
@@ -79,7 +75,7 @@ const AnamnezCardItem = ({ item }) => {
                                                 width: '100%',
                                             }}
                                             horizontal={true}
-                                            data={itemsToRender.file.split(";")}
+                                            data={itemsToRender.file != [] && itemsToRender.file.split(';')}
                                             keyExtractor={(index) => index}
                                             renderItem={({ item, index }) => {
                                                 return(
@@ -89,7 +85,8 @@ const AnamnezCardItem = ({ item }) => {
                                                     >
                                                         <Image 
                                                             source={{ uri: baseURL + "u/i/" + item }} 
-                                                            style={{ width: 150, height: 150, borderRadius: 12 }} />
+                                                            style={{ width: MultiPlatform.AdaptivePixelsSize(150), 
+                                                            height: MultiPlatform.AdaptivePixelsSize(150), borderRadius: 12 }} />
                                                     </TouchableOpacity> 
                                                 )
                                             }}
@@ -115,7 +112,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     }, 
     belowtextStyle: {
-        fontSize: 15,
+        fontSize: MultiPlatform.AdaptivePixelsSize(17),
         color: '#434A53'
     }
 })

@@ -4,6 +4,7 @@ import MessageCard from '../components/Widgets/Chat/MessageCard'
 import baseApiURL from '../requests/baseApiURL';
 import Request from '../requests/Request';
 import {useSelector} from "react-redux";
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const MessagesScreen = () => {
 
@@ -57,7 +58,7 @@ const MessagesScreen = () => {
         <View style={ styles.mainContent }>
             { response['error'] &&
                 <View style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: "#F27C83", fontSize: 30, }}>{response['error']}</Text>
+                    <Text style={{ color: "#F27C83", fontSize: RFValue(30), }}>{response['error']}</Text>
                 </View>
             }
             { loading ? <ActivityIndicator size={'large'} /> :

@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { Component, useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { TouchableOpacity, Image, ActivityIndicator, StyleSheet, View, Dimensions, FlatList, Text } from 'react-native';
+import { TouchableOpacity, ActivityIndicator, StyleSheet, View, Text, Image } from 'react-native';
 import { GiftedChat, InputToolbar, Send } from 'react-native-gifted-chat';
 import baseApiURL from '../requests/baseApiURL';
 import baseURL from '../requests/baseURL';
@@ -12,6 +12,8 @@ import {
     HiddenItem,
     OverflowMenu,
   } from 'react-navigation-header-buttons';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { MultiPlatform } from '../components/MultiPlatform';
 
 const customSend = props => {
     return (
@@ -60,9 +62,8 @@ const ChatScreen = ({ route, id }) => {
 
     const renderMessageImage = (props) => {
         const imagesChat = props.currentMessage.image
-        
-        let imagesPrev = []
 
+        let imagesPrev = []
         imagesChat.map(element => {
             imagesPrev.push(
                 {
@@ -87,33 +88,36 @@ const ChatScreen = ({ route, id }) => {
 
                 { 
                     imagesChat[0] !== "../images/text-document.png" &&
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center'}}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center'}}>
                         
                             {/* // imagesChat.map((element, index) => { */}
                             {/* //     return (  */}
-                                    <TouchableOpacity style={{ padding: 3 }} onPress={() => { setModalOpen(true), setImages(imagesPrev), setIndexPhoto(0) }}>
+                                    <TouchableOpacity style={{ padding: 5 }} onPress={() => { setModalOpen(true), setImages(imagesPrev), setIndexPhoto(0) }}>
                                         <Image 
+                                            style={styles.image}
                                             source={{ uri: baseURL + "u/i/" + imagesChat[0] }}
-                                            style = {{ ...styles.image }}
+
                                         />
                                         
                                     </TouchableOpacity>
-                                    {   imagesChat && imagesChat.length > 2 &&
-                                        <TouchableOpacity style={{ padding: 3 }} onPress={() => { setModalOpen(true), setImages(imagesPrev), setIndexPhoto(1) }}>
+                                    { imagesChat && imagesChat.length > 1 &&
+                                        <TouchableOpacity style={{ padding: 5 }} onPress={() => { setModalOpen(true), setImages(imagesPrev), setIndexPhoto(1) }}>
                                             <Image 
                                                 source={{ uri: baseURL + "u/i/" + imagesChat[1] }}
-                                                style = {{...styles.image}}
+                                                style={styles.image}
                                             />
-                                            <View 
-                                                style={{ marginLeft: 3, marginTop: 3, 
-                                                    position: 'absolute', width: 150, height: 150, borderRadius: 13, 
-                                                    backgroundColor: '#00000095', 
-                                                    justifyContent: 'center', alignItems: 'center' }}
-                                            >
-                                                <Text style={{ color: 'white', fontSize: 27 }}>{ "+ " + (imagesChat.length - 2) }</Text>
-                                            </View>
+                                            {   imagesChat && imagesChat.length > 2 &&
+                                                <View 
+                                                    style={{ marginLeft: 5, marginTop: 5, 
+                                                        position: 'absolute', width: 130, height: 130, borderRadius: 13, 
+                                                        backgroundColor: '#00000095', 
+                                                        justifyContent: 'center', alignItems: 'center' }}
+                                                >
+                                                    <Text style={{ color: 'white', fontSize: 27 }}>{ "+ " + (imagesChat.length - 1) }</Text>
+                                                </View>
+                                            }
                                         </TouchableOpacity> 
-                                    }
+    }
                             {/* //     )  */}
                             {/* // }) */}
                         
@@ -170,7 +174,7 @@ const ChatScreen = ({ route, id }) => {
                     <OverflowMenu 
                         OverflowIcon={({ color }) => 
                             <Image 
-                                style={{ width: 25, height: 25 }} 
+                                style={{ width: MultiPlatform.AdaptivePixelsSize(25), height: MultiPlatform.AdaptivePixelsSize(25) }} 
                                 source={ require('../images/dots.png') } 
                             />}
                     >
@@ -191,10 +195,14 @@ const ChatScreen = ({ route, id }) => {
     }, [])
   
     const onSend = useCallback( async (messages = []) => {
-        // await Request.post(baseApiURL + "SendMessage", {question_id: route.params.id, body: messages[0].text})
+        console.log("ID" + route.params.id)
+        await Request.post(baseApiURL + "SendMessage", {
+            question_id: route.params.id, 
+            body: messages[0].text, 
+            attachment: messages[0].image ? messages[0].image.join(";") : ""
+        })
         
-        // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-        console.log(messages)
+        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
     }, [])
 
     return ( loading ? (
@@ -205,6 +213,15 @@ const ChatScreen = ({ route, id }) => {
         <ImageView 
             images={images} 
             imageIndex={indexPhoto}
+            supportedOrientations={
+                [
+                  'portrait', 
+                  'portrait-upside-down', 
+                  'landscape', 
+                  'landscape-left', 
+                  'landscape-right'
+                ]
+            }
             visible={isModalOpen}
             swipeToCloseEnabled={false}
             onRequestClose={() => setModalOpen(false)}
@@ -230,8 +247,8 @@ const ChatScreen = ({ route, id }) => {
 
 const styles = StyleSheet.create({
     image: {
-      width: 150,
-      height: 150,
+      width: 130,
+      height: 130,
       borderRadius: 13,
     //   margin: 3,
       resizeMode: 'cover',

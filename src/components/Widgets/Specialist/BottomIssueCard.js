@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import { MultiPlatform } from '../../MultiPlatform';
 
 const BottomIssueCard = () => {
 
@@ -19,7 +21,7 @@ const BottomIssueCard = () => {
                     >
                         <View style={ styles.wrapView }>
                             <Text style={ styles.textStyle }>Не знаю, какой врач мне нужен?</Text>
-                            <Image style={{ width: 45, height: 45 }} source={ require('../../../images/shevron_gradient.png') }/>
+                            <Image style={{ width: MultiPlatform.AdaptivePixelsSize(45), height: MultiPlatform.AdaptivePixelsSize(45) }} source={ require('../../../images/shevron_gradient.png') }/>
                         </View>
                 </LinearGradient>
             </TouchableOpacity>  
@@ -30,14 +32,14 @@ const BottomIssueCard = () => {
 const styles = StyleSheet.create({
     mainContent: {
         width: '100%',
-        paddingLeft: 16,
-        paddingRight: 16,
+        paddingLeft: MultiPlatform.AdaptivePixelsSize(16),
+        paddingRight: MultiPlatform.AdaptivePixelsSize(16),
         paddingBottom: 3,
         paddingTop: 5,
         backgroundColor: '#FFF',
     },
     gradientOptions: {
-        height: 88,
+        height: MultiPlatform.AdaptivePercentSize(10),
         borderRadius: 16,
         justifyContent: 'center'
     },
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     textStyle: {
-        fontSize: 19,
+        fontSize: MultiPlatform.AdaptivePixelsSize(19),
         width: '60%',
         fontWeight: '500',
         color: '#FFFFFF'

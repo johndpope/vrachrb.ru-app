@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import { Dimensions, StyleSheet, TextInput } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 import { useDispatch, useSelector } from 'react-redux';
 import { setQuestionBody, setUAKey } from '../../store/reducers/AnamnezSlice';
+import { MultiPlatform } from '../MultiPlatform';
 
 
 const BaseTextInput = ({ customStyle, idDispatch, is_required=true, hint="Введите текст", multiline=false, maxLength = 1000, props }) => {
@@ -54,13 +56,12 @@ const styles = StyleSheet.create({
     textInputStyle: {
         backgroundColor: '#F3F4F6',
         borderRadius: 8,
-        fontSize: 17,
+        fontSize: MultiPlatform.AdaptivePixelsSize(17),
         fontWeight: '400',
         padding: 15,
         color: '#434A53',
         marginTop: 8,
-
-        height: 120,
+        height: MultiPlatform.AdaptivePixelsSize(120),
         width: '100%',
         marginLeft: '0%',
         marginRight: '0%',

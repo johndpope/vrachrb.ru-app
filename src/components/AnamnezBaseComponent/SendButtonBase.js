@@ -5,6 +5,8 @@ import { showRequiredFields } from '../../store/reducers/AnamnezSlice';
 import Request from '../../requests/Request';
 import baseApiURL from "../../requests/baseApiURL";
 import {useNavigation} from "@react-navigation/native";
+import { RFValue } from 'react-native-responsive-fontsize';
+import { MultiPlatform } from '../MultiPlatform';
 
 const SendButtonBase = () => {
 
@@ -74,7 +76,7 @@ const SendButtonBase = () => {
         <TouchableOpacity onPress={() => sendData()} style={ styles.buttonStyle }>
             <Text style={{
                 color: '#FFFFFF',
-                fontSize: 17
+                fontSize: MultiPlatform.AdaptivePixelsSize(17)
             }}>
                 Задать вопрос
             </Text>
@@ -85,7 +87,7 @@ const SendButtonBase = () => {
 const styles = StyleSheet.create({
     buttonStyle: {
         width: '100%',
-        height: 60,
+        height: MultiPlatform.AdaptivePixelsSize(60),
         backgroundColor: '#58BE3F',
         justifyContent: 'center',
         alignItems: 'center',

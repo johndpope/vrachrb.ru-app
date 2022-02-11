@@ -3,6 +3,8 @@ import { StyleSheet, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addAnamnezAnswer, numOfRequiredFields } from '../../store/reducers/AnamnezSlice';
 import AnamnezSlice from '../../store/reducers/AnamnezSlice';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { MultiPlatform } from '../MultiPlatform';
 
 
 const MultiTextBase = ({ isRequired, data, index }) => {
@@ -59,10 +61,10 @@ const MultiTextBase = ({ isRequired, data, index }) => {
 const styles = StyleSheet.create({
     textInputStyle: {
         width: '100%',
-        height: 120,
+        height: MultiPlatform.AdaptivePixelsSize(120),
         backgroundColor: '#F3F4F6',
         borderRadius: 8,
-        fontSize: 17,
+        fontSize: MultiPlatform.AdaptivePixelsSize(17),
         fontWeight: '400',
         padding: 15,
         color: '#434A53',

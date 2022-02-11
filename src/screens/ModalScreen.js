@@ -1,7 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 import { useDispatch } from 'react-redux';
+import { MultiPlatform } from '../components/MultiPlatform';
 import {selectSpecialistID, selectSpecialtyID} from '../store/reducers/AnamnezSlice';
 
 const ModalScreen = () => {
@@ -14,14 +16,14 @@ const ModalScreen = () => {
             <View style={ styles.wrapper }>
                 <Text style={{ 
                     ...styles.textStyle,
-                    fontSize: 19,
+                    fontSize: MultiPlatform.AdaptivePixelsSize(19),
                     fontWeight: '600'
                 }}>
                     Так к кому обратиться?
                 </Text>
                 <Text style={{ 
                     ...styles.textStyle,
-                    fontSize: 17,
+                    fontSize: MultiPlatform.AdaptivePixelsSize(17),
                     fontWeight: '400',
                     marginTop: 12,
                     marginBottom: 32 
@@ -41,7 +43,7 @@ const ModalScreen = () => {
                 >
                     <Text style={{
                         color: '#FFFFFF',
-                        fontSize: 17
+                        fontSize: MultiPlatform.AdaptivePixelsSize(17)
                     }}>
                         Спросить терапевта
                     </Text>
@@ -55,7 +57,7 @@ const ModalScreen = () => {
                 >
                     <Text style={{
                         color: '#434A53',
-                        fontSize: 17
+                        fontSize: MultiPlatform.AdaptivePixelsSize(17)
                     }}>Закрыть</Text>
                 </TouchableOpacity>
             </View>
@@ -77,11 +79,11 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     buttonStyle: {
-        height: 60,
+        height: MultiPlatform.AdaptivePixelsSize(60),
         backgroundColor: '#54B9D1',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 16
+        borderRadius: MultiPlatform.AdaptivePixelsSize(16)
     },
     wrapper: {
         width: '85%'

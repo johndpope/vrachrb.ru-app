@@ -21,6 +21,8 @@ import Storage from "./src/storage/Storage";
 import {useDispatch} from "react-redux";
 import {saveUserData} from "./src/store/reducers/LoginSlice";
 import { OverflowMenuProvider } from 'react-navigation-header-buttons';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { MultiPlatform } from './src/components/MultiPlatform';
 
 const Stack = createNativeStackNavigator();
 
@@ -82,7 +84,7 @@ const App = () => {
                             headerTitleStyle: {
                                 color: "#434A53",
                                 fontWeight: '700',
-                                fontSize: 19,
+                                fontSize: MultiPlatform.AdaptivePixelsSize(19),
                             },
                             headerBackVisible: false,
                             headerLeft: () => (
@@ -105,7 +107,7 @@ const App = () => {
                                 padding: 20
                             },
                             headerTitleStyle: {
-                                fontSize: 21,
+                                fontSize: MultiPlatform.AdaptivePixelsSize(21),
                                 color: '#434A53',
                                 fontWeight: '700'
                             },
@@ -134,7 +136,7 @@ const App = () => {
                                 backgroundColor: '#FFFFFF',
                             },
                             headerTitleStyle: {
-                                fontSize: 21,
+                                fontSize: MultiPlatform.AdaptivePixelsSize(21),
                                 color: '#434A53',
                                 fontWeight: '700'
                             },
@@ -156,7 +158,7 @@ const App = () => {
                                 backgroundColor: '#FFFFFF',
                             },
                             headerTitleStyle: {
-                                fontSize: 21,
+                                fontSize: MultiPlatform.AdaptivePixelsSize(21),
                                 color: '#434A53',
                                 fontWeight: '700'
                             },

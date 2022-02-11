@@ -3,6 +3,8 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addAnamnezAnswer, numOfRequiredFields } from '../../store/reducers/AnamnezSlice';
 import AnamnezSlice from '../../store/reducers/AnamnezSlice';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { MultiPlatform } from '../MultiPlatform';
 
 
 const MultiChoicesBase = ({ choices, data, index }) => {
@@ -97,14 +99,14 @@ const styles = StyleSheet.create({
     buttonChoiceStyle: {
         width: '100%',
         marginBottom: 10,
-        padding: 18,
+        padding: MultiPlatform.AdaptivePixelsSize(18),
         borderColor: '#CCD1D9',
         borderWidth: 2,
-        borderRadius: 8,
+        borderRadius: MultiPlatform.AdaptivePixelsSize(8),
     },
     textStyle: { 
         color: '#434A53', 
-        fontSize: 17 
+        fontSize: MultiPlatform.AdaptivePixelsSize(17) 
     }
 })
 
