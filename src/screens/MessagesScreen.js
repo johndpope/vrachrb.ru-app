@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View, Text } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View, Text, ScrollView } from 'react-native';
 import MessageCard from '../components/Widgets/Chat/MessageCard'
 import baseApiURL from '../requests/baseApiURL';
 import Request from '../requests/Request';
 import {useSelector} from "react-redux";
 import { RFValue } from 'react-native-responsive-fontsize';
+import { MultiPlatform } from '../components/MultiPlatform';
 
 const MessagesScreen = () => {
 
@@ -57,9 +58,17 @@ const MessagesScreen = () => {
     return (
         <View style={ styles.mainContent }>
             { response['error'] &&
-                <View style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: "#F27C83", fontSize: RFValue(30), }}>{response['error']}</Text>
-                </View>
+                <ScrollView 
+                    refreshControl={
+                        <RefreshControl 
+                            refreshing={loading}
+                            onRefresh={() => getChats()}
+                        />
+                    }
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{flexGrow: 1, width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', padding: 10}}>
+                    <Text style={{ color: "#F27C83", fontSize: MultiPlatform.AdaptivePixelsSize(30), }}>{response['error']}</Text>
+                </ScrollView>
             }
             { loading ? <ActivityIndicator size={'large'} /> :
                 (

@@ -24,7 +24,7 @@ const SpecialistCardWidget = ({ data }) => {
                 onPress={() => moveToNextScreen()}
             >
                 <View style={ styles.wrapperBlock }>
-                    <View style={{ left: MultiPlatform.AdaptivePercentSize(2), width: MultiPlatform.AdaptivePercentSize(36) }}>
+                    <View style={{ left: MultiPlatform.AdaptivePercentSize(2), width: '70%' }}>
                         <Text numberOfLines={2} ellipsizeMode='tail' style={ styles.descriptionText }>{ data.User.first_name + " " + data.User.second_name + " " + data.User.middle_name }</Text>
                         <Text numberOfLines={2} ellipsizeMode='tail' style={{ ...styles.descriptionText, fontSize: MultiPlatform.AdaptivePixelsSize(13), fontWeight: '400' }}>{ data.about }</Text>
                         <View style={ styles.awardTextStyle }>
@@ -33,8 +33,8 @@ const SpecialistCardWidget = ({ data }) => {
                                 ...styles.descriptionText, 
                                 fontSize: MultiPlatform.AdaptivePixelsSize(13), 
                                 fontWeight: '400',
-                                marginRight: 10,
                                 color: '#34BC9D',
+                                marginRight: 10,
                                 marginLeft: 4
                              }}>{ data.rating }</Text>
                             <Text style={{ 
@@ -69,18 +69,20 @@ const styles = StyleSheet.create({
         borderRadius: 150,
     },
     awardTextStyle: {
+        
         alignItems: 'center',
         flexDirection: 'row',
         marginTop: 5
     },
     wrapperBlock: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignItems: 'center',
         height: '100%',
         width: '100%',
         borderBottomWidth: 1,
-        borderColor: '#E6E9ED'
+        borderColor: '#E6E9ED',
+        padding: 5
     }
 });
 
