@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { ToastAndroid, Platform, AlertIOS, Dimensions } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import ScreenOrientationListener from "./ScreenOrientationListener";
 /**
  * Класс с Мультиплатформенными методами */
 export class MultiPlatform {
