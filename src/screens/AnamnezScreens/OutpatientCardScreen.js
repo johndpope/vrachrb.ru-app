@@ -48,12 +48,12 @@ const OutpatientCardScreen = ({ route }) => {
                 refreshControl={
                     <RefreshControl
                         refreshing={loading}
-                        onRefresh={() => getChats()}
+                        onRefresh={() => getOutpatientCards()}
                     />
                 }
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1, width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', padding: 10}}>
-                <Text style={{ color: "#F27C83", fontSize: MultiPlatform.AdaptivePixelsSize(30), }}>{response['error']}</Text>
+                <Text style={{ color: "#F27C83", fontSize: MultiPlatform.AdaptivePixelsSize(30), }}>Нет карты</Text>
             </ScrollView>
         }
         { loading ?
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     mainContent: {
         height: MultiPlatform.AdaptivePixelsSize(110),
         width: '100%',
+        height: '100%',
         backgroundColor: "#FFFFFF",
         borderBottomColor: '#E6E9ED',
         borderBottomWidth: 1,

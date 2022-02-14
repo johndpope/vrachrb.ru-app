@@ -26,8 +26,8 @@ const MessageCard = ({ item, outPatient }) => {
                 <View style={ styles.additionView }>
                     <View>
                         <Image 
-                            style={ styles.imageStyle }
-                            source={ item.specialist_photo ? {uri: baseURL + "u/i/" + item.specialist_photo} : require('../../../images/doctor.jpg') }
+                            style={styles.imageStyle}
+                            source={ item?.specialist_photo ? {uri: baseURL + "u/i/" + item.specialist_photo} : require('../../../images/user.png') }
                         />
                     </View>
                     <View style={{

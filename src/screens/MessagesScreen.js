@@ -27,6 +27,7 @@ const MessagesScreen = () => {
                     id: element.id,
                     body: element.body,
                     specialty: "",
+                    specialist_photo: element["User"].photo,
                     closedBy: element.closed_by,
                     user_id: element.user_id,
                     first_name: element.is_anonymous ? "Anonymous" : element["User"].first_name,
@@ -39,6 +40,7 @@ const MessagesScreen = () => {
                 DATA.push({
                     id: element.id,
                     body: element.body,
+                    specialist_photo: element["Specialists"][0]["User"].photo,
                     closedBy: element.closed_by,
                     user_id: element.user_id,
                     specialty: element["Specialtys"][0].title,

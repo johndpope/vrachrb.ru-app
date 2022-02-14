@@ -14,6 +14,8 @@ import {
   } from 'react-navigation-header-buttons';
 import { MultiPlatform } from '../components/MultiPlatform';
 import CustomComposer from '../components/Widgets/Chat/CustomComposer';
+import { useSelector } from 'react-redux';
+import LoginSlice from '../store/reducers/LoginSlice';
 
 const customSend = props => {
     return (
@@ -34,6 +36,8 @@ const customSend = props => {
 
 const ChatScreen = ({ route }) => {
 
+    const isSpecialist = useSelector(state => state.LoginSlice.userData.isSpecialist)
+
     const DATA = []
 
     const navigation = useNavigation()
@@ -46,6 +50,8 @@ const ChatScreen = ({ route }) => {
     const [disableButton, setDisableButton] = useState("")
     const [indexPhoto, setIndexPhoto] = useState(0)
 
+    const [closed, setClosed] = useState(route.params.closed_by)
+
     const renderCustomToolbar = props => {
         return (
             <InputToolbar 
@@ -56,7 +62,7 @@ const ChatScreen = ({ route }) => {
                     justifyContent: 'flex-end',
                 }}
                 disableInputToolBar={true}
-                renderActions={route.params.closed_by == null && (props => <ImagesCustomAction data={props} textInput={disableButton}/>)}
+                renderActions={closed == null && (props => <ImagesCustomAction data={props} textInput={disableButton}/>)}
             />
         )
     }
@@ -175,10 +181,18 @@ const ChatScreen = ({ route }) => {
             })
     }
 
+    const closeQuestion = async () => {
+        await Request.post(baseApiURL + "Close_question", {question_id: route.params.id})
+
+        // navigation.navigate("MessagesScreen")
+        
+        setClosed("test")
+    }
+
     useEffect(() => {
         navigation.setOptions({
             title: route.params.spec_name + route.params.speciality,
-            headerRight: () => (
+            headerRight: isSpecialist ? () => (
                 <HeaderButtons>
                     <OverflowMenu 
                         OverflowIcon={({ color }) => 
@@ -188,6 +202,7 @@ const ChatScreen = ({ route }) => {
                             />}
                     >
                         <HiddenItem 
+                            onPress={closed == null ? () => closeQuestion() : () => MultiPlatform.ToastShow("Вы уже закрыли вопрос")}
                             titleStyle={{
                                 color: '#F27C83'
                             }}
@@ -195,7 +210,7 @@ const ChatScreen = ({ route }) => {
                         />
                     </OverflowMenu>
                 </HeaderButtons>
-            )
+            ) : () => <View></View>
         })
     }, [])
 
@@ -238,14 +253,14 @@ const ChatScreen = ({ route }) => {
             <GiftedChat
                 textInputStyle={{ color: 'black' }}
                 messagesContainerStyle={{ backgroundColor: '#FFFFFF', overflow: 'scroll'}}
-                placeholder={route.params.closed_by ? 'Вопрос закрыт' : 'Сообщение'}
+                placeholder={closed ? 'Вопрос закрыт' : 'Сообщение'}
                 onInputTextChanged={props => setDisableButton(props)}
                 renderMessageImage={props => renderMessageImage(props)}
                 renderSend={props => customSend(props)}
-                renderComposer={route.params.closed_by !== null && (props => <CustomComposer data={props}/>)}
+                renderComposer={closed !== null && (props => <CustomComposer data={props}/>)}
                 renderInputToolbar={props => renderCustomToolbar(props)}
                 messages={messages}
-                disableComposer={route.params.closed_by ? true : false}
+                disableComposer={closed ? true : false}
                 onSend={messages => onSend(messages)}
                 user={{
                     _id: userID,
