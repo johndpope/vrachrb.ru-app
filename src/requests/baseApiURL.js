@@ -1,1 +1,3 @@
-export default ApiUrl = "http://192.168.2.37:8080/api/"
+import baseURL from "./baseURL";
+
+export default ApiUrl = baseURL+"api/"

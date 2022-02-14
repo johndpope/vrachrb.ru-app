@@ -12,10 +12,22 @@ const AnamnezSlice = createSlice({
     },
     reducers: {
         addAnamnezAnswer(state, action){
-            state.anamnezData[action.payload.index] = action.payload.sh_field_type
+            if(state.anamnezData[action.payload.index]?.file) {
+                // console.log("ЕСТЬ ФАЙЛ")
+                let file = state.anamnezData[action.payload.index].file
+                state.anamnezData[action.payload.index] = action.payload.sh_field_type
+                state.anamnezData[action.payload.index].file = file
+            } else {
+                // console.log("НЕТ ФАЙЛА")
+                state.anamnezData[action.payload.index] = action.payload.sh_field_type
+            }
         },
         addAnamnezPhoto(state, action){
             state.anamnezData[action.payload.index].file = action.payload.file
+            console.log("state.anamnezData["+action.payload.index+"]::" + JSON.stringify(state.anamnezData[action.payload.index]))
+        },
+        deleteAnamnezPhoto(state, action){
+            state.anamnezData[action.payload.index].file = ""
         },
         selectSpecialistID(state, action){
             state.selectedSpecialistID = action.payload
@@ -46,6 +58,6 @@ const AnamnezSlice = createSlice({
 })
 
 export default AnamnezSlice.reducer
-export const { addAnamnezAnswer, selectSpecialistID, selectSpecialtyID,
+export const { addAnamnezAnswer, addAnamnezPhoto, selectSpecialistID, selectSpecialtyID,
     showRequiredFields, setQuestionBody, resetAllValues,
     setUAKey } = AnamnezSlice.actions

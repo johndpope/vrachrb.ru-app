@@ -14,15 +14,15 @@ const SpecialistScreen = () => {
     const specialistRoute = useSelector(state => state.SpecSlice.specialistRoute)
     const specialistData = useSelector(state => state.SpecSlice.specialistData)
 
-    
-    const getSpecialistData = () => {
+
+    const getSpecialistData = (route = "GetSpecialists", data= {}) => {
         setLoading(true)
-        Request.get(ApiURL + specialistRoute, specialistData)
+        Request.get(ApiURL + route, data)
             .then(response => { setSpecialist(response), setLoading(false)})
     };
 
     useEffect(() => {
-        getSpecialistData()
+        getSpecialistData(specialistRoute,specialistData)
     }, [specialistData])
 
 
@@ -33,11 +33,11 @@ const SpecialistScreen = () => {
                     width: '100%',
                     height: '100%'
                 }}>
-                    <FlatList 
+                    <FlatList
                         refreshControl={
-                            <RefreshControl 
+                            <RefreshControl
                                 refreshing={loading}
-                                onRefresh={() => getSpecialistData()}
+                                onRefresh={() => { getSpecialistData() }}
                             />
                         }
                         style={{

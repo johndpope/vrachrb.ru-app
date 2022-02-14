@@ -1,12 +1,22 @@
-import React, { Component, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, StyleSheet, TouchableOpacity, FlatList, Image, Alert } from 'react-native';
 import DocumentPicker from 'react-native-document-picker'
-import { RFValue } from 'react-native-responsive-fontsize';
 import uuid from 'react-native-uuid';
+import {addAnamnezAnswer, addAnamnezPhoto} from "../../store/reducers/AnamnezSlice";
 import baseURL from "../../requests/baseURL";
-import { MultiPlatform } from '../MultiPlatform';
+import {MultiPlatform} from "../MultiPlatform";
+import {useDispatch, useSelector} from "react-redux";
 
 const UploadFileBase = ({ component, index, data }) => {
+
+    let rawImagesData = [{
+        index: 0,
+        fileCopyUri: null,
+        size: 0,
+        name: "",
+        type: "",
+        uri: ""
+    }]
 
     let ImagesData = [{
         index: 0,
@@ -15,68 +25,107 @@ const UploadFileBase = ({ component, index, data }) => {
         defaultImage: true,
         image: '../../images/plus.png'
     }]
+    let imageURLs = ""
 
+    const dispatch = useDispatch()
+
+    const anamnezData = useSelector(state => state.AnamnezSlice.anamnezData[index])
+    const [rawImage, setRawImage] = useState(rawImagesData)
     const [imageData, setImageData] = useState(ImagesData)
+
+    useEffect(() => {
+        // console.log("anamnezData["+index+"]::"+JSON.stringify(anamnezData))
+    }, [anamnezData])
+
+    useEffect(() => {
+        // console.log("imageData::"+JSON.stringify(imageData))
+    }, [imageData])
+
+    useEffect(() => {
+        // console.log("rawImage::"+JSON.stringify(rawImage))
+
+        let rawImageData = [...rawImage]
+        rawImageData.splice(rawImageData.length-1, 1)
+        // console.log("addAnamnezPhoto::"+JSON.stringify(rawImageData));
+
+        dispatch(addAnamnezPhoto({
+            index: index,
+            file: rawImageData
+        }))
+    },[rawImage])
 
     const deleteImage = async (id) => {
         let imageDataPrev = [...imageData]
+        let rawImageData = [...rawImage]
+        id = imageDataPrev.findIndex(el => el.index === id);
 
-        imageDataPrev[id].image = '../../images/plus.png'
-        imageDataPrev[id].setted = true
-        imageDataPrev[id].defaultImage = true 
+        imageDataPrev.splice(id, 1)
+        rawImageData.splice(id,1)
 
         setImageData(imageDataPrev)
+        setRawImage(rawImageData)
     }
 
     const imagePick = async (id) => {
-        const result = await DocumentPicker.pick({
-            type: [DocumentPicker.types.images]
-        });
-
         let imageDataPrev = [...imageData]
+        id = imageDataPrev.findIndex(el => el.index === id);
+        console.log("[ID]::" + id)
+
+        if(imageDataPrev[id].setted)
+            return MultiPlatform.ToastShow("Вы уже выбрали фото");
+
+        let result
+        try {
+            result = await DocumentPicker.pick({
+                type: [DocumentPicker.types.images]
+            });
+        } catch(e) {
+            return MultiPlatform.ToastShow("Вы не выбрали фото");
+        }
+        if(checkNameFile(result[0]))
+            return MultiPlatform.ToastShow("Данное изображение уже было добавлено");
+
+        let rawImageData = [...rawImage]
+        rawImageData[id].fileCopyUri = result[0].fileCopyUri
+        rawImageData[id].size = result[0].size
+        rawImageData[id].name = result[0].name
+        rawImageData[id].type = result[0].type
+        rawImageData[id].uri  = result[0].uri
+        rawImageData.push({
+            index: rawImageData[id].index + 1,
+            fileCopyUri: null,
+            size: 0,
+            name: "",
+            type: "",
+            uri: ""
+        })
+        setRawImage(rawImageData)
 
         imageDataPrev[id].image = result[0].uri
-        !imageDataPrev[id].setted && imageDataPrev.push({
+        imageDataPrev[id].defaultImage = false
+        imageDataPrev[id].setted = true
+        imageDataPrev.push({
             index: imageDataPrev[id].index + 1,
             id: uuid.v4(),
             setted: false,
             defaultImage: true,
             image: '../../images/plus.png'
         })
-        imageDataPrev[id].defaultImage = false
-        imageDataPrev[id].setted = true
-
         setImageData(imageDataPrev)
-        // await upload(result[0])
     }
 
-    // const upload = async (resp) => {
-    //     let data = new FormData();
-    //     try {
-    //         data.append('file', {
-    //             uri: resp.uri,
-    //             type: resp.type,
-    //             name: resp.name || resp.fileName
-    //         });
-    //         const response = await fetch(baseURL + 'uploader?key=analysis', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data',
-    //             },
-    //             body: data
-    //         });
-    //         const text = await response.text();
-    //         console.log('text', text);
-    //         let json = JSON.parse(text);
-    //         if (json.state === 'success') {
-    //             Alert.alert("Text");
-    //         } else {
-    //             Alert.alert(json.message);
-    //         }
-    //     } catch (e) {
-    //         Alert.alert(e);
-    //     }
-    // }
+    function checkNameFile(image) {
+        let bool = false
+        rawImage.map((item) => {
+            // console.log("ITEM:"+JSON.stringify(item))
+            // console.log("IMAG:"+JSON.stringify(image))
+            if (image.uri == item.uri) {
+                // console.log("СОВПАДАЮТ")
+                bool = true
+            }
+        })
+        return bool
+    }
 
     return (
         <View
@@ -90,7 +139,7 @@ const UploadFileBase = ({ component, index, data }) => {
             <View style={{
                 marginTop: 5
             }}>
-                <FlatList 
+                <FlatList
                     data={imageData}
                     horizontal={true}
                     keyExtractor={(item) => item.id}
@@ -98,14 +147,13 @@ const UploadFileBase = ({ component, index, data }) => {
                         return(
                             <View>
                                 { !item.defaultImage &&
-                                    <TouchableOpacity onPress={() => deleteImage(item.index)} style={ styles.deleteButtonStyle }>
-                                        <Image style={{ width: '50%', height: '50%' }} source={ require('../../images/delete_cross.png') }/>
-                                    </TouchableOpacity>
+                                <TouchableOpacity onPress={() => deleteImage(item.index)} style={ styles.deleteButtonStyle }>
+                                    <Image style={{ width: '50%', height: '50%' }} source={ require('../../images/delete_cross.png') }/>
+                                </TouchableOpacity>
                                 }
                                 <TouchableOpacity onPress={() => imagePick(item.index)} style={ styles.uploadButtonStyle }>
-                                    <Image 
-                                        style={{ width: !item.defaultImage ? MultiPlatform.AdaptivePixelsSize(100) : MultiPlatform.AdaptivePixelsSize(40), 
-                                            height: !item.defaultImage ? MultiPlatform.AdaptivePixelsSize(100) : MultiPlatform.AdaptivePixelsSize(40), borderRadius: MultiPlatform.AdaptivePixelsSize(8) }} 
+                                    <Image
+                                        style={{ width: !item.defaultImage ? 100 : 40, height: !item.defaultImage ? 100 : 40, borderRadius: 8 }}
                                         source={ !item.defaultImage ? { uri: item.image } : require('../../images/plus.png')}
                                     />
                                 </TouchableOpacity>
@@ -120,17 +168,17 @@ const UploadFileBase = ({ component, index, data }) => {
 
 const styles = StyleSheet.create({
     additionalFieldStyle: {
-        fontSize: MultiPlatform.AdaptivePixelsSize(15),
+        fontSize: 15,
         color: '#434A53',
         fontWeight: '400',
     },
     uploadButtonStyle: {
-        width: MultiPlatform.AdaptivePixelsSize(100),
-        height: MultiPlatform.AdaptivePixelsSize(100),
+        width: 100,
+        height: 100,
         borderColor: '#CCD1D9',
         borderWidth: 2,
         borderStyle: 'dashed',
-        borderRadius: MultiPlatform.AdaptivePixelsSize(8),
+        borderRadius: 8,
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 15,
@@ -141,8 +189,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 8,
         top: 5,
-        width: MultiPlatform.AdaptivePixelsSize(26),
-        height: MultiPlatform.AdaptivePixelsSize(26),
+        width: 26,
+        height: 26,
         backgroundColor: '#F27C83',
         borderRadius: 50,
         zIndex: 1,

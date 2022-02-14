@@ -31,7 +31,7 @@ const App = () => {
     useEffect(() => {
         Storage.get("userData")
             .then((data) => dispatch(saveUserData(data)))
-    })
+    },[])
 
     return (
         <OverflowMenuProvider>

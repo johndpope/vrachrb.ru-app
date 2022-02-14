@@ -44,9 +44,9 @@ const SpecialistCardWidget = ({ data }) => {
                                 color: '#AAB2BD' }}>{ data.answers_count + " - консультаций" }</Text>
                         </View>
                     </View>
-                    <Image 
+                    <Image
                         style={ styles.imageStyle }
-                        source={ require('../../../images/doctor.jpg') }
+                        source={ data.User.photo === "" ? require('../../../images/user.png') : { uri: baseURL + "u/i/"+ data.User.photo }}
                     />
                 </View>
             </TouchableOpacity>

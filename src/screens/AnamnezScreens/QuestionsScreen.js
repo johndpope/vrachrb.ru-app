@@ -21,6 +21,11 @@ const QuestionsScreen = () => {
     const [loading, setLoading] = useState(false)
     const [anamnezData, setAnamnezData] = useState(DATA)
 
+    useEffect(() => {
+        dispatch(resetAllValues())
+        getAnamnez()
+    }, [])
+
     const getAnamnez = async () => {
         setLoading(true)
         let rep = await Request.get(baseApiURL + "Get_anamnes", { spec_id:specialtyID })
@@ -86,7 +91,7 @@ const QuestionsScreen = () => {
                         index: index,
                         sh_field_type: {
                             sh_field: item.id,
-                            file: [],
+                            file: "",
                             val: "",
                             isRequired: item.is_required == "1" ? true : false
                         }
@@ -102,11 +107,11 @@ const QuestionsScreen = () => {
                 } />,
                 body: item.field_type == "textarea" ?
                     <MultiTextBase index={ index } data={ item } /> : item.field_type == "input" ?
-                    <SingleTextBase index={ index } data={ item } /> : item.field_type == "yes_no_input" ?
-                    <ChoicesButtonBase index={ index } data={ item } component={<SingleTextBase index={ index } data={ item } />} /> : item.field_type == "yes_no_textarea" ?
-                    <ChoicesButtonBase index={ index } data={ item } component={<MultiTextBase index={ index } data={ item } />} /> : item.field_type == "textarea_upload" ?
-                    <UploadFileBase index={ index } data={ item } component={<MultiTextBase index={ index } data={ item } />} /> :
-                    <MultiChoicesBase index={ index } data={ item } choices={ item.field_options.choices }/>
+                        <SingleTextBase index={ index } data={ item } /> : item.field_type == "yes_no_input" ?
+                            <ChoicesButtonBase index={ index } data={ item } component={<SingleTextBase index={ index } data={ item } />} /> : item.field_type == "yes_no_textarea" ?
+                                <ChoicesButtonBase index={ index } data={ item } component={<MultiTextBase index={ index } data={ item } />} /> : item.field_type == "textarea_upload" ?
+                                    <UploadFileBase index={ index } data={ item } component={<MultiTextBase index={ index } data={ item } />} /> :
+                                    <MultiChoicesBase index={ index } data={ item } choices={ item.field_options.choices }/>
             })
         })
 
@@ -119,10 +124,6 @@ const QuestionsScreen = () => {
 
         setLoading(false)
     }
-
-    useEffect(() => {
-        getAnamnez()
-    }, [])
 
     return (
         <View style={ styles.mainContent }>
