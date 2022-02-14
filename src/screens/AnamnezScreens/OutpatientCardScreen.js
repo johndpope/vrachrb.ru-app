@@ -1,12 +1,91 @@
-import React, { Component } from 'react'
-import { View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import React, { Component, useEffect, useState } from 'react'
+import { ActivityIndicator, FlatList, RefreshControl, ScrollView, View, StyleSheet } from 'react-native'
+import { MultiPlatform } from '../../components/MultiPlatform'
+import MessageCard from '../../components/Widgets/Chat/MessageCard'
+import baseApiURL from '../../requests/baseApiURL'
+import Request from '../../requests/Request'
 
-const OutpatientCardScreen = () => {    
+const OutpatientCardScreen = ({ route }) => {    
+
+    const DATA = []
+
+    const [response, setResponse] = useState({})
+    const [loading, setLoading] = useState(false)
+    const [patientCardData, setPatientCard] = useState(DATA)
+
+    const getOutpatientCards = async () => {
+        setLoading(true)
+        let response = await Request.get(baseApiURL + "Get_patient_card", {user_id: route.params.id})
+        // console.log(response)
+        response["response"] && response["response"].forEach(element => {
+            DATA.push({
+                id: element.id,
+                body: element.body,
+                specialty: element["Specialists"][0]["Specialty"].title,
+                first_name: element["Specialists"][0]["User"].first_name,
+                second_name: element["Specialists"][0]["User"].second_name[0],
+                middle_name: element["Specialists"][0]["User"].middle_name[0]
+            })
+        });
+
+        setResponse(response)
+        setPatientCard(DATA)
+        setLoading(false)
+    }
+
+    useEffect(() => {
+        getOutpatientCards()
+    }, [])
+
     return (
-        <View>
-            
-        </View>
+        <View style={ styles.mainContent }>
+        { response['error'] &&
+            <ScrollView 
+                refreshControl={
+                    <RefreshControl 
+                        refreshing={loading}
+                        onRefresh={() => getChats()}
+                    />
+                }
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{flexGrow: 1, width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', padding: 10}}>
+                <Text style={{ color: "#F27C83", fontSize: MultiPlatform.AdaptivePixelsSize(30), }}>{response['error']}</Text>
+            </ScrollView>
+        }
+        { loading ? <ActivityIndicator size={'large'} /> :
+            (
+                <FlatList 
+                    data={patientCardData}
+                    refreshControl={
+                        <RefreshControl 
+                            refreshing={loading}
+                            onRefresh={() => getOutpatientCards()}
+                        />
+                    }
+                    keyExtractor={(item) => item.id}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item }) => {
+                        return(
+                            <MessageCard outPatient={true} item={ item }/>
+                        )
+                    }}
+                />
+            )
+        }
+    </View>
     )
 }
+
+const styles = StyleSheet.create({
+    mainContent: {
+        height: MultiPlatform.AdaptivePixelsSize(110),
+        width: '100%',
+        height: '100%',
+        backgroundColor: "#FFFFFF",
+        borderBottomColor: '#E6E9ED',
+        borderBottomWidth: 1,
+    },  
+})
 
 export default OutpatientCardScreen

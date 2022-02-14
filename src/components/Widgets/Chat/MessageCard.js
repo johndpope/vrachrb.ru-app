@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { MultiPlatform } from '../../MultiPlatform';
 import LoginSlice from '../../../store/reducers/LoginSlice';
 
-const MessageCard = ({ item }) => {
+const MessageCard = ({ item, outPatient }) => {
 
     const isSpecialist = useSelector(state => state.LoginSlice.userData.isSpecialist)
     const navigation = useNavigation()
@@ -13,8 +13,9 @@ const MessageCard = ({ item }) => {
     return (
         <View style={ styles.mainContent }>
             <TouchableOpacity
-                onPress={() => { 
+                onPress={() => { outPatient ? console.log("outPatient: " + outPatient) :
                     navigation.navigate("ChatScreen", { id: item.id, 
+                                                user_id: item.user_id,
                                                 speciality: isSpecialist ? "" : " (" + item.specialty + ")" ,  
                                                 spec_name:  item.first_name + " " 
                                                 + item.second_name + "." }) 
@@ -32,13 +33,17 @@ const MessageCard = ({ item }) => {
                         width: '55%',
                         justifyContent: 'space-between',
                     }}>
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textSpeciality }>{ item.specialty }</Text>
+                        { !isSpecialist &&
+                            <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textSpeciality }>{ item.specialty }</Text>
+                        }
                         <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textName }>{ item.first_name + " " 
                                                                                                 + item.second_name + "." 
                                                                                                 + item.middle_name }</Text>
                         <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textPreviewMessage }>{ item.body }</Text>
                     </View>
-                    <View style={ styles.markRead } />
+                    { !outPatient &&
+                        <View style={ styles.markRead } />
+                    }
                 </View>
             </TouchableOpacity>
         </View>

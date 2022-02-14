@@ -31,7 +31,7 @@ const customSend = props => {
     )
 }
 
-const ChatScreen = ({ route, id }) => {
+const ChatScreen = ({ route }) => {
 
     const DATA = []
 
@@ -79,20 +79,20 @@ const ChatScreen = ({ route, id }) => {
                 {
                     imagesChat[0] == "../images/text-document.png" && (
                         <View>
-                        <TouchableOpacity 
-                            style={{ width: 150, height: 100, justifyContent: 'center', 
-                                alignItems: 'center', backgroundColor: 'white', borderRadius: 13, margin: 3, }}
-                            onPress={() => navigation.navigate("DisplayAnamnezScreen", {id: route.params.id})}
-                        >
-                            <Image source={ require('../images/text-document.png') } style={{ width: 50, height: 50 }}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            style={{ width: 150, height: 100, justifyContent: 'center', 
-                                alignItems: 'center', backgroundColor: 'white', borderRadius: 13, margin: 3, }}
-                            onPress={() => navigation.navigate("DisplayAnamnezScreen", {id: route.params.id})}
-                        >
-                            <Image source={ require('../images/text-document.png') } style={{ width: 50, height: 50 }}/>
-                        </TouchableOpacity>
+                            <TouchableOpacity 
+                                style={{ width: 150, height: 100, justifyContent: 'center', 
+                                    alignItems: 'center', backgroundColor: 'white', borderRadius: 13, margin: 3, }}
+                                onPress={() => navigation.navigate("DisplayAnamnezScreen", {id: route.params.id})}
+                            >
+                                <Image source={ require('../images/text-document.png') } style={{ width: 50, height: 50 }}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                style={{ width: 150, height: 100, justifyContent: 'center', 
+                                    alignItems: 'center', backgroundColor: 'white', borderRadius: 13, margin: 3, }}
+                                onPress={() => navigation.navigate("OutpatientCardScreen", {id: route.params.user_id})}
+                            >
+                                <Image source={ require('../images/form.png') } style={{ width: 50, height: 50 }}/>
+                            </TouchableOpacity>
                         </View>
                     )
                 }

@@ -22,6 +22,7 @@ import {useDispatch} from "react-redux";
 import {saveUserData} from "./src/store/reducers/LoginSlice";
 import { OverflowMenuProvider } from 'react-navigation-header-buttons';
 import { MultiPlatform } from './src/components/MultiPlatform';
+import OutpatientCardScreen from './src/screens/AnamnezScreens/OutpatientCardScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -125,6 +126,27 @@ const App = () => {
                         name="ModalScreen"
                         options={{headerShown: false}}
                         component={ModalScreen}
+                    />
+                    <Stack.Screen
+                        name="OutpatientCardScreen"
+                        options={{
+                            title: 'Амбулаторная карта',
+                            headerBackVisible: false,
+                            headerStyle: {
+                                backgroundColor: '#FFFFFF',
+                            },
+                            headerTitleStyle: {
+                                fontSize: MultiPlatform.AdaptivePixelsSize(21),
+                                color: '#434A53',
+                                fontWeight: '700'
+                            },
+                            headerShadowVisible: false,
+                            headerTitleAlign: 'center',
+                            headerLeft: () => (
+                                <BackButton/>
+                            )
+                        }}
+                        component={OutpatientCardScreen}
                     />
                     <Stack.Screen
                         name="DisplayAnamnezScreen"

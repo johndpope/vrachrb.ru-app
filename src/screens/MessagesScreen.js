@@ -27,6 +27,7 @@ const MessagesScreen = () => {
                     id: element.id,
                     body: element.body,
                     specialty: "",
+                    user_id: element.user_id,
                     first_name: element.is_anonymous ? "Anonymous" : element["User"].first_name,
                     second_name: element.is_anonymous ? "A" : element["User"].second_name[0],
                     middle_name: element.is_anonymous ? "A" : element["User"].middle_name[0]
@@ -37,6 +38,7 @@ const MessagesScreen = () => {
                 DATA.push({
                     id: element.id,
                     body: element.body,
+                    user_id: element.user_id,
                     specialty: element["Specialtys"][0].title,
                     first_name: element["Specialists"][0]["User"].first_name,
                     second_name: element["Specialists"][0]["User"].second_name[0],
@@ -83,7 +85,7 @@ const MessagesScreen = () => {
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => {
                             return(
-                                <MessageCard item={ item }/>
+                                <MessageCard outPatient={false} item={ item }/>
                             )
                         }}
                     />
