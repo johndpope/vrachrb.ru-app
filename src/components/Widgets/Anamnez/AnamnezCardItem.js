@@ -15,7 +15,7 @@ const AnamnezCardItem = ({ item }) => {
     const [currentIndex, setCurrentIndex] = useState()
 
     useEffect(() => {
-        (itemsToRender.file && itemsToRender.file != []) && itemsToRender.file.split(';').forEach(element => {
+        (itemsToRender.file && typeof itemsToRender.file === 'string') && itemsToRender.file.split(';').forEach(element => {
             imageDataList.push(
                 { uri: baseURL + "u/i/" + element }
             )

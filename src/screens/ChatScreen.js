@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { Component, useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { TouchableOpacity, ActivityIndicator, StyleSheet, View, Text, Image } from 'react-native';
 import { GiftedChat, InputToolbar, Send } from 'react-native-gifted-chat';
 import baseApiURL from '../requests/baseApiURL';
@@ -12,7 +12,6 @@ import {
     HiddenItem,
     OverflowMenu,
   } from 'react-navigation-header-buttons';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { MultiPlatform } from '../components/MultiPlatform';
 
 const customSend = props => {
@@ -25,7 +24,10 @@ const customSend = props => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}
-        />
+        >
+            <Image style={{ width: MultiPlatform.AdaptivePixelsSize(23), 
+                height: MultiPlatform.AdaptivePixelsSize(23), tintColor: '#54B9D1', marginTop: 5, marginBottom: 10 }} source={ require('../images/paper-plane.png') }/>
+        </Send>
     )
 }
 
@@ -76,6 +78,7 @@ const ChatScreen = ({ route, id }) => {
             <View>
                 {
                     imagesChat[0] == "../images/text-document.png" && (
+                        <View>
                         <TouchableOpacity 
                             style={{ width: 150, height: 100, justifyContent: 'center', 
                                 alignItems: 'center', backgroundColor: 'white', borderRadius: 13, margin: 3, }}
@@ -83,9 +86,16 @@ const ChatScreen = ({ route, id }) => {
                         >
                             <Image source={ require('../images/text-document.png') } style={{ width: 50, height: 50 }}/>
                         </TouchableOpacity>
+                        <TouchableOpacity 
+                            style={{ width: 150, height: 100, justifyContent: 'center', 
+                                alignItems: 'center', backgroundColor: 'white', borderRadius: 13, margin: 3, }}
+                            onPress={() => navigation.navigate("DisplayAnamnezScreen", {id: route.params.id})}
+                        >
+                            <Image source={ require('../images/text-document.png') } style={{ width: 50, height: 50 }}/>
+                        </TouchableOpacity>
+                        </View>
                     )
                 }
-
                 { 
                     imagesChat[0] !== "../images/text-document.png" &&
                     <View style={{ flexDirection: 'row', alignItems: 'center'}}>
@@ -168,7 +178,7 @@ const ChatScreen = ({ route, id }) => {
 
     useEffect(() => {
         navigation.setOptions({
-            title: route.params.spec_name + " (" + route.params.speciality + ")",
+            title: route.params.spec_name + route.params.speciality,
             headerRight: () => (
                 <HeaderButtons>
                     <OverflowMenu 

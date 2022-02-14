@@ -13,7 +13,7 @@ const DisplayAnamnezScreen = ({ route }) => {
     const getAnamnesQuestion = () => {
         setLoading(true)
         Request.get(baseApiURL + "Get_question_anamnes", {question_id: route.params.id})
-            .then(response => { setAnamnesQuestion(response["response"]), setLoading(false)})
+            .then(response => { setAnamnesQuestion(response["response"]), setLoading(false), console.log(response)})
     }
 
     useEffect(() => {

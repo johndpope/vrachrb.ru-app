@@ -1,11 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
+import { useSelector } from 'react-redux';
 import { MultiPlatform } from '../../MultiPlatform';
+import LoginSlice from '../../../store/reducers/LoginSlice';
 
 const MessageCard = ({ item }) => {
 
+    const isSpecialist = useSelector(state => state.LoginSlice.userData.isSpecialist)
     const navigation = useNavigation()
     
     return (
@@ -13,8 +15,8 @@ const MessageCard = ({ item }) => {
             <TouchableOpacity
                 onPress={() => { 
                     navigation.navigate("ChatScreen", { id: item.id, 
-                                                speciality: item.specialty, 
-                                                spec_name: item.first_name + " " 
+                                                speciality: isSpecialist ? "" : " (" + item.specialty + ")" ,  
+                                                spec_name:  item.first_name + " " 
                                                 + item.second_name + "." }) 
                 }}
             >

@@ -21,7 +21,6 @@ import Storage from "./src/storage/Storage";
 import {useDispatch} from "react-redux";
 import {saveUserData} from "./src/store/reducers/LoginSlice";
 import { OverflowMenuProvider } from 'react-navigation-header-buttons';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { MultiPlatform } from './src/components/MultiPlatform';
 
 const Stack = createNativeStackNavigator();

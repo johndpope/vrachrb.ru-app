@@ -4,7 +4,6 @@ import MessageCard from '../components/Widgets/Chat/MessageCard'
 import baseApiURL from '../requests/baseApiURL';
 import Request from '../requests/Request';
 import {useSelector} from "react-redux";
-import { RFValue } from 'react-native-responsive-fontsize';
 import { MultiPlatform } from '../components/MultiPlatform';
 
 const MessagesScreen = () => {
@@ -28,9 +27,9 @@ const MessagesScreen = () => {
                     id: element.id,
                     body: element.body,
                     specialty: "",
-                    first_name: element["User"].first_name,
-                    second_name: element["User"].second_name[0],
-                    middle_name: element["User"].middle_name[0]
+                    first_name: element.is_anonymous ? "Anonymous" : element["User"].first_name,
+                    second_name: element.is_anonymous ? "A" : element["User"].second_name[0],
+                    middle_name: element.is_anonymous ? "A" : element["User"].middle_name[0]
                 })
             });
         } else {

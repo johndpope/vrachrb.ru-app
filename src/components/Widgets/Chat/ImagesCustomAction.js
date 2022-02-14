@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Dimensions, FlatList, Image, TouchableOpacity, View } from 'react-native';
 import DocumentPicker from 'react-native-document-picker'
 import CameraPicker, {ImageOrVideo} from 'react-native-image-crop-picker';
+import { MultiPlatform } from '../../MultiPlatform';
 
 const ImagesCustomAction = ({ data, textInput }) => {
 
@@ -152,12 +153,12 @@ const ImagesCustomAction = ({ data, textInput }) => {
                 textInput == "" && (
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity style={{ padding: 10 }} onPress={() => imagePick()}>
-                            <Image source={ require('../../../images/attach.png') } style={{ width: 23, height: 23, tintColor: '#AAB2BD' }}/>
+                            <Image source={ require('../../../images/attach.png') } style={{ width: MultiPlatform.AdaptivePixelsSize(23), height: MultiPlatform.AdaptivePixelsSize(23), tintColor: '#AAB2BD' }}/>
                         </TouchableOpacity>
                         <TouchableOpacity style={{ padding: 10 }} onPress={
                             () => photoPickFromCamera()
                         }>
-                            <Image source={ require('../../../images/camera.png') } style={{ width: 23, height: 23, tintColor: '#AAB2BD' }}/>
+                            <Image source={ require('../../../images/camera.png') } style={{ width: MultiPlatform.AdaptivePixelsSize(23), height: MultiPlatform.AdaptivePixelsSize(23), tintColor: '#AAB2BD' }}/>
                         </TouchableOpacity>
                         {
                             !loading ? 
@@ -168,12 +169,12 @@ const ImagesCustomAction = ({ data, textInput }) => {
                                             await uploadAllFiles(imageData),
                                             setImageData([])}}>
                                         <Image source={ require('../../../images/paper-plane.png') } 
-                                        style={{ width: 23, height: 23, tintColor: '#AAB2BD', tintColor: '#54B9D1' }}/>
+                                        style={{ width: MultiPlatform.AdaptivePixelsSize(23), height: MultiPlatform.AdaptivePixelsSize(23), tintColor: '#54B9D1' }}/>
                                     </TouchableOpacity>
                                 ) :
                                 (
                                     <View style={{ padding: 10, }}>
-                                        <ActivityIndicator style={{ width: 23, height: 23 }} size={'small'}/>
+                                        <ActivityIndicator size={'small'}/>
                                     </View>
                                 )
                         }
