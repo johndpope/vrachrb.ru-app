@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { Component, useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, RefreshControl, ScrollView, View, StyleSheet } from 'react-native'
+import { ActivityIndicator, FlatList, RefreshControl, ScrollView, View, StyleSheet, Text } from 'react-native'
 import { MultiPlatform } from '../../components/MultiPlatform'
 import MessageCard from '../../components/Widgets/Chat/MessageCard'
 import baseApiURL from '../../requests/baseApiURL'
