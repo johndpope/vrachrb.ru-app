@@ -12,19 +12,13 @@ import AgreementComponent from "../AuthComponent/AgreementComponent";
 import {Picker} from '@react-native-picker/picker';
 import BaseDateTimePicker from "../AuthComponent/BaseDateTimePicker";
 import {MultiPlatform} from "../MultiPlatform";
+import Storage from "../../storage/Storage";
 
 
 const RegisterFormComponent = () => {
 
     const navigation = useNavigation()
     const dispatch = useDispatch()
-
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
-      {label: 'Мужчина', value: 'м'},
-      {label: 'Женщина', value: 'ж'}
-    ]);
 
     const [name, setName]            = useState("")
     const [familia, setFamilia]      = useState("")
@@ -42,23 +36,6 @@ const RegisterFormComponent = () => {
 
     const [response, setResponse]    = useState("")
     const [loading, setLoading] = useState(false)
-
-    const agreements = [
-        {
-            "id": "1",
-            "description": "Я понимаю, что все рекомендации носят информационный или консультативный характер и не заменяют очного приема врача, применение полученных рекомендаций производится мной по собственной инициативе и на свой страх и риск",
-        },
-        {
-            "id": "2",
-            "description": "Я согласен и принимаю правила работы на портале",
-            "url": "http://vrachrb.ru/agreement/2/"
-        },
-        {
-            "id": "3",
-            "description": "Я даю своё согласие на обработку персональных данных",
-            "url": "http://vrachrb.ru/agreement/3/"
-        }
-    ]
 
     const register = async () => {
         if(!validateEmailPhonePass(email,phone)){
@@ -79,15 +56,27 @@ const RegisterFormComponent = () => {
 
         setResponse(request)
 
-        request['response'] &&
-        dispatch(saveUserData(request))
+        let newUser = {
+            auth: true,
+            isSpecialist: false,
+            first_name: name,
+            second_name: familia,
+            middle_name: last_name,
+            username: email,
+            gender: gender,
+            birth_date: birth_date + " .",
+            email: email,
+            phone: phone,
+            photo: ""
+        }
+        request['response'] && dispatch(saveUserData(newUser))
+        request['response'] && await Storage.save("userData", newUser)
 
         request['response'] &&
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'MainNavigationScreen' }],
-            })
-
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'MainNavigationScreen' }],
+        })
         setLoading(false)
     }
 
@@ -119,7 +108,7 @@ const RegisterFormComponent = () => {
 
     return (
         <View style={styles.mainBlock}>
-            <ScrollView 
+            <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1, justifyContent: 'center', width: '85%', padding: 10}}
             >
@@ -146,13 +135,13 @@ const RegisterFormComponent = () => {
                     <AgreementComponent setValue={setAgr3} index={2}/>
                 </View>
                 <View style={ styles.btnBottom }>
+                    { response['error'] &&
+                    <Text style={{ color: "#F27C83", fontSize: 15, paddingBottom: 10}}>{response['error']}</Text>
+                    }
                     <BaseSendButton text={"Зарегистрироваться"} checkFields={checkFilledField} onPress={register} loading={loading}/>
                     <SecondAuthButton text={"Авторизоваться"} nav={"MailLoginScreen"} />
                 </View>
             </ScrollView>
-            { response['error'] &&
-            <Text style={{ color: "#F27C83", fontSize: 15, paddingBottom: 10}}>{response['error']}</Text>
-            }
         </View>
     )
 }

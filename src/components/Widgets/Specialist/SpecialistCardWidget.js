@@ -46,7 +46,7 @@ const SpecialistCardWidget = ({ data }) => {
                     </View>
                     <Image
                         style={ styles.imageStyle }
-                        source={ data.User.photo === "" ? require('../../../images/user.png') : { uri: baseURL + "u/i/"+ data.User.photo }}
+                        source={ !data.User?.photo ? require('../../../images/user.png') : { uri: baseURL + "u/i/"+ data.User.photo }}
                     />
                 </View>
             </TouchableOpacity>

@@ -16,7 +16,7 @@ const ProfileScreen = () => {
     const selectData = useSelector(state => state.LoginSlice.userData)
 
     return (
-        <View style={ styles.mainContent }>
+        <View style={styles.mainContent}>
             <View style={{
                 flex: MultiPlatform.AdaptivePixelsSize(1),
                 backgroundColor: '#E5E5E5',
@@ -28,7 +28,8 @@ const ProfileScreen = () => {
                     height: MultiPlatform.AdaptivePixelsSize(230),
                     borderRadius: 200,
                     backgroundColor: '#AAB2BD',
-                }} source={ selectData.photo == "" ? require('../images/user.png') : { uri: baseURL + "u/i/"+ selectData.photo }} />
+                }}
+                       source={ !selectData?.photo ? require('../images/user.png') : { uri: baseURL + "u/i/" + selectData.photo }}/>
             </View>
             <View style={{
                 flex: MultiPlatform.AdaptivePixelsSize(2.2),
@@ -38,22 +39,29 @@ const ProfileScreen = () => {
                 borderTopLeftRadius: 20,
                 borderTopRightRadius: 20,
             }}>
-                    <View style={{ width: '85%' }}>
+                <View style={{width: '85%'}}>
                     <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{flexGrow: 1, width: '100%', padding: MultiPlatform.AdaptivePixelsSize(20)}}
-                >
-                        <View style={{ alignItems: 'center' }}>
-                            <Text style={{ color: 'black', fontSize: MultiPlatform.AdaptivePixelsSize(17) }}>{ selectData.first_name + " " +
-                                selectData.second_name + " " + selectData.middle_name }</Text>
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{
+                            flexGrow: 1,
+                            width: '100%',
+                            padding: MultiPlatform.AdaptivePixelsSize(20)
+                        }}
+                    >
+                        <View style={{alignItems: 'center'}}>
+                            <Text style={{
+                                color: 'black',
+                                fontSize: MultiPlatform.AdaptivePixelsSize(17)
+                            }}>{selectData.first_name + " " +
+                            selectData.second_name + " " + selectData.middle_name}</Text>
                         </View>
-                        <View style={{ marginTop: MultiPlatform.AdaptivePixelsSize(30)}}>
-                            <ProfileDataItem header="Ваш Email" data={ selectData.email } />
-                            <ProfileDataItem header="Ваш дата рождения" data={ selectData.birth_date.split(" ")[0] } />
-                            <ProfileDataItem header="Ваш номер телефона" data={ selectData.phone } />
+                        <View style={{marginTop: MultiPlatform.AdaptivePixelsSize(30)}}>
+                            <ProfileDataItem header="Ваш Email" data={selectData.email}/>
+                            <ProfileDataItem header="Ваш дата рождения" data={selectData.birth_date.split(" ")[0]}/>
+                            <ProfileDataItem header="Ваш номер телефона" data={selectData.phone}/>
                         </View>
-                </ScrollView>
-                    </View>
+                    </ScrollView>
+                </View>
                 {/* <Button
                     title='Выход'
                     onPress={() => { logOut()  } }
