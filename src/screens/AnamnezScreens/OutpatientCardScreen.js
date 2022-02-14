@@ -6,7 +6,7 @@ import MessageCard from '../../components/Widgets/Chat/MessageCard'
 import baseApiURL from '../../requests/baseApiURL'
 import Request from '../../requests/Request'
 
-const OutpatientCardScreen = ({ route }) => {    
+const OutpatientCardScreen = ({ route }) => {
 
     const DATA = []
     console.log(route.params.id)
@@ -44,9 +44,9 @@ const OutpatientCardScreen = ({ route }) => {
     return (
         <View style={ styles.mainContent }>
         { response['error'] &&
-            <ScrollView 
+            <ScrollView
                 refreshControl={
-                    <RefreshControl 
+                    <RefreshControl
                         refreshing={loading}
                         onRefresh={() => getChats()}
                     />
@@ -56,15 +56,15 @@ const OutpatientCardScreen = ({ route }) => {
                 <Text style={{ color: "#F27C83", fontSize: MultiPlatform.AdaptivePixelsSize(30), }}>{response['error']}</Text>
             </ScrollView>
         }
-        { loading ? 
+        { loading ?
             <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                 <ActivityIndicator size={'large'}/>
             </View> :
             (
-                <FlatList 
+                <FlatList
                     data={patientCardData}
                     refreshControl={
-                        <RefreshControl 
+                        <RefreshControl
                             refreshing={loading}
                             onRefresh={() => getOutpatientCards()}
                         />
@@ -87,11 +87,10 @@ const styles = StyleSheet.create({
     mainContent: {
         height: MultiPlatform.AdaptivePixelsSize(110),
         width: '100%',
-        height: '100%',
         backgroundColor: "#FFFFFF",
         borderBottomColor: '#E6E9ED',
         borderBottomWidth: 1,
-    },  
+    },
 })
 
 export default OutpatientCardScreen
