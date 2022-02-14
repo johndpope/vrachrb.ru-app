@@ -9,7 +9,7 @@ import Request from '../../requests/Request'
 const OutpatientCardScreen = ({ route }) => {    
 
     const DATA = []
-
+    console.log(route.params.id)
     const [response, setResponse] = useState({})
     const [loading, setLoading] = useState(false)
     const [patientCardData, setPatientCard] = useState(DATA)
@@ -22,6 +22,9 @@ const OutpatientCardScreen = ({ route }) => {
             DATA.push({
                 id: element.id,
                 body: element.body,
+                closedBy: null,
+                specialist_photo: element.specialist_photo,
+                user_id: element.user_id,
                 specialty: element["Specialists"][0]["Specialty"].title,
                 first_name: element["Specialists"][0]["User"].first_name,
                 second_name: element["Specialists"][0]["User"].second_name[0],
@@ -53,7 +56,10 @@ const OutpatientCardScreen = ({ route }) => {
                 <Text style={{ color: "#F27C83", fontSize: MultiPlatform.AdaptivePixelsSize(30), }}>{response['error']}</Text>
             </ScrollView>
         }
-        { loading ? <ActivityIndicator size={'large'} /> :
+        { loading ? 
+            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                <ActivityIndicator size={'large'}/>
+            </View> :
             (
                 <FlatList 
                     data={patientCardData}

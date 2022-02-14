@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { TouchableOpacity, ActivityIndicator, StyleSheet, View, Text, Image } from 'react-native';
-import { GiftedChat, InputToolbar, Send } from 'react-native-gifted-chat';
+import { Composer, GiftedChat, InputToolbar, Send } from 'react-native-gifted-chat';
 import baseApiURL from '../requests/baseApiURL';
 import baseURL from '../requests/baseURL';
 import Request from '../requests/Request';
@@ -13,6 +13,7 @@ import {
     OverflowMenu,
   } from 'react-navigation-header-buttons';
 import { MultiPlatform } from '../components/MultiPlatform';
+import CustomComposer from '../components/Widgets/Chat/CustomComposer';
 
 const customSend = props => {
     return (
@@ -54,10 +55,8 @@ const ChatScreen = ({ route }) => {
                     paddingHorizontal: 0,
                     justifyContent: 'flex-end',
                 }}
-                // primaryStyle={{
-                //     paddingVertical: 
-                // }}
-                renderActions={props => <ImagesCustomAction data={props} textInput={disableButton}/>}
+                disableInputToolBar={true}
+                renderActions={route.params.closed_by == null && (props => <ImagesCustomAction data={props} textInput={disableButton}/>)}
             />
         )
     }
@@ -239,12 +238,14 @@ const ChatScreen = ({ route }) => {
             <GiftedChat
                 textInputStyle={{ color: 'black' }}
                 messagesContainerStyle={{ backgroundColor: '#FFFFFF', overflow: 'scroll'}}
-                placeholder='Сообщение'
+                placeholder={route.params.closed_by ? 'Вопрос закрыт' : 'Сообщение'}
                 onInputTextChanged={props => setDisableButton(props)}
                 renderMessageImage={props => renderMessageImage(props)}
                 renderSend={props => customSend(props)}
+                renderComposer={route.params.closed_by !== null && (props => <CustomComposer data={props}/>)}
                 renderInputToolbar={props => renderCustomToolbar(props)}
                 messages={messages}
+                disableComposer={route.params.closed_by ? true : false}
                 onSend={messages => onSend(messages)}
                 user={{
                     _id: userID,

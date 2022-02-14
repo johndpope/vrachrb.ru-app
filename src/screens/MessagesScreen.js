@@ -27,6 +27,7 @@ const MessagesScreen = () => {
                     id: element.id,
                     body: element.body,
                     specialty: "",
+                    closedBy: element.closed_by,
                     user_id: element.user_id,
                     first_name: element.is_anonymous ? "Anonymous" : element["User"].first_name,
                     second_name: element.is_anonymous ? "A" : element["User"].second_name[0],
@@ -38,6 +39,7 @@ const MessagesScreen = () => {
                 DATA.push({
                     id: element.id,
                     body: element.body,
+                    closedBy: element.closed_by,
                     user_id: element.user_id,
                     specialty: element["Specialtys"][0].title,
                     first_name: element["Specialists"][0]["User"].first_name,
@@ -67,7 +69,7 @@ const MessagesScreen = () => {
                         />
                     }
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{flexGrow: 1, width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', padding: 10}}>
+                    contentContainerStyle={{flexGrow: 1, justifyContent: 'center', alignItems: 'center', padding: 10}}>
                     <Text style={{ color: "#F27C83", fontSize: MultiPlatform.AdaptivePixelsSize(30), }}>{response['error']}</Text>
                 </ScrollView>
             }
@@ -100,6 +102,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         width: '100%',
+        height: '100%',
         justifyContent: 'center',
     }
 })

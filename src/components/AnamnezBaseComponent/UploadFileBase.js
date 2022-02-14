@@ -142,6 +142,7 @@ const UploadFileBase = ({ component, index, data }) => {
                 <FlatList
                     data={imageData}
                     horizontal={true}
+                    showsHorizontalScrollIndicator={false}
                     keyExtractor={(item) => item.id}
                     renderItem={({item}) => {
                         return(

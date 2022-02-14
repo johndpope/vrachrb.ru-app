@@ -4,18 +4,20 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { useSelector } from 'react-redux';
 import { MultiPlatform } from '../../MultiPlatform';
 import LoginSlice from '../../../store/reducers/LoginSlice';
+import baseURL from '../../../requests/baseURL';
 
 const MessageCard = ({ item, outPatient }) => {
 
     const isSpecialist = useSelector(state => state.LoginSlice.userData.isSpecialist)
     const navigation = useNavigation()
-    
+
     return (
         <View style={ styles.mainContent }>
             <TouchableOpacity
                 onPress={() => { outPatient ? console.log("outPatient: " + outPatient) :
                     navigation.navigate("ChatScreen", { id: item.id, 
                                                 user_id: item.user_id,
+                                                closed_by: item.closedBy,
                                                 speciality: isSpecialist ? "" : " (" + item.specialty + ")" ,  
                                                 spec_name:  item.first_name + " " 
                                                 + item.second_name + "." }) 
@@ -25,7 +27,7 @@ const MessageCard = ({ item, outPatient }) => {
                     <View>
                         <Image 
                             style={ styles.imageStyle }
-                            source={ require('../../../images/doctor.jpg') }
+                            source={ item.specialist_photo ? {uri: baseURL + "u/i/" + item.specialist_photo} : require('../../../images/doctor.jpg') }
                         />
                     </View>
                     <View style={{
@@ -39,7 +41,11 @@ const MessageCard = ({ item, outPatient }) => {
                         <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textName }>{ item.first_name + " " 
                                                                                                 + item.second_name + "." 
                                                                                                 + item.middle_name }</Text>
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textPreviewMessage }>{ item.body }</Text>
+                        { item.closedBy == null ?
+                            <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textPreviewMessage }>{ item.body }</Text>
+                            :
+                            <Text numberOfLines={1} ellipsizeMode='tail' style={{ ...styles.textPreviewMessage, color: '#F27C83' }}>Вопрос закрыт</Text>
+                        }
                     </View>
                     { !outPatient &&
                         <View style={ styles.markRead } />

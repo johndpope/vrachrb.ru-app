@@ -1,14 +1,8 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { Component } from 'react';
-import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { Component, useState } from 'react';
+import { Image, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useSelector} from 'react-redux';
 import ProfileDataItem from '../components/Widgets/Profile/ProfileDataItem';
-import baseApiURL from '../requests/baseApiURL';
-import Request from '../requests/Request';
-import { resetUserData } from '../store/reducers/LoginSlice';
-import Storage from "../storage/Storage";
 import baseURL from "../requests/baseURL";
-import { RFValue } from 'react-native-responsive-fontsize';
 import { MultiPlatform } from '../components/MultiPlatform';
 
 const ProfileScreen = () => {
