@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React  from "react";
 import { ToastAndroid, Platform, AlertIOS, Dimensions } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 /**
