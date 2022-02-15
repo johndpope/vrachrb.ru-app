@@ -4,16 +4,22 @@ import { Image, StyleSheet, View } from 'react-native';
 import baseApiURL from '../requests/baseApiURL';
 import Request from '../requests/Request';
 import {useDispatch} from "react-redux";
-import {loadUserData} from "../store/reducers/LoginSlice";
+import {loadUserData, saveUserData} from "../store/reducers/LoginSlice";
+import Storage from "../storage/Storage";
 
 const SplashScreen = () => {
 
+    const dispatch = useDispatch()
     const navigation = useNavigation()
 
     const isAuth = async () => {
       let data = await Request.post(baseApiURL + "Is_auth", {})
 
       if(data['response'] && data['response'] == true) {
+          delete data["response"]
+          // console.log("AUTH::"+JSON.stringify(data))
+          dispatch(saveUserData(data))
+          await Storage.save("userData", data)
           navigation.reset({
               index: 0,
               routes: [{name: 'MainNavigationScreen'}],
