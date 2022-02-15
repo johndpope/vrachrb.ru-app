@@ -5,6 +5,7 @@ import baseApiURL from '../requests/baseApiURL';
 import Request from '../requests/Request';
 import {useSelector} from "react-redux";
 import { MultiPlatform } from '../components/MultiPlatform';
+import { useNavigation } from '@react-navigation/native';
 
 const MessagesScreen = () => {
 
@@ -13,10 +14,13 @@ const MessagesScreen = () => {
     const [loading, setLoading] = useState(false)
     const isSpecialist = useSelector(state => state.LoginSlice.userData.isSpecialist)
     const route = isSpecialist ? "Get_specialist_questions" : "Get_user_questions"
-
-    const DATA = []
+    
+    const navigation = useNavigation()
 
     const getChats = async () => {
+        
+        const DATA = []
+
         setResponse({})
         setLoading(true)
         let response = await Request.get(baseApiURL + route, {});
@@ -57,7 +61,12 @@ const MessagesScreen = () => {
     }
 
     useEffect(() => {
-        getChats()
+        navigation.addListener(
+            'focus',
+            payload => {
+                getChats()
+            }
+        );
     }, [])
 
     return (

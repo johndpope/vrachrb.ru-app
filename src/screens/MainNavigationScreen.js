@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainScreen from './MainScreen';
 import MessagesScreen from './MessagesScreen';
-import { Image, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import ProfileScreen from './ProfileScreen';
 import {useDispatch, useSelector} from "react-redux";
 import { MultiPlatform } from '../components/MultiPlatform';
@@ -17,7 +17,8 @@ const BottomTab = createBottomTabNavigator()
 const MainNavigationScreen = () => {
 
     const isSpecialist = useSelector(state => state.LoginSlice.userData.isSpecialist)
-
+    const userData = useSelector(state => state.LoginSlice.userData)
+    
     const dispatch = useDispatch();
 
     const navigation = useNavigation()
@@ -44,7 +45,7 @@ const MainNavigationScreen = () => {
             photo: ""
         })
     }
-
+    console.log(userData?.photo)
     return (
         <BottomTab.Navigator
             screenOptions={{
@@ -161,11 +162,11 @@ const MainNavigationScreen = () => {
                     tabBarLabelStyle: {
                         fontSize: MultiPlatform.AdaptivePixelsSize(13)
                     },
-                    tabBarIcon: () => {
+                    tabBarIcon: ({ focused }) => {
                         return (
                             <Image 
-                                style={{ width: MultiPlatform.AdaptivePixelsSize(26), height: MultiPlatform.AdaptivePixelsSize(26), borderRadius: 100  }} 
-                                source={ require('../images/oval.png') }/>
+                                style={ !userData?.photo ? { ...styles.imageStyle, tintColor: focused ? "#54B9D1" : "#AAB2BD" } : {...styles.imageStyle}} 
+                                source={ !userData?.photo ? require('../images/user.png') : { uri: baseURL + "u/i/" + userData.photo }} />
                         )
                     },
                     tabBarIconStyle: {  
@@ -177,5 +178,13 @@ const MainNavigationScreen = () => {
         </BottomTab.Navigator>
     )
 }
+
+const styles = StyleSheet.create({
+    imageStyle: {
+        width: MultiPlatform.AdaptivePixelsSize(26), 
+        height: MultiPlatform.AdaptivePixelsSize(26), 
+        borderRadius: 100,
+    }
+})
 
 export default MainNavigationScreen;

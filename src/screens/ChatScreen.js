@@ -148,6 +148,7 @@ const ChatScreen = ({ route }) => {
             .then(response => {
                 response['response'] &&
                 setUserID(response['response'][0]["my_id"])
+                setClosed(response['response'][0]["closed_by"])
                 response['response'][0]['Answer'].forEach(element => {
                     DATA.push(
                         {
