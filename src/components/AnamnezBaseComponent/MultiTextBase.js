@@ -3,9 +3,10 @@ import { StyleSheet, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addAnamnezAnswer, numOfRequiredFields } from '../../store/reducers/AnamnezSlice';
 import AnamnezSlice from '../../store/reducers/AnamnezSlice';
+import { addBodyText } from '../../store/reducers/EstimateSlice';
 
 
-const MultiTextBase = ({ isRequired, data, index }) => {
+const MultiTextBase = ({ data = [], index = 0, starred = false }) => {
 
     const dispatch = useDispatch()
     const showRequired = useSelector(state => state.AnamnezSlice.showRequiredFields)
@@ -33,7 +34,7 @@ const MultiTextBase = ({ isRequired, data, index }) => {
                 isRequired: data.is_required == "1" ? true : false
 
             }
-        })) : data.field_type == "textarea_upload" ?dispatch(addAnamnezAnswer({
+        })) : data.field_type == "textarea_upload" ? dispatch(addAnamnezAnswer({
                 index: index,
                 sh_field_type: {
                     sh_field: data.id,
@@ -42,6 +43,7 @@ const MultiTextBase = ({ isRequired, data, index }) => {
                     isRequired: data.is_required == "1" ? true : false
                 }
             }))
+            : starred ? dispatch(addBodyText(text)) 
             : dispatch(addAnamnezAnswer({
                 index: index,
                 sh_field_type: {

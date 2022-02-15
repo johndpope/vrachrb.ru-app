@@ -48,7 +48,7 @@ const AnamnezCardItem = ({ item }) => {
                                 (
                                     itemsToRender["bool"] == "Нет" ?
                                         <Text style={ styles.belowtextStyle }>Нет</Text> : 
-                                        <Text style={ styles.belowtextStyle }>Да, { itemsToRender.val }</Text>
+                                        <Text style={ styles.belowtextStyle }>Да{ itemsToRender.val !== "" ? ", " + itemsToRender.val : itemsToRender.val }</Text>
                                 ) : 
                             itemsToRender["choices"] ?
                                 (

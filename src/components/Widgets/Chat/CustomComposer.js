@@ -1,8 +1,13 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import React, { Component, useState } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
 import { MultiPlatform } from '../../MultiPlatform'
+import Modal from "react-native-modal";
+import EstimateWidget from './EstimateWidget';
 
-const CustomComposer = ({ data }) => {
+const CustomComposer = ({ data, isSpecialist, questionId }) => {
+
+    const [isModalVisible, setModalVisible] = useState(false)
+
     return (
         <View
             {...data}
@@ -13,7 +18,31 @@ const CustomComposer = ({ data }) => {
                 alignItems: 'center',
             }}
         >
-            <Text style={{ color: '#F27C83', fontSize: MultiPlatform.AdaptivePixelsSize(17) }}>Вопрос закрыт</Text>
+            {
+                isSpecialist ? (
+                    <Text style={{ color: '#F27C83', fontSize: MultiPlatform.AdaptivePixelsSize(17) }}>Вопрос закрыт</Text>
+                ) : 
+                (                   
+                    <TouchableOpacity onPress={() => setModalVisible(!isModalVisible)}>
+                        <Text style={{ color: '#54B9D1', fontSize: MultiPlatform.AdaptivePixelsSize(17) }}>Оставить отзыв</Text>
+                    </TouchableOpacity>
+                )
+            }
+            {
+                <Modal
+                    style={{ justifyContent: 'flex-end', margin: 0}} 
+                    isVisible={isModalVisible} 
+                    swipeDirection={['down']}
+                    backdropTransitionOutTiming={0}
+                    backdropTransitionInTiming={0}
+                    onSwipeComplete={() => setModalVisible(!isModalVisible)}
+                    swipeThreshold={50}
+                    swipeThreshold={200}
+                    propagateSwipe={false}
+                >
+                    <EstimateWidget questionId={questionId}/>
+                </Modal>
+            }
         </View>
     )
 }

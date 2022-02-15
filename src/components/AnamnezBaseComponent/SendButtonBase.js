@@ -151,7 +151,7 @@ const SendButtonBase = () => {
             {loading ? <ActivityIndicator color={'#fff'} size={'large'}/> : (
                 <Text style={{
                     color: '#FFFFFF',
-                    fontSize: 17
+                    fontSize: MultiPlatform.AdaptivePixelsSize(17)
                 }}>
                     Задать вопрос
                 </Text>

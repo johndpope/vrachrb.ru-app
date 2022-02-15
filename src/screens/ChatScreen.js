@@ -16,6 +16,8 @@ import { MultiPlatform } from '../components/MultiPlatform';
 import CustomComposer from '../components/Widgets/Chat/CustomComposer';
 import { useSelector } from 'react-redux';
 import LoginSlice from '../store/reducers/LoginSlice';
+import EstimateWidget from '../components/Widgets/Chat/EstimateWidget';
+import Modal from "react-native-modal";
 
 const customSend = props => {
     return (
@@ -104,38 +106,32 @@ const ChatScreen = ({ route }) => {
                 { 
                     imagesChat[0] !== "../images/text-document.png" &&
                     <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                        
-                            {/* // imagesChat.map((element, index) => { */}
-                            {/* //     return (  */}
-                                    <TouchableOpacity style={{ padding: 5 }} onPress={() => { setModalOpen(true), setImages(imagesPrev), setIndexPhoto(0) }}>
-                                        <Image 
-                                            style={styles.image}
-                                            source={{ uri: baseURL + "u/i/" + imagesChat[0] }}
+                        <TouchableOpacity style={{ padding: 5 }} onPress={() => { setModalOpen(true), setImages(imagesPrev), setIndexPhoto(0) }}>
+                            <Image 
+                                style={styles.image}
+                                source={{ uri: baseURL + "u/i/" + imagesChat[0] }}
 
-                                        />
-                                        
-                                    </TouchableOpacity>
-                                    { imagesChat && imagesChat.length > 1 &&
-                                        <TouchableOpacity style={{ padding: 5 }} onPress={() => { setModalOpen(true), setImages(imagesPrev), setIndexPhoto(1) }}>
-                                            <Image 
-                                                source={{ uri: baseURL + "u/i/" + imagesChat[1] }}
-                                                style={styles.image}
-                                            />
-                                            {   imagesChat && imagesChat.length > 2 &&
-                                                <View 
-                                                    style={{ marginLeft: 5, marginTop: 5, 
-                                                        position: 'absolute', width: 130, height: 130, borderRadius: 13, 
-                                                        backgroundColor: '#00000095', 
-                                                        justifyContent: 'center', alignItems: 'center' }}
-                                                >
-                                                    <Text style={{ color: 'white', fontSize: 27 }}>{ "+ " + (imagesChat.length - 1) }</Text>
-                                                </View>
-                                            }
-                                        </TouchableOpacity> 
-    }
-                            {/* //     )  */}
-                            {/* // }) */}
-                        
+                            />
+                            
+                        </TouchableOpacity>
+                        { imagesChat && imagesChat.length > 1 &&
+                            <TouchableOpacity style={{ padding: 5 }} onPress={() => { setModalOpen(true), setImages(imagesPrev), setIndexPhoto(1) }}>
+                                <Image 
+                                    source={{ uri: baseURL + "u/i/" + imagesChat[1] }}
+                                    style={styles.image}
+                                />
+                                {   imagesChat && imagesChat.length > 2 &&
+                                    <View 
+                                        style={{ marginLeft: 5, marginTop: 5, 
+                                            position: 'absolute', width: 130, height: 130, borderRadius: 13, 
+                                            backgroundColor: '#00000095', 
+                                            justifyContent: 'center', alignItems: 'center' }}
+                                    >
+                                        <Text style={{ color: 'white', fontSize: 27 }}>{ "+ " + (imagesChat.length - 1) }</Text>
+                                    </View>
+                                }
+                            </TouchableOpacity> 
+                        }
                     </View>
                 }
             </View>
@@ -230,27 +226,33 @@ const ChatScreen = ({ route }) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
     }, [])
 
-    return ( loading ? (
+    return ( 
+        loading ? 
+        (
             <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                 <ActivityIndicator size={'large'}/>
             </View>
-        ) : isModalOpen ? (                
-        <ImageView 
-            images={images} 
-            imageIndex={indexPhoto}
-            supportedOrientations={
-                [
-                  'portrait', 
-                  'portrait-upside-down', 
-                  'landscape', 
-                  'landscape-left', 
-                  'landscape-right'
-                ]
-            }
-            visible={isModalOpen}
-            swipeToCloseEnabled={false}
-            onRequestClose={() => setModalOpen(false)}
-        />) : (
+        ) : 
+        isModalOpen ? 
+        (                
+            <ImageView 
+                images={images} 
+                imageIndex={indexPhoto}
+                supportedOrientations={
+                    [
+                    'portrait', 
+                    'portrait-upside-down', 
+                    'landscape', 
+                    'landscape-left', 
+                    'landscape-right'
+                    ]
+                }
+                visible={isModalOpen}
+                swipeToCloseEnabled={false}
+                onRequestClose={() => setModalOpen(false)}
+            />
+        ) : 
+        (
             <GiftedChat
                 textInputStyle={{ color: 'black' }}
                 messagesContainerStyle={{ backgroundColor: '#FFFFFF', overflow: 'scroll'}}
@@ -258,7 +260,7 @@ const ChatScreen = ({ route }) => {
                 onInputTextChanged={props => setDisableButton(props)}
                 renderMessageImage={props => renderMessageImage(props)}
                 renderSend={props => customSend(props)}
-                renderComposer={closed !== null && (props => <CustomComposer data={props}/>)}
+                renderComposer={closed !== null && (props => <CustomComposer questionId={route.params.id} isSpecialist={isSpecialist} data={props}/>)}
                 renderInputToolbar={props => renderCustomToolbar(props)}
                 messages={messages}
                 disableComposer={closed ? true : false}

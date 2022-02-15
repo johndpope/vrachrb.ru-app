@@ -85,7 +85,7 @@ const OutpatientCardScreen = ({ route }) => {
 
 const styles = StyleSheet.create({
     mainContent: {
-        height: MultiPlatform.AdaptivePixelsSize(110),
+        height: '100%',
         width: '100%',
         backgroundColor: "#FFFFFF",
         borderBottomColor: '#E6E9ED',
