@@ -88,19 +88,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    textStyle: {
-        color: '#FFFFFF',
-        fontSize: 17
-    },
     positiveResponseStyle: {
-        width: 350,
+        width: MultiPlatform.AdaptivePixelsSize(350),
         color: "#58BE3F",
-        fontSize: 15
+        fontSize: MultiPlatform.AdaptivePixelsSize(15)
     },
     negativeResponseStyle: {
-        width: 350,
+        width: MultiPlatform.AdaptivePixelsSize(350),
         color: "#F27C83",
-        fontSize: 15
+        fontSize: MultiPlatform.AdaptivePixelsSize(15)
     },
 });
 

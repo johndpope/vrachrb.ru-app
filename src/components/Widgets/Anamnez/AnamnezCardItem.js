@@ -66,9 +66,9 @@ const AnamnezCardItem = ({ item }) => {
                                 ) : 
                             (   <View>
                                     <Text style={ styles.belowtextStyle }>{ itemsToRender.val }</Text>
-                                    {
-                                itemsToRender.file !== undefined ?
-                                <View style={{ width: '100%', marginTop: 10 }}>
+                                {
+                                    itemsToRender.file !== undefined ?
+                                    <View style={{ width: '100%', marginTop: 10 }}>
                                     {
                                         <FlatList 
                                             style={{

@@ -13,7 +13,7 @@ const CustomComposer = ({ data, isSpecialist, questionId }) => {
             {...data}
             style={{
                 width: '100%',
-                height: MultiPlatform.AdaptivePixelsSize(48),
+                height: MultiPlatform.AdaptivePixelsSize(50),
                 justifyContent: 'center',
                 alignItems: 'center',
             }}

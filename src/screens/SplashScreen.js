@@ -18,7 +18,7 @@ const SplashScreen = () => {
 
       if(data['response'] && data['response'] == true) {
           // console.log("AUTH::"+JSON.stringify(data))
-          dispatch(saveUserData(data))
+          dispatch(saveUserData(data['userData']))
           await Storage.save("userData", data["userData"])
           navigation.reset({
               index: 0,

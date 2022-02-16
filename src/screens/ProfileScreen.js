@@ -22,8 +22,8 @@ const ProfileScreen = () => {
         if(data['response'] && data['response'] == true) {
             delete data["response"]
             // console.log("AUTH::"+JSON.stringify(data))
-            dispatch(saveUserData(data))
-            await Storage.save("userData", data)
+            dispatch(saveUserData(data['userData']))
+            await Storage.save("userData", data['userData'])
         }
 
         setLoading(false)

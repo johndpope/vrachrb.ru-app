@@ -133,7 +133,7 @@ const SendButtonBase = () => {
             if (request) {
                 if (request["response"]) {
                     console.log(request["response"])
-                    navigation.navigate("MainScreen")
+                    navigation.navigate("MessagesScreen")
                 } else {
                     console.log(request["error"])
                 }
