@@ -6,7 +6,7 @@ import MultiTextBase from '../../AnamnezBaseComponent/MultiTextBase';
 import StarEstimationBase from '../../AnamnezBaseComponent/StarEstimationBase';
 import SendEstimate from './SendEstimate';
 
-const EstimateWidget = ({ questionId }) => {
+const EstimateWidget = ({ questionId, modalCallback }) => {
     return (
         <View 
             style={{ width: '100%', backgroundColor: 'white', 
@@ -29,7 +29,7 @@ const EstimateWidget = ({ questionId }) => {
                     <StarEstimationBase typeField={"courtesy"} />
                 </View>
                 <View style={{ marginTop: MultiPlatform.AdaptivePixelsSize(20), marginBottom: MultiPlatform.AdaptivePixelsSize(20) }}>
-                    <SendEstimate questionId={questionId}/>
+                    <SendEstimate modalCallback={modalCallback} questionId={questionId}/>
                 </View>
             </View>
         </View>

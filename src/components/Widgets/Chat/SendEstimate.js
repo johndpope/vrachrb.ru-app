@@ -6,7 +6,7 @@ import EstimateSlice from '../../../store/reducers/EstimateSlice'
 import Request from '../../../requests/Request'
 import baseApiURL from '../../../requests/baseApiURL'
 
-const SendEstimate = ({ questionId }) => {
+const SendEstimate = ({ questionId, modalCallback }) => {
 
     const body = useSelector(state => state.EstimateSlice.body)
     const informative = useSelector(state => state.EstimateSlice.informative)
@@ -30,7 +30,8 @@ const SendEstimate = ({ questionId }) => {
     return (
         <TouchableOpacity style={styles.buttonStyle} onPress={() => {
             console.log(body + "  " + informative + "  " + courtesy + "  questionId: " + questionId),
-            sendEstimate()
+            sendEstimate(),
+            modalCallback(false)
         }}>
             {loading ? <ActivityIndicator color={'#fff'} size={'large'}/> : (
                 <Text style={{ color: '#FFFFFF', fontSize: MultiPlatform.AdaptivePixelsSize(17) }}>

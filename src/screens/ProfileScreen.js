@@ -8,6 +8,7 @@ import baseApiURL from '../requests/baseApiURL';
 import Request from '../requests/Request';
 import { saveUserData } from '../store/reducers/LoginSlice';
 import Storage from '../storage/Storage';
+import SpecialistDataItem from '../components/Widgets/Profile/SpecialistDataItem';
 
 const ProfileScreen = () => {
 
@@ -31,29 +32,31 @@ const ProfileScreen = () => {
 
     return (
         <View style={styles.mainContent}>
-            <ScrollView 
-                refreshControl={
-                    <RefreshControl 
-                        refreshing={loading}
-                        onRefresh={() => refreshProfileScreen()}
-                    />
-                }
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{flexGrow: 1, height: '100%', width: '100%', justifyContent: 'center'}}
-            >
-                <View style={{
-                    flex: MultiPlatform.AdaptivePixelsSize(1),
-                    backgroundColor: '#E5E5E5',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
+            <View style={{
+                flex: MultiPlatform.AdaptivePixelsSize(1),
+                backgroundColor: '#E5E5E5',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={loading}
+                            onRefresh={() => refreshProfileScreen()}
+                        />
+                    }
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{flexGrow: 1, height: '100%', width: '100%', justifyContent: 'center'}}
+                >
                     <Image style={{
                         width: MultiPlatform.AdaptivePixelsSize(230),
                         height: MultiPlatform.AdaptivePixelsSize(230),
                         borderRadius: 200,
                         backgroundColor: '#AAB2BD',
                     }}
-                        source={ !selectData?.photo ? require('../images/user.png') : { uri: baseURL + "u/i/" + selectData.photo }}/>
+                        source={ !selectData?.photo ? require('../images/user.png') : { uri: baseURL + "u/i/" + selectData.photo }}
+                    />
+                </ScrollView>
                 </View>
                 <View style={{
                     flex: MultiPlatform.AdaptivePixelsSize(2.2),
@@ -63,23 +66,33 @@ const ProfileScreen = () => {
                     borderTopLeftRadius: 20,
                     borderTopRightRadius: 20,
                 }}>
-                    <View style={{width: '85%'}}>
+                    <View style={{width: '100%', height: '100%'}}>
                         <ScrollView
                             showsVerticalScrollIndicator={false}
                             contentContainerStyle={{
                                 flexGrow: 1,
                                 width: '100%',
-                                padding: MultiPlatform.AdaptivePixelsSize(20)
+                                padding: MultiPlatform.AdaptivePixelsSize(20),
+                                justifyContent: 'space-around',
                             }}
                         >
-                            <View style={{alignItems: 'center'}}>
+                            <View style={{alignItems: 'center', backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20), marginTop: 10,}}>
                                 <Text style={{
-                                    color: 'black',
-                                    fontSize: MultiPlatform.AdaptivePixelsSize(17)
+                                    color: '#434A53',
+                                    fontSize: MultiPlatform.AdaptivePixelsSize(19),
+                                    margin: 20
                                 }}>{selectData.first_name + " " +
                                 selectData.second_name + " " + selectData.middle_name}</Text>
                             </View>
-                            <View style={{marginTop: MultiPlatform.AdaptivePixelsSize(30)}}>
+                            {
+                                selectData.isSpecialist && (
+                                    <View style={{ backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20), marginTop: 10, justifyContent: 'space-around', flexDirection: 'row' }}>
+                                        <SpecialistDataItem imageType='star' count={4.5} item={"Рейтинг"} />
+                                        <SpecialistDataItem imageType='edit' count={456} item={"Консультаций"} />
+                                    </View>
+                                )
+                            }
+                            <View style={{ backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20), marginTop: 10 }}>
                                 <ProfileDataItem header="Ваш Email" data={selectData.email}/>
                                 <ProfileDataItem header="Ваш дата рождения" data={selectData.birth_date.split(" ")[0]}/>
                                 <ProfileDataItem header="Ваш номер телефона" data={selectData.phone}/>
@@ -87,7 +100,6 @@ const ProfileScreen = () => {
                         </ScrollView>
                     </View>
                 </View>
-            </ScrollView>
         </View>
     )
 }

@@ -24,7 +24,7 @@ const CustomComposer = ({ data, isSpecialist, questionId }) => {
                 ) : 
                 (                   
                     <TouchableOpacity onPress={() => setModalVisible(!isModalVisible)}>
-                        <Text style={{ color: '#54B9D1', fontSize: MultiPlatform.AdaptivePixelsSize(17) }}>Оставить отзыв</Text>
+                        <Text style={{ color: '#54B9D1', fontSize: MultiPlatform.AdaptivePixelsSize(17), }}>Оставить отзыв</Text>
                     </TouchableOpacity>
                 )
             }
@@ -40,7 +40,7 @@ const CustomComposer = ({ data, isSpecialist, questionId }) => {
                     swipeThreshold={200}
                     propagateSwipe={false}
                 >
-                    <EstimateWidget questionId={questionId}/>
+                    <EstimateWidget modalCallback={setModalVisible} questionId={questionId}/>
                 </Modal>
             }
         </View>

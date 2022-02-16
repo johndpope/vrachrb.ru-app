@@ -19,8 +19,7 @@ const MessageCard = ({ item, outPatient }) => {
                                                 user_id: item.user_id,
                                                 closed_by: item.closedBy,
                                                 speciality: isSpecialist ? "" : " (" + item.specialty + ")" ,  
-                                                spec_name:  item.first_name + " " 
-                                                + item.second_name + "." }) 
+                                                spec_name:  item.first_name + item.second_name }) 
                 }}
             >
                 <View style={ styles.additionView }>
@@ -38,9 +37,7 @@ const MessageCard = ({ item, outPatient }) => {
                         { !isSpecialist &&
                             <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textSpeciality }>{ item.specialty }</Text>
                         }
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textName }>{ item.first_name + " " 
-                                                                                                + item.second_name + "." 
-                                                                                                + item.middle_name }</Text>
+                        <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textName }>{ item.first_name + item.second_name + item.middle_name }</Text>
                         { item.closedBy == null ?
                             <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textPreviewMessage }>{ item.body }</Text>
                             :
