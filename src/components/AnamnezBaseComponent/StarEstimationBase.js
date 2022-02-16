@@ -9,7 +9,7 @@ const StarEstimationBase = ({ typeField }) => {
     const dispatch = useDispatch()
 
     const DATA = [
-        { id: 1, starred: false },
+        { id: 1, starred: true },
         { id: 2, starred: false },
         { id: 3, starred: false },
         { id: 4, starred: false },

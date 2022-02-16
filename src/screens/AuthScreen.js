@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar, StyleSheet, Image, View } from 'react-native';
 import AuthComponent from '../components/AuthComponent/AuthComponent';
+import { MultiPlatform } from '../components/MultiPlatform';
 
 const AuthScreen = () => {
   return (
@@ -41,8 +42,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   imageStyle: {
-    width: 243,
-    height: 83
+    width: MultiPlatform.AdaptivePixelsSize(243),
+    height: MultiPlatform.AdaptivePixelsSize(83)
   }
 });
 

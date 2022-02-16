@@ -1,8 +1,8 @@
 import React, { Component, useState } from 'react'
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { MultiPlatform } from '../../MultiPlatform'
-import EstimateSlice from '../../../store/reducers/EstimateSlice'
+import EstimateSlice, { clearDataEstimate } from '../../../store/reducers/EstimateSlice'
 import Request from '../../../requests/Request'
 import baseApiURL from '../../../requests/baseApiURL'
 
@@ -12,18 +12,21 @@ const SendEstimate = ({ questionId, modalCallback }) => {
     const informative = useSelector(state => state.EstimateSlice.informative)
     const courtesy = useSelector(state => state.EstimateSlice.courtesy)
 
+    const dispatch = useDispatch()
+
     const [loading, setLoading] = useState()
 
     const sendEstimate = async () => {
         setLoading(true)
         await Request.post(baseApiURL + "Add_review", {
             question_id: questionId, 
-            body: body, 
+            body: JSON.stringify(body), 
             informative: informative, 
             courtesy: courtesy
         }).then(response => {
             response['response'] && MultiPlatform.ToastShow("Вы успешно оставили отзыв")
         })
+        dispatch(clearDataEstimate())
         setLoading(false)
     }
 

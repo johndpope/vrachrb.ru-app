@@ -17,9 +17,14 @@ const EstimateSlice = createSlice({
         },
         addCourtesy(state, action){
             state.courtesy = action.payload == 0 ? 1 : action.payload
+        },
+        clearDataEstimate(state, action){
+            state.body = ""
+            state.informative = 1,
+            state.courtesy = 1
         }
     }
 })
 
 export default EstimateSlice.reducer
-export const { addBodyText, addCourtesy, addInformative } = EstimateSlice.actions
+export const { addBodyText, addCourtesy, addInformative, clearDataEstimate } = EstimateSlice.actions

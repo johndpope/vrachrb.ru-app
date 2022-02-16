@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import { MultiPlatform } from '../MultiPlatform';
 
 const MainAuthButton = ({text, nav}) => {
     const navigation = useNavigation(); 
@@ -18,11 +19,11 @@ const MainAuthButton = ({text, nav}) => {
 const styles = StyleSheet.create({
     textStyle: {
         color: '#434A53',
-        fontSize: 17
+        fontSize: MultiPlatform.AdaptivePixelsSize(17)
     },
     btnStyle: {
-        width: 320,
-        height: 60,
+        width: MultiPlatform.AdaptivePixelsSize(320),
+        height: MultiPlatform.AdaptivePixelsSize(60),
         backgroundColor: '#FFFFFF',
         justifyContent: 'center',
         alignItems: 'center',
