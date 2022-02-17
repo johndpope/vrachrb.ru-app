@@ -21,10 +21,6 @@ const CabinetCardWidget = ({ data }) => {
         <View style={ styles.mainContent }>
             <TouchableOpacity onPress={() => setCabinet()}>
                 <View style={ styles.wrapperBlock }>
-                    {/*<Image */}
-                    {/*    style={ styles.imageStyle }*/}
-                    {/*    source={ require('../../../images/doctor.jpg') }*/}
-                    {/*/>*/}
                     <View style={{
                         width: MultiPlatform.AdaptivePercentSize(30)
                     }}>

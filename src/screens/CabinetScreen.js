@@ -34,9 +34,9 @@ const CabinetScreen = () => {
 
     return (
         <View style={ styles.mainContent }>
-            <BaseSearchComponent value={text} setValue={setText} searchItem={searchCabinetItem}/>
             { loading ? <ActivityIndicator size={'large'} /> : (
                 <View style={{ width: '100%', height: '100%' }}>
+                    <BaseSearchComponent value={text} setValue={setText} searchItem={searchCabinetItem}/>
                     <FlatList
                         refreshControl={
                             <RefreshControl 
@@ -71,23 +71,6 @@ const styles = StyleSheet.create({
       width: '100%',
       height: '100%'
     },
-    mainInputWrapper: { 
-        width: '100%', 
-        height: 90, 
-        justifyContent: 'flex-start', 
-        alignItems: 'center', 
-        marginTop: 15 
-    },
-    textInputStyle: { 
-        backgroundColor: '#F3F4F6', 
-        paddingLeft: 15, 
-        width: '95%',
-        height: 40, 
-        marginTop: 45, 
-        borderRadius: 30, 
-        color: '#434A53', 
-        fontSize: 15 
-    }
 });
 
 export default CabinetScreen

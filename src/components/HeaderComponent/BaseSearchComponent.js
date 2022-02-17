@@ -18,17 +18,16 @@ const BaseSearchComponent = ({ searchItem, value, setValue }) => {
 const styles = StyleSheet.create({
     mainContent: { 
         width: '100%', 
-        height: 90, 
         justifyContent: 'flex-start', 
         alignItems: 'center', 
-        marginTop: 15 
+        marginTop: 10,
+        marginBottom: 10
     },
     textInputStyle: { 
         backgroundColor: '#F3F4F6', 
         paddingLeft: 15, 
         width: '95%',
         height: 40, 
-        marginTop: 45, 
         borderRadius: 30, 
         color: '#434A53', 
         fontSize: 15 
