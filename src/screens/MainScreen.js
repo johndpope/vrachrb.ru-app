@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import CabinetScreen from './CabinetScreen';
 import SpecialistScreen from './SpecialistScreen';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { MultiPlatform } from '../components/MultiPlatform';
@@ -31,7 +31,7 @@ const MainScreen = (props) => {
                         height: 4, 
                         borderRadius: 3,
                         marginLeft: 11,
-                        width: '45%'
+                        width: '45%',
                     }
                 }}
             >

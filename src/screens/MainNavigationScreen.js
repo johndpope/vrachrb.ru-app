@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainScreen from './MainScreen';
 import MessagesScreen from './MessagesScreen';
@@ -45,7 +45,7 @@ const MainNavigationScreen = () => {
             photo: ""
         })
     }
-    console.log(userData?.photo)
+    
     return (
         <BottomTab.Navigator
             screenOptions={{

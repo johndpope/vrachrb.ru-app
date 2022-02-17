@@ -167,7 +167,7 @@ const ImagesCustomAction = ({ data, textInput }) => {
                                         style={{ padding: 10 }} 
                                         onPress={async () => {
                                             await uploadAllFiles(imageData),
-                                            setImageData([])}}>
+                                            setImageData([]), setServerImage([])}}>
                                         <Image source={ require('../../../images/paper-plane.png') } 
                                         style={{ width: MultiPlatform.AdaptivePixelsSize(23), height: MultiPlatform.AdaptivePixelsSize(23), tintColor: '#54B9D1' }}/>
                                     </TouchableOpacity>

@@ -87,8 +87,8 @@ const ProfileScreen = () => {
                             {
                                 selectData.isSpecialist && (
                                     <View style={{ backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20), marginTop: 10, justifyContent: 'space-around', flexDirection: 'row' }}>
-                                        <SpecialistDataItem imageType='star' count={4.5} item={"Рейтинг"} />
-                                        <SpecialistDataItem imageType='edit' count={456} item={"Консультаций"} />
+                                        <SpecialistDataItem imageType='star' count={selectData.rating} item={"Рейтинг"} />
+                                        <SpecialistDataItem imageType='edit' count={selectData.answers_count} item={"Консультаций"} />
                                     </View>
                                 )
                             }

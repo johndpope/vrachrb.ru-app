@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, FlatList, ActivityIndicator } from 'react-native'
+import { View, StyleSheet, FlatList, ActivityIndicator, Text } from 'react-native'
 import ChoicesButtonBase from '../../components/AnamnezBaseComponent/ChoicesButtonBase';
 import MultiTextBase from '../../components/AnamnezBaseComponent/MultiTextBase';
 import QuestionTitleBase from '../../components/AnamnezBaseComponent/QuestionTitleBase';
@@ -11,6 +11,7 @@ import MultiChoicesBase from '../../components/AnamnezBaseComponent/MultiChoices
 import SendButtonBase from '../../components/AnamnezBaseComponent/SendButtonBase';
 import { useDispatch, useSelector } from 'react-redux'
 import {addAnamnezAnswer, resetAllValues} from '../../store/reducers/AnamnezSlice'
+
 
 const QuestionsScreen = () => {
 
@@ -121,7 +122,6 @@ const QuestionsScreen = () => {
         })
 
         setAnamnezData(DATA)
-
         setLoading(false)
     }
 
@@ -164,7 +164,19 @@ const styles = StyleSheet.create({
       backgroundColor: '#FFFFFF',
       alignItems: 'center',
       justifyContent: 'center'
-    }
+    },
+    checkboxContainer: {
+        width: "90%",
+        flexDirection: "row",
+        alignItems: 'center'
+    },
+    checkbox: {
+        alignSelf: "center",
+    },
+    label: {
+        color: '#000',
+    },
 })
+
 
 export default QuestionsScreen;

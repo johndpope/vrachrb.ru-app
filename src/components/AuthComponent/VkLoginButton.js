@@ -12,10 +12,12 @@ const VkLoginButton = () => {
     const loginWithVk = async () => {
         try {
             const auth = await VKLogin.login(['first_name', 'last_name', 'photo', 'sex', 'email']);
-
+            console.log(auth.access_token)
+            console.log(auth.secret)
         } catch (e){
             console.log("ERORR")
         }
+        // await VKLogin.logout()
     }
 
     return (
