@@ -18,6 +18,7 @@ const SendButtonBase = () => {
     const anamnezData = useSelector(state => state.AnamnezSlice.anamnezData)
     const selectedSpecialistID = useSelector(state => state.AnamnezSlice.selectedSpecialistID)
     const selectedSpecialtyID = useSelector(state => state.AnamnezSlice.selectedSpecialtyID)
+    const anonymous = useSelector(state => state.AnamnezSlice.anonymous)
     const userAbout = useSelector(state => state.AnamnezSlice.userAbout)
 
     const checkRequiredFields = () => {
@@ -117,6 +118,7 @@ const SendButtonBase = () => {
                     qsh_anamnes: JSON.stringify(sendAnamnezData),
                     q_specialist_id: selectedSpecialistID,
                     q_specialty_id: selectedSpecialtyID,
+                    anonymoxus: anonymous,
                     user_about: JSON.stringify(userAbout)
                 }
             } else {
@@ -126,6 +128,7 @@ const SendButtonBase = () => {
                     qsh_anamnes: JSON.stringify(sendAnamnezData),
                     q_specialist_id: selectedSpecialistID,
                     q_specialty_id: selectedSpecialtyID,
+                    anonymous: anonymous
                 }
             }
 

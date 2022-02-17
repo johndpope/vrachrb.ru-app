@@ -7,6 +7,7 @@ const AnamnezSlice = createSlice({
         anamnezData  : {},
         selectedSpecialistID : 51,
         selectedSpecialtyID  : 6,
+        anonymous: false,
         userAbout : {},
         showRequiredFields: null,
     },
@@ -31,11 +32,15 @@ const AnamnezSlice = createSlice({
         },
         selectSpecialistID(state, action){
             state.selectedSpecialistID = action.payload
-            console.log("Specialist id " + state.selectedSpecialistID)
+            console.log("Specialist id:: " + state.selectedSpecialistID)
         },
         selectSpecialtyID(state, action){
             state.selectedSpecialtyID = action.payload
-            console.log("Specialty id " + state.selectedSpecialtyID)
+            console.log("Specialty id:: " + state.selectedSpecialtyID)
+        },
+        selectAnonymous(state, action){
+            state.anonymous = action.payload
+            console.log("anonymous:: " + state.anonymous)
         },
         showRequiredFields(state, action){
             state.showRequiredFields = action.payload
@@ -59,5 +64,5 @@ const AnamnezSlice = createSlice({
 
 export default AnamnezSlice.reducer
 export const { addAnamnezAnswer, addAnamnezPhoto, selectSpecialistID, selectSpecialtyID,
-    showRequiredFields, setQuestionBody, resetAllValues,
+    showRequiredFields, setQuestionBody, resetAllValues, selectAnonymous,
     setUAKey } = AnamnezSlice.actions

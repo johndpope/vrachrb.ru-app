@@ -11,6 +11,7 @@ import MultiChoicesBase from '../../components/AnamnezBaseComponent/MultiChoices
 import SendButtonBase from '../../components/AnamnezBaseComponent/SendButtonBase';
 import { useDispatch, useSelector } from 'react-redux'
 import {addAnamnezAnswer, resetAllValues} from '../../store/reducers/AnamnezSlice'
+import IsAnonimusBase from "../../components/AnamnezBaseComponent/IsAnonimusBase";
 
 
 const QuestionsScreen = () => {
@@ -100,6 +101,7 @@ const QuestionsScreen = () => {
                     break
             }
 
+
             DATA.push({
                 id: item.id,
                 // Здесь отделение идет на additionalText и mainText
@@ -115,7 +117,10 @@ const QuestionsScreen = () => {
                                     <MultiChoicesBase index={ index } data={ item } choices={ item.field_options.choices }/>
             })
         })
-
+        DATA.push({
+            id: 2499,
+            body: <IsAnonimusBase />
+        })
         DATA.push({
             id: 2500,
             body: <SendButtonBase />
@@ -142,8 +147,8 @@ const QuestionsScreen = () => {
                             renderItem={({ item }) => {
                                 return(
                                     <View style={{
-                                        marginBottom: 25,
-                                        marginTop: 25
+                                        marginBottom: 10,
+                                        marginTop: 10
                                     }}>
                                         { item.header }
                                         { item.body }

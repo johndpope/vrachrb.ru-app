@@ -38,11 +38,11 @@ const App = () => {
         <OverflowMenuProvider>
             <NavigationContainer>
                 <Stack.Navigator>
-                    {/* <Stack.Screen
-                        name="TestScreen"
-                        options={{headerShown: false}}
-                        component={ TestScreen }
-                    />  */}
+                    {/*<Stack.Screen*/}
+                    {/*    name="TestScreen"*/}
+                    {/*    options={{headerShown: false}}*/}
+                    {/*    component={ TestScreen }*/}
+                    {/*/>*/}
                     <Stack.Screen
                         name={"SplashScreen"}
                         options={{headerShown: false}}
