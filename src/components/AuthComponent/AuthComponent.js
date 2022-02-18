@@ -8,7 +8,7 @@ const AuthComponent = ({ navigation }) => {
     return (
         <View style={ styles.centerComponent }>
             <VkLoginButton />
-            <MainAuthButton   text={"Электронная почта"} nav={"MailLoginScreen"} />
+            <MainAuthButton text={"Электронная почта"} nav={"MailLoginScreen"} />
             <SecondAuthButton text={"Регистрация"} nav={"RegisterScreen"} />
         </View>
     )

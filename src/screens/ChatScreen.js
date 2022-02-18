@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux';
 import LoginSlice from '../store/reducers/LoginSlice';
 import EstimateWidget from '../components/Widgets/Chat/EstimateWidget';
 import Modal from "react-native-modal";
+import {colors} from '../styles/colors';
 
 const customSend = props => {
     return (
@@ -30,7 +31,7 @@ const customSend = props => {
                 alignItems: 'center',
             }}
         >
-            <Image style={{ width: MultiPlatform.AdaptivePixelsSize(23), 
+            <Image style={{ width: MultiPlatform.AdaptivePixelsSize(23),
                 height: MultiPlatform.AdaptivePixelsSize(23), tintColor: '#54B9D1', marginTop: 5, marginBottom: 10 }} source={ require('../images/paper-plane.png') }/>
         </Send>
     )
@@ -56,7 +57,7 @@ const ChatScreen = ({ route }) => {
 
     const renderCustomToolbar = props => {
         return (
-            <InputToolbar 
+            <InputToolbar
                 {...props}
                 containerStyle={{
                     backgroundColor: '#ffffff',
@@ -76,7 +77,7 @@ const ChatScreen = ({ route }) => {
         imagesChat.map(element => {
             imagesPrev.push(
                 {
-                    uri: baseURL + "u/i/" + element 
+                    uri: baseURL + "u/i/" + element
                 }
             )
         })
@@ -86,16 +87,14 @@ const ChatScreen = ({ route }) => {
                 {
                     imagesChat[0] == "../images/text-document.png" && (
                         <View>
-                            <TouchableOpacity 
-                                style={{ width: 150, height: 100, justifyContent: 'center', 
-                                    alignItems: 'center', backgroundColor: 'white', borderRadius: 13, margin: 3, }}
+                            <TouchableOpacity
+                                style={ styles.anamnezButtonStyle }
                                 onPress={() => navigation.navigate("DisplayAnamnezScreen", {id: route.params.id})}
                             >
                                 <Image source={ require('../images/text-document.png') } style={{ width: 50, height: 50 }}/>
                             </TouchableOpacity>
-                            <TouchableOpacity 
-                                style={{ width: 150, height: 100, justifyContent: 'center', 
-                                    alignItems: 'center', backgroundColor: 'white', borderRadius: 13, margin: 3, }}
+                            <TouchableOpacity
+                                style={ styles.anamnezButtonStyle }
                                 onPress={() => navigation.navigate("OutpatientCardScreen", {id: route.params.user_id})}
                             >
                                 <Image source={ require('../images/form.png') } style={{ width: 50, height: 50 }}/>
@@ -103,34 +102,29 @@ const ChatScreen = ({ route }) => {
                         </View>
                     )
                 }
-                { 
+                {
                     imagesChat[0] !== "../images/text-document.png" &&
                     <View style={{ flexDirection: 'row', alignItems: 'center'}}>
                         <TouchableOpacity style={{ padding: 5 }} onPress={() => { setModalOpen(true), setImages(imagesPrev), setIndexPhoto(0) }}>
-                            <Image 
+                            <Image
                                 style={styles.image}
                                 source={{ uri: baseURL + "u/i/" + imagesChat[0] }}
 
                             />
-                            
+
                         </TouchableOpacity>
                         { imagesChat && imagesChat.length > 1 &&
                             <TouchableOpacity style={{ padding: 5 }} onPress={() => { setModalOpen(true), setImages(imagesPrev), setIndexPhoto(1) }}>
-                                <Image 
+                                <Image
                                     source={{ uri: baseURL + "u/i/" + imagesChat[1] }}
                                     style={styles.image}
                                 />
                                 {   imagesChat && imagesChat.length > 2 &&
-                                    <View 
-                                        style={{ marginLeft: 5, marginTop: 5, 
-                                            position: 'absolute', width: 130, height: 130, borderRadius: 13, 
-                                            backgroundColor: '#00000095', 
-                                            justifyContent: 'center', alignItems: 'center' }}
-                                    >
+                                    <View style={ styles.displayMoreImagesStyle }>
                                         <Text style={{ color: 'white', fontSize: 27 }}>{ "+ " + (imagesChat.length - 1) }</Text>
                                     </View>
                                 }
-                            </TouchableOpacity> 
+                            </TouchableOpacity>
                         }
                     </View>
                 }
@@ -159,7 +153,7 @@ const ChatScreen = ({ route }) => {
                         },
                     )
                 }),
-    
+
                 response['response'][0]['Answer'].lenght != 0 && DATA.push(
                     {
                         _id: response['response'][0].id,
@@ -182,7 +176,7 @@ const ChatScreen = ({ route }) => {
         await Request.post(baseApiURL + "Close_question", {question_id: route.params.id})
 
         // navigation.navigate("MessagesScreen")
-        
+
         setClosed("test")
     }
 
@@ -191,14 +185,14 @@ const ChatScreen = ({ route }) => {
             title: route.params.spec_name + route.params.speciality,
             headerRight: isSpecialist ? () => (
                 <HeaderButtons>
-                    <OverflowMenu 
-                        OverflowIcon={({ color }) => 
-                            <Image 
-                                style={{ width: MultiPlatform.AdaptivePixelsSize(25), height: MultiPlatform.AdaptivePixelsSize(25) }} 
-                                source={ require('../images/dots.png') } 
+                    <OverflowMenu
+                        OverflowIcon={({ color }) =>
+                            <Image
+                                style={{ width: MultiPlatform.AdaptivePixelsSize(25), height: MultiPlatform.AdaptivePixelsSize(25) }}
+                                source={ require('../images/dots.png') }
                             />}
                     >
-                        <HiddenItem 
+                        <HiddenItem
                             onPress={closed == null ? () => closeQuestion() : () => MultiPlatform.ToastShow("Вы уже закрыли вопрос")}
                             titleStyle={{
                                 color: '#F27C83'
@@ -214,44 +208,44 @@ const ChatScreen = ({ route }) => {
     useEffect(() => {
         getAllMessages()
     }, [])
-  
+
     const onSend = useCallback( async (messages = []) => {
         console.log("ID" + route.params.id)
         await Request.post(baseApiURL + "SendMessage", {
-            question_id: route.params.id, 
-            body: messages[0].text, 
+            question_id: route.params.id,
+            body: messages[0].text,
             attachment: messages[0].image ? messages[0].image.join(";") : ""
         })
-        
+
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
     }, [])
 
-    return ( 
-        loading ? 
+    return (
+        loading ?
         (
             <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                 <ActivityIndicator size={'large'}/>
             </View>
-        ) : 
-        isModalOpen ? 
-        (                
-            <ImageView 
-                images={images} 
+        ) :
+        isModalOpen ?
+        (
+            <ImageView
+                images={images}
                 imageIndex={indexPhoto}
                 supportedOrientations={
                     [
-                    'portrait', 
-                    'portrait-upside-down', 
-                    'landscape', 
-                    'landscape-left', 
-                    'landscape-right'
+                        'portrait',
+                        'portrait-upside-down',
+                        'landscape',
+                        'landscape-left',
+                        'landscape-right'
                     ]
                 }
                 visible={isModalOpen}
                 swipeToCloseEnabled={false}
                 onRequestClose={() => setModalOpen(false)}
             />
-        ) : 
+        ) :
         (
             <GiftedChat
                 textInputStyle={{ color: 'black' }}
@@ -270,7 +264,7 @@ const ChatScreen = ({ route }) => {
                 }}
             />
         )
-    ) 
+    )
 }
 
 
@@ -282,6 +276,26 @@ const styles = StyleSheet.create({
     //   margin: 3,
       resizeMode: 'cover',
     },
+    anamnezButtonStyle: {
+        width: 150,
+        height: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.BG_COLOR_WHITE,
+        borderRadius: 13,
+        margin: 3,
+    },
+    displayMoreImagesStyle: {
+        marginLeft: 5,
+        marginTop: 5,
+        position: 'absolute',
+        width: 130,
+        height: 130,
+        borderRadius: 13,
+        backgroundColor: '#00000095',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 
 export default ChatScreen;

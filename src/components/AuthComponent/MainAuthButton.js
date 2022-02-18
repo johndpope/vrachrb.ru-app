@@ -2,9 +2,10 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { MultiPlatform } from '../MultiPlatform';
+import {colors} from '../../styles/colors';
 
 const MainAuthButton = ({text, nav}) => {
-    const navigation = useNavigation(); 
+    const navigation = useNavigation();
 
     return (
         <View style={{ marginTop: 8 }}>
@@ -18,17 +19,17 @@ const MainAuthButton = ({text, nav}) => {
 
 const styles = StyleSheet.create({
     textStyle: {
-        color: '#434A53',
+        color: colors.HARD_GRAY_COLOR,
         fontSize: MultiPlatform.AdaptivePixelsSize(17)
     },
     btnStyle: {
         width: MultiPlatform.AdaptivePixelsSize(320),
         height: MultiPlatform.AdaptivePixelsSize(60),
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.BG_COLOR_WHITE,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 16,
-        borderColor: '#CCD1D9',
+        borderColor: colors.EMAIL_LOGIN_BORDER_COLOR,
         borderWidth: 2
     }
 })
