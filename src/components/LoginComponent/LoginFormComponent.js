@@ -4,13 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { saveUserData } from '../../store/reducers/LoginSlice';
 import Storage from "../../storage/Storage";
-import baseApiURL from '../../requests/baseApiURL';
 import Request from '../../requests/Request';
 import RecoveryPassword from './RecoveryPassword';
 import BaseSendButton from "../AuthComponent/BaseSendButton";
 import BaseTextInput from "../AuthComponent/BaseTextInput";
 import SecondAuthButton from '../AuthComponent/SecondAuthButton';
 import { MultiPlatform } from '../MultiPlatform';
+import Routes from "../../requests/Routes";
 
 
 const LoginFormComponent = () => {
@@ -27,7 +27,7 @@ const LoginFormComponent = () => {
     const login = async () => {
         setLoading(true)
         let data = { user: email, password: password }
-        let request = await Request.post(baseApiURL + "SignIn", data);
+        let request = await Request.post(Routes.signInURL, data);
 
         setResponse(request)
 

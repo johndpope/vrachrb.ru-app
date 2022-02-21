@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { selectSpecialistID, selectSpecialtyID } from '../../../store/reducers/AnamnezSlice';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { MultiPlatform } from '../../MultiPlatform';
+import Routes from "../../../requests/Routes";
 
 const SpecialistCardWidget = ({ data }) => {
 
@@ -46,7 +47,7 @@ const SpecialistCardWidget = ({ data }) => {
                     </View>
                     <Image
                         style={ styles.imageStyle }
-                        source={ !data.User?.photo ? require('../../../images/user.png') : { uri: baseURL + "u/i/"+ data.User.photo }}
+                        source={ !data.User?.photo ? require('../../../images/user.png') : { uri: Routes.imageURL + data.User.photo }}
                     />
                 </View>
             </TouchableOpacity>

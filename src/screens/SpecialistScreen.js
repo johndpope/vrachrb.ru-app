@@ -1,11 +1,10 @@
 import React, { useState, useEffect, Component } from 'react'
-import { StyleSheet, View, FlatList, ActivityIndicator, RefreshControl, TextInput } from 'react-native';
-import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard';
+import { StyleSheet, View, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
 import SpecialistCardWidget from '../components/Widgets/Specialist/SpecialistCardWidget';
-import ApiURL from '../requests/baseApiURL'
 import Request from '../requests/Request'
 import {useSelector} from "react-redux";
 import BaseSearchComponent from '../components/HeaderComponent/BaseSearchComponent';
+import Routes from "../requests/Routes";
 
 
 const SpecialistScreen = () => {
@@ -18,9 +17,9 @@ const SpecialistScreen = () => {
 
     const [text, setText] = useState("")
 
-    const getSpecialistData = (route = "GetSpecialists", data= {}) => {
+    const getSpecialistData = (route = Routes.getSpecialistsURL, data= {}) => {
         setLoading(true)
-        Request.get(ApiURL + route, data)
+        Request.get(route, data)
             .then(response => { setSpecialist(response), setLoading(false), setFilteredSpecialist(response), setText("")})
     };
 

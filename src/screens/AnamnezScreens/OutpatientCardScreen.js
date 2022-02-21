@@ -1,10 +1,9 @@
-import { useNavigation } from '@react-navigation/native'
 import React, { Component, useEffect, useState } from 'react'
 import { ActivityIndicator, FlatList, RefreshControl, ScrollView, View, StyleSheet, Text } from 'react-native'
 import { MultiPlatform } from '../../components/MultiPlatform'
 import MessageCard from '../../components/Widgets/Chat/MessageCard'
-import baseApiURL from '../../requests/baseApiURL'
 import Request from '../../requests/Request'
+import Routes from "../../requests/Routes";
 
 const OutpatientCardScreen = ({ route }) => {
 
@@ -16,7 +15,7 @@ const OutpatientCardScreen = ({ route }) => {
 
     const getOutpatientCards = async () => {
         setLoading(true)
-        let response = await Request.get(baseApiURL + "Get_patient_card", {user_id: route.params.id})
+        let response = await Request.get(Routes.getPatientCardURL, {user_id: route.params.id})
         // console.log(response)
         response["response"] && response["response"].forEach(element => {
             DATA.push({

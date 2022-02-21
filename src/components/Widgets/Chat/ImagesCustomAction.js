@@ -3,6 +3,7 @@ import { ActivityIndicator, Alert, Dimensions, FlatList, Image, TouchableOpacity
 import DocumentPicker from 'react-native-document-picker'
 import CameraPicker, {ImageOrVideo} from 'react-native-image-crop-picker';
 import { MultiPlatform } from '../../MultiPlatform';
+import Routes from "../../../requests/Routes";
 
 const ImagesCustomAction = ({ data, textInput }) => {
 
@@ -71,7 +72,7 @@ const ImagesCustomAction = ({ data, textInput }) => {
                 type: resp.mime,
                 name: resp.path.split("/").reverse()[0]
             });
-            const response = await fetch(baseURL + 'uploader?key=analysis', {
+            const response = await fetch(Routes.uploaderAnalysisURL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -134,7 +135,7 @@ const ImagesCustomAction = ({ data, textInput }) => {
                                         <TouchableOpacity 
                                             onPress={() => deleteImage(index)}
                                             style={{ width: 20, height: 20, zIndex: 1, 
-                                                backgroundColor: 'red', bottom: -15, left: 5, 
+                                                bottom: -15, left: 5,
                                                 borderRadius: 10, justifyContent: 'center',
                                                 alignItems: 'center', 
                                                 backgroundColor: '#F27C83', }}

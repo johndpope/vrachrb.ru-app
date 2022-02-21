@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { ScrollView, View, StyleSheet, Text, ToastAndroid } from 'react-native'
+import { ScrollView, View, StyleSheet, Text } from 'react-native'
 import SecondAuthButton from '../AuthComponent/SecondAuthButton';
-import baseApiURL from '../../requests/baseApiURL';
 import Request from '../../requests/Request';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
@@ -13,6 +12,7 @@ import {Picker} from '@react-native-picker/picker';
 import BaseDateTimePicker from "../AuthComponent/BaseDateTimePicker";
 import {MultiPlatform} from "../MultiPlatform";
 import Storage from "../../storage/Storage";
+import Routes from "../../requests/Routes";
 
 
 const RegisterFormComponent = () => {
@@ -52,7 +52,7 @@ const RegisterFormComponent = () => {
             email:      email,
             password:   password,
         }
-        let request = await Request.post(baseApiURL + "Register", data);
+        let request = await Request.post(Routes.registerURL, data);
 
         setResponse(request)
 

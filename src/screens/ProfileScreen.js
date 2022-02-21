@@ -2,13 +2,12 @@ import React, { Component, useState } from 'react';
 import { Image, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useDispatch, useSelector} from 'react-redux';
 import ProfileDataItem from '../components/Widgets/Profile/ProfileDataItem';
-import baseURL from "../requests/baseURL";
 import { MultiPlatform } from '../components/MultiPlatform';
-import baseApiURL from '../requests/baseApiURL';
 import Request from '../requests/Request';
 import { saveUserData } from '../store/reducers/LoginSlice';
 import Storage from '../storage/Storage';
 import SpecialistDataItem from '../components/Widgets/Profile/SpecialistDataItem';
+import Routes from "../requests/Routes";
 
 const ProfileScreen = () => {
 
@@ -18,7 +17,7 @@ const ProfileScreen = () => {
 
     const refreshProfileScreen = async () => {
         setLoading(true)
-        let data = await Request.post(baseApiURL + "Is_auth", {})
+        let data = await Request.post(Routes.isAuthURL, {})
 
         if(data['response'] && data['response'] == true) {
             delete data["response"]
@@ -54,7 +53,7 @@ const ProfileScreen = () => {
                         borderRadius: 200,
                         backgroundColor: '#AAB2BD',
                     }}
-                        source={ !selectData?.photo ? require('../images/user.png') : { uri: baseURL + "u/i/" + selectData.photo }}
+                        source={ !selectData?.photo ? require('../images/user.png') : { uri: Routes.imageURL + selectData.photo }}
                     />
                 </ScrollView>
                 </View>

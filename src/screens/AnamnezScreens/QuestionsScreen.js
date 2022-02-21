@@ -4,7 +4,6 @@ import ChoicesButtonBase from '../../components/AnamnezBaseComponent/ChoicesButt
 import MultiTextBase from '../../components/AnamnezBaseComponent/MultiTextBase';
 import QuestionTitleBase from '../../components/AnamnezBaseComponent/QuestionTitleBase';
 import SingleTextBase from '../../components/AnamnezBaseComponent/SingleTextBase';
-import baseApiURL from '../../requests/baseApiURL';
 import Request from '../../requests/Request';
 import UploadFileBase from '../../components/AnamnezBaseComponent/UploadFileBase'
 import MultiChoicesBase from '../../components/AnamnezBaseComponent/MultiChoicesBase';
@@ -12,6 +11,7 @@ import SendButtonBase from '../../components/AnamnezBaseComponent/SendButtonBase
 import { useDispatch, useSelector } from 'react-redux'
 import {addAnamnezAnswer, resetAllValues} from '../../store/reducers/AnamnezSlice'
 import IsAnonimusBase from "../../components/AnamnezBaseComponent/IsAnonimusBase";
+import Routes from "../../requests/Routes";
 
 
 const QuestionsScreen = () => {
@@ -30,7 +30,7 @@ const QuestionsScreen = () => {
 
     const getAnamnez = async () => {
         setLoading(true)
-        let rep = await Request.get(baseApiURL + "Get_anamnes", { spec_id:specialtyID })
+        let rep = await Request.get(Routes.getAnamnesURL, { spec_id:specialtyID })
         console.log("ANAMNES::"+JSON.stringify(rep))
 
         // Заполнение скрина компонентами для отправки листа анамнеза

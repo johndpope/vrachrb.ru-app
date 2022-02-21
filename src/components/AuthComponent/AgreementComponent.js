@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Linking, StyleSheet, Text, View} from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { MultiPlatform } from '../MultiPlatform';
+import Routes from "../../requests/Routes";
 
 const AgreementComponent = ({ setValue, index }) => {
 
@@ -13,12 +14,12 @@ const AgreementComponent = ({ setValue, index }) => {
         {
             "id": "2",
             "description": "Я согласен и принимаю правила работы на портале",
-            "url": "http://vrachrb.ru/agreement/2/"
+            "url": Routes.agreement2URL
         },
         {
             "id": "3",
             "description": "Я даю своё согласие на обработку персональных данных",
-            "url": "http://vrachrb.ru/agreement/3/"
+            "url": Routes.agreement3URL
         }
     ]
     const data = agreements[index]

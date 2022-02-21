@@ -1,15 +1,15 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
-import baseApiURL from '../../requests/baseApiURL'
 import Request from '../../requests/Request'
+import Routes from "../../requests/Routes";
 
 const Header = () => {
 
     const navigation = useNavigation()
 
     const LogOut = async () => {
-      let data = await Request.get(baseApiURL + "SignOut", {})
+      let data = await Request.get(Routes.signInURL, {})
 
       navigation.navigate("AuthScreen")
     }

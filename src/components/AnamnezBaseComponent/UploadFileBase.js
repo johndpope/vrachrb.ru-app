@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import { View, StyleSheet, TouchableOpacity, FlatList, Image, Alert } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
 import DocumentPicker from 'react-native-document-picker'
 import uuid from 'react-native-uuid';
-import {addAnamnezAnswer, addAnamnezPhoto} from "../../store/reducers/AnamnezSlice";
-import baseURL from "../../requests/baseURL";
-import {MultiPlatform} from "../MultiPlatform";
-import {useDispatch, useSelector} from "react-redux";
+import { addAnamnezPhoto } from "../../store/reducers/AnamnezSlice";
+import { MultiPlatform } from "../MultiPlatform";
+import { useDispatch, useSelector } from "react-redux";
 
 const UploadFileBase = ({ component, index, data }) => {
 

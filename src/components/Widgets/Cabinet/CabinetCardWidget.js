@@ -3,8 +3,8 @@ import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import {useDispatch} from "react-redux";
 import {setSpecialistData, setSpecialistRoute} from "../../../store/reducers/SpecSlice";
 import {useNavigation} from "@react-navigation/native";
-import { RFValue } from 'react-native-responsive-fontsize';
 import { MultiPlatform } from '../../MultiPlatform';
+import Routes from "../../../requests/Routes";
 
 const CabinetCardWidget = ({ data }) => {
 
@@ -12,7 +12,7 @@ const CabinetCardWidget = ({ data }) => {
     const navigation = useNavigation()
 
     function setCabinet(){
-        dispatch(setSpecialistRoute("GetSpecialistBySpecialtyID"))
+        dispatch(setSpecialistRoute(Routes.getSpecialistBySpecialtyIDURL))
         dispatch(setSpecialistData({specialtyId : data.id}))
         navigation.navigate("Специалист")
     }

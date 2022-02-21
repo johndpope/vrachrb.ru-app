@@ -1,15 +1,13 @@
-import React, { useState, Component, useEffect } from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, Alert, ScrollView } from 'react-native'
+import React, { useState, Component } from 'react'
+import { View, StyleSheet, Text, ScrollView } from 'react-native'
 import SecondAuthButton from '../AuthComponent/SecondAuthButton';
-import baseApiURL from '../../requests/baseApiURL';
 import Request from '../../requests/Request';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveUserData } from '../../store/reducers/LoginSlice';
-import MainAuthButton from "../AuthComponent/MainAuthButton";
 import BaseTextInput from "../AuthComponent/BaseTextInput";
 import BaseSendButton from "./BaseSendButton";
 import { MultiPlatform } from '../MultiPlatform';
+import Routes from "../../requests/Routes";
 
 
 const RecoveryPasswordComponent = () => {
@@ -28,7 +26,7 @@ const RecoveryPasswordComponent = () => {
             email: email,
         }
         // console.log(JSON.stringify(data))
-        let request = await Request.post(baseApiURL + "Recover_password", data);
+        let request = await Request.post(Routes.recoverPasswordURL, data);
 
         setResponse(request)
         // request['response'] &&

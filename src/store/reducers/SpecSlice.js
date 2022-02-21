@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Routes from "../../requests/Routes";
 
 const SpecSlice = createSlice({
     name: "SpecSlice",
     initialState: {
-        specialistRoute: "GetSpecialists",
+        specialistRoute: Routes.getSpecialistsURL,
         specialistData: {}
     },
     reducers: {

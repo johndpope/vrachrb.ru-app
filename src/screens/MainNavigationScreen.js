@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import Request from '../requests/Request';
 import { resetUserData } from '../store/reducers/LoginSlice';
 import Storage from '../storage/Storage';
-import baseApiURL from '../requests/baseApiURL';
+import Routes from "../requests/Routes";
 
 const BottomTab = createBottomTabNavigator()
 
@@ -24,7 +24,7 @@ const MainNavigationScreen = () => {
     const navigation = useNavigation()
 
     const logOut = async () => {
-        let response = await Request.get(baseApiURL + "SignOut", {})
+        let response = await Request.get(Routes.signOutURL, {})
 
         response["response"] && dispatch(resetUserData())
         && navigation.reset({
@@ -166,7 +166,7 @@ const MainNavigationScreen = () => {
                         return (
                             <Image 
                                 style={ !userData?.photo ? { ...styles.imageStyle, tintColor: focused ? "#54B9D1" : "#AAB2BD" } : {...styles.imageStyle}} 
-                                source={ !userData?.photo ? require('../images/user.png') : { uri: baseURL + "u/i/" + userData.photo }} />
+                                source={ !userData?.photo ? require('../images/user.png') : { uri: Routes.imageURL + userData.photo }} />
                         )
                     },
                     tabBarIconStyle: {  

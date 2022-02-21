@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View, Text, ScrollView } from 'react-native';
 import MessageCard from '../components/Widgets/Chat/MessageCard'
-import baseApiURL from '../requests/baseApiURL';
 import Request from '../requests/Request';
 import {useSelector} from "react-redux";
 import { MultiPlatform } from '../components/MultiPlatform';
 import { useNavigation } from '@react-navigation/native';
+import Routes from "../requests/Routes";
 
 const MessagesScreen = () => {
 
@@ -13,7 +13,7 @@ const MessagesScreen = () => {
     const [userChats, setUserChats] = useState() 
     const [loading, setLoading] = useState(false)
     const isSpecialist = useSelector(state => state.LoginSlice.userData.isSpecialist)
-    const route = isSpecialist ? "Get_specialist_questions" : "Get_user_questions"
+    const route = isSpecialist ? Routes.getSpecialistQuestionsURL : Routes.getUserQuestionsURL
     
     const navigation = useNavigation()
 
@@ -23,7 +23,7 @@ const MessagesScreen = () => {
 
         setResponse({})
         setLoading(true)
-        let response = await Request.get(baseApiURL + route, {});
+        let response = await Request.get(route, {});
 
         if(isSpecialist) {
             response["response"] && response["response"][0]["Questions"].forEach(element => {

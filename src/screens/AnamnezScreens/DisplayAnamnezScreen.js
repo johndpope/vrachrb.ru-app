@@ -1,8 +1,8 @@
 import React, { Component, useEffect, useState } from 'react';
 import { StyleSheet, FlatList, View, ActivityIndicator } from 'react-native';
 import AnamnezCardItem from '../../components/Widgets/Anamnez/AnamnezCardItem';
-import baseApiURL from '../../requests/baseApiURL';
 import Request from '../../requests/Request'
+import Routes from "../../requests/Routes";
 
 
 const DisplayAnamnezScreen = ({ route }) => {
@@ -12,7 +12,7 @@ const DisplayAnamnezScreen = ({ route }) => {
 
     const getAnamnesQuestion = () => {
         setLoading(true)
-        Request.get(baseApiURL + "Get_question_anamnes", {question_id: route.params.id})
+        Request.get(Routes.getQuestionAnamnesURL, {question_id: route.params.id})
             .then(response => { setAnamnesQuestion(response["response"]), setLoading(false), console.log(response)})
     }
 

@@ -1,10 +1,10 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, FlatList, ActivityIndicator, RefreshControl, Text, TextInput } from 'react-native';
+import { StyleSheet, View, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
 import BaseSearchComponent from '../components/HeaderComponent/BaseSearchComponent';
 import CabinetCardWidget from '../components/Widgets/Cabinet/CabinetCardWidget';
-import ApiURL from '../requests/baseApiURL'
 import Request from '../requests/Request'
-import { colors } from '../styles/colors';
+import Routes from "../requests/Routes";
 
 const CabinetScreen = () => {
 
@@ -16,15 +16,15 @@ const CabinetScreen = () => {
 
     const getCabinetData = () => {
         setLoading(true)
-        Request.get(ApiURL + "GetCabinet", {})
+        Request.get(Routes.getCabinetURL, {})
             .then(response => { setCabinet(response), setLoading(false), setFilteredCabinet(response), setText("")})
     };
-
+    
     const searchCabinetItem = (text) => {
         let data = cabinet['response'].filter(cabinet => {
             return cabinet.title.toLocaleLowerCase().includes(text.toLocaleLowerCase())
         })
-
+        
         setFilteredCabinet({ 'response' : data })
     }
 
@@ -39,12 +39,14 @@ const CabinetScreen = () => {
                     <BaseSearchComponent value={text} setValue={setText} searchItem={searchCabinetItem}/>
                     <FlatList
                         refreshControl={
-                            <RefreshControl
+                            <RefreshControl 
                                 refreshing={loading}
                                 onRefresh={() => getCabinetData()}
                             />
                         }
-                        style={{ width: '100%' }}
+                        style={{
+                            width: '100%',
+                        }}
                         data={filteredCabinet && filteredCabinet['response']}
                         showsVerticalScrollIndicator={false}
                         keyExtractor={(item) => item.id}
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: colors.BG_COLOR_WHITE,
+      backgroundColor: 'white',
       width: '100%',
       height: '100%'
     },

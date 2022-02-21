@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { useSelector } from 'react-redux';
 import { MultiPlatform } from '../../MultiPlatform';
-import LoginSlice from '../../../store/reducers/LoginSlice';
-import baseURL from '../../../requests/baseURL';
+import Routes from "../../../requests/Routes";
 
 const MessageCard = ({ item, outPatient }) => {
 
@@ -26,7 +25,7 @@ const MessageCard = ({ item, outPatient }) => {
                     <View>
                         <Image 
                             style={styles.imageStyle}
-                            source={ item?.specialist_photo ? {uri: baseURL + "u/i/" + item.specialist_photo} : require('../../../images/user.png') }
+                            source={ item?.specialist_photo ? {uri: Routes.imageURL + item.specialist_photo} : require('../../../images/user.png') }
                         />
                     </View>
                     <View style={{

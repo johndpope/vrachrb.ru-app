@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, Linking, StyleSheet, Dimensions } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize';
 import { MultiPlatform } from '../MultiPlatform';
+import Routes from "../../requests/Routes";
 
 const NoticeService = (props) => {
 
@@ -14,7 +15,7 @@ const NoticeService = (props) => {
                 Консультация в сервисе
                 <Text> </Text>
                 <Text style={{...styles.textStyle, color: '#54B9D1'}}
-                    onPress={() => Linking.openURL('http://vrachrb.ru/')}
+                    onPress={() => Linking.openURL(Routes.baseURL)}
                 >
                     «Врач Онлайн
                     в Республике Башкортостан»

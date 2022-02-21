@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
-import { Alert, Text, TouchableOpacity, StyleSheet, ActivityIndicator} from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, ActivityIndicator} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { showRequiredFields } from '../../store/reducers/AnamnezSlice';
 import Request from '../../requests/Request';
-import baseApiURL from "../../requests/baseApiURL";
 import {useNavigation} from "@react-navigation/native";
 import {MultiPlatform} from "../MultiPlatform";
-import baseURL from "../../requests/baseURL";
+import Routes from "../../requests/Routes";
 
 const SendButtonBase = () => {
 
@@ -43,7 +42,7 @@ const SendButtonBase = () => {
                 type: resp.type,
                 name: resp.name || resp.fileName
             });
-            const response = await fetch(baseURL + 'uploader?key=analysis', {
+            const response = await fetch(Routes.uploaderAnalysisURL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -132,7 +131,7 @@ const SendButtonBase = () => {
                 }
             }
 
-            let request = await Request.post(baseApiURL + "Ask_question", sendQuestionData);
+            let request = await Request.post(Routes.askQuestionURL, sendQuestionData);
             if (request) {
                 if (request["response"]) {
                     console.log(request["response"])

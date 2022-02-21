@@ -1,12 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { Component, useLayoutEffect, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import baseApiURL from '../requests/baseApiURL';
+import Routes from '../requests/Routes';
 import Request from '../requests/Request';
 import { useDispatch } from "react-redux";
 import { saveUserData } from "../store/reducers/LoginSlice";
 import Storage from "../storage/Storage";
-import {MultiPlatform} from "../components/MultiPlatform";
 
 const SplashScreen = () => {
 
@@ -14,7 +13,7 @@ const SplashScreen = () => {
     const navigation = useNavigation()
 
     const isAuth = async () => {
-      let data = await Request.post(baseApiURL + "Is_auth", {})
+      let data = await Request.post(Routes.isAuthURL, {})
 
       if(data['response'] && data['response'] == true) {
           // console.log("AUTH::"+JSON.stringify(data))
@@ -35,7 +34,7 @@ const SplashScreen = () => {
     useLayoutEffect(() => {
       isAuth()
     }, [])
- MultiPlatform.AdaptivePixelsSize()
+
     return (
         <View style={styles.mainContent}>
             <Image 

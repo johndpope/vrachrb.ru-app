@@ -1,9 +1,8 @@
 import React, { Component, useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
-import baseURL from '../../../requests/baseURL'
 import ImageView from "react-native-image-viewing";
-import uuid from 'react-native-uuid';
 import { MultiPlatform } from '../../MultiPlatform';
+import Routes from "../../../requests/Routes";
 
 const AnamnezCardItem = ({ item }) => {
 
@@ -17,7 +16,7 @@ const AnamnezCardItem = ({ item }) => {
     useEffect(() => {
         (itemsToRender.file && typeof itemsToRender.file === 'string') && itemsToRender.file.split(';').forEach(element => {
             imageDataList.push(
-                { uri: baseURL + "u/i/" + element }
+                { uri: Routes.imageURL + element }
             )
         });
 
@@ -84,7 +83,7 @@ const AnamnezCardItem = ({ item }) => {
                                                         style={{ marginRight: 5 }}
                                                     >
                                                         <Image 
-                                                            source={{ uri: baseURL + "u/i/" + item }} 
+                                                            source={{ uri: Routes.imageURL + item }}
                                                             style={{ width: MultiPlatform.AdaptivePixelsSize(150), 
                                                             height: MultiPlatform.AdaptivePixelsSize(150), borderRadius: 12 }} />
                                                     </TouchableOpacity> 
