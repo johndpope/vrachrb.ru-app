@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 16,
         marginTop: MultiPlatform.AdaptivePixelsSize(15),
-        marginBottom: 15
     }
 })
 

@@ -1,11 +1,11 @@
 import React from 'react'
-import { View, Image } from 'react-native'
+import { View, Image, KeyboardAvoidingView } from 'react-native'
 import RecoveryPasswordComponent from "../components/AuthComponent/RecoveryPasswordComponent";
 import { MultiPlatform } from '../components/MultiPlatform';
 
 const RecoveryPasswordScreen = () => {
     return (
-        <View style={{
+        <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={{
             flex: 1,
             width: '100%',
             justifyContent: 'flex-end',
@@ -26,7 +26,7 @@ const RecoveryPasswordScreen = () => {
                 />
             </View>
             <RecoveryPasswordComponent/>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 

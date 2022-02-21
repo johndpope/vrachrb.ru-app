@@ -34,7 +34,7 @@ const StarEstimationBase = ({ typeField }) => {
     }
 
     return (
-        <View style={{ width: '100%', height: 30, flexDirection: 'row' }}>
+        <View style={{ height: 30, flexDirection: 'row' }}>
             {
                 star.map((item, index) => {
                     return (

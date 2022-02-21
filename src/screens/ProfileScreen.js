@@ -32,7 +32,7 @@ const ProfileScreen = () => {
     return (
         <View style={styles.mainContent}>
             <View style={{
-                flex: MultiPlatform.AdaptivePixelsSize(1),
+                flex: 1,
                 backgroundColor: '#E5E5E5',
                 justifyContent: 'center',
                 alignItems: 'center'
@@ -58,7 +58,7 @@ const ProfileScreen = () => {
                 </ScrollView>
                 </View>
                 <View style={{
-                    flex: MultiPlatform.AdaptivePixelsSize(2.2),
+                    flex: 2.2,
                     backgroundColor: '#FFFFFF',
                     alignItems: 'center',
                     justifyContent: 'center',

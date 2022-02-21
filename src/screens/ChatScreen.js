@@ -60,7 +60,7 @@ const ChatScreen = ({ route }) => {
                     justifyContent: 'flex-end',
                 }}
                 disableInputToolBar={true}
-                renderActions={closed == null && (props => <ImagesCustomAction data={props} textInput={disableButton}/>)}
+                renderActions={closed == null ? (props => <ImagesCustomAction data={props} textInput={disableButton}/>) : null}
             />
         )
     }
@@ -256,7 +256,7 @@ const ChatScreen = ({ route }) => {
                 onInputTextChanged={props => setDisableButton(props)}
                 renderMessageImage={props => renderMessageImage(props)}
                 renderSend={props => customSend(props)}
-                renderComposer={closed !== null && (props => <CustomComposer questionId={route.params.id} isSpecialist={isSpecialist} data={props}/>)}
+                renderComposer={closed !== null ? (props => <CustomComposer questionId={route.params.id} isSpecialist={isSpecialist} data={props}/>) : null}
                 renderInputToolbar={props => renderCustomToolbar(props)}
                 messages={messages}
                 disableComposer={closed ? true : false}

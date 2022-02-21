@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { View, Text, Image } from 'react-native'
+import { View, Image, KeyboardAvoidingView } from 'react-native'
 import LoginFormComponent from '../components/LoginComponent/LoginFormComponent'
+import { MultiPlatform } from '../components/MultiPlatform'
 
 const MailLoginScreen = () => {
     return (
-        <View style={{
+        <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={{
             flex: 1,
             width: '100%',
             justifyContent: 'flex-end',
@@ -18,14 +19,14 @@ const MailLoginScreen = () => {
             }}>
                 <Image
                     style={{
-                        width: 243,
-                        height: 83
+                        width: MultiPlatform.AdaptivePixelsSize(243),
+                        height: MultiPlatform.AdaptivePixelsSize(83)
                     }}
                     source={require("../images/logo.png")} 
                 />
             </View>
             <LoginFormComponent />
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 

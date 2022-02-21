@@ -18,6 +18,7 @@ const OutpatientCardScreen = ({ route }) => {
         let response = await Request.get(Routes.getPatientCardURL, {user_id: route.params.id})
         // console.log(response)
         response["response"] && response["response"].forEach(element => {
+            console.log(element["Specialists"][0]["User"])
             DATA.push({
                 id: element.id,
                 body: element.body,
@@ -25,9 +26,9 @@ const OutpatientCardScreen = ({ route }) => {
                 specialist_photo: element.specialist_photo,
                 user_id: element.user_id,
                 specialty: element["Specialists"][0]["Specialty"].title,
-                first_name: element["Specialists"][0]["User"].first_name,
-                second_name: element["Specialists"][0]["User"].second_name[0],
-                middle_name: element["Specialists"][0]["User"].middle_name[0]
+                first_name: element["Specialists"][0]["User"].first_name == "" ? "A." : element["Specialists"][0]["User"].first_name + " ",
+                second_name: element["Specialists"][0]["User"].second_name == "" ? "A." : element["Specialists"][0]["User"].second_name[0] + ". ",
+                middle_name: element["Specialists"][0]["User"].middle_name == "" ? "A." : element["Specialists"][0]["User"].middle_name[0] + "."
             })
         });
 

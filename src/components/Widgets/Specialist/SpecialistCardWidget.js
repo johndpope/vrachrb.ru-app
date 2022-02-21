@@ -20,8 +20,9 @@ const SpecialistCardWidget = ({ data }) => {
     }
 
     return (
-        <View style={ styles.mainContent }>
+        // <View>
             <TouchableOpacity 
+                style={ styles.mainContent }
                 onPress={() => moveToNextScreen()}
             >
                 <View style={ styles.wrapperBlock }>
@@ -51,7 +52,7 @@ const SpecialistCardWidget = ({ data }) => {
                     />
                 </View>
             </TouchableOpacity>
-        </View>
+        // </View>
     )
 }
 

@@ -1,5 +1,5 @@
 import React  from "react";
-import { ToastAndroid, Platform, AlertIOS, Dimensions } from "react-native";
+import { ToastAndroid, Platform, Alert, Dimensions } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 /**
  * Класс с Мультиплатформенными методами */
@@ -9,7 +9,7 @@ export class MultiPlatform {
         if (Platform.OS === 'android') {
             ToastAndroid.show(msg, ToastAndroid.LONG)
         } else {
-            AlertIOS.alert(msg);
+            Alert.alert(msg);
         }
     }
 

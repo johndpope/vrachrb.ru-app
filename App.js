@@ -84,15 +84,12 @@ const App = () => {
                             headerTitleStyle: {
                                 color: "#434A53",
                                 fontWeight: '700',
-                                fontSize: MultiPlatform.AdaptivePixelsSize(19),
+                                fontSize: MultiPlatform.AdaptivePixelsSize(17),
                             },
                             headerBackVisible: false,
                             headerLeft: () => (
                                 <BackButton/>
                             ),
-                            headerRight: () => (
-                                null
-                            )
                         }}
                         component={ChatScreen}
                     />

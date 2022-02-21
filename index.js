@@ -1,10 +1,11 @@
 import React from 'react';
-import { AppRegistry } from 'react-native';
+import { AppRegistry, KeyboardAvoidingView } from 'react-native';
 import App from './App';
 import { Component } from "react";
 import { Provider } from 'react-redux';
 import { store } from './src/store'
 import { name as appName } from './app.json';
+import { SafeAreaView } from 'react-native-safe-area-context';
 /**
  * Корневой класс для инициализации магазина Redux */
 class index extends Component {
@@ -15,7 +16,9 @@ class index extends Component {
     render() {
         return (
             <Provider store={store}>
-                <App/>
+                <SafeAreaView style={{ flex: 1 }}>
+                    <App/>
+                </SafeAreaView>
             </Provider>
         );
     }

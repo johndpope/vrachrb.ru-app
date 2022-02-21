@@ -1,10 +1,11 @@
 import React, { useState, useEffect, Component } from 'react'
-import { StyleSheet, View, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, RefreshControl } from 'react-native';
 import SpecialistCardWidget from '../components/Widgets/Specialist/SpecialistCardWidget';
 import Request from '../requests/Request'
 import {useSelector} from "react-redux";
 import BaseSearchComponent from '../components/HeaderComponent/BaseSearchComponent';
 import Routes from "../requests/Routes";
+import { FlatList } from 'react-native-gesture-handler';
 
 
 const SpecialistScreen = () => {
@@ -60,7 +61,7 @@ const SpecialistScreen = () => {
                             return(
                                 <SpecialistCardWidget data={ item }/>
                             )
-                        }}
+                        }} 
                     />
                 </View>
             )}

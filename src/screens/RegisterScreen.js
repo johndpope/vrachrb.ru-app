@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Image } from 'react-native'
+import { View, Image, KeyboardAvoidingView } from 'react-native'
+import { MultiPlatform } from '../components/MultiPlatform';
 import RegisterFormComponent from "../components/RegisterComponent/RegisterFormComponent";
 
 const RegisterScreen = () => {
     return (
-        <View style={{
+        <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={{
             flex: 1,
             width: '100%',
             justifyContent: 'flex-end',
@@ -12,20 +13,20 @@ const RegisterScreen = () => {
             backgroundColor: "#F3F4F6"
         }}>
             <View style={{
-                flex: 0.2,
+                flex: 0.3,
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
                 <Image
                     style={{
-                        width: 243,
-                        height: 83
+                        width: MultiPlatform.AdaptivePixelsSize(243),
+                        height: MultiPlatform.AdaptivePixelsSize(83)
                     }}
                     source={require("../images/logo.png")}
                 />
             </View>
             <RegisterFormComponent/>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 

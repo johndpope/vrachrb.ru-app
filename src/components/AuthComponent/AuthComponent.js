@@ -16,7 +16,6 @@ const AuthComponent = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     centerComponent: {
-        width: '100%',
         justifyContent: 'space-around',
         alignItems: 'center',
     }

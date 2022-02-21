@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, FlatList, ActivityIndicator, Text } from 'react-native'
+import { View, StyleSheet, FlatList, ActivityIndicator, Text, KeyboardAvoidingView } from 'react-native'
 import ChoicesButtonBase from '../../components/AnamnezBaseComponent/ChoicesButtonBase';
 import MultiTextBase from '../../components/AnamnezBaseComponent/MultiTextBase';
 import QuestionTitleBase from '../../components/AnamnezBaseComponent/QuestionTitleBase';
@@ -131,7 +131,7 @@ const QuestionsScreen = () => {
     }
 
     return (
-        <View style={ styles.mainContent }>
+        <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={ styles.mainContent }>
             {
                 loading ? <ActivityIndicator size={"large"}/> : (
                     <View style={{
@@ -159,7 +159,7 @@ const QuestionsScreen = () => {
                     </View>
                 )
             }
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 

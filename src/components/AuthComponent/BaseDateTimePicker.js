@@ -41,14 +41,13 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 10,
     },
     textStyle: {
         color: '#434A53',
-        fontSize: 17
+        fontSize: MultiPlatform.AdaptivePixelsSize(17)
     },
     btnStyle: {
-        width: MultiPlatform.AdaptivePixelsSize(350),
+        width: '100%',
         height: MultiPlatform.AdaptivePixelsSize(60),
         backgroundColor: '#F3F4F6',
         justifyContent: 'center',

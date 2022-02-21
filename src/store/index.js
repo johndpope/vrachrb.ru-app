@@ -3,6 +3,7 @@ import LoginSlice from './reducers/LoginSlice'
 import AnamnezSlice from './reducers/AnamnezSlice';
 import SpecSlice from "./reducers/SpecSlice";
 import EstimateSlice from './reducers/EstimateSlice';
+import 'react-native-gesture-handler'
 
 /**
  * Комбинированный основной редусер из нескольких редусеров*/

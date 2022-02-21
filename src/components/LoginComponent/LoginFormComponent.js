@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Text, ScrollView } from 'react-native'
+import { View, StyleSheet, Text, ScrollView, KeyboardAvoidingView } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { saveUserData } from '../../store/reducers/LoginSlice';
@@ -52,12 +52,13 @@ const LoginFormComponent = () => {
         <View style={ styles.mainBlock }>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{flexGrow: 1, justifyContent: 'center', width: '85%', padding: 10}}
+                style={{ width: '100%', paddingLeft: MultiPlatform.AdaptivePixelsSize(15), paddingRight: MultiPlatform.AdaptivePixelsSize(15), flex: 1 }}
+                contentContainerStyle={{flexGrow: 1, justifyContent: 'center', padding: 10}}
             >     
-                <View style={{width: MultiPlatform.AdaptivePixelsSize(350)}}>
+                <View>
                     <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
                     { response['error'] &&
-                        <Text style={{ color: "#F27C83", fontSize: 15 }}>Неверный логин или пароль</Text>
+                        <Text style={{ color: "#F27C83", fontSize: MultiPlatform.AdaptivePixelsSize(15) }}>Неверный логин или пароль</Text>
                     }
                     <BaseTextInput response={response} hint={"Пароль"} setValue={setPassword} pass={true}/>
                     <RecoveryPassword />
@@ -65,6 +66,7 @@ const LoginFormComponent = () => {
                 <View style={ styles.btnBottom }>
                     <BaseSendButton text={"Войти"} checkFields={checkFilledField} onPress={login} loading={loading}/>
                     <SecondAuthButton text={"Зарегистрироваться"} nav={"RegisterScreen"}/>
+                    <SecondAuthButton text={"Вернуться"} nav={"AuthScreen"} />
                 </View>
             </ScrollView>
         </View>
@@ -81,16 +83,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    textInputStyle: {
-        borderBottomWidth: 2,
-        width: MultiPlatform.AdaptivePixelsSize(350),
-        marginTop: 20,
-        fontSize: 17,
-        borderRadius: 1,
-        color: '#434A53',
-    },
     btnBottom: {
-        width: MultiPlatform.AdaptivePixelsSize(350),
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 25,

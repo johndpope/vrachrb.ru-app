@@ -33,7 +33,7 @@ const AgreementComponent = ({ setValue, index }) => {
                 iconStyle={{ borderColor: "#58BE3F" }}
                 onPress={(isChecked) => {setValue(isChecked)}}
             />
-            <Text style={{...styles.label, color:data["url"] ? '#54B9D1' : '#000'}}
+            <Text style={{...styles.label, color:data["url"] ? '#54B9D1' : '#000', flexShrink: 1}}
                   onPress={ data["url"] ? () => Linking.openURL(data['url']) : null }
             >{data['description']}</Text>
         </View>
@@ -42,17 +42,14 @@ const AgreementComponent = ({ setValue, index }) => {
 
 const styles = StyleSheet.create({
     checkboxContainer: {
-        width: "90%",
         flexDirection: "row",
         marginBottom: 10,
-        marginLeft: 10
     },
     checkbox: {
         alignSelf: "center",
     },
     label: {
         color: '#000',
-        paddingRight: 40
     },
 })
 

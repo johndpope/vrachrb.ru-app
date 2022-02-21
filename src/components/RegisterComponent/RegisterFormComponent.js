@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ScrollView, View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, Platform } from 'react-native'
 import SecondAuthButton from '../AuthComponent/SecondAuthButton';
 import Request from '../../requests/Request';
 import { useNavigation } from '@react-navigation/native';
@@ -13,7 +13,8 @@ import BaseDateTimePicker from "../AuthComponent/BaseDateTimePicker";
 import {MultiPlatform} from "../MultiPlatform";
 import Storage from "../../storage/Storage";
 import Routes from "../../requests/Routes";
-
+import { ScrollView } from 'react-native-gesture-handler'
+import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 
 const RegisterFormComponent = () => {
 
@@ -110,7 +111,8 @@ const RegisterFormComponent = () => {
         <View style={styles.mainBlock}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{flexGrow: 1, justifyContent: 'center', width: '85%', padding: 10}}
+                style={{ flex: 1, width: '100%', paddingLeft: MultiPlatform.AdaptivePixelsSize(15), paddingRight: MultiPlatform.AdaptivePixelsSize(15), }}
+                contentContainerStyle={{ justifyContent: 'center', padding: 10}}
             >
                 <View>
                     <BaseTextInput response={response} hint={"Имя"} setValue={setName}/>
@@ -120,26 +122,30 @@ const RegisterFormComponent = () => {
                     <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
                     <BaseTextInput response={response} hint={"Пароль"} setValue={setPassword} pass={true}/>
                     <BaseTextInput response={response} hint={"Повторите пароль"} setValue={setPassword2} pass={true}/>
-                    <Picker dropdownIconColor={'black'}
-                            style={styles.pickerStyle}
-                            selectedValue={gender}
-                            onValueChange={(itemValue, itemIndex) => setGender(itemValue)}>
+                    <Picker 
+                        dropdownIconColor={'black'}
+                        style={styles.pickerStyle}
+                        selectedValue={gender}
+                        onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
+
+                    >
                         <Picker.Item label="Мужчина" value="м" />
                         <Picker.Item label="Женщина" value="ж" />
                     </Picker>
                     <BaseDateTimePicker text={"Дата рождения"} setValue={setBirth_date}/>
                 </View>
-                <View style={{marginTop: 10}}>
+                <View style={{ marginTop: 20}}>
                     <AgreementComponent setValue={setAgr1} index={0}/>
                     <AgreementComponent setValue={setAgr2} index={1}/>
                     <AgreementComponent setValue={setAgr3} index={2}/>
                 </View>
                 <View style={ styles.btnBottom }>
                     { response['error'] &&
-                    <Text style={{ color: "#F27C83", fontSize: 15, paddingBottom: 10}}>{response['error']}</Text>
+                        <Text style={{ color: "#F27C83", fontSize: MultiPlatform.AdaptivePixelsSize(15), paddingBottom: 10}}>{response['error']}</Text>
                     }
                     <BaseSendButton text={"Зарегистрироваться"} checkFields={checkFilledField} onPress={register} loading={loading}/>
                     <SecondAuthButton text={"Авторизоваться"} nav={"MailLoginScreen"} />
+                    <SecondAuthButton text={"Вернуться"} nav={"AuthScreen"} />
                 </View>
             </ScrollView>
         </View>
@@ -158,10 +164,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     pickerStyle :{
-        height: MultiPlatform.AdaptivePixelsSize(50),
-        backgroundColor:"#F3F4F6",
         color: "black",
         marginTop: 10,
+        marginBottom: 10,
     },
     textInputStyle: {
         borderBottomWidth: 2,
@@ -175,6 +180,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 30,
+        marginTop: 30
     },
     textStyle: {
         color: '#FFFFFF',

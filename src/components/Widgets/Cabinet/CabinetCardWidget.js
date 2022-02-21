@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {setSpecialistData, setSpecialistRoute} from "../../../store/reducers/SpecSlice";
 import {useNavigation} from "@react-navigation/native";
 import { MultiPlatform } from '../../MultiPlatform';
-import Routes from "../../../requests/Routes";
+import Routes from '../../../requests/Routes';
 
 const CabinetCardWidget = ({ data }) => {
 
@@ -12,14 +12,14 @@ const CabinetCardWidget = ({ data }) => {
     const navigation = useNavigation()
 
     function setCabinet(){
-        dispatch(setSpecialistRoute(Routes.getSpecialistBySpecialtyIDURL))
+        dispatch(setSpecialistRoute(Routes.getSpecialistBySpecialtyID))
         dispatch(setSpecialistData({specialtyId : data.id}))
         navigation.navigate("Специалист")
     }
 
     return (
-        <View style={ styles.mainContent }>
-            <TouchableOpacity onPress={() => setCabinet()}>
+        // <View>
+            <TouchableOpacity style={ styles.mainContent } onPress={() => setCabinet()}>
                 <View style={ styles.wrapperBlock }>
                     <View style={{
                         width: MultiPlatform.AdaptivePercentSize(30)
@@ -37,7 +37,7 @@ const CabinetCardWidget = ({ data }) => {
                     />
                 </View>
             </TouchableOpacity>
-        </View>
+        // </View>
     )
 }
 

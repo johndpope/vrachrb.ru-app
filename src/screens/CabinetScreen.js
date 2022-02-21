@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, RefreshControl } from 'react-native';
 import BaseSearchComponent from '../components/HeaderComponent/BaseSearchComponent';
 import CabinetCardWidget from '../components/Widgets/Cabinet/CabinetCardWidget';
 import Request from '../requests/Request'
 import Routes from "../requests/Routes";
+import { FlatList } from 'react-native-gesture-handler';
 
 const CabinetScreen = () => {
 

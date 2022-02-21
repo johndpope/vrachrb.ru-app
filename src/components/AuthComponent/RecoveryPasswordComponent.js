@@ -50,9 +50,10 @@ const RecoveryPasswordComponent = () => {
         <View style={ styles.mainBlock }>
             <ScrollView                
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{flexGrow: 1, justifyContent: 'center', width: '85%', padding: 10}}
+                style={{ width: '100%', paddingLeft: MultiPlatform.AdaptivePixelsSize(15), paddingRight: MultiPlatform.AdaptivePixelsSize(15), flex: 1 }}
+                contentContainerStyle={{flexGrow: 1, justifyContent: 'center', padding: 10}}
             >
-                <View style={{width: MultiPlatform.AdaptivePixelsSize(350)}}>
+                <View>
                     <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
                     { response['error'] &&
                     <Text style={styles.negativeResponseStyle}>{response['error']}</Text>
@@ -82,18 +83,17 @@ const styles = StyleSheet.create({
     },
     btnBottom: {
         marginTop: MultiPlatform.AdaptivePixelsSize(25),
-        width: MultiPlatform.AdaptivePixelsSize(350),
         justifyContent: 'center',
         alignItems: 'center'
     },
     positiveResponseStyle: {
-        width: MultiPlatform.AdaptivePixelsSize(350),
         color: "#58BE3F",
+        flexShrink: 1,
         fontSize: MultiPlatform.AdaptivePixelsSize(15)
     },
     negativeResponseStyle: {
-        width: MultiPlatform.AdaptivePixelsSize(350),
         color: "#F27C83",
+        flexShrink: 1,
         fontSize: MultiPlatform.AdaptivePixelsSize(15)
     },
 });

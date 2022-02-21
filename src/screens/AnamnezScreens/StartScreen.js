@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import {resetAllValues, setQuestionBody} from '../../store/reducers/AnamnezSlice'
 import BaseTextInput from "../../components/Widgets/BaseTextInput";
@@ -56,7 +56,7 @@ const StartScreen = (props) => {
         </View>;
 
     return (
-        <View style={ styles.mainContent }>
+        <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={ styles.mainContent }>
             <ScrollView 
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1, justifyContent: 'center', width: '85%'}}
@@ -104,7 +104,7 @@ const StartScreen = (props) => {
                     </View>
                 </View>
             </ScrollView>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
