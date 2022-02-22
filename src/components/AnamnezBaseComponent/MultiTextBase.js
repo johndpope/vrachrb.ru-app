@@ -23,8 +23,9 @@ const MultiTextBase = ({ data = [], index = 0, starred = false }) => {
 
     const checkInputs = (text) => {
         data.is_required == "1" && text != "" ? setRequire(false) : setRequire(true)
-
+        
         setTextInp(text)
+
         data.field_type == "yes_no_textarea" ? dispatch(addAnamnezAnswer({
             index: index,
             sh_field_type: {
@@ -62,7 +63,7 @@ const MultiTextBase = ({ data = [], index = 0, starred = false }) => {
             textAlignVertical='top'
             placeholder={ 'Введите текст' }
             placeholderTextColor={ require && data.is_required == "1" ? '#F27C83' : "#AAB2BD"}
-            onChangeText={text => checkInputs(text)}
+            onChangeText={text => checkInputs(text.trim())}
         />
     )
 }

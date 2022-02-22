@@ -24,7 +24,7 @@ const MessagesScreen = () => {
         setResponse({})
         setLoading(true)
         let response = await Request.get(route, {});
-
+        
         if(isSpecialist) {
             response["response"] && response["response"][0]["Questions"].forEach(element => {
                 DATA.push({
@@ -34,9 +34,12 @@ const MessagesScreen = () => {
                     specialist_photo: element["User"].photo,
                     closedBy: element.closed_by,
                     user_id: element.user_id,
-                    first_name: element.is_anonymous ? "Anonymous. " : element["User"].first_name + " ",
-                    second_name: element.is_anonymous || element["User"].second_name == "" ? "A." : element["User"].second_name[0] + ". ",
-                    middle_name: element.is_anonymous || element["User"].middle_name == "" ? "A." : element["User"].middle_name[0] + "."
+                    first_name: element.is_anonymous || element["User"]?.first_name == "" || element["User"]?.first_name == null
+                                    ? "Anonymous" : element["User"]?.first_name + " ",
+                    second_name: element.is_anonymous || element["User"]?.second_name == "" || element["User"]?.second_name == null
+                                    ? "" : element["User"]?.second_name[0] + ". ",
+                    middle_name: element.is_anonymous || element["User"]?.middle_name == "" || element["User"]?.middle_name == null 
+                                    ? "" : element["User"]?.middle_name[0] + "."
                 })
             });
         } else {
@@ -48,9 +51,9 @@ const MessagesScreen = () => {
                     closedBy: element.closed_by,
                     user_id: element.user_id,
                     specialty: element["Specialtys"][0].title,
-                    first_name: element["Specialists"][0]["User"].first_name + " ",
-                    second_name: element["Specialists"][0]["User"].second_name == "" ? "" : element["Specialists"][0]["User"].second_name[0] + ". ",
-                    middle_name: element["Specialists"][0]["User"].middle_name == "" ? "" : element["Specialists"][0]["User"].middle_name[0] + "."
+                    first_name: element["Specialists"][0]["User"]?.first_name == "" || element["Specialists"][0]["User"]?.first_name == null ? "" : element["Specialists"][0]["User"]?.first_name + " ",
+                    second_name: element["Specialists"][0]["User"]?.second_name == "" || element["Specialists"][0]["User"]?.second_name == null ? "" : element["Specialists"][0]["User"]?.second_name[0] + ". ",
+                    middle_name: element["Specialists"][0]["User"]?.middle_name == "" || element["Specialists"][0]["User"]?.middle_name == null ? "" : element["Specialists"][0]["User"]?.middle_name[0] + "."
                 })
             });
         }

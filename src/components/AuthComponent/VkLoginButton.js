@@ -3,16 +3,21 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import VKLogin from 'react-native-vkontakte-login';
 import { colors } from '../../styles/colors';
 import { MultiPlatform } from '../MultiPlatform';
-import Modal from "react-native-modal";
-import AgreementComponent from './AgreementComponent';
-import QuestionTitleBase from '../AnamnezBaseComponent/QuestionTitleBase';
+import Request from '../../requests/Request'
+import Routes from '../../requests/Routes';
+import AgreementWidget from '../Widgets/Login/AgreementWidget';
+import Storage from '../../storage/Storage';
+import { saveUserData } from '../../store/reducers/LoginSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 const VkLoginButton = () => {
 
+    const dispatch = useDispatch()
+    const navigation = useNavigation()
+
     const [isModalVisible, setModalVisible] = useState(false)
-    const [agr1, setAgr1] = useState(false)
-    const [agr2, setAgr2] = useState(false)
-    const [agr3, setAgr3] = useState(false)
+    const [vkAuthData, setVkAuthData] = useState()
 
     useEffect(() => {
         VKLogin.initialize(8086048)
@@ -20,9 +25,33 @@ const VkLoginButton = () => {
 
     const loginWithVk = async () => {
         try {
-            VKLogin.logout()
-            const auth = await VKLogin.login(['first_name', 'last_name', 'photo', 'sex', 'email', 'nohttps']);
+            // VKLogin.logout()
+            const auth = await VKLogin.login(['first_name', 'last_name', 'photo', 'sex', 'email']);
+            setVkAuthData(auth)
             console.log(JSON.stringify(auth))
+            const resp = await Request.post(Routes.signInVK, 
+                {
+                    user_id: auth.user_id, 
+                    access_token: auth.access_token,
+                    email: auth.email ? auth.email : "null"
+                })
+            
+            if (resp?.error){ 
+                return MultiPlatform.ToastShow(resp.error) 
+            }
+
+            console.log(resp)
+
+            if (resp?.auth) { 
+                dispatch(saveUserData(resp.userData))
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'MainNavigationScreen' }],
+                })
+                await Storage.save("userData", resp.userData)
+            } else {
+                setModalVisible(true)
+            }
         } catch (e){
             console.log("ERORR")
         }
@@ -32,43 +61,12 @@ const VkLoginButton = () => {
         <View>
             {
                 isModalVisible && (
-                    <Modal
-                        style={{ justifyContent: 'flex-end', margin: 0}} 
-                        isVisible={isModalVisible} 
-                        swipeDirection={['down']}
-                        backdropTransitionOutTiming={0}
-                        backdropTransitionInTiming={0}
-                        onSwipeComplete={() => setModalVisible(!isModalVisible)}
-                        swipeThreshold={80}
-                        propagateSwipe={false}
-                    >
-                        <View            
-                            style={{ 
-                                backgroundColor: 'white', 
-                                borderTopRightRadius: 20, 
-                                borderTopLeftRadius: 20,
-                                alignItems: 'center', 
-                                paddingLeft: 35,
-                                paddingRight: 35
-                            }}
-                        >
-                            <View style={{ width: '30%', height: MultiPlatform.AdaptivePixelsSize(6), backgroundColor: '#AAB2BD', top: MultiPlatform.AdaptivePixelsSize(-8), borderRadius: 100, opacity: 0.8, marginBottom: 20 }} />
-                            <QuestionTitleBase question="Примите пользовательское соглашение" /> 
-                            <View style={{ marginTop: 20, marginBottom: 20, justifyContent: 'center', alignItems: 'center' }}>
-                                <AgreementComponent setValue={setAgr1} index={0}/>
-                                <AgreementComponent setValue={setAgr2} index={1}/>
-                                <AgreementComponent setValue={setAgr3} index={2}/>
-                            </View>
-                            <TouchableOpacity style={{ marginBottom: 20, height: 60, width: '85%', backgroundColor: 'red'  }}>
-                                <Text>Согласен</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </Modal>
+                    <AgreementWidget vkData={vkAuthData} isVisible={isModalVisible} setVisible={setModalVisible} />
                 )
             }
             <TouchableOpacity 
                 style={ styles.btnStyle }
-                onPress={() => { loginWithVk(), setModalVisible(!isModalVisible) }}
+                onPress={() => { loginWithVk() }}
             >
                 <Text style={ styles.textStyle }>Войти через VK</Text>
             </TouchableOpacity>
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 16,
-    }
+    },
 })
 
 export default VkLoginButton

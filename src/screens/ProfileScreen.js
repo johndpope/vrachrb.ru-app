@@ -1,5 +1,5 @@
-import React, { Component, useState } from 'react';
-import { Image, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { Component, useEffect, useState } from 'react';
+import { Dimensions, Image, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useDispatch, useSelector} from 'react-redux';
 import ProfileDataItem from '../components/Widgets/Profile/ProfileDataItem';
 import { MultiPlatform } from '../components/MultiPlatform';
@@ -10,6 +10,11 @@ import SpecialistDataItem from '../components/Widgets/Profile/SpecialistDataItem
 import Routes from "../requests/Routes";
 
 const ProfileScreen = () => {
+
+    const height = Dimensions.get('window').height / 100
+    const width = Dimensions.get('window').width / 100
+
+    const [userNameState, setUserName] = useState("")
 
     const selectData = useSelector(state => state.LoginSlice.userData)
     const dispatch = useDispatch()
@@ -29,13 +34,22 @@ const ProfileScreen = () => {
         setLoading(false)
     }
 
+    useEffect(() => {
+        let userName = ""
+
+        selectData.first_name == null ? userName = userName + "" : userName = userName + selectData.first_name
+        selectData.second_name == null ? userName = userName + "" : userName = userName + " " + selectData.second_name
+        selectData.middle_name == null ? userName = userName + "" : userName = userName + " " + selectData.middle_name
+        setUserName(userName)
+    }, [selectData])
+
     return (
         <View style={styles.mainContent}>
             <View style={{
                 flex: 1,
                 backgroundColor: '#E5E5E5',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center', 
             }}>
                 <ScrollView
                     refreshControl={
@@ -45,18 +59,18 @@ const ProfileScreen = () => {
                         />
                     }
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{flexGrow: 1, height: '100%', width: '100%', justifyContent: 'center'}}
+                    contentContainerStyle={{flexGrow: 1, height: '100%', width: width * 100, justifyContent: 'center', alignItems: 'center'}}
                 >
                     <Image style={{
-                        width: MultiPlatform.AdaptivePixelsSize(230),
-                        height: MultiPlatform.AdaptivePixelsSize(230),
+                        width: width * 40,
+                        height: width * 40,
                         borderRadius: 200,
                         backgroundColor: '#AAB2BD',
                     }}
                         source={ !selectData?.photo ? require('../images/user.png') : { uri: Routes.imageURL + selectData.photo }}
                     />
                 </ScrollView>
-                </View>
+            </View>
                 <View style={{
                     flex: 2.2,
                     backgroundColor: '#FFFFFF',
@@ -80,8 +94,7 @@ const ProfileScreen = () => {
                                     color: '#434A53',
                                     fontSize: MultiPlatform.AdaptivePixelsSize(19),
                                     margin: 20
-                                }}>{selectData.first_name + " " +
-                                selectData.second_name + " " + selectData.middle_name}</Text>
+                                }}>{userNameState}</Text>
                             </View>
                             {
                                 selectData.isSpecialist && (

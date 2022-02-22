@@ -53,7 +53,7 @@ const SingleTextBase = ({ addText = "", isRequired, data, index }) => {
                 textAlignVertical='center'
                 placeholder={ 'Введите текст' }
                 placeholderTextColor={ require && data.is_required == "1" ? '#F27C83' : "#AAB2BD"}
-                onChangeText={text => checkInputs(text)}
+                onChangeText={text => checkInputs(text.trim())}
             /> 
             { addText != "" && 
                 <Text style={ styles.additionalFieldStyle }>{ addText }</Text> 

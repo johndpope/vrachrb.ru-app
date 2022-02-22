@@ -1,6 +1,5 @@
 import React, { Component, useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Dimensions, FlatList, Image, TouchableOpacity, View } from 'react-native';
-import DocumentPicker from 'react-native-document-picker'
 import CameraPicker, {ImageOrVideo} from 'react-native-image-crop-picker';
 import { MultiPlatform } from '../../MultiPlatform';
 import Routes from "../../../requests/Routes";

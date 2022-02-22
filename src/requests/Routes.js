@@ -27,6 +27,7 @@ class Routes {
     static getPatientCardURL             = this.apiURL + "Get_patient_card";
     static closeQuestionURL              = this.apiURL + "Close_question";
     static addReviewURL                  = this.apiURL + "Add_review";
+    static signInVK                  = this.apiURL + "Sign_vk";
 
     static imageURL = this.baseURL + "u/i/";
     static uploaderAnalysisURL = this.baseURL + "uploader?key=analysis";
