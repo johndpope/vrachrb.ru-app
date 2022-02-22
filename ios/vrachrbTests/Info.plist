@@ -20,5 +20,41 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>vk</string>
+		<string>vk-share</string>
+		<string>vkauthorize</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>vk8086048</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>vk8086048</string>
+			</array>
+		</dict>
+	</array>
+	<key>VK_APP_ID</key>
+	<integer>8086048</integer>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+	<key>NSExceptionDomains</key>
+	<dict>
+		<key>vk.com</key>
+		<dict>
+			<key>NSExceptionRequiresForwardSecrecy</key>
+			<false/>
+			<key>NSIncludesSubdomains</key>
+			<true/>
+			<key>NSExceptionAllowsInsecureHTTPLoads</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
 </dict>
 </plist>

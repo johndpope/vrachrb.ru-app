@@ -1,11 +1,11 @@
 import React, { useState, useEffect, Component } from 'react'
-import { StyleSheet, View, ActivityIndicator, RefreshControl } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, RefreshControl, FlatList } from 'react-native';
 import SpecialistCardWidget from '../components/Widgets/Specialist/SpecialistCardWidget';
 import Request from '../requests/Request'
 import {useSelector} from "react-redux";
 import BaseSearchComponent from '../components/HeaderComponent/BaseSearchComponent';
 import Routes from "../requests/Routes";
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList as FlatGestureList } from 'react-native-gesture-handler';
 
 
 const SpecialistScreen = () => {
@@ -39,30 +39,59 @@ const SpecialistScreen = () => {
 
     return (
         <View style={ styles.mainContent }>
-            { loading ? <ActivityIndicator size={'large'} /> : (
+            { loading ? 
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <ActivityIndicator size={'large'} />
+                </View> : 
+                (
                 <View style={{
                     width: '100%',
                     height: '100%'
                 }}>
                     <BaseSearchComponent value={text} setValue={setText} searchItem={searchCabinetItem}/>
-                    <FlatList
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={loading}
-                                onRefresh={() => { getSpecialistData() }}
+                    {
+                        Platform.OS == 'ios' ? 
+                        (
+                            <FlatGestureList
+                                refreshControl={
+                                    <RefreshControl
+                                        refreshing={loading}
+                                        onRefresh={() => { getSpecialistData() }}
+                                    />
+                                }
+                                style={{
+                                    width: '100%',
+                                }}
+                                data={filteredSpecialist && filteredSpecialist['response']}
+                                keyExtractor={(item) => item.id}
+                                renderItem={({ item }) => {
+                                    return(
+                                        <SpecialistCardWidget data={ item }/>
+                                    )
+                                }} 
                             />
-                        }
-                        style={{
-                            width: '100%',
-                        }}
-                        data={filteredSpecialist && filteredSpecialist['response']}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => {
-                            return(
-                                <SpecialistCardWidget data={ item }/>
-                            )
-                        }} 
-                    />
+                        ) :
+                        (
+                            <FlatList
+                                refreshControl={
+                                    <RefreshControl
+                                        refreshing={loading}
+                                        onRefresh={() => { getSpecialistData() }}
+                                    />
+                                }
+                                style={{
+                                    width: '100%',
+                                }}
+                                data={filteredSpecialist && filteredSpecialist['response']}
+                                keyExtractor={(item) => item.id}
+                                renderItem={({ item }) => {
+                                    return(
+                                        <SpecialistCardWidget data={ item }/>
+                                    )
+                                }} 
+                            />
+                        )
+                    }
                 </View>
             )}
         </View>

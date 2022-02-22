@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, ActivityIndicator, RefreshControl } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, RefreshControl, FlatList, Platform } from 'react-native';
 import BaseSearchComponent from '../components/HeaderComponent/BaseSearchComponent';
 import CabinetCardWidget from '../components/Widgets/Cabinet/CabinetCardWidget';
 import Request from '../requests/Request'
 import Routes from "../requests/Routes";
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList as FlatGestureList } from 'react-native-gesture-handler';
 
 const CabinetScreen = () => {
 
@@ -35,28 +35,57 @@ const CabinetScreen = () => {
 
     return (
         <View style={ styles.mainContent }>
-            { loading ? <ActivityIndicator size={'large'} /> : (
+            { loading ?                 
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <ActivityIndicator size={'large'} />
+                </View>  : (
                 <View style={{ width: '100%', height: '100%' }}>
                     <BaseSearchComponent value={text} setValue={setText} searchItem={searchCabinetItem}/>
-                    <FlatList
-                        refreshControl={
-                            <RefreshControl 
-                                refreshing={loading}
-                                onRefresh={() => getCabinetData()}
+                    {
+                        Platform.OS == 'ios' ? 
+                        (
+                            <FlatGestureList
+                                refreshControl={
+                                    <RefreshControl 
+                                        refreshing={loading}
+                                        onRefresh={() => getCabinetData()}
+                                    />
+                                }
+                                style={{
+                                    width: '100%',
+                                }}
+                                data={filteredCabinet && filteredCabinet['response']}
+                                showsVerticalScrollIndicator={false}
+                                keyExtractor={(item) => item.id}
+                                renderItem={({ item }) => {
+                                    return(
+                                        <CabinetCardWidget data={ item }/>
+                                    )
+                                }}
                             />
-                        }
-                        style={{
-                            width: '100%',
-                        }}
-                        data={filteredCabinet && filteredCabinet['response']}
-                        showsVerticalScrollIndicator={false}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => {
-                            return(
-                                <CabinetCardWidget data={ item }/>
-                            )
-                        }}
-                    />
+                        ) :
+                        (
+                            <FlatList
+                                refreshControl={
+                                    <RefreshControl 
+                                        refreshing={loading}
+                                        onRefresh={() => getCabinetData()}
+                                    />
+                                }
+                                style={{
+                                    width: '100%',
+                                }}
+                                data={filteredCabinet && filteredCabinet['response']}
+                                showsVerticalScrollIndicator={false}
+                                keyExtractor={(item) => item.id}
+                                renderItem={({ item }) => {
+                                    return(
+                                        <CabinetCardWidget data={ item }/>
+                                    )
+                                }}
+                            />
+                        )
+                    }
                 </View>
             )}
         </View>

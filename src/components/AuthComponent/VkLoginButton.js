@@ -15,13 +15,13 @@ const VkLoginButton = () => {
     const [agr3, setAgr3] = useState(false)
 
     useEffect(() => {
-        VKLogin.initialize(3280318)
+        VKLogin.initialize(8086048)
     }, [])
 
     const loginWithVk = async () => {
         try {
             VKLogin.logout()
-            const auth = await VKLogin.login(['first_name', 'last_name', 'photo', 'sex', 'email']);
+            const auth = await VKLogin.login(['first_name', 'last_name', 'photo', 'sex', 'email', 'nohttps']);
             console.log(JSON.stringify(auth))
         } catch (e){
             console.log("ERORR")
@@ -59,6 +59,9 @@ const VkLoginButton = () => {
                                 <AgreementComponent setValue={setAgr2} index={1}/>
                                 <AgreementComponent setValue={setAgr3} index={2}/>
                             </View>
+                            <TouchableOpacity style={{ marginBottom: 20, height: 60, width: '85%', backgroundColor: 'red'  }}>
+                                <Text>Согласен</Text>
+                            </TouchableOpacity>
                         </View>
                     </Modal>
                 )

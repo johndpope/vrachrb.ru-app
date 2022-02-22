@@ -1,5 +1,7 @@
 #import "AppDelegate.h"
 
+#import <VKSdkFramework/VKSdkFramework.h>
+
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -24,6 +26,18 @@ static void InitializeFlipper(UIApplication *application) {
 #endif
 
 @implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
+   [VKSdk processOpenURL:url fromApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]];
+   return YES;
+}
+
+//iOS 8 and lower
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+   [VKSdk processOpenURL:url fromApplication:sourceApplication];
+   return YES;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

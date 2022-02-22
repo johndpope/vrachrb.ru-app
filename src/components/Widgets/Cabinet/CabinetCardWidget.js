@@ -12,7 +12,7 @@ const CabinetCardWidget = ({ data }) => {
     const navigation = useNavigation()
 
     function setCabinet(){
-        dispatch(setSpecialistRoute(Routes.getSpecialistBySpecialtyID))
+        dispatch(setSpecialistRoute(Routes.getSpecialistBySpecialtyIDURL))
         dispatch(setSpecialistData({specialtyId : data.id}))
         navigation.navigate("Специалист")
     }

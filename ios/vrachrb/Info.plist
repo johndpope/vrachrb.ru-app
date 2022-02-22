@@ -35,6 +35,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Attach photo to anamnez</string>
+	<key>NSCameraUsageDescription</key>
+	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>
@@ -51,5 +57,26 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>vk</string>
+		<string>vk-share</string>
+		<string>vkauthorize</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>vk8086048</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>vk8086048</string>
+			</array>
+		</dict>
+	</array>
+	<key>VK_APP_ID</key>
+	<integer>8086048</integer>
 </dict>
 </plist>
