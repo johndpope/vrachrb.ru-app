@@ -4,7 +4,7 @@ import VkLoginButton from './VkLoginButton'
 import MainAuthButton from './MainAuthButton'
 import SecondAuthButton from './SecondAuthButton'
 
-const AuthComponent = ({ navigation }) => {
+const AuthComponent = () => {
     return (
         <View style={ styles.centerComponent }>
             <VkLoginButton />

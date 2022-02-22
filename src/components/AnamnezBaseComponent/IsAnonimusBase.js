@@ -4,6 +4,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { MultiPlatform } from '../MultiPlatform';
 import {useDispatch} from "react-redux";
 import {selectAnonymous} from "../../store/reducers/AnamnezSlice";
+import { colors } from '../../styles/colors';
 
 const IsAnonimusBase = () => {
 
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     },
     label: {
         paddingRight: 40,
-        color:'#54B9D1'
+        color: colors.HARD_GRAY_COLOR
     },
 })
 

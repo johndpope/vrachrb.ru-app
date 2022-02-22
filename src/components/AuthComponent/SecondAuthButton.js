@@ -8,11 +8,9 @@ const SecondAuthButton = ({text, nav}) => {
     const navigation = useNavigation();
 
     return (
-        <View style={{ marginTop: MultiPlatform.AdaptivePixelsSize(25) }}>
-            <TouchableOpacity onPress={() => navigation.navigate(nav)}>
-                <Text style={ styles.textStyle }>{text}</Text>
-            </TouchableOpacity>
-        </View>
+        <TouchableOpacity style={{ marginTop: MultiPlatform.AdaptivePixelsSize(20) }} onPress={() => navigation.navigate(nav)}>
+            <Text style={ styles.textStyle }>{text}</Text>
+        </TouchableOpacity>
     )
 }
 

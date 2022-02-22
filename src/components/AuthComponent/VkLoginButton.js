@@ -58,7 +58,7 @@ const VkLoginButton = () => {
     }
 
     return (
-        <View>
+        <View style={ styles.btnStyle }>
             {
                 isModalVisible && (
                     <AgreementWidget vkData={vkAuthData} isVisible={isModalVisible} setVisible={setModalVisible} />
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         fontSize: MultiPlatform.AdaptivePixelsSize(17)
     },
     btnStyle: {
-        width: MultiPlatform.AdaptivePixelsSize(320),
+        width: '80%',
         height: MultiPlatform.AdaptivePixelsSize(60),
         backgroundColor: colors.VK_BTN_COLOR,
         justifyContent: 'center',

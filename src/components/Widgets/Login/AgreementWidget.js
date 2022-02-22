@@ -59,8 +59,8 @@ const AgreementWidget = ({ isVisible, setVisible, vkData }) => {
                     borderTopRightRadius: 20, 
                     borderTopLeftRadius: 20,
                     alignItems: 'center', 
-                    paddingLeft: 35,
-                    paddingRight: 35
+                    paddingLeft: MultiPlatform.AdaptivePixelsSize(18),
+                    paddingRight: MultiPlatform.AdaptivePixelsSize(18)
                 }}
             >
                 <View style={{ width: '30%', height: MultiPlatform.AdaptivePixelsSize(6), backgroundColor: '#AAB2BD', top: MultiPlatform.AdaptivePixelsSize(-8), borderRadius: 100, opacity: 0.8, marginBottom: 20 }} />

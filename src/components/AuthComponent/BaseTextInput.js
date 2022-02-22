@@ -21,7 +21,7 @@ const BaseTextInput = ({ response, setValue, hint, pass=false }) => {
                 }}
                 placeholder={hint}
                 placeholderTextColor="#AAB2BD"
-                onChangeText={value => { setValue(value), setIsEntered(value) }}
+                onChangeText={value => { setValue(value.trim()), setIsEntered(value.trim()) }}
                 secureTextEntry={pass}
             />
         </View>
