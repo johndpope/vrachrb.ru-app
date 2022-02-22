@@ -1,6 +1,10 @@
 #import "AppDelegate.h"
 
+#if __has_include(<VKSdkFramework/VKSdkFramework.h>)
 #import <VKSdkFramework/VKSdkFramework.h>
+#else
+#import "VKSdk.h"
+#endif
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
