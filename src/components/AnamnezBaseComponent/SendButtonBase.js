@@ -40,7 +40,7 @@ const SendButtonBase = () => {
             data.append('file', {
                 uri: resp.uri,
                 type: resp.type,
-                name: resp.name || resp.fileName
+                name: resp.uri.split("/").reverse()[0]
             });
             const response = await fetch(Routes.uploaderAnalysisURL, {
                 method: 'POST',

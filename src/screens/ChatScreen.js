@@ -134,9 +134,9 @@ const ChatScreen = ({ route }) => {
         );
     }
 
-    const getAllMessages = async () => {
+    const getAllMessages = () => {
         setLoading(true)
-        await Request.get(Routes.getAnswersByQuestionIdURL, {question_id: route.params.id})
+        Request.get(Routes.getAnswersByQuestionIdURL, {question_id: route.params.id})
             .then(response => {
                 response['response'] &&
                 setUserID(response['response'][0]["my_id"])

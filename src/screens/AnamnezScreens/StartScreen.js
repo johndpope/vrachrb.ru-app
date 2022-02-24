@@ -8,6 +8,7 @@ import NoticeService from "../../components/Widgets/NoticeService";
 import BaseSendButton from "../../components/AuthComponent/BaseSendButton";
 import {MultiPlatform} from "../../components/MultiPlatform";
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
+import {colors} from "../../styles/colors";
 
 const StartScreen = (props) => {
 
@@ -99,9 +100,7 @@ const StartScreen = (props) => {
                     </View>
 
                     <NoticeService/>
-                    <View style={ styles.btnBottom }>
-                        <BaseSendButton text={"Дальше"} checkFields={checkFilledFields} onPress={goAnamnez} />
-                    </View>
+                    <BaseSendButton style={{backgroundColor: colors.HARD_GRAY_COLOR,}} text={"Дальше"} checkFields={checkFilledFields} onPress={goAnamnez} />
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
@@ -142,10 +141,6 @@ const styles = StyleSheet.create({
     additTextStyle: {
         marginBottom: 12,
         marginLeft: 3 
-    },
-    btnBottom: {
-        justifyContent: 'center',
-        alignItems: 'center'
     },
 
     questionBodyStyle: {

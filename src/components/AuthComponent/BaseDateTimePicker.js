@@ -16,8 +16,8 @@ const BaseDateTimePicker = ({ setValue, text }) => {
         setDatePickerVisibility(false);
     };
     const handleConfirm = (date) => {
-        date = date.getUTCFullYear()+"."+(date.getUTCMonth()+1)+"."+date.getUTCDate()
-        console.log("Выбранная дата : ", date);
+        // date = date.getUTCFullYear()+"."+(date.getUTCMonth()+1)+"."+date.getUTCDate()
+        console.log("Выбранная дата : ", date.toString());
         setValue(date)
         hideDatePicker();
     };

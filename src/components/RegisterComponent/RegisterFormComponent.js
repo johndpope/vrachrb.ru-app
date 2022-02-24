@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import { View, StyleSheet, Text, Platform } from 'react-native'
 import SecondAuthButton from '../AuthComponent/SecondAuthButton';
 import Request from '../../requests/Request';
@@ -14,7 +14,6 @@ import {MultiPlatform} from "../MultiPlatform";
 import Storage from "../../storage/Storage";
 import Routes from "../../requests/Routes";
 import { ScrollView } from 'react-native-gesture-handler'
-import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 
 const RegisterFormComponent = () => {
 
@@ -25,15 +24,15 @@ const RegisterFormComponent = () => {
     const [familia, setFamilia]      = useState("")
     const [last_name, setLast_name]  = useState("")
     const [gender, setGender]        = useState("м")
-    const [birth_date, setBirth_date]= useState("")
+    const [birth_date, setBirth_date]= useState()
     const [phone, setPhone]          = useState("")
     const [email, setEmail]          = useState("")
     const [password, setPassword]    = useState("")
     const [password2, setPassword2]  = useState("")
 
-    const [agr1, setAgr1]            = useState(false)
-    const [agr2, setAgr2]      = useState(false)
-    const [agr3, setAgr3]  = useState(false)
+    const [agr1, setAgr1] = useState(false)
+    const [agr2, setAgr2] = useState(false)
+    const [agr3, setAgr3] = useState(false)
 
     const [response, setResponse]    = useState("")
     const [loading, setLoading] = useState(false)
@@ -43,12 +42,13 @@ const RegisterFormComponent = () => {
             return
         }
         setLoading(true)
+        let dateBirth = birth_date.getUTCFullYear()+"."+(birth_date.getUTCMonth()+1)+"."+birth_date.getUTCDate()
         let data = {
             name:       name,
             familia:    familia,
             last_name:  last_name,
             gender:     gender,
-            birth_date: birth_date,
+            birth_date: dateBirth,
             phone:      phone,
             email:      email,
             password:   password,
@@ -65,7 +65,7 @@ const RegisterFormComponent = () => {
             middle_name: last_name,
             username: email,
             gender: gender,
-            birth_date: birth_date + " .",
+            birth_date: dateBirth + " .",
             email: email,
             phone: phone,
             photo: ""
@@ -92,6 +92,12 @@ const RegisterFormComponent = () => {
     function validateEmailPhonePass(email,phone) {
         let regMail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,10})$/;
         let regPhone = /^\d[\d\(\)\ -]{4,14}\d$/;
+
+        let curDate = new Date()
+        if(curDate < birth_date) {
+            MultiPlatform.ToastShow("Выбранная дата больше нынешней")
+            return false;
+        }
         if(!regMail.test(email)) {
             MultiPlatform.ToastShow('Введите корректный email')
             return false;
@@ -100,7 +106,7 @@ const RegisterFormComponent = () => {
             MultiPlatform.ToastShow('Введите корректный номер телефона')
             return false;
         }
-        if(password != password2){
+        if(password !== password2){
             MultiPlatform.ToastShow('Пароли не совпадают')
             return false;
         }

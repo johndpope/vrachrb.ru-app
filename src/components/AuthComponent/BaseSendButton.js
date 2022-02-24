@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, StyleSheet, TouchableOpacity, ActivityIndicator, Dimensions } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { MultiPlatform } from '../MultiPlatform'
+import {colors} from "../../styles/colors";
 
 const BaseSendButton = ({ checkFields, onPress, text, loading }) => {
 
@@ -34,11 +35,9 @@ const styles = StyleSheet.create({
     btnStyle: {
         width: '100%',
         height: MultiPlatform.AdaptivePixelsSize(60),
-        backgroundColor: '#FFFFFF',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 16,
-        marginTop: MultiPlatform.AdaptivePixelsSize(15),
     }
 })
 

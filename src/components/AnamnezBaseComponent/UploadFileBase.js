@@ -1,20 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import { View, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
+import {View, StyleSheet, TouchableOpacity, FlatList, Image, Platform} from 'react-native';
 import DocumentPicker from 'react-native-document-picker'
 import uuid from 'react-native-uuid';
 import { addAnamnezPhoto } from "../../store/reducers/AnamnezSlice";
 import { MultiPlatform } from "../MultiPlatform";
 import { useDispatch, useSelector } from "react-redux";
+import * as Dockpic from "react-native-document-picker";
+import {perPlatformTypes} from "react-native-document-picker/lib/typescript/fileTypes";
+import CameraPicker from "react-native-image-crop-picker";
 
 const UploadFileBase = ({ component, index, data }) => {
 
     let rawImagesData = [{
         index: 0,
-        fileCopyUri: null,
-        size: 0,
-        name: "",
         type: "",
-        uri: ""
+        uri: "",
+        name: "",
     }]
 
     let ImagesData = [{
@@ -75,32 +76,30 @@ const UploadFileBase = ({ component, index, data }) => {
 
         let result
         try {
-            result = await DocumentPicker.pick({
-                type: [DocumentPicker.types.images]
-            });
+            result = await CameraPicker.openPicker({
+                cropping: true,
+                compressImageQuality: 0.8,
+            })
+            console.log(JSON.stringify(result))
         } catch(e) {
             return MultiPlatform.ToastShow("Вы не выбрали фото");
         }
-        if(checkNameFile(result[0]))
+        if(Platform.OS === 'ios' ? checkNameFile(result) : false)
             return MultiPlatform.ToastShow("Данное изображение уже было добавлено");
 
         let rawImageData = [...rawImage]
-        rawImageData[id].fileCopyUri = result[0].fileCopyUri
-        rawImageData[id].size = result[0].size
-        rawImageData[id].name = result[0].name
-        rawImageData[id].type = result[0].type
-        rawImageData[id].uri  = result[0].uri
+        rawImageData[id].type  = result.mime
+        rawImageData[id].uri  = result.path
+        rawImageData[id].name  = result.filename
         rawImageData.push({
             index: rawImageData[id].index + 1,
-            fileCopyUri: null,
-            size: 0,
-            name: "",
             type: "",
-            uri: ""
+            uri: "",
+            name: ""
         })
         setRawImage(rawImageData)
 
-        imageDataPrev[id].image = result[0].uri
+        imageDataPrev[id].image = result.path
         imageDataPrev[id].defaultImage = false
         imageDataPrev[id].setted = true
         imageDataPrev.push({
@@ -116,9 +115,9 @@ const UploadFileBase = ({ component, index, data }) => {
     function checkNameFile(image) {
         let bool = false
         rawImage.map((item) => {
-            // console.log("ITEM:"+JSON.stringify(item))
-            // console.log("IMAG:"+JSON.stringify(image))
-            if (image.uri == item.uri) {
+            console.log("ITEM:"+JSON.stringify(item.name))
+            console.log("IMAG:"+JSON.stringify(image.filename))
+            if (image.filename == item.name) {
                 // console.log("СОВПАДАЮТ")
                 bool = true
             }

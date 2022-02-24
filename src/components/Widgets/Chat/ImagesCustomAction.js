@@ -44,7 +44,7 @@ const ImagesCustomAction = ({ data, textInput }) => {
             CameraPicker.openCamera({
                 cropping: true,
                 compressImageQuality: 0.5,
-              })
+            })
             .then(image => {
                 setImageData(imageDataPrev)
                 let imageDataPrev = [...imageData]
