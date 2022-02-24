@@ -102,7 +102,7 @@ const SendButtonBase = () => {
                     }
                 }
             } catch (e) {
-                MultiPlatform.ToastShow(e.message)
+                return MultiPlatform.ToastShow(e.message)
             }
             console.log("   ИТОГО::")
             for (let i = 0; i < keys.length; i++) {

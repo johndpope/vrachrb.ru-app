@@ -210,15 +210,19 @@ const ChatScreen = ({ route }) => {
     useEffect(() => {
         getAllMessages()
     }, [])
-  
+
     const onSend = useCallback( async (messages = []) => {
         console.log("ID" + route.params.id)
-        await Request.post(Routes.sendMessageURL, {
+        let response = await Request.post(Routes.sendMessageURL, {
             question_id: route.params.id, 
             body: messages[0].text, 
             attachment: messages[0].image ? messages[0].image.join(";") : ""
         })
-        
+        if(response["error"]) {
+            navigation.navigate("MessagesScreen")
+            return MultiPlatform.ToastShow(response["error"])
+        }
+
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
     }, [])
 

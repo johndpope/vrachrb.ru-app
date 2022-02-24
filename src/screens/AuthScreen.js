@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import { StatusBar, StyleSheet, Image, View } from 'react-native';
 import AuthComponent from '../components/AuthComponent/AuthComponent';
 import { MultiPlatform } from '../components/MultiPlatform';
 import { colors } from '../styles/colors';
 
 const AuthScreen = () => {
+
   return (
     <View style={ styles.mainContent }>
       <StatusBar />

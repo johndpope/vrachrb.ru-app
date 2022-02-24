@@ -1,37 +1,56 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Platform } from 'react-native';
 import { colors } from '../../styles/colors';
 import { MultiPlatform } from '../MultiPlatform';
 
 
 const BaseTextInput = ({ response, setValue, hint, pass=false }) => {
 
-    const [isEnteredText, setIsEntered] = useState("")
+    const [text, setText] = useState("")
+
+    function doTrim(value) {
+        if(value.trim().length > 0) {
+            setText(value)
+            setValue(value)
+        } else {
+            setText("")
+            setValue("")
+        }
+    }
 
     return (
-        <View style={{ paddingTop: MultiPlatform.AdaptivePixelsSize(15) }}>
+        <View style={styles.container}>
             {
-                isEnteredText !== "" && 
-                (<Text style={{ color: colors.HARD_GRAY_COLOR, fontSize: MultiPlatform.AdaptivePixelsSize(15) }}>{ hint }</Text>)
+                text !== "" &&
+                (<Text style={styles.textStyle}>{ hint }</Text>)
             }
             <TextInput
+                value={text}
                 style={{
                     ...styles.textInputStyle,
                     borderBottomColor: response['error'] ? "#F27C83" : "#E6E9ED",
                 }}
                 placeholder={hint}
                 placeholderTextColor="#AAB2BD"
-                onChangeText={value => { setValue(value.trim()), setIsEntered(value.trim()) }}
-                secureTextEntry={pass}
+                onChangeText={ value => doTrim(value) }
+                secureTextEntry={ pass }
             />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container:{
+        paddingTop: MultiPlatform.AdaptivePixelsSize(15)
+    },
+    textStyle:{
+        color: colors.HARD_GRAY_COLOR,
+        fontSize: MultiPlatform.AdaptivePixelsSize(15)
+    },
     textInputStyle: {
-        borderBottomWidth: 2,
+        borderBottomWidth: MultiPlatform.AdaptivePixelsSize(2),
         paddingBottom: MultiPlatform.AdaptivePixelsSize(10),
+        paddingTop: Platform.OS === "android" ? 0 : 10,
         fontSize: MultiPlatform.AdaptivePixelsSize(17),
         borderRadius: 1,
         color: '#434A53'

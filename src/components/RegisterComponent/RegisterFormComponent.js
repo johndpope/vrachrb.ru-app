@@ -30,9 +30,7 @@ const RegisterFormComponent = () => {
     const [password, setPassword]    = useState("")
     const [password2, setPassword2]  = useState("")
 
-    const [agr1, setAgr1] = useState(false)
-    const [agr2, setAgr2] = useState(false)
-    const [agr3, setAgr3] = useState(false)
+    const [agreementAccepted, setAgreementAccepted] = useState(false)
 
     const [response, setResponse]    = useState("")
     const [loading, setLoading] = useState(false)
@@ -82,7 +80,7 @@ const RegisterFormComponent = () => {
     }
 
     const checkFilledField = () => {
-        if (name && familia && last_name && gender && birth_date && phone && email && password && password2 && agr1 && agr2 && agr3){
+        if (name && familia && last_name && gender && birth_date && phone && email && password && password2 && agreementAccepted){
             return true
         } else {
             return false
@@ -141,9 +139,7 @@ const RegisterFormComponent = () => {
                     <BaseDateTimePicker text={"Дата рождения"} setValue={setBirth_date}/>
                 </View>
                 <View style={{ marginTop: 20}}>
-                    <AgreementComponent setValue={setAgr1} index={0}/>
-                    <AgreementComponent setValue={setAgr2} index={1}/>
-                    <AgreementComponent setValue={setAgr3} index={2}/>
+                    <AgreementComponent setValue={setAgreementAccepted}/>
                 </View>
                 <View style={ styles.btnBottom }>
                     { response['error'] &&

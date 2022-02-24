@@ -4,7 +4,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import Routes from '../requests/Routes';
 import Request from '../requests/Request';
 import { useDispatch } from "react-redux";
-import { saveUserData } from "../store/reducers/LoginSlice";
+import {saveUserData, setAgreements} from "../store/reducers/LoginSlice";
 import Storage from "../storage/Storage";
 
 const SplashScreen = () => {
@@ -24,10 +24,14 @@ const SplashScreen = () => {
               routes: [{name: 'MainNavigationScreen'}],
           })
       } else {
-          navigation.reset({
-              index: 0,
-              routes: [{name: 'AuthScreen'}],
-          })
+          Request.get(Routes.getAgreementsURL, {})
+              .then(result => {
+                  dispatch(setAgreements(result["response"]))
+                  navigation.reset({
+                      index: 0,
+                      routes: [{name: 'AuthScreen'}],
+                  })
+              })
       }
     }
   
