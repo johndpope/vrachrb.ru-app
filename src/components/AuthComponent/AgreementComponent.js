@@ -8,7 +8,7 @@ const AgreementComponent = ({ setValue }) => {
 
     const agreements = useSelector(state => state.LoginSlice.agreements)
     // const [agreements, setAgreements] = useState(dataAgreements)
-    const [countAccepted,setCountAccepted] = useState(0)
+    const [countAccepted, setCountAccepted] = useState(0)
 
     useEffect(() => {
         if (countAccepted === agreements.length)
