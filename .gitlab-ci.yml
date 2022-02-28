@@ -1,0 +1,50 @@
+variables:
+  ANDROID_SDK_ROOT: /data/android/sdk
+
+stages:
+  - build
+  - deploy
+
+Build APK:
+  tags:
+    - all
+  when: manual
+  stage: build
+  before_script:
+    - BUILD_NUMBER=$(git rev-list $(git rev-parse --abbrev-ref HEAD) | wc -l | awk '{ print $1 }')
+  script:
+    - echo ${BUILD_NUMBER}
+    - export BUILD_NUMBER=${BUILD_NUMBER}
+    - yarn install
+    - cd android
+    - ./gradlew clean
+    - ./gradlew assembleRelease
+    - cd ..
+    - mkdir apk
+    - cp android/app/build/outputs/apk/release/app-release.apk ./apk/vrachrb-${BUILD_NUMBER}.apk
+  artifacts:
+    name: 'apk'
+    paths:
+      - "./apk"
+
+Build AAB:
+  tags:
+    - all
+  when: manual
+  stage: build
+  before_script:
+    - BUILD_NUMBER=$(git rev-list $(git rev-parse --abbrev-ref HEAD) | wc -l | awk '{ print $1 }')
+  script:
+    - echo ${BUILD_NUMBER}
+    - export BUILD_NUMBER=${BUILD_NUMBER}
+    - yarn install
+    - cd android
+    - ./gradlew clean
+    - ./gradlew bundleRelease
+    - cd ..
+    - mkdir aab
+    - cp android/app/build/outputs/bundle/release/app-release.aab ./aab/vrachrb-${BUILD_NUMBER}.aab
+  artifacts:
+    name: 'aab'
+    paths:
+      - "./aab"
