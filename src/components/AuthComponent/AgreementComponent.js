@@ -33,7 +33,7 @@ const AgreementComponent = ({ setValue }) => {
                 <SafeAreaView style={{flex: 1}}>
                     { agreements.map((item, index) => {
                         return (
-                            <View style={styles.checkboxContainer}>
+                            <View key={index} style={styles.checkboxContainer}>
                                 <BouncyCheckbox
                                     size={MultiPlatform.AdaptivePixelsSize(35)}
                                     fillColor="#58BE3F"
