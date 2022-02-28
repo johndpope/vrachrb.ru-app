@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { Component, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Modal from "react-native-modal";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Request from '../../../requests/Request';
 import Routes from '../../../requests/Routes';
 import Storage from '../../../storage/Storage';
@@ -17,9 +17,7 @@ const AgreementWidget = ({ isVisible, setVisible, vkData }) => {
     const dispatch = useDispatch()
     const navigation = useNavigation()
 
-    const [agr1, setAgr1] = useState(false)
-    const [agr2, setAgr2] = useState(false)
-    const [agr3, setAgr3] = useState(false)
+    const [agreement, setAgreement] = useState()
 
     const sendAgreement = async () => {
         const resp = await Request.post(Routes.signInVK, 
@@ -59,24 +57,22 @@ const AgreementWidget = ({ isVisible, setVisible, vkData }) => {
                     borderTopRightRadius: 20, 
                     borderTopLeftRadius: 20,
                     alignItems: 'center', 
-                    paddingLeft: MultiPlatform.AdaptivePixelsSize(18),
-                    paddingRight: MultiPlatform.AdaptivePixelsSize(18)
+                    paddingRight: MultiPlatform.AdaptivePixelsSize(18),
+                    paddingLeft: MultiPlatform.AdaptivePixelsSize(18)
                 }}
             >
                 <View style={{ width: '30%', height: MultiPlatform.AdaptivePixelsSize(6), backgroundColor: '#AAB2BD', top: MultiPlatform.AdaptivePixelsSize(-8), borderRadius: 100, opacity: 0.8, marginBottom: 20 }} />
                 <QuestionTitleBase question="Примите пользовательское соглашение" /> 
                 <View style={{ marginTop: 20, marginBottom: 20, justifyContent: 'center', alignItems: 'center' }}>
-                    <AgreementComponent setValue={setAgr1} index={0}/>
-                    <AgreementComponent setValue={setAgr2} index={1}/>
-                    <AgreementComponent setValue={setAgr3} index={2}/>
+                    <AgreementComponent setValue={setAgreement}/>
                 </View>
                 <TouchableOpacity
-                    disabled={!(agr3 && agr2 && agr1)} 
+                    disabled={!agreement} 
                     onPress={() => sendAgreement()}
                     style={{ ...styles.btnAgreementStyle, 
-                        backgroundColor: (agr3 && agr2 && agr1) ? '#58BE3F' : '#F3F4F6' }}
+                        backgroundColor: agreement ? '#58BE3F' : '#F3F4F6' }}
                 >
-                    <Text style={{ ...styles.btnTextStyle, color: (agr3 && agr2 && agr1) ? colors.BG_COLOR_WHITE : colors.MEDIUM_GRAY_COLOR }}>Согласен</Text>
+                    <Text style={{ ...styles.btnTextStyle, color: agreement ? colors.BG_COLOR_WHITE : colors.MEDIUM_GRAY_COLOR }}>Согласен</Text>
                 </TouchableOpacity>
             </View>
         </Modal>

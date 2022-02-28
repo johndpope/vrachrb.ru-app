@@ -138,7 +138,7 @@ const RegisterFormComponent = () => {
                     </Picker>
                     <BaseDateTimePicker text={"Дата рождения"} setValue={setBirth_date}/>
                 </View>
-                <View style={{ marginTop: 20}}>
+                <View style={{ marginTop: 20 }}>
                     <AgreementComponent setValue={setAgreementAccepted}/>
                 </View>
                 <View style={ styles.btnBottom }>
