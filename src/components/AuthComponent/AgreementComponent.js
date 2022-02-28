@@ -55,40 +55,6 @@ const AgreementComponent = ({ setValue }) => {
                     })}
                 </SafeAreaView>
             )}
-            {/*<FlatList*/}
-            {/*    data={agreements}*/}
-            {/*    showsVerticalScrollIndicator={false}*/}
-            {/*    keyExtractor={(item) => item.id}*/}
-            {/*    ListHeaderComponent={(*/}
-            {/*        <View style={{flex: 1, justifyContent: "center", alignItems: "center", marginBottom: 10}}>*/}
-            {/*            <Text*/}
-            {/*                style={{ color: colors.HARD_GRAY_COLOR, fontSize: MultiPlatform.AdaptivePixelsSize(20)*/}
-            {/*                }}>Пользовательское соглашение</Text>*/}
-            {/*        </View>*/}
-            {/*    )}*/}
-            {/*    renderItem={({item}) => {*/}
-            {/*        return (*/}
-            {/*            <View style={styles.checkboxContainer}>*/}
-            {/*                <BouncyCheckbox*/}
-            {/*                    size={MultiPlatform.AdaptivePixelsSize(35)}*/}
-            {/*                    fillColor="#58BE3F"*/}
-            {/*                    unfillColor="#FFFFFF"*/}
-            {/*                    iconStyle={{borderColor: "#58BE3F"}}*/}
-            {/*                    onPress={(isChecked) => {*/}
-            {/*                        pressAgreement(isChecked, item.id)*/}
-            {/*                    }}*/}
-            {/*                />*/}
-            {/*                <Text style={{*/}
-            {/*                    ...styles.label,*/}
-            {/*                    color: item["url"] ? '#54B9D1' : '#000',*/}
-            {/*                    flexShrink: 1*/}
-            {/*                }}*/}
-            {/*                      onPress={item["url"] ? () => Linking.openURL(item['url']) : null}*/}
-            {/*                >{item['description']}</Text>*/}
-            {/*            </View>*/}
-            {/*        )*/}
-            {/*    }}*/}
-            {/*/>*/}
         </View>
     )
 }
@@ -96,6 +62,7 @@ const AgreementComponent = ({ setValue }) => {
 const styles = StyleSheet.create({
     checkboxContainer: {
         flexDirection: "row",
+        alignItems: 'center',
         marginBottom: 10,
     },
     checkbox: {
