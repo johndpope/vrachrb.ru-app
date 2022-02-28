@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.vrachrb",
+    package = "company.atma.vrachrb",
 )
 
 android_resource(
     name = "res",
-    package = "com.vrachrb",
+    package = "company.atma.vrachrb",
     res = "src/main/res",
 )
 
