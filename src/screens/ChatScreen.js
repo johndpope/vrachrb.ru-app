@@ -123,7 +123,7 @@ const ChatScreen = ({ route }) => {
                                             backgroundColor: '#00000095', 
                                             justifyContent: 'center', alignItems: 'center' }}
                                     >
-                                        <Text style={{ color: 'white', fontSize: 27 }}>{ "+ " + (imagesChat.length - 1) }</Text>
+                                        <Text style={{ color: 'white', fontSize: MultiPlatform.AdaptivePixelsSize(27) }}>{ "+ " + (imagesChat.length - 2) }</Text>
                                     </View>
                                 }
                             </TouchableOpacity> 
@@ -197,7 +197,7 @@ const ChatScreen = ({ route }) => {
                         <HiddenItem 
                             onPress={closed == null ? () => closeQuestion() : () => MultiPlatform.ToastShow("Вы уже закрыли вопрос")}
                             titleStyle={{
-                                color: '#F27C83'
+                                color: '#F27C83',
                             }}
                             title="Закрыть беседу"
                         />

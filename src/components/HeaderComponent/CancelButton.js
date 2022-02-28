@@ -18,8 +18,7 @@ const CancelButton = () => {
                         routes: [{ name: 'MainNavigationScreen' }],
                     }) 
                 }}
-            style={{
-            }}>
+        >
             <Text style={{
                 fontSize: MultiPlatform.AdaptivePixelsSize(21),
                 color: '#434A53',
