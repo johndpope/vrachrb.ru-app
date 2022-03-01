@@ -14,6 +14,7 @@ import { MultiPlatform } from '../components/MultiPlatform';
 import CustomComposer from '../components/Widgets/Chat/CustomComposer';
 import { useSelector } from 'react-redux';
 import Routes from "../requests/Routes";
+import NotificationAgent from '../components/NotificationManager/NotificationAgent';
 
 const customSend = props => {
     return (
@@ -155,7 +156,7 @@ const ChatScreen = ({ route }) => {
                         },
                     )
                 }),
-    
+
                 response['response'][0]['Answer'].lenght != 0 && DATA.push(
                     {
                         _id: response['response'][0].id,
@@ -182,6 +183,24 @@ const ChatScreen = ({ route }) => {
         setClosed("test")
     }
 
+    const onSend = useCallback( async (messages = [], isTextInput = true) => {
+        console.log(isTextInput)
+        if (isTextInput){
+            let response = await Request.post(Routes.sendMessageURL, {
+                question_id: route.params.id, 
+                body: messages[0].text, 
+                attachment: messages[0].image ? messages[0].image.join(";") : ""
+            })
+
+            if(response["error"]) {
+                navigation.navigate("MessagesScreen")
+                return MultiPlatform.ToastShow(response["error"])
+            }
+        }
+
+        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    }, [])
+
     useEffect(() => {
         navigation.setOptions({
             title: route.params.spec_name + route.params.speciality,
@@ -205,25 +224,9 @@ const ChatScreen = ({ route }) => {
                 </HeaderButtons>
             ) : () => <View></View>
         })
-    }, [])
-
-    useEffect(() => {
         getAllMessages()
-    }, [])
 
-    const onSend = useCallback( async (messages = []) => {
-        console.log("ID" + route.params.id)
-        let response = await Request.post(Routes.sendMessageURL, {
-            question_id: route.params.id, 
-            body: messages[0].text, 
-            attachment: messages[0].image ? messages[0].image.join(";") : ""
-        })
-        if(response["error"]) {
-            navigation.navigate("MessagesScreen")
-            return MultiPlatform.ToastShow(response["error"])
-        }
-
-        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+        NotificationAgent.registerNotificationEvents(false, onSend)
     }, [])
 
     return ( 

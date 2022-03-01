@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { MultiPlatform } from '../components/MultiPlatform';
 import { useNavigation } from '@react-navigation/native';
 import Request from '../requests/Request';
-import { resetUserData } from '../store/reducers/LoginSlice';
+import { resetUserData, setAgreements } from '../store/reducers/LoginSlice';
 import Storage from '../storage/Storage';
 import Routes from "../requests/Routes";
 
@@ -26,11 +26,18 @@ const MainNavigationScreen = () => {
     const logOut = async () => {
         let response = await Request.get(Routes.signOutURL, {})
 
-        response["response"] && dispatch(resetUserData())
-        && navigation.reset({
-            index: 0,
-            routes: [{ name: 'AuthScreen' }],
-        })
+
+
+        response["response"] && Request.get(Routes.getAgreementsURL, {})
+            .then(result => {
+                dispatch(setAgreements(result["response"]))
+                dispatch(resetUserData())
+                navigation.reset({
+                    index: 0,
+                    routes: [{name: 'AuthScreen'}],
+                })
+            })
+
         await Storage.save("userData", {
             auth: false,
             isSpecialist: false,

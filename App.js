@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthScreen from './src/screens/AuthScreen';
 import MailLoginScreen from './src/screens/MailLoginScreen';
 import StartScreen from './src/screens/AnamnezScreens/StartScreen';
-
 import TestScreen from './src/screens/TestScreen';
 import ModalScreen from './src/screens/ModalScreen';
 import QuestionsScreen from './src/screens/AnamnezScreens/QuestionsScreen';
@@ -22,7 +21,9 @@ import {useDispatch} from "react-redux";
 import {saveUserData} from "./src/store/reducers/LoginSlice";
 import { OverflowMenuProvider } from 'react-navigation-header-buttons';
 import { MultiPlatform } from './src/components/MultiPlatform';
-import OutpatientCardScreen from './src/screens/AnamnezScreens/OutpatientCardScreen';
+import OutpatientCardScreen from './src/screens/AnamnezScreens/OutpatientCardScreen'
+import { Notifications } from 'react-native-notifications';
+import NotificationAgent from './src/components/NotificationManager/NotificationAgent';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,8 @@ const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        NotificationAgent.getNotification()
+        NotificationAgent.registerNotificationEvents(true)
         Storage.get("userData")
             .then((data) => dispatch(saveUserData(data)))
     },[])
