@@ -1,4 +1,4 @@
-package com.vrachrb;
+package company.atma.vrachrb;
 
 import com.facebook.react.ReactActivity;
 
