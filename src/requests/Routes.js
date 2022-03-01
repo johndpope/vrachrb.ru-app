@@ -4,7 +4,7 @@ import React  from "react";
 class Routes {
 
     // Base URLs
-    static baseURL = "http://192.168.2.66:8080/";
+    static baseURL = "https://vrachrb.atmadev.ru/";
     static apiURL  = this.baseURL+"api/";
 
     // Routes
