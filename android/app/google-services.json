@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "805986100604",
+    "firebase_url": "https://atma-31c5b.firebaseio.com",
+    "project_id": "atma-31c5b",
+    "storage_bucket": "atma-31c5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805986100604:android:835df74ff2ff2a115070f9",
+        "android_client_info": {
+          "package_name": "company.atma.vrachrb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "805986100604-9klgooa8lot0men8u5nkcpa816kc8rkq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBz3inUteyjsnHGQdIt-ITY3yaFKIoCIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "805986100604-9klgooa8lot0men8u5nkcpa816kc8rkq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "805986100604-rfngga1pu3t1sb6mtm1qj3s6i6hdftrq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "company.atma.ag"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
