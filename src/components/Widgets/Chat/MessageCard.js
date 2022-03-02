@@ -44,7 +44,7 @@ const MessageCard = ({ item, outPatient }) => {
                         }
                     </View>
                     { !outPatient &&
-                        <View style={ styles.markRead } />
+                        <View style={{ ...styles.markRead, backgroundColor: item.notice ? '#54B9D1' : '#FFFFFF00' }} />
                     }
                 </View>
             </TouchableOpacity>
@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
     markRead: {
         width: MultiPlatform.AdaptivePixelsSize(10),
         height: MultiPlatform.AdaptivePixelsSize(10),
-        backgroundColor: '#54B9D1',
         borderRadius: 100,
         marginRight: MultiPlatform.AdaptivePixelsSize(10)
     }

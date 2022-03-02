@@ -30,11 +30,4 @@
         </intent-filter>
       </activity>
     </application>
-    <meta-data
-        android:name="com.google.firebase.messaging.default_notification_icon"
-        android:resource="@drawable/bell" />
-    <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming notification message. -->
-    <meta-data
-          android:name="com.google.firebase.messaging.default_notification_color"
-          android:background="#C60C30" />
 </manifest>
