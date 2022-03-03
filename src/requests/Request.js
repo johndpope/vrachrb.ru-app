@@ -19,7 +19,6 @@ class Request {
             });
 
             let text = await response.text();
-            console.log(text)
             return JSON.parse(text);
         } catch (e) {
             return false;

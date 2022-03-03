@@ -3,6 +3,10 @@ import { Text, View, StyleSheet, Image, TouchableOpacity, FlatList } from 'react
 import ImageView from "react-native-image-viewing";
 import { MultiPlatform } from '../../MultiPlatform';
 import Routes from "../../../requests/Routes";
+import { createImageProgress } from 'react-native-image-progress';
+import FastImage from 'react-native-fast-image';
+
+const ImageProgress = createImageProgress(FastImage);
 
 const AnamnezCardItem = ({ item }) => {
 
@@ -82,10 +86,10 @@ const AnamnezCardItem = ({ item }) => {
                                                         onPress={() => { setCurrentIndex(index), setShowViewer(true) }} 
                                                         style={{ marginRight: 5 }}
                                                     >
-                                                        <Image 
+                                                        <ImageProgress 
+                                                            imageStyle={styles.image}
                                                             source={{ uri: Routes.imageURL + item }}
-                                                            style={{ width: MultiPlatform.AdaptivePixelsSize(150), 
-                                                            height: MultiPlatform.AdaptivePixelsSize(150), borderRadius: 12 }} />
+                                                            style={styles.image} />
                                                     </TouchableOpacity> 
                                                 )
                                             }}
@@ -113,6 +117,11 @@ const styles = StyleSheet.create({
     belowtextStyle: {
         fontSize: MultiPlatform.AdaptivePixelsSize(17),
         color: '#434A53'
+    },
+    image: { 
+        width: MultiPlatform.AdaptivePixelsSize(150), 
+        height: MultiPlatform.AdaptivePixelsSize(150), 
+        borderRadius: 12 
     }
 })
 

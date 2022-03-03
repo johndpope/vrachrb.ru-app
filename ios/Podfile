@@ -13,7 +13,8 @@ target 'vrachrb' do
   )
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
-
+  pod 'react-native-notifications', :podspec => '../node_modules/react-native-notifications/react-native-notifications.podspec'
+  
   target 'vrachrbTests' do
     inherit! :complete
     # Pods for testing

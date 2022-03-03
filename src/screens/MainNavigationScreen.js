@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainScreen from './MainScreen';
 import MessagesScreen from './MessagesScreen';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import ProfileScreen from './ProfileScreen';
 import {useDispatch, useSelector} from "react-redux";
 import { MultiPlatform } from '../components/MultiPlatform';
@@ -25,8 +25,6 @@ const MainNavigationScreen = () => {
 
     const logOut = async () => {
         let response = await Request.get(Routes.signOutURL, {})
-
-
 
         response["response"] && Request.get(Routes.getAgreementsURL, {})
             .then(result => {
@@ -53,6 +51,13 @@ const MainNavigationScreen = () => {
         })
     }
     
+    useEffect(() => {
+        await Request.post(Routes.SaveDeviceToken, {
+            token: Notifications.events().registerRemoteNotificationsRegistered((event) => { return event.deviceToken }),
+            type: Platform.OS == 'ios' ? 1 : 2
+        })
+    }, [])
+    
     return (
         <BottomTab.Navigator
             screenOptions={{
@@ -73,7 +78,6 @@ const MainNavigationScreen = () => {
                         headerStyle: {
                             backgroundColor: "#F3F4F6",
                         },
-                        // headerTitleAlign: 'center',
                         headerTitleStyle: {
                             color: "#434A53",
                             fontWeight: '700',

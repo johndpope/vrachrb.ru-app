@@ -8,7 +8,7 @@ import Routes from "../../requests/Routes";
 const OutpatientCardScreen = ({ route }) => {
 
     const DATA = []
-    console.log(route.params.id)
+
     const [response, setResponse] = useState({})
     const [loading, setLoading] = useState(false)
     const [patientCardData, setPatientCard] = useState(DATA)
@@ -16,7 +16,6 @@ const OutpatientCardScreen = ({ route }) => {
     const getOutpatientCards = async () => {
         setLoading(true)
         let response = await Request.get(Routes.getPatientCardURL, {user_id: route.params.id})
-        // console.log(response)
         response["response"] && response["response"].forEach(element => {
             console.log(element["Specialists"][0]["User"])
             DATA.push({
