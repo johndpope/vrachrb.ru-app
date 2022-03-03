@@ -52,7 +52,7 @@ const MainNavigationScreen = () => {
     }
     
     useEffect(() => {
-        await Request.post(Routes.SaveDeviceToken, {
+        Request.post(Routes.SaveDeviceToken, {
             token: Notifications.events().registerRemoteNotificationsRegistered((event) => { return event.deviceToken }),
             type: Platform.OS == 'ios' ? 1 : 2
         })
