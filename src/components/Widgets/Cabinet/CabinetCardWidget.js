@@ -57,12 +57,14 @@ const styles = StyleSheet.create({
     },
     wrapperBlock: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignItems: 'center',
         height: '100%',
         width: '100%',
         borderBottomWidth: 1,
-        borderColor: '#E6E9ED'
+        borderColor: '#E6E9ED',
+        paddingRight: MultiPlatform.AdaptivePixelsSize(15),
+        paddingLeft: MultiPlatform.AdaptivePixelsSize(25)
     }
 });
 

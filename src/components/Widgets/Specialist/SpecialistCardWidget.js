@@ -1,11 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react'
-import { Image, StyleSheet, Text, View, TouchableOpacity, PixelRatio, Dimensions } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { selectSpecialistID, selectSpecialtyID } from '../../../store/reducers/AnamnezSlice';
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { MultiPlatform } from '../../MultiPlatform';
 import Routes from "../../../requests/Routes";
+import { createImageProgress } from 'react-native-image-progress';
+import FastImage from 'react-native-fast-image';
+
+const ImageProgress = createImageProgress(FastImage);
 
 const SpecialistCardWidget = ({ data }) => {
 
@@ -26,7 +29,7 @@ const SpecialistCardWidget = ({ data }) => {
                 onPress={() => moveToNextScreen()}
             >
                 <View style={ styles.wrapperBlock }>
-                    <View style={{ left: MultiPlatform.AdaptivePercentSize(2), width: '70%' }}>
+                    <View style={{ width: '70%' }}>
                         <Text numberOfLines={2} ellipsizeMode='tail' style={ styles.descriptionText }>{ data.User.first_name + " " + data.User.second_name + " " + data.User.middle_name }</Text>
                         <Text numberOfLines={2} ellipsizeMode='tail' style={{ ...styles.descriptionText, fontSize: MultiPlatform.AdaptivePixelsSize(13), fontWeight: '400' }}>{ data.about }</Text>
                         <View style={ styles.awardTextStyle }>
@@ -46,7 +49,9 @@ const SpecialistCardWidget = ({ data }) => {
                                 color: '#AAB2BD' }}>{ data.answers_count + " - консультаций" }</Text>
                         </View>
                     </View>
-                    <Image
+                    <ImageProgress
+                        imageStyle={ styles.imageStyle }
+                        indicator={() => <ActivityIndicator size={'large'}/>}
                         style={ styles.imageStyle }
                         source={ !data.User?.photo ? require('../../../images/user.png') : { uri: Routes.imageURL + data.User.photo }}
                     />
@@ -71,7 +76,6 @@ const styles = StyleSheet.create({
         borderRadius: 150,
     },
     awardTextStyle: {
-        
         alignItems: 'center',
         flexDirection: 'row',
         marginTop: 5
@@ -84,7 +88,8 @@ const styles = StyleSheet.create({
         width: '100%',
         borderBottomWidth: 1,
         borderColor: '#E6E9ED',
-        padding: 5
+        paddingLeft: MultiPlatform.AdaptivePixelsSize(20),
+        paddingRight: MultiPlatform.AdaptivePixelsSize(15)
     }
 });
 

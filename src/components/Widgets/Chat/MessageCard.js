@@ -1,9 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
 import { MultiPlatform } from '../../MultiPlatform';
 import Routes from "../../../requests/Routes";
+import { createImageProgress } from 'react-native-image-progress';
+import FastImage from 'react-native-fast-image';
+
+const ImageProgress = createImageProgress(FastImage);
 
 const MessageCard = ({ item, outPatient }) => {
 
@@ -23,7 +27,9 @@ const MessageCard = ({ item, outPatient }) => {
             >
                 <View style={ styles.additionView }>
                     <View>
-                        <Image 
+                        <ImageProgress
+                            imageStyle={ styles.imageStyle }
+                            indicator={() => <ActivityIndicator size={'large'}/>} 
                             style={styles.imageStyle}
                             source={ item?.specialist_photo ? {uri: Routes.imageURL + item.specialist_photo} : require('../../../images/user.png') }
                         />

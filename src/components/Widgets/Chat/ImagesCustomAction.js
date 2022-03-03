@@ -4,7 +4,7 @@ import CameraPicker, {ImageOrVideo} from 'react-native-image-crop-picker';
 import { MultiPlatform } from '../../MultiPlatform';
 import Routes from "../../../requests/Routes";
 
-const ImagesCustomAction = ({ data, textInput }) => {
+const ImagesCustomAction = ({ setIsOpened, data, textInput }) => {
 
     const [imageData, setImageData] = useState([])
     const [serverImage, setServerImage] = useState([])
@@ -16,27 +16,32 @@ const ImagesCustomAction = ({ data, textInput }) => {
         imageDataPrev.splice(id, 1)
 
         setImageData(imageDataPrev)
+        setIsOpened(imageDataPrev.length == 0 ? false : true)
     }
 
     const imagePick = async () => {
-        CameraPicker.openPicker({
-            cropping: true,
-            compressImageQuality: 0.8,
-          })
-        .then(image => {  
-            setImageData(imageDataPrev)
+        try {
+            CameraPicker.openPicker({
+                cropping: true,
+                compressImageQuality: 0.8,
+            })
+            .then(image => {  
+                setImageData(imageDataPrev)
+                setIsOpened(true)
+                let imageDataPrev = [...imageData]
 
-            let imageDataPrev = [...imageData]
-
-            imageDataPrev.push(
-                {
-                    id: imageDataPrev.length + 1,
-                    uri: image.path
-                }
-            )
-            console.log(imageData.length)
-            setImageData(imageDataPrev)
-        })
+                imageDataPrev.push(
+                    {
+                        id: imageDataPrev.length + 1,
+                        uri: image.path
+                    }
+                )
+                console.log(imageData.length)
+                setImageData(imageDataPrev)
+            })
+        } catch (e){
+            console.log("ERROR")
+        }
     }
 
     const photoPickFromCamera = () => {
@@ -46,6 +51,7 @@ const ImagesCustomAction = ({ data, textInput }) => {
                 compressImageQuality: 0.5,
             })
             .then(image => {
+                setIsOpened(true)
                 setImageData(imageDataPrev)
                 let imageDataPrev = [...imageData]
                 console.log(image)

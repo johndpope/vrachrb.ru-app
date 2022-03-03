@@ -12,7 +12,7 @@ import QuestionTitleBase from '../../AnamnezBaseComponent/QuestionTitleBase';
 import AgreementComponent from '../../AuthComponent/AgreementComponent';
 import { MultiPlatform } from '../../MultiPlatform';
 
-const AgreementWidget = ({ isVisible, setVisible, vkData }) => {
+const AgreementWidget = ({ setResponse = null, isLogin = false, isVisible, setVisible, vkData }) => {
 
     const dispatch = useDispatch()
     const navigation = useNavigation()
@@ -20,23 +20,27 @@ const AgreementWidget = ({ isVisible, setVisible, vkData }) => {
     const [agreement, setAgreement] = useState()
 
     const sendAgreement = async () => {
-        const resp = await Request.post(Routes.signInVK, 
-            {
-                user_id: vkData.user_id, 
-                access_token: vkData.access_token,
-                email: vkData.email != null ? vkData.email : "null",
-                agreement: true
-            })
+        const resp = isLogin ? 
+            await Request.post(Routes.signInURL, vkData) :
+            await Request.post(Routes.signInVK, 
+                {
+                    user_id: vkData.user_id, 
+                    access_token: vkData.access_token,
+                    email: vkData.email != null ? vkData.email : "null",
+                    agreement: true
+                })
 
         if (resp?.auth) { 
-            dispatch(saveUserData(resp.userData))
+            console.log("resp.userData ", resp)
+            dispatch(saveUserData(isLogin ? resp : resp.userData))
             navigation.reset({
                 index: 0,
                 routes: [{ name: 'MainNavigationScreen' }],
             })
-            await Storage.save("userData", resp.userData)
+            await Storage.save("userData", isLogin ? resp : resp.userData)
         } else {
-            MultiPlatform.ToastShow("Ошибка авторизации")
+            setVisible(false)
+            setResponse !== null && setResponse(resp)
         }
     }
 

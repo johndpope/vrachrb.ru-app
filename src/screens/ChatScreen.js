@@ -49,7 +49,7 @@ const ChatScreen = ({ route }) => {
     const [images, setImages] = useState([])
     const [disableButton, setDisableButton] = useState("")
     const [indexPhoto, setIndexPhoto] = useState(0)
-
+    const [isOpened, setIsOpened] = useState(false)
     const [closed, setClosed] = useState(route.params.closed_by)
 
     const renderCustomToolbar = props => {
@@ -62,7 +62,7 @@ const ChatScreen = ({ route }) => {
                     justifyContent: 'flex-end',
                 }}
                 disableInputToolBar={true}
-                renderActions={closed == null ? (props => <ImagesCustomAction data={props} textInput={disableButton}/>) : null}
+                renderActions={closed == null ? (props => <ImagesCustomAction setIsOpened={setIsOpened} data={props} textInput={disableButton}/>) : null}
             />
         )
     }
@@ -154,7 +154,7 @@ const ChatScreen = ({ route }) => {
                             createdAt: element.created_at,
                             user: {
                                 _id: element.user_id,
-                                name: 'Доктор',
+                                name: isSpecialist ? "Пользователь" : 'Доктор',
                             },
                         },
                     )
@@ -168,7 +168,7 @@ const ChatScreen = ({ route }) => {
                         createdAt: response['response'][0].created_at,
                         user: {
                             _id: response['response'][0].user_id,
-                            name: 'Доктор',
+                            name: isSpecialist ? "Пользователь" : 'Доктор',
                         },
                     },
                 ),
@@ -227,13 +227,10 @@ const ChatScreen = ({ route }) => {
             ) : () => <View></View>
         })
         getAllMessages()
+
         NotificationAgent.registerNotificationEvents(false, onSend)
-
-        AppState.addEventListener('change', () => {
-            AppState.currentState == 'active' && getAllMessages()
-        })
     }, [])
-
+    
     return (
         loading ?
         (
