@@ -11,6 +11,7 @@ import Request from '../requests/Request';
 import { resetUserData, setAgreements } from '../store/reducers/LoginSlice';
 import Storage from '../storage/Storage';
 import Routes from "../requests/Routes";
+import { Notifications } from 'react-native-notifications';
 
 const BottomTab = createBottomTabNavigator()
 
@@ -18,7 +19,7 @@ const MainNavigationScreen = () => {
 
     const isSpecialist = useSelector(state => state.LoginSlice.userData.isSpecialist)
     const userData = useSelector(state => state.LoginSlice.userData)
-    
+
     const dispatch = useDispatch();
 
     const navigation = useNavigation()
@@ -50,14 +51,14 @@ const MainNavigationScreen = () => {
             photo: ""
         })
     }
-    
+
     useEffect(() => {
         Request.post(Routes.SaveDeviceToken, {
             token: Notifications.events().registerRemoteNotificationsRegistered((event) => { return event.deviceToken }),
             type: Platform.OS == 'ios' ? 1 : 2
         })
     }, [])
-    
+
     return (
         <BottomTab.Navigator
             screenOptions={{
@@ -93,7 +94,7 @@ const MainNavigationScreen = () => {
                         tabBarIcon: ({ focused }) => {
                             return (
                                 <Image
-                                    style={{ width: MultiPlatform.AdaptivePixelsSize(22), 
+                                    style={{ width: MultiPlatform.AdaptivePixelsSize(22),
                                         height: MultiPlatform.AdaptivePixelsSize(22), tintColor: focused ? "#54B9D1" : "#AAB2BD" }}
                                     source={ require('../images/notepad.png') }
                                 />
@@ -102,7 +103,7 @@ const MainNavigationScreen = () => {
                     }}
                 />)
             }
-            <BottomTab.Screen 
+            <BottomTab.Screen
                 name="MessagesScreen"
                 component={ MessagesScreen }
                 options={{
@@ -118,27 +119,27 @@ const MainNavigationScreen = () => {
                     },
                     tabBarActiveTintColor: "#54B9D1",
                     tabBarInactiveTintColor: "#AAB2BD",
-                    headerBackVisible: false,                        
+                    headerBackVisible: false,
                     tabBarLabelStyle: {
                         fontSize: MultiPlatform.AdaptivePixelsSize(13)
                     },
                     tabBarIcon: ({ focused }) => {
                         return (
-                            <Image 
-                                style={{ width: MultiPlatform.AdaptivePixelsSize(18), height: MultiPlatform.AdaptivePixelsSize(24), tintColor: focused ? "#54B9D1" : "#AAB2BD"  }} 
+                            <Image
+                                style={{ width: MultiPlatform.AdaptivePixelsSize(18), height: MultiPlatform.AdaptivePixelsSize(24), tintColor: focused ? "#54B9D1" : "#AAB2BD"  }}
                                 source={ require('../images/notification.png') }/>
                         )
                     },
-                    tabBarIconStyle: {  
+                    tabBarIconStyle: {
                         tabBarActiveTintColor: "#54B9D1",
                         tabBarInactiveTintColor: "#AAB2BD",
                     }
                 }}
                 component={ MessagesScreen }
             />
-            <BottomTab.Screen 
-                name="ProfileScreen" 
-                component={ ProfileScreen } 
+            <BottomTab.Screen
+                name="ProfileScreen"
+                component={ ProfileScreen }
                 options={{
                     title: "Профиль",
                     headerStyle: {
@@ -152,35 +153,35 @@ const MainNavigationScreen = () => {
                     },
                     headerRight: () => {
                         return (
-                            <TouchableOpacity 
+                            <TouchableOpacity
                                 onPress={() => logOut()}
                                 style={{ right: MultiPlatform.AdaptivePixelsSize(12) }}
                             >
-                                <Image 
-                                    style={{ 
-                                        width: MultiPlatform.AdaptivePixelsSize(26), 
+                                <Image
+                                    style={{
+                                        width: MultiPlatform.AdaptivePixelsSize(26),
                                         height: MultiPlatform.AdaptivePixelsSize(26),
                                         tintColor: '#434A53'
-                                    }} 
+                                    }}
                                     source={ require('../images/signout.png') }
                                 />
                             </TouchableOpacity>
                         )
-                    },  
+                    },
                     tabBarActiveTintColor: "#54B9D1",
                     tabBarInactiveTintColor: "#AAB2BD",
-                    headerBackVisible: false,                       
+                    headerBackVisible: false,
                     tabBarLabelStyle: {
                         fontSize: MultiPlatform.AdaptivePixelsSize(13)
                     },
                     tabBarIcon: ({ focused }) => {
                         return (
-                            <Image 
-                                style={ !userData?.photo ? { ...styles.imageStyle, tintColor: focused ? "#54B9D1" : "#AAB2BD" } : {...styles.imageStyle}} 
+                            <Image
+                                style={ !userData?.photo ? { ...styles.imageStyle, tintColor: focused ? "#54B9D1" : "#AAB2BD" } : {...styles.imageStyle}}
                                 source={ !userData?.photo ? require('../images/user.png') : { uri: Routes.imageURL + userData.photo }} />
                         )
                     },
-                    tabBarIconStyle: {  
+                    tabBarIconStyle: {
                         tabBarActiveTintColor: "#54B9D1",
                         tabBarInactiveTintColor: "#AAB2BD",
                     }
@@ -192,8 +193,8 @@ const MainNavigationScreen = () => {
 
 const styles = StyleSheet.create({
     imageStyle: {
-        width: MultiPlatform.AdaptivePixelsSize(26), 
-        height: MultiPlatform.AdaptivePixelsSize(26), 
+        width: MultiPlatform.AdaptivePixelsSize(26),
+        height: MultiPlatform.AdaptivePixelsSize(26),
         borderRadius: 100,
     }
 })
