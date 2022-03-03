@@ -16,6 +16,10 @@ import CustomComposer from '../components/Widgets/Chat/CustomComposer';
 import { useSelector } from 'react-redux';
 import Routes from "../requests/Routes";
 import NotificationAgent from '../components/NotificationManager/NotificationAgent';
+import { createImageProgress } from 'react-native-image-progress';
+import FastImage from 'react-native-fast-image';
+
+const ImageProgress = createImageProgress(FastImage);
 
 const customSend = props => {
     return (
@@ -105,7 +109,8 @@ const ChatScreen = ({ route }) => {
                     imagesChat[0] !== "../images/text-document.png" &&
                     <View style={{ flexDirection: 'row', alignItems: 'center'}}>
                         <TouchableOpacity style={{ padding: 5 }} onPress={() => { setModalOpen(true), setImages(imagesPrev), setIndexPhoto(0) }}>
-                            <Image
+                            <ImageProgress
+                                imageStyle={styles.image}
                                 style={styles.image}
                                 source={{ uri: Routes.imageURL + imagesChat[0] }}
 
@@ -114,7 +119,8 @@ const ChatScreen = ({ route }) => {
                         </TouchableOpacity>
                         { imagesChat && imagesChat.length > 1 &&
                             <TouchableOpacity style={{ padding: 5 }} onPress={() => { setModalOpen(true), setImages(imagesPrev), setIndexPhoto(1) }}>
-                                <Image
+                                <ImageProgress
+                                    imageStyle={styles.image}
                                     source={{ uri: Routes.imageURL + imagesChat[1] }}
                                     style={styles.image}
                                 />

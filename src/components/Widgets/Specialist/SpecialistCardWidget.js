@@ -51,7 +51,6 @@ const SpecialistCardWidget = ({ data }) => {
                     </View>
                     <ImageProgress
                         imageStyle={ styles.imageStyle }
-                        indicator={() => <ActivityIndicator size={'large'}/>}
                         style={ styles.imageStyle }
                         source={ !data.User?.photo ? require('../../../images/user.png') : { uri: Routes.imageURL + data.User.photo }}
                     />

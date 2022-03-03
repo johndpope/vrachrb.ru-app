@@ -29,7 +29,6 @@ const MessageCard = ({ item, outPatient }) => {
                     <View>
                         <ImageProgress
                             imageStyle={ styles.imageStyle }
-                            indicator={() => <ActivityIndicator size={'large'}/>} 
                             style={styles.imageStyle}
                             source={ item?.specialist_photo ? {uri: Routes.imageURL + item.specialist_photo} : require('../../../images/user.png') }
                         />
