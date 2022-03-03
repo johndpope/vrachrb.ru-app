@@ -12,6 +12,7 @@ import { resetUserData, setAgreements } from '../store/reducers/LoginSlice';
 import Storage from '../storage/Storage';
 import Routes from "../requests/Routes";
 import { Notifications } from 'react-native-notifications';
+import NotificationAgent from '../components/NotificationManager/NotificationAgent';
 
 const BottomTab = createBottomTabNavigator()
 
@@ -53,10 +54,12 @@ const MainNavigationScreen = () => {
     }
 
     useEffect(() => {
-        Request.post(Routes.SaveDeviceToken, {
-            token: Notifications.events().registerRemoteNotificationsRegistered((event) => { return event.deviceToken }),
-            type: Platform.OS == 'ios' ? 1 : 2
-        })
+        // NotificationAgent.registerNotificationEvents(true)
+        // Notifications.events().registerRemoteNotificationsRegistered((event) => { console.log(event.deviceToken) })
+        // Request.post(Routes.SaveDeviceToken, {
+        //     token: NotificationAgent.deviceToken,
+        //     type: Platform.OS == 'ios' ? 1 : 2
+        // })
     }, [])
 
     return (

@@ -22,7 +22,6 @@ import {saveUserData} from "./src/store/reducers/LoginSlice";
 import { OverflowMenuProvider } from 'react-navigation-header-buttons';
 import { MultiPlatform } from './src/components/MultiPlatform';
 import OutpatientCardScreen from './src/screens/AnamnezScreens/OutpatientCardScreen'
-import { Notifications } from 'react-native-notifications';
 import NotificationAgent from './src/components/NotificationManager/NotificationAgent';
 
 const Stack = createNativeStackNavigator();
@@ -32,7 +31,6 @@ const App = () => {
 
     useEffect(() => {
         NotificationAgent.getNotification()
-        NotificationAgent.registerNotificationEvents(true)
         Storage.get("userData")
             .then((data) => dispatch(saveUserData(data)))
     },[])

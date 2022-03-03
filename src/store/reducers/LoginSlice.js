@@ -18,6 +18,7 @@ const LoginSlice = createSlice({
             photo: ""
         },
         agreements: [],
+        deviceToken: ""
     },
     reducers: {
         saveUserData(state, action){
@@ -40,9 +41,12 @@ const LoginSlice = createSlice({
                 phone: "",
                 photo: ""
             }
+        },
+        saveDeviceToken(state, action){
+            state.deviceToken = action.payload
         }
     }
 })
 
 export default LoginSlice.reducer
-export const { saveUserData, setAgreements, resetUserData } = LoginSlice.actions
+export const { saveUserData, setAgreements, resetUserData, saveDeviceToken } = LoginSlice.actions

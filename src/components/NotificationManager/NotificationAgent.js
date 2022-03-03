@@ -3,15 +3,20 @@ import { Notifications } from 'react-native-notifications';
 
 class NotificationAgent {
     static getNotification() {
+        // let deviceToken
+
         Notifications.registerRemoteNotifications();
     
         Notifications.events().registerRemoteNotificationsRegistered((event) => {
-            console.log(event.deviceToken)
+            // console.log(event.deviceToken)
+            // deviceToken = event.deviceToken
         })
     
         Notifications.events().registerRemoteNotificationsRegistrationFailed(event => {
             console.error(event)
         })
+
+        // return deviceToken
     }
 
     static registerNotificationEvents(showNotify = false, onSend = function(){}) {
