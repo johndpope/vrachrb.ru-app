@@ -30,8 +30,6 @@ const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        NotificationAgent.getNotification()
-        NotificationAgent.registerNotificationEvents(true)
         Storage.get("userData")
             .then((data) => dispatch(saveUserData(data)))
     },[])

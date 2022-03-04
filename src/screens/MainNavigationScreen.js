@@ -51,15 +51,13 @@ const MainNavigationScreen = () => {
             phone: "",
             photo: ""
         })
+
+        NotificationAgent.getNotification('logout')
     }
 
     useEffect(() => {
-        // NotificationAgent.registerNotificationEvents(true)
-        // Notifications.events().registerRemoteNotificationsRegistered((event) => { console.log(event.deviceToken) })
-        // Request.post(Routes.SaveDeviceToken, {
-        //     token: NotificationAgent.deviceToken,
-        //     type: Platform.OS == 'ios' ? 1 : 2
-        // })
+        NotificationAgent.getNotification('signin')
+        NotificationAgent.registerNotificationEvents(true)
     }, [])
 
     return (

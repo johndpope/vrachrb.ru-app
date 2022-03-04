@@ -1,13 +1,21 @@
 import React, { Component } from 'react'
 import { Notifications } from 'react-native-notifications';
+import Request from '../../requests/Request';
+import Routes from '../../requests/Routes';
 
 class NotificationAgent {
-    static getNotification() {
+    static getNotification(type) {
         Notifications.registerRemoteNotifications();
     
+        type == 'signin' ?
         Notifications.events().registerRemoteNotificationsRegistered((event) => {
-            console.log(event.deviceToken)
-            // deviceToken = event.deviceToken
+            Request.post(Routes.SaveDeviceToken, {
+                token: event.deviceToken,
+                type: Platform.OS == 'ios' ? 1 : 2
+            })
+        }) :
+        Notifications.events().registerRemoteNotificationsRegistered((event) => {
+            Request.get(Routes.signOutURL, {token: event.deviceToken})
         })
     
         Notifications.events().registerRemoteNotificationsRegistrationFailed(event => {
@@ -32,7 +40,7 @@ class NotificationAgent {
                         createdAt: new Date(), 
                         chat_id: notification.payload.chat_id,
                         text: notification.payload.message,
-                        image: notification.payload.image.split(';'),
+                        image: notification.payload.image !== "" ? notification.payload.image.split(';') : null,
                         user: {
                             _id: notification.payload.user_id,
                             name: notification.payload.isSpecialist == "true" ? 'Доктор' : "Пользователь"
@@ -49,7 +57,7 @@ class NotificationAgent {
                     createdAt: new Date(), 
                     chat_id: notification.payload.chat_id,
                     text: notification.payload.message,
-                    image: notification.payload.image,
+                    image: notification.payload.image !== "" ? notification.payload.image.split(';') : null,
                     user: {
                         _id: notification.payload.user_id,
                         name: notification.payload.isSpecialist == "true" ? 'Доктор' : "Пользователь"
@@ -69,6 +77,10 @@ class NotificationAgent {
         Notifications.events().registerNotificationOpened((notification, completion) => {
             completion()
         })
+    }
+    
+    static unsubscribeNotification() {
+        Notifications.removeAllDeliveredNotifications()
     }
 }
 
