@@ -30,6 +30,7 @@ class NotificationAgent {
                     {
                         _id: notification.identifier,
                         createdAt: new Date(), 
+                        chat_id: notification.payload.chat_id,
                         text: notification.payload.message,
                         image: notification.payload.image.split(';'),
                         user: {
@@ -46,6 +47,7 @@ class NotificationAgent {
                 {
                     _id: notification.identifier,
                     createdAt: new Date(), 
+                    chat_id: notification.payload.chat_id,
                     text: notification.payload.message,
                     image: notification.payload.image,
                     user: {

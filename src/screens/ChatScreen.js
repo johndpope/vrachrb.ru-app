@@ -165,10 +165,10 @@ const ChatScreen = ({ route }) => {
                         },
                     )
                 }),
-
+                
                 response['response'][0]['Answer'].lenght != 0 && DATA.push(
                     {
-                        _id: response['response'][0].id,
+                        _id: response['response'][0].id - 1,
                         text: response['response'][0].body,
                         image: ['../images/text-document.png'],
                         createdAt: response['response'][0].created_at,
@@ -200,13 +200,17 @@ const ChatScreen = ({ route }) => {
                 attachment: messages[0].image ? messages[0].image.join(";") : ""
             })
 
+            setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+
             if(response["error"]) {
                 navigation.navigate("MessagesScreen")
                 return MultiPlatform.ToastShow(response["error"])
             }
         }
-
-        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+        
+        if (messages[0].chat_id == route.params.id){
+            setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+        }
     }, [])
 
     useEffect(() => {
@@ -251,11 +255,11 @@ const ChatScreen = ({ route }) => {
                 imageIndex={indexPhoto}
                 supportedOrientations={
                     [
-                    'portrait',
-                    'portrait-upside-down',
-                    'landscape',
-                    'landscape-left',
-                    'landscape-right'
+                        'portrait',
+                        'portrait-upside-down',
+                        'landscape',
+                        'landscape-left',
+                        'landscape-right'
                     ]
                 }
                 visible={isModalOpen}
