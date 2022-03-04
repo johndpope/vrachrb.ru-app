@@ -31,6 +31,7 @@ class NotificationAgent {
                         _id: notification.identifier,
                         createdAt: new Date(), 
                         text: notification.payload.message,
+                        image: notification.payload.image.split(';'),
                         user: {
                             _id: notification.payload.user_id,
                             name: notification.payload.isSpecialist == "true" ? 'Доктор' : "Пользователь"
@@ -46,6 +47,7 @@ class NotificationAgent {
                     _id: notification.identifier,
                     createdAt: new Date(), 
                     text: notification.payload.message,
+                    image: notification.payload.image,
                     user: {
                         _id: notification.payload.user_id,
                         name: notification.payload.isSpecialist == "true" ? 'Доктор' : "Пользователь"
