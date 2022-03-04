@@ -28,23 +28,23 @@ const LoginFormComponent = () => {
     const [isModalVisible, setModalVisible] = useState(false)
 
     const login = async () => {
-        // setLoading(true)
-        // let data = { user: email, password: password }
-        // let request = await Request.post(Routes.signInURL, data);
+        setLoading(true)
+        let data = { user: email, password: password }
+        let request = await Request.post(Routes.signInURL, data);
 
-        // setResponse(request)
+        setResponse(request)
 
-        // if (request['auth']) {
-        //     dispatch(saveUserData(request))
-        //     navigation.reset({
-        //         index: 0,
-        //         routes: [{ name: 'MainNavigationScreen' }],
-        //     })
-            
-        // }
-        setModalVisible(true)
-        // await Storage.save("userData", request)
-        // setLoading(false)
+        if (request['auth']) {
+            dispatch(saveUserData(request))
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'MainNavigationScreen' }],
+            })
+            await Storage.save("userData", request)
+        } else if (request['agreement']) {
+            setModalVisible(true)
+        } 
+        setLoading(false)
     }
 
     const checkFilledField = () => {
@@ -59,7 +59,7 @@ const LoginFormComponent = () => {
         <View style={ styles.mainBlock }>
             {
                 isModalVisible && (
-                    <AgreementWidget setResponse={setResponse} vkData={{ user: email, password: password }} isLogin={true} isVisible={isModalVisible} setVisible={setModalVisible} />
+                    <AgreementWidget setResponse={setResponse} vkData={{ user: email, password: password, agreement: true }} isLogin={true} isVisible={isModalVisible} setVisible={setModalVisible} />
                 )
             }
             <ScrollView

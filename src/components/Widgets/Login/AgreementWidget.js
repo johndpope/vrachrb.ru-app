@@ -38,6 +38,7 @@ const AgreementWidget = ({ setResponse = null, isLogin = false, isVisible, setVi
                 routes: [{ name: 'MainNavigationScreen' }],
             })
             await Storage.save("userData", isLogin ? resp : resp.userData)
+            setVisible(false)
         } else {
             setVisible(false)
             setResponse !== null && setResponse(resp)

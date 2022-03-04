@@ -23,40 +23,38 @@ const SpecialistCardWidget = ({ data }) => {
     }
 
     return (
-        // <View>
-            <TouchableOpacity 
-                style={ styles.mainContent }
-                onPress={() => moveToNextScreen()}
-            >
-                <View style={ styles.wrapperBlock }>
-                    <View style={{ width: '70%' }}>
-                        <Text numberOfLines={2} ellipsizeMode='tail' style={ styles.descriptionText }>{ data.User.first_name + " " + data.User.second_name + " " + data.User.middle_name }</Text>
-                        <Text numberOfLines={2} ellipsizeMode='tail' style={{ ...styles.descriptionText, fontSize: MultiPlatform.AdaptivePixelsSize(13), fontWeight: '400' }}>{ data.about }</Text>
-                        <View style={ styles.awardTextStyle }>
-                            <Image style={{ width: MultiPlatform.AdaptivePixelsSize(13), height: MultiPlatform.AdaptivePixelsSize(13) }} source={ require('../../../images/star.png') }/>
-                            <Text style={{ 
-                                ...styles.descriptionText, 
-                                fontSize: MultiPlatform.AdaptivePixelsSize(13), 
-                                fontWeight: '400',
-                                color: '#34BC9D',
-                                marginRight: 10,
-                                marginLeft: 4
-                             }}>{ data.rating }</Text>
-                            <Text style={{ 
-                                ...styles.descriptionText, 
-                                fontSize: MultiPlatform.AdaptivePixelsSize(13), 
-                                fontWeight: '400',
-                                color: '#AAB2BD' }}>{ data.answers_count + " - консультаций" }</Text>
-                        </View>
+        <TouchableOpacity 
+            style={ styles.mainContent }
+            onPress={() => moveToNextScreen()}
+        >
+            <View style={ styles.wrapperBlock }>
+                <View style={{ width: '70%' }}>
+                    <Text numberOfLines={2} ellipsizeMode='tail' style={ styles.descriptionText }>{ data.User.first_name + " " + data.User.second_name + " " + data.User.middle_name }</Text>
+                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ ...styles.descriptionText, fontSize: MultiPlatform.AdaptivePixelsSize(13), fontWeight: '400' }}>{ data.about }</Text>
+                    <View style={ styles.awardTextStyle }>
+                        <Image style={{ width: MultiPlatform.AdaptivePixelsSize(13), height: MultiPlatform.AdaptivePixelsSize(13) }} source={ require('../../../images/star.png') }/>
+                        <Text style={{ 
+                            ...styles.descriptionText, 
+                            fontSize: MultiPlatform.AdaptivePixelsSize(13), 
+                            fontWeight: '400',
+                            color: '#34BC9D',
+                            marginRight: 10,
+                            marginLeft: 4
+                        }}>{ data.rating }</Text>
+                        <Text style={{ 
+                            ...styles.descriptionText, 
+                            fontSize: MultiPlatform.AdaptivePixelsSize(13), 
+                            fontWeight: '400',
+                            color: '#AAB2BD' }}>{ data.answers_count + " - консультаций" }</Text>
                     </View>
-                    <ImageProgress
-                        imageStyle={ styles.imageStyle }
-                        style={ styles.imageStyle }
-                        source={ !data.User?.photo ? require('../../../images/user.png') : { uri: Routes.imageURL + data.User.photo }}
-                    />
                 </View>
-            </TouchableOpacity>
-        // </View>
+                <ImageProgress
+                    imageStyle={ styles.imageStyle }
+                    style={ styles.imageStyle }
+                    source={ !data.User?.photo ? require('../../../images/user.png') : { uri: Routes.imageURL + data.User.photo }}
+                />
+            </View>
+        </TouchableOpacity>
     )
 }
 
