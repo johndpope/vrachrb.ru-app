@@ -43,8 +43,6 @@ const MainNavigationScreen = () => {
             })
         }, 1)
 
-
-
         await Storage.save("userData", {
             auth: false,
             isSpecialist: false,

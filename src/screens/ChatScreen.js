@@ -165,7 +165,7 @@ const ChatScreen = ({ route }) => {
                         },
                     )
                 }),
-                
+
                 response['response'][0]['Answer'].lenght != 0 && DATA.push(
                     {
                         _id: response['response'][0].id - 1,
@@ -207,7 +207,7 @@ const ChatScreen = ({ route }) => {
                 return MultiPlatform.ToastShow(response["error"])
             }
         }
-        
+
         if (messages[0].chat_id == route.params.id){
             setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
         }
@@ -240,7 +240,7 @@ const ChatScreen = ({ route }) => {
 
         NotificationAgent.registerNotificationEvents(false, onSend)
     }, [])
-    
+
     return (
         loading ?
         (
