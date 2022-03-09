@@ -1,23 +1,27 @@
 import React, { Component } from 'react'
+import { Platform, PushNotificationIOS } from 'react-native';
 import { Notifications } from 'react-native-notifications';
 import Request from '../../requests/Request';
 import Routes from '../../requests/Routes';
+import { NotificationsIOS } from 'react-native-notifications/lib/dist/NotificationsIOS';
 
 class NotificationAgent {
-    static getNotification(type) {
+    static getNotification(route) {
         Notifications.registerRemoteNotifications();
-    
-        type == 'signin' ?
-        Notifications.events().registerRemoteNotificationsRegistered((event) => {
-            Request.post(Routes.SaveDeviceToken, {
-                token: event.deviceToken,
-                type: Platform.OS == 'ios' ? 1 : 2
+
+        route == 'signin' ? (
+            Notifications.events().registerRemoteNotificationsRegistered((event) => {
+                Request.post(Routes.SaveDeviceToken, {
+                    token: event.deviceToken,
+                    type: Platform.OS == 'ios' ? 1 : 2
+                })
             })
-        }) :
-        Notifications.events().registerRemoteNotificationsRegistered((event) => {
-            Request.get(Routes.signOutURL, {token: event.deviceToken})
-        })
-    
+        ) : (
+            Notifications.events().registerRemoteNotificationsRegistered((event) => {
+                Request.get(Routes.signOutURL, {token: event.deviceToken})
+            })
+        )
+
         Notifications.events().registerRemoteNotificationsRegistrationFailed(event => {
             console.error(event)
         })
@@ -25,36 +29,11 @@ class NotificationAgent {
 
     static registerNotificationEvents(showNotify = false, onSend = function(){}) {
         Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
-            console.log(notification)
-            if (showNotify){
-                Notifications.postLocalNotification({
-                    fireDate: new Date(),
-                    body: notification.payload.message,
-                    title: notification.payload.title,
-                    category: "Сообщение"
-                }, notification.payload["google.sent_time"]);
-            } else (
-                onSend([
-                    {
-                        _id: notification.identifier,
-                        createdAt: new Date(), 
-                        chat_id: notification.payload.chat_id,
-                        text: notification.payload.message,
-                        image: notification.payload.image !== "" ? notification.payload.image.split(';') : null,
-                        user: {
-                            _id: notification.payload.user_id,
-                            name: notification.payload.isSpecialist == "true" ? 'Доктор' : "Пользователь"
-                    }
-                }], false)            )
-
-            completion({ alert: false, sound: false, badge: false })
-        })
-
-        Notifications.events().registerNotificationReceivedBackground((notification, completion) => {
-            onSend([
+            console.log("FOREGRUND ", notification)
+            notification.payload.type == "message" ? onSend([
                 {
                     _id: notification.identifier,
-                    createdAt: new Date(), 
+                    createdAt: new Date(),
                     chat_id: notification.payload.chat_id,
                     text: notification.payload.message,
                     image: notification.payload.image !== "" ? notification.payload.image.split(';') : null,
@@ -62,23 +41,39 @@ class NotificationAgent {
                         _id: notification.payload.user_id,
                         name: notification.payload.isSpecialist == "true" ? 'Доктор' : "Пользователь"
                 }
-            }], false)
+            }], false) : null
+
+            completion({ alert: true, sound: false, badge: false })
+        })
+
+        Notifications.events().registerNotificationReceivedBackground((notification, completion) => {
+            console.log("BAKEGRUND ", notification)
+            notification.payload.type == "message" ? onSend([
+                {
+                    _id: notification.identifier,
+                    createdAt: new Date().toISOString(),
+                    chat_id: notification.payload.chat_id,
+                    text: notification.payload.message,
+                    image: notification.payload.image !== "" ? notification.payload.image.split(';') : null,
+                    user: {
+                        _id: notification.payload.user_id,
+                        name: notification.payload.isSpecialist == "true" ? 'Доктор' : "Пользователь"
+                }
+            }], false) : null
 
             Notifications.postLocalNotification({
-                fireDate: new Date(),
                 body: notification.payload.text,
                 title: notification.payload.title,
-                category: "Сообщение"
-            }, notification.payload["google.sent_time"]);
+            }, new Date().getUTCMilliseconds());
 
-            completion({ alert: false, sound: false, badge: false })
+            completion({ alert: true, sound: false, badge: false })
         })
 
         Notifications.events().registerNotificationOpened((notification, completion) => {
             completion()
         })
     }
-    
+
     static unsubscribeNotification() {
         Notifications.removeAllDeliveredNotifications()
     }

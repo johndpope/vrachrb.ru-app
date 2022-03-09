@@ -61,7 +61,7 @@ const VkLoginButton = () => {
         <View style={ styles.btnStyle }>
             {
                 isModalVisible && (
-                    <AgreementWidget vkData={vkAuthData} isVisible={isModalVisible} setVisible={setModalVisible} />
+                    <AgreementWidget isLogin={false} vkData={vkAuthData} isVisible={isModalVisible} setVisible={setModalVisible} />
                 )
             }
             <TouchableOpacity 

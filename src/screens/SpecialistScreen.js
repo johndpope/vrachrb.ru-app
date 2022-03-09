@@ -82,6 +82,7 @@ const SpecialistScreen = () => {
                                 style={{
                                     width: '100%',
                                 }}
+                                initialNumToRender={10}
                                 data={filteredSpecialist && filteredSpecialist['response']}
                                 keyExtractor={(item) => item.id}
                                 renderItem={({ item }) => {

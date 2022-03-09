@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
     },
     gradientOptions: {
-        height: MultiPlatform.AdaptivePercentSize(10),
+        paddingTop: MultiPlatform.AdaptivePixelsSize(13),
+        paddingBottom: MultiPlatform.AdaptivePixelsSize(13),
         borderRadius: 16,
         justifyContent: 'center'
     },
