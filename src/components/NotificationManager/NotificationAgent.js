@@ -1,30 +1,23 @@
 import React, { Component } from 'react'
-import { Platform, PushNotificationIOS } from 'react-native';
 import { Notifications } from 'react-native-notifications';
-import Request from '../../requests/Request';
-import Routes from '../../requests/Routes';
-import { NotificationsIOS } from 'react-native-notifications/lib/dist/NotificationsIOS';
 
-class NotificationAgent {
-    static getNotification(route) {
+class NotificationAgent{
+    constructor(){
+        state = ""
+    }
+
+    static getNotification() {
         Notifications.registerRemoteNotifications();
 
-        route == 'signin' ? (
-            Notifications.events().registerRemoteNotificationsRegistered((event) => {
-                Request.post(Routes.SaveDeviceToken, {
-                    token: event.deviceToken,
-                    type: Platform.OS == 'ios' ? 1 : 2
-                })
-            })
-        ) : (
-            Notifications.events().registerRemoteNotificationsRegistered((event) => {
-                Request.get(Routes.signOutURL, {token: event.deviceToken})
-            })
-        )
+        Notifications.events().registerRemoteNotificationsRegistered((event) => {
+            this.state = event.deviceToken
+        })
 
         Notifications.events().registerRemoteNotificationsRegistrationFailed(event => {
             console.error(event)
         })
+
+        return this.state;
     }
 
     static registerNotificationEvents(showNotify = false, onSend = function(){}) {

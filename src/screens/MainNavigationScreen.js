@@ -26,17 +26,24 @@ const MainNavigationScreen = () => {
     const navigation = useNavigation()
 
     const logOut = async () => {
-        let response = await Request.get(Routes.signOutURL, {})
+        const token = NotificationAgent.getNotification()
 
-        response["response"] && Request.get(Routes.getAgreementsURL, {})
-            .then(result => {
-                dispatch(setAgreements(result["response"]))
-                dispatch(resetUserData())
-                navigation.reset({
-                    index: 0,
-                    routes: [{name: 'AuthScreen'}],
+        setTimeout(() => {
+            const token = NotificationAgent.getNotification()
+            Request.get(Routes.signOutURL, {token: token}).then((response) => {
+                response["response"] && Request.get(Routes.getAgreementsURL, {})
+                .then(result => {
+                    dispatch(setAgreements(result["response"])),
+                    dispatch(resetUserData()),
+                    navigation.reset({
+                        index: 0,
+                        routes: [{name: 'AuthScreen'}],
+                    })
                 })
             })
+        }, 1)
+
+
 
         await Storage.save("userData", {
             auth: false,
@@ -51,12 +58,19 @@ const MainNavigationScreen = () => {
             phone: "",
             photo: ""
         })
-
-        NotificationAgent.getNotification('logout')
     }
 
     useEffect(() => {
-        NotificationAgent.getNotification('signin')
+        const token = NotificationAgent.getNotification()
+
+        setTimeout(() => {
+            const token = NotificationAgent.getNotification()
+            Request.post(Routes.SaveDeviceToken, {
+                token: token,
+                type: Platform.OS == 'ios' ? 1 : 2
+            })
+        }, 1)
+
         NotificationAgent.registerNotificationEvents(true)
     }, [])
 
