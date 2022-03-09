@@ -3,10 +3,14 @@ import { View, StyleSheet } from 'react-native'
 import VkLoginButton from './VkLoginButton'
 import MainAuthButton from './MainAuthButton'
 import SecondAuthButton from './SecondAuthButton'
+import IOSAppleLoginButton from "./IOSAppleLoginButton";
 
 const AuthComponent = () => {
     return (
         <View style={ styles.centerComponent }>
+            { Platform.OS === "ios" && (
+                <IOSAppleLoginButton/>
+            )}
             <VkLoginButton />
             <MainAuthButton text={"Электронная почта"} nav={"MailLoginScreen"} />
             <SecondAuthButton text={"Регистрация"} nav={"RegisterScreen"} />
