@@ -25,23 +25,20 @@ const MainNavigationScreen = () => {
 
     const navigation = useNavigation()
 
-    const logOut = async () => {
-        const token = NotificationAgent.getNotification()
+    const [token, setToken] = useState()
 
-        setTimeout(() => {
-            const token = NotificationAgent.getNotification()
-            Request.get(Routes.signOutURL, {token: token}).then((response) => {
-                response["response"] && Request.get(Routes.getAgreementsURL, {})
-                .then(result => {
-                    dispatch(setAgreements(result["response"])),
-                    dispatch(resetUserData()),
-                    navigation.reset({
-                        index: 0,
-                        routes: [{name: 'AuthScreen'}],
-                    })
+    const logOut = async () => {
+        Request.get(Routes.signOutURL, {token: token}).then((response) => {
+            response["response"] && Request.get(Routes.getAgreementsURL, {})
+            .then(result => {
+                dispatch(setAgreements(result["response"])),
+                dispatch(resetUserData()),
+                navigation.reset({
+                    index: 0,
+                    routes: [{name: 'AuthScreen'}],
                 })
             })
-        }, 1)
+        })
 
         await Storage.save("userData", {
             auth: false,
@@ -59,17 +56,44 @@ const MainNavigationScreen = () => {
     }
 
     useEffect(() => {
-        const token = NotificationAgent.getNotification()
+        Notifications.registerRemoteNotifications();
 
-        setTimeout(() => {
-            const token = NotificationAgent.getNotification()
+        Notifications.events().registerRemoteNotificationsRegistered((event) => {
             Request.post(Routes.SaveDeviceToken, {
-                token: token,
+                token: event.deviceToken,
                 type: Platform.OS == 'ios' ? 1 : 2
             })
-        }, 1)
+            setToken(event.deviceToken)
+        })
 
         NotificationAgent.registerNotificationEvents(true)
+
+        Notifications.events().registerNotificationOpened((notification, completion, action) => {
+            notification.payload?.type == "message" &&
+            navigation.navigate("ChatScreen", 
+                {   
+                    id: notification.payload.chat_id, 
+                    user_id: notification.payload.user_id,
+                    closed_by: null,
+                    speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,  
+                    spec_name:  notification.payload.spec_name
+                })
+            completion({ alert: true, sound: true, badge: true })
+        })
+
+        Notifications.getInitialNotification().then(
+            (notification) => {
+                notification.payload?.type == "message" &&
+                navigation.navigate("ChatScreen", 
+                    {   
+                        id: notification.payload.chat_id, 
+                        user_id: notification.payload.user_id,
+                        closed_by: null,
+                        speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,  
+                        spec_name:  notification.payload.specialist_name
+                    })
+            }
+        )
     }, [])
 
     return (

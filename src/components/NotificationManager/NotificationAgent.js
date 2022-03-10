@@ -2,24 +2,6 @@ import React, { Component } from 'react'
 import { Notifications } from 'react-native-notifications';
 
 class NotificationAgent{
-    constructor(){
-        state = ""
-    }
-
-    static getNotification() {
-        Notifications.registerRemoteNotifications();
-
-        Notifications.events().registerRemoteNotificationsRegistered((event) => {
-            this.state = event.deviceToken
-        })
-
-        Notifications.events().registerRemoteNotificationsRegistrationFailed(event => {
-            console.error(event)
-        })
-
-        return this.state;
-    }
-
     static registerNotificationEvents(showNotify = false, onSend = function(){}) {
         Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
             console.log("FOREGRUND ", notification)
@@ -36,7 +18,12 @@ class NotificationAgent{
                 }
             }], false) : null
 
-            completion({ alert: true, sound: false, badge: false })
+            Notifications.postLocalNotification({
+                body: notification.payload.text,
+                title: notification.payload.title,
+            }, new Date().getUTCMilliseconds());
+
+            completion({ alert: true, sound: true, badge: true })
         })
 
         Notifications.events().registerNotificationReceivedBackground((notification, completion) => {
@@ -54,16 +41,7 @@ class NotificationAgent{
                 }
             }], false) : null
 
-            Notifications.postLocalNotification({
-                body: notification.payload.text,
-                title: notification.payload.title,
-            }, new Date().getUTCMilliseconds());
-
-            completion({ alert: true, sound: false, badge: false })
-        })
-
-        Notifications.events().registerNotificationOpened((notification, completion) => {
-            completion()
+            completion({ alert: true, sound: true, badge: true })
         })
     }
 

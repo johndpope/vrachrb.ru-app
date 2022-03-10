@@ -10,12 +10,12 @@ const RecoveryPasswordScreen = () => {
             width: '100%',
             justifyContent: 'flex-end',
             alignItems: 'center',
-            backgroundColor: "#F3F4F6"
+            backgroundColor: "#F3F4F6",
         }}>
             <View style={{
-                flex: 0.3,
+                flex: 0.5,
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
             }}>
                 <Image
                     style={{
