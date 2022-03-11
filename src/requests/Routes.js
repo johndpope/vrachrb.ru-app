@@ -3,7 +3,7 @@ import React  from "react";
  * Класс с Мультиплатформенными методами */
 class Routes {
 
-    // Base URLs
+    // Base URLs  http://192.168.2.33:8080/  https://vrachrb.atmadev.ru/
     static baseURL = "https://vrachrb.atmadev.ru/";
     static apiURL  = this.baseURL+"api/";
 
@@ -33,8 +33,7 @@ class Routes {
     static imageURL = this.baseURL + "u/i/";
     static uploaderAnalysisURL = this.baseURL + "uploader?key=analysis";
 
-    static agreement2URL = this.baseURL + "agreement/2/";
-    static agreement3URL = this.baseURL + "agreement/3/";
+    static reviewURL = this.baseURL + "doctor-account/history-appeal/";
 
 }
 

@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
         fontSize: MultiPlatform.AdaptivePixelsSize(17)
     },
     btnStyle: {
-        backgroundColor: 'red',
         width: '80%',
         height: MultiPlatform.AdaptivePixelsSize(60),
         backgroundColor: colors.BG_COLOR_WHITE,

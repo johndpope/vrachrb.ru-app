@@ -1,12 +1,11 @@
 import React, { Component, useEffect, useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native'
 import { colors } from '../../styles/colors';
 import { MultiPlatform } from '../MultiPlatform';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import {AppleButton} from "@invertase/react-native-apple-authentication";
-import { appleAuth } from '@invertase/react-native-apple-authentication';
-
+import {appleAuth, AppleButton, AppleError} from '@invertase/react-native-apple-authentication';
+import appleImage from '../../images/apple.png'
 
 const IOSAppleLoginButton = () => {
 
@@ -14,43 +13,90 @@ const IOSAppleLoginButton = () => {
     const navigation = useNavigation()
 
     async function onAppleButtonPress() {
-        // выполняет запрос на вход в систему
-        const appleAuthRequestResponse = await appleAuth.performRequest({
-            requestedOperation: appleAuth.Operation.LOGIN,
-            requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
-        });
+        try {
+            // выполняет запрос на вход в систему
+            const appleAuthRequestResponse = await appleAuth.performRequest({
+                requestedOperation: appleAuth.Operation.LOGIN,
+                requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+            });
+            const {
+                identityToken,
+            } = appleAuthRequestResponse;
 
-        // получить текущее состояние аутентификации для пользователя
-        const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
+            // if (identityToken) {
+            //
+            //     // send data to server for verification and sign in
+            //     const { ack, response } = await authFetch({
+            //         url: 'sign-in-with-apple',
+            //         body: {
+            //             ...appleAuthRequestResponse,
+            //             deviceId: deviceId
+            //         }
+            //     });
+            //     if (ack === 'success') {
+            //         // successfully verified, handle sign in
+            //         await handleSignIn(response);
+            //     }
+            // } else {
+            //     // no token, failed sign in
+            // }
 
-        // Проверка на подлинность аутентификации
-        if (credentialState === appleAuth.State.AUTHORIZED) {
-            // пользователь прошел проверку подлинности
-            console.log("APPLE IOS::"+appleAuthRequestResponse)
+            // получить текущее состояние аутентификации для пользователя
+            const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
+
+            // Проверка на подлинность аутентификации
+            if (credentialState === appleAuth.State.AUTHORIZED) {
+                // пользователь прошел проверку подлинности
+                console.log("APPLE IOS::" + JSON.stringify(appleAuthRequestResponse))
+            }
+
+        } catch (error) {
+            if (error.code === AppleError.CANCELED) {
+                // user cancelled Apple Sign-in
+            } else {
+                // other unknown error
+            }
         }
     }
 
     return (
-        <View style={ styles.btnStyle }>
-            <AppleButton
-                buttonStyle={AppleButton.Style.WHITE}
-                buttonType={AppleButton.Type.SIGN_IN}
-                style={styles.appleStyle}
-                onPress={() => onAppleButtonPress()}
-            />
-        </View>
+        <TouchableOpacity style={ {...styles.container, marginBottom: MultiPlatform.AdaptivePixelsSize(10)} }
+                          onPress={() => { onAppleButtonPress() }}>
+            <View style={ styles.btnStyle }>
+                <Image style={ styles.imageStyle} source={appleImage}/>
+                <Text style={ styles.textStyle }>Войти с Apple</Text>
+                {/* НИЖЕ ЗАГЛУШКА для центрирования текста */}
+                <Image style={{...styles.imageStyle, opacity: 0}} source={appleImage}/>
+            </View>
+        </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
-    btnStyle: {
+    textStyle: {
+        color: colors.BG_COLOR_WHITE,
+        fontSize: MultiPlatform.AdaptivePixelsSize(17),
+        // backgroundColor: 'red'
+    },
+    container: {
         width: '80%',
         height: MultiPlatform.AdaptivePixelsSize(60),
+        backgroundColor: colors.APPLE_AUTH_COLOR,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 16,
     },
-    appleStyle: {
-        width: '100%',
-        height: '100%',
-    }
+    btnStyle: {
+        flex: 1,
+        justifyContent: 'space-evenly', // space-evenly
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    imageStyle: {
+        width: MultiPlatform.AdaptivePixelsSize(30),
+        height: MultiPlatform.AdaptivePixelsSize(20),
+        resizeMode: 'contain',
+    },
 })
 
 export default IOSAppleLoginButton

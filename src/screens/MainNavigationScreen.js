@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainScreen from './MainScreen';
 import MessagesScreen from './MessagesScreen';
-import { Image, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import ProfileScreen from './ProfileScreen';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MultiPlatform } from '../components/MultiPlatform';
 import { useNavigation } from '@react-navigation/native';
 import Request from '../requests/Request';
@@ -69,29 +69,64 @@ const MainNavigationScreen = () => {
         NotificationAgent.registerNotificationEvents(true)
 
         Notifications.events().registerNotificationOpened((notification, completion, action) => {
-            notification.payload?.type == "message" &&
-            navigation.navigate("ChatScreen", 
-                {   
-                    id: notification.payload.chat_id, 
-                    user_id: notification.payload.user_id,
-                    closed_by: null,
-                    speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,  
-                    spec_name:  notification.payload.spec_name
-                })
+            switch(notification.payload?.type){
+                case "resume":
+                case "message":
+                    navigation.navigate("ChatScreen",
+                        {
+                            id: notification.payload.chat_id,
+                            user_id: notification.payload.user_id,
+                            closed_by: null,
+                            speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,
+                            spec_name:  notification.payload.spec_name
+                        })
+                    break;
+                case "closed":
+                    navigation.navigate("ChatScreen",
+                        {
+                            id: notification.payload.chat_id,
+                            user_id: notification.payload.user_id,
+                            closed_by: true,
+                            speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,
+                            spec_name:  notification.payload.spec_name
+                        })
+                    break;
+                case "review":
+                    Linking.openURL(Routes.reviewURL)
+                    break;
+
+            }
             completion({ alert: true, sound: true, badge: true })
         })
 
         Notifications.getInitialNotification().then(
             (notification) => {
-                notification.payload?.type == "message" &&
-                navigation.navigate("ChatScreen", 
-                    {   
-                        id: notification.payload.chat_id, 
-                        user_id: notification.payload.user_id,
-                        closed_by: null,
-                        speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,  
-                        spec_name:  notification.payload.specialist_name
-                    })
+                switch(notification.payload?.type){
+                    case "resume":
+                    case "message":
+                        navigation.navigate("ChatScreen",
+                            {
+                                id: notification.payload.chat_id,
+                                user_id: notification.payload.user_id,
+                                closed_by: null,
+                                speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,
+                                spec_name:  notification.payload.spec_name
+                            })
+                        break;
+                    case "closed":
+                        navigation.navigate("ChatScreen",
+                            {
+                                id: notification.payload.chat_id,
+                                user_id: notification.payload.user_id,
+                                closed_by: true,
+                                speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,
+                                spec_name:  notification.payload.spec_name
+                            })
+                        break;
+                    case "review":
+                        navigation.navigate("ProfileScreen",{})
+                        break;
+                }
             }
         )
     }, [])
@@ -172,7 +207,6 @@ const MainNavigationScreen = () => {
                         tabBarInactiveTintColor: "#AAB2BD",
                     }
                 }}
-                component={ MessagesScreen }
             />
             <BottomTab.Screen
                 name="ProfileScreen"

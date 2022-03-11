@@ -4,11 +4,12 @@ import VkLoginButton from './VkLoginButton'
 import MainAuthButton from './MainAuthButton'
 import SecondAuthButton from './SecondAuthButton'
 import IOSAppleLoginButton from "./IOSAppleLoginButton";
+import appleAuth from "@invertase/react-native-apple-authentication";
 
 const AuthComponent = () => {
     return (
         <View style={ styles.centerComponent }>
-            { Platform.OS === "ios" && (
+            { Platform.OS === "ios" && appleAuth.isSupported && (
                 <IOSAppleLoginButton/>
             )}
             <VkLoginButton />

@@ -58,19 +58,17 @@ const VkLoginButton = () => {
     }
 
     return (
-        <View style={ styles.btnStyle }>
+        <TouchableOpacity style={ styles.container }
+                          onPress={() => { loginWithVk() }}>
             {
                 isModalVisible && (
                     <AgreementWidget isLogin={false} vkData={vkAuthData} isVisible={isModalVisible} setVisible={setModalVisible} />
                 )
             }
-            <TouchableOpacity 
-                style={ styles.btnStyle }
-                onPress={() => { loginWithVk() }}
-            >
+            <View style={ styles.btnStyle }>
                 <Text style={ styles.textStyle }>Войти через VK</Text>
-            </TouchableOpacity>
-        </View>
+            </View>
+        </TouchableOpacity>
     )
 }
 
@@ -79,13 +77,19 @@ const styles = StyleSheet.create({
         color: colors.BG_COLOR_WHITE,
         fontSize: MultiPlatform.AdaptivePixelsSize(17)
     },
-    btnStyle: {
+    container: {
         width: '80%',
         height: MultiPlatform.AdaptivePixelsSize(60),
         backgroundColor: colors.VK_BTN_COLOR,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 16,
+    },
+    btnStyle: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
     },
 })
 
