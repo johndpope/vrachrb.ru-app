@@ -55,6 +55,37 @@ const MainNavigationScreen = () => {
         })
     }
 
+    const navigateToSrcreenType = (notification) => {
+        switch(notification.payload?.type){
+            case "resume":
+            case "message":
+                navigation.navigate("ChatScreen",
+                    {
+                        id: notification.payload.chat_id,
+                        user_id: notification.payload.user_id,
+                        closed_by: null,
+                        speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,
+                        spec_name: notification.payload.isAnonymous ? notification.payload.first_name : notification.payload.first_name + " " + notification.payload.second_name[0] + "."
+                    })
+                break;
+            case "closed":
+                navigation.navigate("ChatScreen",
+                    {
+                        id: notification.payload.chat_id,
+                        user_id: notification.payload.user_id,
+                        closed_by: true,
+                        speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,
+                        spec_name: notification.payload.isAnonymous ? notification.payload.first_name : notification.payload.first_name + " " + notification.payload.second_name[0] + "."
+                    })
+                break;
+            case "review":
+                Linking.openURL(Routes.reviewURL)
+                break;
+            default: 
+                console.log("default")
+        }
+    }
+
     useEffect(() => {
         Notifications.registerRemoteNotifications();
 
@@ -66,67 +97,17 @@ const MainNavigationScreen = () => {
             setToken(event.deviceToken)
         })
 
+        
         NotificationAgent.registerNotificationEvents(true)
 
         Notifications.events().registerNotificationOpened((notification, completion, action) => {
-            switch(notification.payload?.type){
-                case "resume":
-                case "message":
-                    navigation.navigate("ChatScreen",
-                        {
-                            id: notification.payload.chat_id,
-                            user_id: notification.payload.user_id,
-                            closed_by: null,
-                            speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,
-                            spec_name:  notification.payload.spec_name
-                        })
-                    break;
-                case "closed":
-                    navigation.navigate("ChatScreen",
-                        {
-                            id: notification.payload.chat_id,
-                            user_id: notification.payload.user_id,
-                            closed_by: true,
-                            speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,
-                            spec_name:  notification.payload.spec_name
-                        })
-                    break;
-                case "review":
-                    Linking.openURL(Routes.reviewURL)
-                    break;
-
-            }
-            completion({ alert: true, sound: true, badge: true })
+            navigateToSrcreenType(notification)
+            // completion({ alert: true, sound: true, badge: true })
         })
 
         Notifications.getInitialNotification().then(
             (notification) => {
-                switch(notification.payload?.type){
-                    case "resume":
-                    case "message":
-                        navigation.navigate("ChatScreen",
-                            {
-                                id: notification.payload.chat_id,
-                                user_id: notification.payload.user_id,
-                                closed_by: null,
-                                speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,
-                                spec_name:  notification.payload.spec_name
-                            })
-                        break;
-                    case "closed":
-                        navigation.navigate("ChatScreen",
-                            {
-                                id: notification.payload.chat_id,
-                                user_id: notification.payload.user_id,
-                                closed_by: true,
-                                speciality: isSpecialist ? "" : " (" + notification.payload.speciality + ")" ,
-                                spec_name:  notification.payload.spec_name
-                            })
-                        break;
-                    case "review":
-                        navigation.navigate("ProfileScreen",{})
-                        break;
-                }
+                navigateToSrcreenType(notification)
             }
         )
     }, [])

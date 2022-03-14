@@ -22,7 +22,7 @@ const IOSAppleLoginButton = () => {
             const {
                 identityToken,
             } = appleAuthRequestResponse;
-
+            console.log("IOS: ", JSON.stringify(appleAuthRequestResponse))
             // if (identityToken) {
             //
             //     // send data to server for verification and sign in
@@ -47,7 +47,7 @@ const IOSAppleLoginButton = () => {
             // Проверка на подлинность аутентификации
             if (credentialState === appleAuth.State.AUTHORIZED) {
                 // пользователь прошел проверку подлинности
-                console.log("APPLE IOS::" + JSON.stringify(appleAuthRequestResponse))
+                // console.log("APPLE IOS::" + JSON.stringify(appleAuthRequestResponse))
             }
 
         } catch (error) {
