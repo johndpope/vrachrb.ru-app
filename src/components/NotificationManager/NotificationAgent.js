@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import { Platform } from 'react-native';
 import { Notifications } from 'react-native-notifications';
 
 class NotificationAgent{
     static registerNotificationEvents(showNotify = true, onSend = function(){}) {
+        
+        Platform.OS == 'android' &&
         Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
             console.log("FOREGRUND ", notification)
             notification.payload?.type == "message" ? onSend([
@@ -18,7 +21,7 @@ class NotificationAgent{
                 }
             }], false) : null
 
-            // completion({ alert: true, sound: false, badge: false });
+            completion({ alert: true, sound: false, badge: false });
         })
 
         Notifications.events().registerNotificationReceivedBackground((notification, completion) => {
@@ -36,12 +39,7 @@ class NotificationAgent{
                 }
             }], false) : null
 
-            showNotify && Notifications.postLocalNotification({
-                body: notification.payload.message,
-                title: notification.payload.title,
-            }, new Date().getUTCMilliseconds());
-
-            completion({ alert: false, sound: false, badge: false })
+            // completion({ alert: false, sound: false, badge: false })
         })
     }
 
