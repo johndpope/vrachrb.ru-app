@@ -1,4 +1,3 @@
-import { AppState } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { TouchableOpacity, ActivityIndicator, StyleSheet, View, Text, Image } from 'react-native';

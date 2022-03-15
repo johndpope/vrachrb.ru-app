@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect} from 'react';
+import React from 'react';
 import { StatusBar, StyleSheet, Image, View } from 'react-native';
 import AuthComponent from '../components/AuthComponent/AuthComponent';
 import { MultiPlatform } from '../components/MultiPlatform';

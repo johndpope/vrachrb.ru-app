@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthScreen from './src/screens/AuthScreen';
 import MailLoginScreen from './src/screens/MailLoginScreen';
 import StartScreen from './src/screens/AnamnezScreens/StartScreen';
-import TestScreen from './src/screens/TestScreen';
 import ModalScreen from './src/screens/ModalScreen';
 import QuestionsScreen from './src/screens/AnamnezScreens/QuestionsScreen';
 import SplashScreen from './src/screens/SplashScreen';
@@ -22,7 +21,6 @@ import {saveUserData} from "./src/store/reducers/LoginSlice";
 import { OverflowMenuProvider } from 'react-navigation-header-buttons';
 import { MultiPlatform } from './src/components/MultiPlatform';
 import OutpatientCardScreen from './src/screens/AnamnezScreens/OutpatientCardScreen'
-import NotificationAgent from './src/components/NotificationManager/NotificationAgent';
 
 const Stack = createNativeStackNavigator();
 

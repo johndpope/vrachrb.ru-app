@@ -1,5 +1,5 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {ActivityIndicator, FlatList, Linking, StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, Linking, StyleSheet, Text, View } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { MultiPlatform } from '../MultiPlatform';
 import { useSelector } from "react-redux";

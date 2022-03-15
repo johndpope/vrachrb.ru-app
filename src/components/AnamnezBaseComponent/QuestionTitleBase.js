@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { MultiPlatform } from '../MultiPlatform';
 
 const QuestionTitleBase = ({ question, additionalField = "" }) => {

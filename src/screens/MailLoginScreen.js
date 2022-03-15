@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Image, KeyboardAvoidingView } from 'react-native'
 import LoginFormComponent from '../components/LoginComponent/LoginFormComponent'
 import { MultiPlatform } from '../components/MultiPlatform'

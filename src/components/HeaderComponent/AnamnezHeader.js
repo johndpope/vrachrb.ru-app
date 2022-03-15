@@ -1,9 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import BackButton from './BackButton';
-import { useDispatch } from 'react-redux'
-import { addAnamnezAnswer, resetAllValues, showRequiredFields } from '../../store/reducers/AnamnezSlice';
 
 const AnamnezHeader = ({ page }) => {
 

@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import backButtonImage from '../../images/back.png'
-import { RFValue } from 'react-native-responsive-fontsize';
 import { MultiPlatform } from '../MultiPlatform';
 
 const BackButton = () => {

@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, Text, Linking, StyleSheet, Dimensions } from 'react-native'
-import { RFValue } from 'react-native-responsive-fontsize';
+import { View, Text, Linking, StyleSheet } from 'react-native'
 import { MultiPlatform } from '../MultiPlatform';
 import Routes from "../../requests/Routes";
 

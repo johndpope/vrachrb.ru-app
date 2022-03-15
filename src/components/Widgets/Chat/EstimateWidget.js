@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React from 'react'
 import { MultiPlatform } from '../../MultiPlatform';
 import { KeyboardAvoidingView, View } from 'react-native';
 import QuestionTitleBase from '../../AnamnezBaseComponent/QuestionTitleBase';

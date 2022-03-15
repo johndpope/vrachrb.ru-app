@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Modal from "react-native-modal";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Request from '../../../requests/Request';
 import Routes from '../../../requests/Routes';
 import Storage from '../../../storage/Storage';

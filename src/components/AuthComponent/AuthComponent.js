@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import VkLoginButton from './VkLoginButton'
 import MainAuthButton from './MainAuthButton'

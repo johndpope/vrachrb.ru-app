@@ -1,8 +1,6 @@
 import React from 'react'
-import { Text, StyleSheet, TouchableOpacity, ActivityIndicator, Dimensions } from 'react-native'
-import { RFValue } from 'react-native-responsive-fontsize'
+import { Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { MultiPlatform } from '../MultiPlatform'
-import {colors} from "../../styles/colors";
 
 const BaseSendButton = ({ checkFields, onPress, text, loading }) => {
 

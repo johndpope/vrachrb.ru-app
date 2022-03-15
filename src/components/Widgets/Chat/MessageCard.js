@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import { MultiPlatform } from '../../MultiPlatform';
 import Routes from "../../../requests/Routes";

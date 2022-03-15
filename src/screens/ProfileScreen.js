@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, Image, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useDispatch, useSelector} from 'react-redux';
 import ProfileDataItem from '../components/Widgets/Profile/ProfileDataItem';

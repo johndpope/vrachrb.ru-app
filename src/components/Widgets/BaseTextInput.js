@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, StyleSheet, TextInput } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { useDispatch, useSelector } from 'react-redux';
+import { StyleSheet, TextInput } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { setQuestionBody, setUAKey } from '../../store/reducers/AnamnezSlice';
 import { MultiPlatform } from '../MultiPlatform';
 

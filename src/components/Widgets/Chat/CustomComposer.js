@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { MultiPlatform } from '../../MultiPlatform'
 import Modal from "react-native-modal";

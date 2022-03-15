@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { MultiPlatform } from '../../MultiPlatform'

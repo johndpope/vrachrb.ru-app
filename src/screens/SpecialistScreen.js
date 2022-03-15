@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, ActivityIndicator, RefreshControl, FlatList } from 'react-native';
 import SpecialistCardWidget from '../components/Widgets/Specialist/SpecialistCardWidget';
 import Request from '../requests/Request'

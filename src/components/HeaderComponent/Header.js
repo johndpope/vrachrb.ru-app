@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import Request from '../../requests/Request'
 import Routes from "../../requests/Routes";

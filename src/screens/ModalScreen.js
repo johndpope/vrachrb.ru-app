@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { useDispatch } from 'react-redux';
 import { MultiPlatform } from '../components/MultiPlatform';
 import {selectSpecialistID, selectSpecialtyID} from '../store/reducers/AnamnezSlice';

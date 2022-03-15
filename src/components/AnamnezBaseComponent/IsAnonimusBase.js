@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Linking, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View} from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { MultiPlatform } from '../MultiPlatform';
 import {useDispatch} from "react-redux";

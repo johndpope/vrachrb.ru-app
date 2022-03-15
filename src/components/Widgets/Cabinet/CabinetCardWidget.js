@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import {useDispatch} from "react-redux";
 import {setSpecialistData, setSpecialistRoute} from "../../../store/reducers/SpecSlice";

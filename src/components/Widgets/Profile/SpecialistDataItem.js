@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { MultiPlatform } from '../../MultiPlatform'
 

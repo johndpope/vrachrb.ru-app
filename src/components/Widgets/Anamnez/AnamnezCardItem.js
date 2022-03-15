@@ -1,5 +1,5 @@
-import React, { Component, useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import ImageView from "react-native-image-viewing";
 import { MultiPlatform } from '../../MultiPlatform';
 import Routes from "../../../requests/Routes";

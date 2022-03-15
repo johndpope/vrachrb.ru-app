@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, FlatList, Image, Platform} from 'react-native';
-import DocumentPicker from 'react-native-document-picker'
 import uuid from 'react-native-uuid';
 import { addAnamnezPhoto } from "../../store/reducers/AnamnezSlice";
 import { MultiPlatform } from "../MultiPlatform";
 import { useDispatch, useSelector } from "react-redux";
-import * as Dockpic from "react-native-document-picker";
-import {perPlatformTypes} from "react-native-document-picker/lib/typescript/fileTypes";
 import CameraPicker from "react-native-image-crop-picker";
 
 const UploadFileBase = ({ component, index, data }) => {

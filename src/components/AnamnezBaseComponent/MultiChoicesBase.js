@@ -1,9 +1,7 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { addAnamnezAnswer, numOfRequiredFields } from '../../store/reducers/AnamnezSlice';
-import AnamnezSlice from '../../store/reducers/AnamnezSlice';
-import { RFValue } from 'react-native-responsive-fontsize';
+import { addAnamnezAnswer } from '../../store/reducers/AnamnezSlice';
 import { MultiPlatform } from '../MultiPlatform';
 
 

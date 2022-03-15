@@ -1,8 +1,7 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { addAnamnezAnswer, numOfRequiredFields } from '../../store/reducers/AnamnezSlice';
-import AnamnezSlice from '../../store/reducers/AnamnezSlice';
+import { addAnamnezAnswer } from '../../store/reducers/AnamnezSlice';
 import { addBodyText } from '../../store/reducers/EstimateSlice';
 
 

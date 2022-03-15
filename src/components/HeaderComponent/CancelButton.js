@@ -1,9 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { useDispatch } from 'react-redux';
-import { resetAllValues } from '../../store/reducers/AnamnezSlice';
 import { MultiPlatform } from '../MultiPlatform';
 
 const CancelButton = () => {

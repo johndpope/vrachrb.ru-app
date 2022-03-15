@@ -2,8 +2,6 @@ import React, { Component, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addAnamnezAnswer } from '../../store/reducers/AnamnezSlice';
-import AnamnezSlice from '../../store/reducers/AnamnezSlice';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { MultiPlatform } from '../MultiPlatform';
 
 const colors = {

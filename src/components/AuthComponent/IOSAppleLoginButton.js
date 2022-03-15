@@ -1,10 +1,10 @@
-import React, { Component, useEffect, useState } from 'react'
+import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native'
 import { colors } from '../../styles/colors';
 import { MultiPlatform } from '../MultiPlatform';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import {appleAuth, AppleButton, AppleError} from '@invertase/react-native-apple-authentication';
+import {appleAuth, AppleError} from '@invertase/react-native-apple-authentication';
 import appleImage from '../../images/apple.png'
 
 const IOSAppleLoginButton = () => {

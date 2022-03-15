@@ -1,8 +1,7 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, View, Text } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { useDispatch, useSelector } from 'react-redux';
-import { addAnamnezAnswer, numOfRequiredFields } from '../../store/reducers/AnamnezSlice';
+import { addAnamnezAnswer } from '../../store/reducers/AnamnezSlice';
 import { MultiPlatform } from '../MultiPlatform';
 
 const SingleTextBase = ({ addText = "", isRequired, data, index }) => {

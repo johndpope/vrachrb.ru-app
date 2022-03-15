@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Text, ScrollView, KeyboardAvoidingView } from 'react-native'
+import { View, StyleSheet, Text, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { saveUserData } from '../../store/reducers/LoginSlice';

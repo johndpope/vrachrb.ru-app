@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import VKLogin from 'react-native-vkontakte-login';
 import { colors } from '../../styles/colors';

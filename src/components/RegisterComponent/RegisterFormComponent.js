@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import { View, StyleSheet, Text, Platform } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet, Text } from 'react-native'
 import SecondAuthButton from '../AuthComponent/SecondAuthButton';
 import Request from '../../requests/Request';
 import { useNavigation } from '@react-navigation/native';

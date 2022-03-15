@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import CabinetScreen from './CabinetScreen';
 import SpecialistScreen from './SpecialistScreen';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { MultiPlatform } from '../components/MultiPlatform';
 
 const Tab = createMaterialTopTabNavigator();

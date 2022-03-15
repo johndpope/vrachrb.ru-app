@@ -1,5 +1,4 @@
-import { set } from 'immer/dist/internal'
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import { Image, TouchableOpacity, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { addCourtesy, addInformative } from '../../store/reducers/EstimateSlice'

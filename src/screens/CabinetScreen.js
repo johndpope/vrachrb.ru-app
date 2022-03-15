@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, ActivityIndicator, RefreshControl, FlatList, Platform } from 'react-native';
 import BaseSearchComponent from '../components/HeaderComponent/BaseSearchComponent';
