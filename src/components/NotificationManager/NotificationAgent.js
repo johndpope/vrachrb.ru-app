@@ -17,7 +17,7 @@ class NotificationAgent{
                     image: notification.payload?.image ? notification.payload?.image.split(';') : null,
                     user: {
                         _id: notification.payload.user_id,
-                        name: notification.payload.isSpecialist == "true" ? 'Доктор' : "Пользователь"
+                        name: (notification.payload.isSpecialist == "true" || notification.payload.isSpecialist == 1) ? 'Доктор' : "Пользователь"
                 }
             }], false) : null
 
@@ -35,7 +35,7 @@ class NotificationAgent{
                     image: notification.payload?.image ? notification.payload?.image.split(';') : null,
                     user: {
                         _id: notification.payload.user_id,
-                        name: notification.payload.isSpecialist == "true" ? 'Доктор' : "Пользователь"
+                        name: (notification.payload.isSpecialist == "true" || notification.payload.isSpecialist == 1) ? 'Доктор' : "Пользователь"
                 }
             }], false) : null
 

@@ -2,19 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainScreen from './MainScreen';
 import MessagesScreen from './MessagesScreen';
-import { Image, Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import ProfileScreen from './ProfileScreen';
 import { useDispatch, useSelector } from "react-redux";
 import { MultiPlatform } from '../components/MultiPlatform';
 import { useNavigation } from '@react-navigation/native';
 import Request from '../requests/Request';
-import { resetUserData, setAgreements } from '../store/reducers/LoginSlice';
+import { resetUserData, saveDeviceToken, setAgreements } from '../store/reducers/LoginSlice';
 import Storage from '../storage/Storage';
 import Routes from "../requests/Routes";
 import { Notifications } from 'react-native-notifications';
-import NotificationAgent from '../components/NotificationManager/NotificationAgent';
+import LoginSlice from '../store/reducers/LoginSlice';
 
 const BottomTab = createBottomTabNavigator()
+
+global.deviceToken = ""
+global.countSended = 0
 
 const MainNavigationScreen = () => {
 
@@ -22,16 +25,17 @@ const MainNavigationScreen = () => {
     const userData = useSelector(state => state.LoginSlice.userData)
 
     const dispatch = useDispatch();
-
     const navigation = useNavigation()
 
-    const [token, setToken] = useState()
-
     const logOut = async () => {
-        Request.get(Routes.signOutURL, {token: token}).then((response) => {
+        Request.get(Routes.signOutURL, {}).then((response) => {
             response["response"] && Request.get(Routes.getAgreementsURL, {})
             .then(result => {
                 dispatch(setAgreements(result["response"])),
+                Request.post(Routes.SaveDeviceToken, {
+                    token: global.deviceToken,
+                    type: Platform.OS == 'ios' ? 1 : 2
+                }),
                 dispatch(resetUserData()),
                 navigation.reset({
                     index: 0,
@@ -86,23 +90,21 @@ const MainNavigationScreen = () => {
         }
     }
 
-    useEffect(() => {
-        Notifications.registerRemoteNotifications();
+    useEffect(() => { 
+        Notifications.registerRemoteNotifications();  
 
+        global.countSended == 0 &&
         Notifications.events().registerRemoteNotificationsRegistered((event) => {
+            global.deviceToken = event.deviceToken
             Request.post(Routes.SaveDeviceToken, {
                 token: event.deviceToken,
                 type: Platform.OS == 'ios' ? 1 : 2
             })
-            setToken(event.deviceToken)
+            global.countSended += 1
         })
-
         
-        NotificationAgent.registerNotificationEvents(true)
-
         Notifications.events().registerNotificationOpened((notification, completion, action) => {
             navigateToSrcreenType(notification)
-            // completion({ alert: true, sound: true, badge: true })
         })
 
         Notifications.getInitialNotification().then(

@@ -21,15 +21,42 @@ import {saveUserData} from "./src/store/reducers/LoginSlice";
 import { OverflowMenuProvider } from 'react-navigation-header-buttons';
 import { MultiPlatform } from './src/components/MultiPlatform';
 import OutpatientCardScreen from './src/screens/AnamnezScreens/OutpatientCardScreen'
+import { Notifications } from 'react-native-notifications';
+import Routes from './src/requests/Routes';
+import Request from './src/requests/Request';
+import NotificationAgent from './src/components/NotificationManager/NotificationAgent';
+import { Platform } from 'react-native';
 
 const Stack = createNativeStackNavigator();
+
+global.count = 0
 
 const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        Notifications.registerRemoteNotifications();
+
+        let remoteNotify = Notifications.events().registerRemoteNotificationsRegistered((event) => {
+            if (global.count == 0){
+                Request.post(Routes.SaveDeviceToken, {
+                    token: event.deviceToken,
+                    type: Platform.OS == 'ios' ? 1 : 2
+                })
+                global.count += 1
+            } 
+        })
+
+        setTimeout(() => {
+            Platform.OS == 'android' && remoteNotify.remove()
+        }, 1) 
+
+        NotificationAgent.registerNotificationEvents(true)
+
         Storage.get("userData")
             .then((data) => dispatch(saveUserData(data)))
+
+        global.count = 0
     },[])
 
     return (

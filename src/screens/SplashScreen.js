@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { Component, useLayoutEffect } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import React, { useLayoutEffect } from 'react';
+import { Image, Platform, StyleSheet, View } from 'react-native';
 import Routes from '../requests/Routes';
 import Request from '../requests/Request';
 import { useDispatch } from "react-redux";
@@ -16,7 +16,6 @@ const SplashScreen = () => {
       let data = await Request.post(Routes.isAuthURL, {})
 
       if(data['response'] && data['response'] == true) {
-          // console.log("AUTH::"+JSON.stringify(data))
           dispatch(saveUserData(data['userData']))
           await Storage.save("userData", data["userData"])
           navigation.reset({
@@ -34,9 +33,9 @@ const SplashScreen = () => {
               })
       }
     }
-  
+
     useLayoutEffect(() => {
-      isAuth()
+        isAuth()
     }, [])
 
     return (
