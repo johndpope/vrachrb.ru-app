@@ -15,28 +15,23 @@ import Storage from "../../storage/Storage";
 import Routes from "../../requests/Routes";
 import { ScrollView } from 'react-native-gesture-handler'
 
-const RegisterFormComponent = () => {
+const AppleFormComponent = ({ email, username }) => {
 
     const navigation = useNavigation()
     const dispatch = useDispatch()
 
     const [name, setName]            = useState("")
     const [familia, setFamilia]      = useState("")
-    const [last_name, setLast_name]  = useState("")
     const [gender, setGender]        = useState("м")
     const [birth_date, setBirth_date]= useState()
-    const [phone, setPhone]          = useState("")
-    const [email, setEmail]          = useState("")
-    const [password, setPassword]    = useState("")
-    const [password2, setPassword2]  = useState("")
 
     const [agreementAccepted, setAgreementAccepted] = useState(false)
 
     const [response, setResponse]    = useState("")
     const [loading, setLoading] = useState(false)
 
-    const register = async () => {
-        if(!validateEmailPhonePass(email,phone)){
+    const SignApple = async () => {
+        if(!validateBirth()){
             return
         }
         setLoading(true)
@@ -44,31 +39,28 @@ const RegisterFormComponent = () => {
         let data = {
             name:       name,
             familia:    familia,
-            last_name:  last_name,
             gender:     gender,
             birth_date: dateBirth,
-            phone:      phone,
-            email:      email,
-            password:   password,
+            email: email,
+            username: username,
         }
-        let request = await Request.post(Routes.registerURL, data);
-
+        let request = await Request.post(Routes.signWithApple, data);
         setResponse(request)
 
-        let newUser = {
-            auth: true,
-            isSpecialist: false,
-            first_name: name,
-            second_name: familia,
-            middle_name: last_name,
-            username: email,
-            gender: gender,
-            birth_date: dateBirth + " .",
-            email: email,
-            phone: phone,
-            photo: ""
-        }
-        if(request['response']){
+        if(request?.userData){
+            let newUser = {
+                auth: true,
+                isSpecialist: false,
+                first_name: name,
+                second_name: familia,
+                middle_name: "",
+                username: name + " " + familia,
+                gender: gender,
+                birth_date: dateBirth + " .",
+                email: email,
+                phone: request?.userData?.phone,
+                photo: request?.userData?.photo
+            }
             dispatch(saveUserData(newUser))
             await Storage.save("userData", newUser)
             navigation.reset({
@@ -80,32 +72,16 @@ const RegisterFormComponent = () => {
     }
 
     const checkFilledField = () => {
-        if (name && familia && last_name && gender && birth_date && phone && email && password && password2 && agreementAccepted){
+        if (name && familia && gender && birth_date && agreementAccepted){
             return true
         } else {
             return false
         }
     }
-
-    function validateEmailPhonePass(email,phone) {
-        let regMail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,10})$/;
-        let regPhone = /^\d[\d\(\)\ -]{4,14}\d$/;
-
+    function validateBirth() {
         let curDate = new Date()
         if(curDate < birth_date) {
             MultiPlatform.ToastShow("Выбранная дата больше нынешней")
-            return false;
-        }
-        if(!regMail.test(email)) {
-            MultiPlatform.ToastShow('Введите корректный email')
-            return false;
-        }
-        if(!regPhone.test(phone)) {
-            MultiPlatform.ToastShow('Введите корректный номер телефона')
-            return false;
-        }
-        if(password !== password2){
-            MultiPlatform.ToastShow('Пароли не совпадают')
             return false;
         }
         return true
@@ -113,6 +89,7 @@ const RegisterFormComponent = () => {
 
     return (
         <View style={styles.mainBlock}>
+            <Text style={styles.textStyle}>Пожалуйста, заполните оставшиеся данные</Text>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={{ flex: 1, width: '100%', paddingLeft: MultiPlatform.AdaptivePixelsSize(15), paddingRight: MultiPlatform.AdaptivePixelsSize(15), }}
@@ -121,12 +98,7 @@ const RegisterFormComponent = () => {
                 <View>
                     <BaseTextInput response={response} hint={"Имя"} setValue={setName}/>
                     <BaseTextInput response={response} hint={"Фамилия"} setValue={setFamilia}/>
-                    <BaseTextInput response={response} hint={"Отчество"} setValue={setLast_name}/>
-                    <BaseTextInput response={response} hint={"Номер телефона"} setValue={setPhone}/>
-                    <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
-                    <BaseTextInput response={response} hint={"Пароль"} setValue={setPassword} pass={true}/>
-                    <BaseTextInput response={response} hint={"Повторите пароль"} setValue={setPassword2} pass={true}/>
-                    <Picker 
+                    <Picker
                         dropdownIconColor={'black'}
                         style={styles.pickerStyle}
                         selectedValue={gender}
@@ -143,10 +115,9 @@ const RegisterFormComponent = () => {
                 </View>
                 <View style={ styles.btnBottom }>
                     { response['error'] &&
-                        <Text style={{ color: "#F27C83", fontSize: MultiPlatform.AdaptivePixelsSize(15), paddingBottom: 10}}>{response['error']}</Text>
+                    <Text style={{ color: "#F27C83", fontSize: MultiPlatform.AdaptivePixelsSize(15), paddingBottom: 10}}>{response['error']}</Text>
                     }
-                    <BaseSendButton text={"Зарегистрироваться"} checkFields={checkFilledField} onPress={register} loading={loading}/>
-                    <SecondAuthButton text={"Авторизоваться"} nav={"MailLoginScreen"} />
+                    <BaseSendButton text={"Авторизоваться"} checkFields={checkFilledField} onPress={SignApple} loading={loading}/>
                     <SecondAuthButton text={"Вернуться"} nav={"AuthScreen"} />
                 </View>
             </ScrollView>
@@ -167,16 +138,8 @@ const styles = StyleSheet.create({
     },
     pickerStyle :{
         color: "black",
-        marginTop: 10,
-        marginBottom: 10,
-    },
-    textInputStyle: {
-        borderBottomWidth: 2,
-        width: MultiPlatform.AdaptivePixelsSize(350),
-        marginTop: 5,
-        fontSize: MultiPlatform.AdaptivePixelsSize(17),
-        borderRadius: 1,
-        color: '#434A53'
+        marginTop: MultiPlatform.AdaptivePixelsSize(-10),
+        marginBottom: MultiPlatform.AdaptivePixelsSize(-30),
     },
     btnBottom: {
         justifyContent: 'center',
@@ -185,7 +148,8 @@ const styles = StyleSheet.create({
         marginTop: 30
     },
     textStyle: {
-        color: '#FFFFFF',
+        marginTop: MultiPlatform.AdaptivePixelsSize(15),
+        color: '#000',
         fontSize: MultiPlatform.AdaptivePixelsSize(17)
     },
     btnStyle: {
@@ -197,4 +161,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default RegisterFormComponent
+export default AppleFormComponent

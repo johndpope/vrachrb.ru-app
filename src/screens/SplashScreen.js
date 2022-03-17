@@ -26,6 +26,7 @@ const SplashScreen = () => {
           Request.get(Routes.getAgreementsURL, {})
               .then(result => {
                   dispatch(setAgreements(result["response"]))
+                  // console.log("AGREEMENTS"+ JSON.stringify(result))
                   navigation.reset({
                       index: 0,
                       routes: [{name: 'AuthScreen'}],

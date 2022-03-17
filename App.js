@@ -2,6 +2,16 @@ import React, {useEffect} from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useDispatch } from "react-redux";
+import { saveUserData } from "./src/store/reducers/LoginSlice";
+import { OverflowMenuProvider } from 'react-navigation-header-buttons';
+import { MultiPlatform } from './src/components/MultiPlatform';
+import { Notifications } from 'react-native-notifications';
+import { Platform } from 'react-native';
+import Storage from "./src/storage/Storage";
+import Routes from './src/requests/Routes';
+import Request from './src/requests/Request';
+import NotificationAgent from './src/components/NotificationManager/NotificationAgent';
 import AuthScreen from './src/screens/AuthScreen';
 import MailLoginScreen from './src/screens/MailLoginScreen';
 import StartScreen from './src/screens/AnamnezScreens/StartScreen';
@@ -15,17 +25,8 @@ import MainNavigationScreen from './src/screens/MainNavigationScreen';
 import RegisterScreen from "./src/screens/RegisterScreen";
 import RecoveryPasswordScreen from "./src/screens/RecoveryPasswordScreen";
 import DisplayAnamnezScreen from './src/screens/AnamnezScreens/DisplayAnamnezScreen';
-import Storage from "./src/storage/Storage";
-import {useDispatch} from "react-redux";
-import {saveUserData} from "./src/store/reducers/LoginSlice";
-import { OverflowMenuProvider } from 'react-navigation-header-buttons';
-import { MultiPlatform } from './src/components/MultiPlatform';
 import OutpatientCardScreen from './src/screens/AnamnezScreens/OutpatientCardScreen'
-import { Notifications } from 'react-native-notifications';
-import Routes from './src/requests/Routes';
-import Request from './src/requests/Request';
-import NotificationAgent from './src/components/NotificationManager/NotificationAgent';
-import { Platform } from 'react-native';
+import NextAppleAuth from "./src/screens/NextAppleAuth";
 
 const Stack = createNativeStackNavigator();
 
@@ -87,6 +88,11 @@ const App = () => {
                         name="MailLoginScreen"
                         options={{headerShown: false}}
                         component={MailLoginScreen}
+                    />
+                    <Stack.Screen
+                        name={"NextAppleAuth"}
+                        options={{headerShown: false}}
+                        component={NextAppleAuth}
                     />
                     <Stack.Screen
                         name={"MainNavigationScreen"}

@@ -4,7 +4,7 @@ import React  from "react";
 class Routes {
 
     // Base URLs  http://192.168.2.33:8080/  https://vrachrb.atmadev.ru/
-    static baseURL = "https://vrachrb.atmadev.ru/";
+    static baseURL = "http://192.168.2.33:8080/";
     static apiURL  = this.baseURL+"api/";
 
     // Routes
@@ -28,7 +28,8 @@ class Routes {
     static closeQuestionURL              = this.apiURL + "Close_question";
     static addReviewURL                  = this.apiURL + "Add_review";
     static SaveDeviceToken               = this.apiURL + "SaveDeviceToken"
-    static signInVK                  = this.apiURL + "Sign_vk";
+    static signInVK                      = this.apiURL + "Sign_vk";
+    static signWithApple                 = this.apiURL + "Sign_apple";
 
     static imageURL = this.baseURL + "u/i/";
     static uploaderAnalysisURL = this.baseURL + "uploader?key=analysis";

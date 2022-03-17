@@ -4,13 +4,28 @@ import { colors } from '../../styles/colors';
 import { MultiPlatform } from '../MultiPlatform';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import {appleAuth, AppleError} from '@invertase/react-native-apple-authentication';
+import { appleAuth, AppleError } from '@invertase/react-native-apple-authentication';
+import {decode, encode} from 'base-64'
 import appleImage from '../../images/apple.png'
+import Request from "../../requests/Request";
+import Routes from "../../requests/Routes";
+import {saveUserData} from "../../store/reducers/LoginSlice";
+import Storage from "../../storage/Storage";
 
 const IOSAppleLoginButton = () => {
 
     const dispatch = useDispatch()
     const navigation = useNavigation()
+
+    function parseJwt (token) {
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        let jsonPayload = decodeURIComponent(decode(base64).toString().split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    }
 
     async function onAppleButtonPress() {
         try {
@@ -22,24 +37,16 @@ const IOSAppleLoginButton = () => {
             const {
                 identityToken,
             } = appleAuthRequestResponse;
-            console.log("IOS: ", JSON.stringify(appleAuthRequestResponse))
-            // if (identityToken) {
-            //
-            //     // send data to server for verification and sign in
-            //     const { ack, response } = await authFetch({
-            //         url: 'sign-in-with-apple',
-            //         body: {
-            //             ...appleAuthRequestResponse,
-            //             deviceId: deviceId
-            //         }
-            //     });
-            //     if (ack === 'success') {
-            //         // successfully verified, handle sign in
-            //         await handleSignIn(response);
-            //     }
-            // } else {
-            //     // no token, failed sign in
-            // }
+            let jwt
+            if (identityToken) {
+                jwt = parseJwt(identityToken)
+                console.log("IOS::"+JSON.stringify(appleAuthRequestResponse))
+                console.log("PARSE TOKEN1::"+JSON.stringify(jwt))
+
+            } else {
+                // no token, failed sign in
+                return MultiPlatform.ToastShow("Попытка авторизации безуспешна")
+            }
 
             // получить текущее состояние аутентификации для пользователя
             const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
@@ -47,15 +54,48 @@ const IOSAppleLoginButton = () => {
             // Проверка на подлинность аутентификации
             if (credentialState === appleAuth.State.AUTHORIZED) {
                 // пользователь прошел проверку подлинности
-                // console.log("APPLE IOS::" + JSON.stringify(appleAuthRequestResponse))
+                let response = await Request.post(Routes.signWithApple, {
+                        username : jwt?.sub
+                    });
+                // console.log("signWithApple" + JSON.stringify(response))
+                if(response?.next){
+                    navigation.navigate("NextAppleAuth", {
+                            email: jwt?.email,
+                            username: jwt?.sub
+                        })
+                } else if(response?.userData) {
+                    let user = response.userData;
+                    let newUser = {
+                        auth: user?.auth,
+                        isSpecialist: user?.isSpecialist,
+                        first_name: user?.first_name,
+                        second_name: user?.second_name,
+                        middle_name: user?.middle_name,
+                        username: user?.first_name + " " + user?.second_name,
+                        gender: user?.gender,
+                        birth_date: user?.birth_date + " .",
+                        email: user?.email,
+                        phone: user?.phone,
+                        photo: user?.photo
+                    }
+                    dispatch(saveUserData(newUser))
+                    await Storage.save("userData", newUser)
+                    navigation.reset({
+                        index: 0,
+                        routes: [{name: 'MainNavigationScreen'}],
+                    })
+                } else {
+                    return MultiPlatform.ToastShow("Неизвестная ошибка")
+                }
             }
-
         } catch (error) {
-            if (error.code === AppleError.CANCELED) {
-                // user cancelled Apple Sign-in
-            } else {
-                // other unknown error
-            }
+            // if (error.code === AppleError.CANCELED) {
+            //     // user cancelled Apple Sign-in
+            //     return MultiPlatform.ToastShow("Отмена авторизации по Apple ID")
+            // } else {
+            //     return MultiPlatform.ToastShow("Что-то пошло не так")
+            // }
+            return MultiPlatform.ToastShow(error.message)
         }
     }
 
