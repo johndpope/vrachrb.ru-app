@@ -2,7 +2,7 @@ import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import CabinetScreen from './CabinetScreen';
 import SpecialistScreen from './SpecialistScreen';
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard';
 import { MultiPlatform } from '../components/MultiPlatform';
 

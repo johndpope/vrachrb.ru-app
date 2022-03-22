@@ -14,7 +14,7 @@ import {MultiPlatform} from "../MultiPlatform";
 import Storage from "../../storage/Storage";
 import Routes from "../../requests/Routes";
 import { ScrollView } from 'react-native-gesture-handler'
-import BackButton from '../HeaderComponent/BackButton';
+import BaseSelectGender from "../AuthComponent/BaseSelectGender";
 
 const RegisterFormComponent = () => {
 
@@ -24,7 +24,7 @@ const RegisterFormComponent = () => {
     const [name, setName]            = useState("")
     const [familia, setFamilia]      = useState("")
     const [last_name, setLast_name]  = useState("")
-    const [gender, setGender]        = useState("м")
+    const [gender, setGender]        = useState("ж")
     const [birth_date, setBirth_date]= useState()
     const [phone, setPhone]          = useState("")
     const [email, setEmail]          = useState("")
@@ -127,17 +127,8 @@ const RegisterFormComponent = () => {
                     <BaseTextInput response={response} hint={"Электронная почта"} setValue={setEmail}/>
                     <BaseTextInput response={response} hint={"Пароль"} setValue={setPassword} pass={true}/>
                     <BaseTextInput response={response} hint={"Повторите пароль"} setValue={setPassword2} pass={true}/>
-                    <Picker 
-                        dropdownIconColor={'black'}
-                        style={styles.pickerStyle}
-                        selectedValue={gender}
-                        onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
-
-                    >
-                        <Picker.Item label="Мужчина" value="м" />
-                        <Picker.Item label="Женщина" value="ж" />
-                    </Picker>
-                    <BaseDateTimePicker text={"Дата рождения"} setValue={setBirth_date}/>
+                    <BaseDateTimePicker hint={"Дата рождения"} response={response} setValue={setBirth_date}/>
+                    <BaseSelectGender response={response} setValue={setGender} />
                 </View>
                 <View style={{ marginTop: 20 }}>
                     <AgreementComponent setValue={setAgreementAccepted}/>

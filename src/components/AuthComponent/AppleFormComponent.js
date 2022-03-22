@@ -1,35 +1,35 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import SecondAuthButton from '../AuthComponent/SecondAuthButton';
 import Request from '../../requests/Request';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { saveUserData } from '../../store/reducers/LoginSlice';
-import BaseTextInput from "../AuthComponent/BaseTextInput";
 import BaseSendButton from "../AuthComponent/BaseSendButton";
 import AgreementComponent from "../AuthComponent/AgreementComponent";
-import {Picker} from '@react-native-picker/picker';
 import BaseDateTimePicker from "../AuthComponent/BaseDateTimePicker";
 import {MultiPlatform} from "../MultiPlatform";
 import Storage from "../../storage/Storage";
 import Routes from "../../requests/Routes";
 import { ScrollView } from 'react-native-gesture-handler'
-import BackButton from '../HeaderComponent/BackButton';
+import BaseSelectGender from "./BaseSelectGender";
 
 const AppleFormComponent = ({ email, username }) => {
 
     const navigation = useNavigation()
     const dispatch = useDispatch()
 
-    const [name, setName]            = useState("")
-    const [familia, setFamilia]      = useState("")
-    const [gender, setGender]        = useState("м")
+    const [gender, setGender]        = useState("ж")
     const [birth_date, setBirth_date]= useState()
 
     const [agreementAccepted, setAgreementAccepted] = useState(false)
 
-    const [response, setResponse]    = useState("")
-    const [loading, setLoading] = useState(false)
+    const [response, setResponse] = useState("")
+    const [loading, setLoading]   = useState(false)
+
+    useEffect(() => {
+        console.log(gender === "м" ? "Мужчина" : "Женщина")
+    },[gender])
 
     const SignApple = async () => {
         if(!validateBirth()){
@@ -37,9 +37,11 @@ const AppleFormComponent = ({ email, username }) => {
         }
         setLoading(true)
         let dateBirth = birth_date.getUTCFullYear()+"."+(birth_date.getUTCMonth()+1)+"."+birth_date.getUTCDate()
+        let fullname = await Storage.get("AppleID-fullname")
         let data = {
-            name:       name,
-            familia:    familia,
+            name:       fullname?.givenName,
+            familia:    fullname?.familyName,
+            last_name:  fullname?.middleName,
             gender:     gender,
             birth_date: dateBirth,
             email: email,
@@ -52,10 +54,10 @@ const AppleFormComponent = ({ email, username }) => {
             let newUser = {
                 auth: true,
                 isSpecialist: false,
-                first_name: name,
-                second_name: familia,
+                first_name: fullname?.givenName,
+                second_name: fullname?.familyName,
                 middle_name: "",
-                username: name + " " + familia,
+                username: fullname?.givenName + " " + fullname?.familyName,
                 gender: gender,
                 birth_date: dateBirth + " .",
                 email: email,
@@ -73,7 +75,7 @@ const AppleFormComponent = ({ email, username }) => {
     }
 
     const checkFilledField = () => {
-        if (name && familia && gender && birth_date && agreementAccepted){
+        if (gender && birth_date && agreementAccepted){
             return true
         } else {
             return false
@@ -90,26 +92,15 @@ const AppleFormComponent = ({ email, username }) => {
 
     return (
         <View style={styles.mainBlock}>
-            <Text style={styles.textStyle}>Пожалуйста, заполните оставшиеся данные</Text>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                style={{ flex: 1, width: '100%', paddingLeft: MultiPlatform.AdaptivePixelsSize(15), paddingRight: MultiPlatform.AdaptivePixelsSize(15), }}
+                style={styles.scrollViewStyle}
                 contentContainerStyle={{ justifyContent: 'center', padding: 10}}
             >
+                <Text style={styles.textStyle}>Пожалуйста, заполните оставшиеся данные</Text>
                 <View>
-                    <BaseTextInput response={response} hint={"Имя"} setValue={setName}/>
-                    <BaseTextInput response={response} hint={"Фамилия"} setValue={setFamilia}/>
-                    <Picker
-                        dropdownIconColor={'black'}
-                        style={styles.pickerStyle}
-                        selectedValue={gender}
-                        onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
-
-                    >
-                        <Picker.Item label="Мужчина" value="м" />
-                        <Picker.Item label="Женщина" value="ж" />
-                    </Picker>
-                    <BaseDateTimePicker text={"Дата рождения"} setValue={setBirth_date}/>
+                    <BaseSelectGender response={response} setValue={setGender} />
+                    <BaseDateTimePicker hint={"Дата рождения"} response={response} setValue={setBirth_date}/>
                 </View>
                 <View style={{ marginTop: 20 }}>
                     <AgreementComponent setValue={setAgreementAccepted}/>
@@ -149,9 +140,11 @@ const styles = StyleSheet.create({
         marginTop: 30
     },
     textStyle: {
-        marginTop: MultiPlatform.AdaptivePixelsSize(15),
+        textAlign: 'center',
         color: '#000',
-        fontSize: MultiPlatform.AdaptivePixelsSize(17)
+        marginBottom: 10,
+        marginTop: MultiPlatform.AdaptivePixelsSize(15),
+        fontSize: MultiPlatform.AdaptivePixelsSize(15),
     },
     btnStyle: {
         width: MultiPlatform.AdaptivePixelsSize(320),
@@ -159,6 +152,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 16,
+    },
+    scrollViewStyle:{
+        flex: 1,
+        width: '100%',
+        // backgroundColor: 'black',
+        paddingLeft: MultiPlatform.AdaptivePixelsSize(15),
+        paddingRight: MultiPlatform.AdaptivePixelsSize(15),
     }
 });
 

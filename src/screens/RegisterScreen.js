@@ -1,12 +1,12 @@
 import React from 'react'
-import { View, Image, KeyboardAvoidingView } from 'react-native'
+import { View, Image, KeyboardAvoidingView, StatusBar } from 'react-native'
 import { MultiPlatform } from '../components/MultiPlatform';
 import RegisterFormComponent from "../components/RegisterComponent/RegisterFormComponent";
 import BackButton from '../components/HeaderComponent/BackButton';
 
 const RegisterScreen = () => {
     return (
-        <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={{
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{
             flex: 1,
             width: '100%',
             justifyContent: 'flex-end',
@@ -14,7 +14,7 @@ const RegisterScreen = () => {
             backgroundColor: "#F3F4F6"
         }}>
             {
-                Platform.OS == 'ios' &&
+                Platform.OS === 'ios' &&
                 <StatusBar backgroundColor={"#F3F4F6"}/>
             }
             <View style={{ width: '100%', paddingLeft: 15, paddingTop: 5 }}>

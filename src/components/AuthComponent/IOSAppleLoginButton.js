@@ -40,6 +40,10 @@ const IOSAppleLoginButton = () => {
             let jwt
             if (identityToken) {
                 jwt = parseJwt(identityToken)
+                if(appleAuthRequestResponse?.fullName?.familyName != null){
+                    await Storage.save("AppleID-fullname", appleAuthRequestResponse.fullName)
+                    console.log("FULLNAME сохранен" + JSON.stringify(appleAuthRequestResponse.fullName))
+                }
                 console.log("IOS::"+JSON.stringify(appleAuthRequestResponse))
                 console.log("PARSE TOKEN1::"+JSON.stringify(jwt))
 
@@ -57,7 +61,6 @@ const IOSAppleLoginButton = () => {
                 let response = await Request.post(Routes.signWithApple, {
                         username : jwt?.sub
                     });
-                // console.log("signWithApple" + JSON.stringify(response))
                 if(response?.next){
                     navigation.navigate("NextAppleAuth", {
                             email: jwt?.email,
@@ -89,13 +92,11 @@ const IOSAppleLoginButton = () => {
                 }
             }
         } catch (error) {
-            // if (error.code === AppleError.CANCELED) {
-            //     // user cancelled Apple Sign-in
-            //     return MultiPlatform.ToastShow("Отмена авторизации по Apple ID")
-            // } else {
-            //     return MultiPlatform.ToastShow("Что-то пошло не так")
-            // }
-            return MultiPlatform.ToastShow(error.message)
+            if (error.code === "1001") {
+                return MultiPlatform.ToastShow("Отмена авторизации по Apple ID")
+            } else {
+                return MultiPlatform.ToastShow("Что-то пошло не так")
+            }
         }
     }
 
@@ -136,6 +137,8 @@ const styles = StyleSheet.create({
         width: MultiPlatform.AdaptivePixelsSize(30),
         height: MultiPlatform.AdaptivePixelsSize(20),
         resizeMode: 'contain',
+        marginBottom: 6,
+        // backgroundColor:'red'
     },
 })
 

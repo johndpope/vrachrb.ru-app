@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, KeyboardAvoidingView } from 'react-native'
+import { View, Image, KeyboardAvoidingView, StatusBar } from 'react-native'
 import RecoveryPasswordComponent from "../components/AuthComponent/RecoveryPasswordComponent";
 import BackButton from '../components/HeaderComponent/BackButton';
 import { MultiPlatform } from '../components/MultiPlatform';
