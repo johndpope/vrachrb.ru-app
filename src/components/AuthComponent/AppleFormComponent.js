@@ -14,6 +14,7 @@ import {MultiPlatform} from "../MultiPlatform";
 import Storage from "../../storage/Storage";
 import Routes from "../../requests/Routes";
 import { ScrollView } from 'react-native-gesture-handler'
+import BackButton from '../HeaderComponent/BackButton';
 
 const AppleFormComponent = ({ email, username }) => {
 
@@ -89,6 +90,9 @@ const AppleFormComponent = ({ email, username }) => {
 
     return (
         <View style={styles.mainBlock}>
+            <View style={{ width: '100%', paddingLeft: 15, paddingTop: 5 }}>
+                <BackButton />
+            </View>
             <Text style={styles.textStyle}>Пожалуйста, заполните оставшиеся данные</Text>
             <ScrollView
                 showsVerticalScrollIndicator={false}

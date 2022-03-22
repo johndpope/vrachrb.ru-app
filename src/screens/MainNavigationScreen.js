@@ -104,12 +104,16 @@ const MainNavigationScreen = () => {
         })
         
         Notifications.events().registerNotificationOpened((notification, completion, action) => {
-            navigateToSrcreenType(notification)
+            if (notification?.payload){
+                navigateToSrcreenType(notification)
+            }
         })
 
         Notifications.getInitialNotification().then(
             (notification) => {
-                navigateToSrcreenType(notification)
+                if (notification?.payload){
+                    navigateToSrcreenType(notification)
+                }
             }
         )
     }, [])
@@ -169,8 +173,8 @@ const MainNavigationScreen = () => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: {
                         color: "#434A53",
-                        fontWeight: '700',
-                        fontSize: MultiPlatform.AdaptivePixelsSize(21),
+                        fontWeight: '500',
+                        fontSize: MultiPlatform.AdaptivePixelsSize(19),
                     },
                     tabBarActiveTintColor: "#54B9D1",
                     tabBarInactiveTintColor: "#AAB2BD",
@@ -202,19 +206,19 @@ const MainNavigationScreen = () => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: {
                         color: "#434A53",
-                        fontWeight: '700',
-                        fontSize: MultiPlatform.AdaptivePixelsSize(21),
+                        fontWeight: '500',
+                        fontSize: MultiPlatform.AdaptivePixelsSize(19),
                     },
                     headerRight: () => {
                         return (
                             <TouchableOpacity
                                 onPress={() => logOut()}
-                                style={{ right: MultiPlatform.AdaptivePixelsSize(12) }}
+                                style={{ paddingRight: 12 }}
                             >
                                 <Image
                                     style={{
-                                        width: MultiPlatform.AdaptivePixelsSize(26),
-                                        height: MultiPlatform.AdaptivePixelsSize(26),
+                                        width: MultiPlatform.AdaptivePixelsSize(24),
+                                        height: MultiPlatform.AdaptivePixelsSize(24),
                                         tintColor: '#434A53'
                                     }}
                                     source={ require('../images/signout.png') }

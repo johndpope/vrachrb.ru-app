@@ -109,8 +109,8 @@ const App = () => {
                             headerTitleAlign: 'center',
                             headerTitleStyle: {
                                 color: "#434A53",
-                                fontWeight: '700',
-                                fontSize: MultiPlatform.AdaptivePixelsSize(17),
+                                fontWeight: '500',
+                                fontSize: MultiPlatform.AdaptivePixelsSize(19),
                             },
                             headerBackVisible: false,
                             headerLeft: () => (
@@ -132,7 +132,7 @@ const App = () => {
                             headerTitleStyle: {
                                 fontSize: MultiPlatform.AdaptivePixelsSize(21),
                                 color: '#434A53',
-                                fontWeight: '700'
+                                fontWeight: '400'
                             },
                             headerShadowVisible: false,
                             headerTitleAlign: 'center',
@@ -147,7 +147,24 @@ const App = () => {
                     />
                     <Stack.Screen
                         name="ModalScreen"
-                        options={{headerShown: false}}
+                        options={{
+                            headerBackVisible: false,
+                            title: "",
+                            headerStyle: {
+                                backgroundColor: '#FFFFFF',
+                                padding: 20
+                            },
+                            headerTitleStyle: {
+                                fontSize: MultiPlatform.AdaptivePixelsSize(21),
+                                color: '#434A53',
+                                fontWeight: '400'
+                            },
+                            headerShadowVisible: false,
+                            headerTitleAlign: 'center',
+                            headerLeft: () => (
+                                <BackButton/>
+                            )
+                        }}
                         component={ModalScreen}
                     />
                     <Stack.Screen
@@ -161,7 +178,7 @@ const App = () => {
                             headerTitleStyle: {
                                 fontSize: MultiPlatform.AdaptivePixelsSize(21),
                                 color: '#434A53',
-                                fontWeight: '700'
+                                fontWeight: '500'
                             },
                             headerShadowVisible: false,
                             headerTitleAlign: 'center',
@@ -182,7 +199,7 @@ const App = () => {
                             headerTitleStyle: {
                                 fontSize: MultiPlatform.AdaptivePixelsSize(21),
                                 color: '#434A53',
-                                fontWeight: '700'
+                                fontWeight: '500'
                             },
                             headerShadowVisible: false,
                             headerTitleAlign: 'center',
@@ -204,7 +221,7 @@ const App = () => {
                             headerTitleStyle: {
                                 fontSize: MultiPlatform.AdaptivePixelsSize(21),
                                 color: '#434A53',
-                                fontWeight: '700'
+                                fontWeight: '400'
                             },
                             headerShadowVisible: false,
                             headerTitleAlign: 'center',

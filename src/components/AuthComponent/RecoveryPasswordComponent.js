@@ -8,13 +8,10 @@ import BaseTextInput from "../AuthComponent/BaseTextInput";
 import BaseSendButton from "./BaseSendButton";
 import { MultiPlatform } from '../MultiPlatform';
 import Routes from "../../requests/Routes";
+import BackButton from '../HeaderComponent/BackButton';
 
 
 const RecoveryPasswordComponent = () => {
-
-    const navigation = useNavigation()
-    const dispatch = useDispatch()
-
     const [email, setEmail]       = useState("")
     const [response, setResponse] = useState("")
     const [loading, setLoading] = useState(false)
@@ -25,15 +22,10 @@ const RecoveryPasswordComponent = () => {
         let data = {
             email: email,
         }
-        // console.log(JSON.stringify(data))
+        
         let request = await Request.post(Routes.recoverPasswordURL, data);
 
         setResponse(request)
-        // request['response'] &&
-        // navigation.reset({
-        //     index: 0,
-        //     routes: [{ name: 'AuthScreen' }],
-        // })
 
         setLoading(false)
     }
@@ -48,6 +40,9 @@ const RecoveryPasswordComponent = () => {
 
     return (
         <View style={ styles.mainBlock }>
+            <View style={{ width: '100%', paddingLeft: 15, paddingTop: 5 }}>
+                <BackButton />
+            </View>
             <ScrollView                
                 showsVerticalScrollIndicator={false}
                 style={{ width: '100%', paddingLeft: MultiPlatform.AdaptivePixelsSize(15), paddingRight: MultiPlatform.AdaptivePixelsSize(15), flex: 1 }}
@@ -64,7 +59,6 @@ const RecoveryPasswordComponent = () => {
                 </View>
                 <View style={ styles.btnBottom }>
                     <BaseSendButton text={"Восстановить"} checkFields={checkFilledField} onPress={register} loading={loading}/>
-                    <SecondAuthButton text={"Вернуться"} nav={"AuthScreen"} />
                 </View>
             </ScrollView>
         </View>

@@ -10,11 +10,13 @@ const BackButton = () => {
 
     return (
         <TouchableOpacity
-            onPress={() => navigation.goBack()}>
+            onPress={() => navigation.goBack()}
+            style={{ paddingRight: 30, paddingTop: 10, paddingBottom: 10 }}
+        >
             <Image
                 style={{
-                    width: MultiPlatform.AdaptivePixelsSize(33),
-                    height: MultiPlatform.AdaptivePixelsSize(47),
+                    width: MultiPlatform.AdaptivePixelsSize(27),
+                    height: MultiPlatform.AdaptivePixelsSize(25),
                     tintColor: '#434A53'
                 }}
                 source={backButtonImage}

@@ -14,6 +14,7 @@ import {MultiPlatform} from "../MultiPlatform";
 import Storage from "../../storage/Storage";
 import Routes from "../../requests/Routes";
 import { ScrollView } from 'react-native-gesture-handler'
+import BackButton from '../HeaderComponent/BackButton';
 
 const RegisterFormComponent = () => {
 
@@ -113,6 +114,9 @@ const RegisterFormComponent = () => {
 
     return (
         <View style={styles.mainBlock}>
+            <View style={{ width: '100%', paddingLeft: 15, paddingTop: 5 }}>
+                <BackButton />
+            </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={{ flex: 1, width: '100%', paddingLeft: MultiPlatform.AdaptivePixelsSize(15), paddingRight: MultiPlatform.AdaptivePixelsSize(15), }}
@@ -147,7 +151,6 @@ const RegisterFormComponent = () => {
                     }
                     <BaseSendButton text={"Зарегистрироваться"} checkFields={checkFilledField} onPress={register} loading={loading}/>
                     <SecondAuthButton text={"Авторизоваться"} nav={"MailLoginScreen"} />
-                    <SecondAuthButton text={"Вернуться"} nav={"AuthScreen"} />
                 </View>
             </ScrollView>
         </View>

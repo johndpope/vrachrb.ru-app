@@ -15,11 +15,12 @@ const CancelButton = () => {
                         routes: [{ name: 'MainNavigationScreen' }],
                     }) 
                 }}
+            style={{ paddingLeft: 30, paddingTop: 10, paddingBottom: 10 }}
         >
             <Text style={{
                 fontSize: MultiPlatform.AdaptivePixelsSize(21),
                 color: '#434A53',
-                fontWeight: '700'
+                fontWeight: '400'
             }}>Отмена</Text>
         </TouchableOpacity>
     )

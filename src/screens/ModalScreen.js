@@ -12,6 +12,7 @@ const ModalScreen = () => {
 
     return(
         <View style={ styles.mainContent }>
+            
             <View style={ styles.wrapper }>
                 <Text style={{ 
                     ...styles.textStyle,
@@ -47,7 +48,7 @@ const ModalScreen = () => {
                         Спросить терапевта
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity 
+                {/* <TouchableOpacity 
                     style={{ 
                         ...styles.buttonStyle,
                         backgroundColor: '#FFFFFF',
@@ -58,7 +59,7 @@ const ModalScreen = () => {
                         color: '#434A53',
                         fontSize: MultiPlatform.AdaptivePixelsSize(17)
                     }}>Закрыть</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         </View>
     );

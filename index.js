@@ -7,6 +7,7 @@ import { store } from './src/store'
 import { name as appName } from './app.json';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import 'react-native-gesture-handler'
+import { Text } from 'react-native'
 /**
  * Корневой класс для инициализации магазина Redux */
 
