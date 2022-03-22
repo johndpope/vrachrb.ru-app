@@ -11,6 +11,10 @@ const Tab = createMaterialTopTabNavigator();
 const MainScreen = (props) => {
     return(
         <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+            {
+                Platform.OS == 'ios' &&
+                <StatusBar backgroundColor={"#F3F4F6"}/>
+            }
             <Tab.Navigator 
                 tabBarOptions={{ 
                     tabBarActiveTintColor: "black",

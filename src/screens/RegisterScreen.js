@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Image, KeyboardAvoidingView } from 'react-native'
 import { MultiPlatform } from '../components/MultiPlatform';
 import RegisterFormComponent from "../components/RegisterComponent/RegisterFormComponent";
+import BackButton from '../components/HeaderComponent/BackButton';
 
 const RegisterScreen = () => {
     return (
@@ -12,6 +13,13 @@ const RegisterScreen = () => {
             alignItems: 'center',
             backgroundColor: "#F3F4F6"
         }}>
+            {
+                Platform.OS == 'ios' &&
+                <StatusBar backgroundColor={"#F3F4F6"}/>
+            }
+            <View style={{ width: '100%', paddingLeft: 15, paddingTop: 5 }}>
+                <BackButton />
+            </View>
             <View style={{
                 flex: 0.3,
                 justifyContent: 'center',

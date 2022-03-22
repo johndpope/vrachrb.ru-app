@@ -8,7 +8,7 @@ const AuthScreen = () => {
 
   return (
     <View style={ styles.mainContent }>
-      <StatusBar />
+        <StatusBar />
         <View style={ styles.wrapperBlock }>
           <View style={styles.subWrapperBlock}/>
             <View style={ styles.mainLoginBlock }>

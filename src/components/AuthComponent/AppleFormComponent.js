@@ -90,9 +90,6 @@ const AppleFormComponent = ({ email, username }) => {
 
     return (
         <View style={styles.mainBlock}>
-            <View style={{ width: '100%', paddingLeft: 15, paddingTop: 5 }}>
-                <BackButton />
-            </View>
             <Text style={styles.textStyle}>Пожалуйста, заполните оставшиеся данные</Text>
             <ScrollView
                 showsVerticalScrollIndicator={false}

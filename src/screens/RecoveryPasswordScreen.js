@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Image, KeyboardAvoidingView } from 'react-native'
 import RecoveryPasswordComponent from "../components/AuthComponent/RecoveryPasswordComponent";
+import BackButton from '../components/HeaderComponent/BackButton';
 import { MultiPlatform } from '../components/MultiPlatform';
 
 const RecoveryPasswordScreen = () => {
@@ -12,6 +13,13 @@ const RecoveryPasswordScreen = () => {
             alignItems: 'center',
             backgroundColor: "#F3F4F6",
         }}>
+            {
+                Platform.OS == 'ios' &&
+                <StatusBar backgroundColor={"#F3F4F6"}/>
+            }
+            <View style={{ width: '100%', paddingLeft: 15, paddingTop: 5 }}>
+                <BackButton />
+            </View>
             <View style={{
                 flex: 0.5,
                 justifyContent: 'center',

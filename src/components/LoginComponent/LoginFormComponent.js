@@ -12,7 +12,6 @@ import SecondAuthButton from '../AuthComponent/SecondAuthButton';
 import { MultiPlatform } from '../MultiPlatform';
 import Routes from "../../requests/Routes";
 import AgreementWidget from '../Widgets/Login/AgreementWidget';
-import BackButton from '../HeaderComponent/BackButton';
 
 
 const LoginFormComponent = () => {
@@ -63,9 +62,6 @@ const LoginFormComponent = () => {
                     <AgreementWidget setResponse={setResponse} vkData={{ user: email, password: password, agreement: true }} isLogin={true} isVisible={isModalVisible} setVisible={setModalVisible} />
                 )
             }
-            <View style={{ width: '100%', paddingLeft: 15, paddingTop: 5 }}>
-                <BackButton />
-            </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={{ width: '100%', paddingLeft: MultiPlatform.AdaptivePixelsSize(15), paddingRight: MultiPlatform.AdaptivePixelsSize(15), flex: 1 }}

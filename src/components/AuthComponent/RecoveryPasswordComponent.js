@@ -22,7 +22,7 @@ const RecoveryPasswordComponent = () => {
         let data = {
             email: email,
         }
-        
+
         let request = await Request.post(Routes.recoverPasswordURL, data);
 
         setResponse(request)
@@ -40,10 +40,7 @@ const RecoveryPasswordComponent = () => {
 
     return (
         <View style={ styles.mainBlock }>
-            <View style={{ width: '100%', paddingLeft: 15, paddingTop: 5 }}>
-                <BackButton />
-            </View>
-            <ScrollView                
+            <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={{ width: '100%', paddingLeft: MultiPlatform.AdaptivePixelsSize(15), paddingRight: MultiPlatform.AdaptivePixelsSize(15), flex: 1 }}
                 contentContainerStyle={{flexGrow: 1, justifyContent: 'center', padding: 10}}

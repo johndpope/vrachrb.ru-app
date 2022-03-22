@@ -114,9 +114,6 @@ const RegisterFormComponent = () => {
 
     return (
         <View style={styles.mainBlock}>
-            <View style={{ width: '100%', paddingLeft: 15, paddingTop: 5 }}>
-                <BackButton />
-            </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={{ flex: 1, width: '100%', paddingLeft: MultiPlatform.AdaptivePixelsSize(15), paddingRight: MultiPlatform.AdaptivePixelsSize(15), }}
