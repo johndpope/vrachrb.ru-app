@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { TouchableOpacity as IOSTouchableOpacity } from 'react-native-gesture-handler'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { TextInput } from 'react-native-gesture-handler'
 import { MultiPlatform } from '../MultiPlatform';
 import {colors} from "../../styles/colors";
 
@@ -31,16 +31,35 @@ const BaseDateTimePicker = ({ response, setValue, hint }) => {
                 text !== "" &&
                 (<Text style={styles.textStyle}>{ hint }</Text>)
             }
-            <TextInput
-                onPressOut={() => showDatePicker()}
-                editable={false}
-                value={text}
-                style={{...styles.textInputStyle,
-                    borderBottomColor: response['error'] ? "#F27C83" : "#E6E9ED",
-                }}
-                placeholder={hint}
-                placeholderTextColor="#AAB2BD"
-            />
+            {
+                Platform.OS == 'ios' ?
+                <IOSTouchableOpacity activeOpacity={1} onPress={() => showDatePicker()}>
+                    <View>
+                        <TextInput
+                            editable={false}
+                            value={text}
+                            style={{...styles.textInputStyle,
+                                borderBottomColor: response['error'] ? "#F27C83" : "#E6E9ED"
+                            }}
+                            placeholder={hint}
+                            placeholderTextColor="#AAB2BD"
+                        />
+                    </View>
+                </IOSTouchableOpacity> :
+                <TouchableOpacity activeOpacity={1} onPress={() => showDatePicker()}>
+                    <View>
+                        <TextInput
+                            editable={false}
+                            value={text}
+                            style={{...styles.textInputStyle,
+                                borderBottomColor: response['error'] ? "#F27C83" : "#E6E9ED"
+                            }}
+                            placeholder={hint}
+                            placeholderTextColor="#AAB2BD"
+                        />
+                    </View>
+                </TouchableOpacity>
+            }
             <DateTimePickerModal
                 isVisible={isDatePickerVisible}
                 mode="date"
