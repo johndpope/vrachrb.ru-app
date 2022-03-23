@@ -42,7 +42,6 @@ const MainScreen = (props) => {
                 <Tab.Screen name="Кабинет" component={ CabinetScreen } />
                 <Tab.Screen name="Специалист" component={ SpecialistScreen } />
             </Tab.Navigator>
-            <BottomIssueCard />
         </View>
     )
 }

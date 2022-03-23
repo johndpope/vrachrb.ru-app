@@ -5,12 +5,14 @@ import CabinetCardWidget from '../components/Widgets/Cabinet/CabinetCardWidget';
 import Request from '../requests/Request'
 import Routes from "../requests/Routes";
 import { FlatList as FlatGestureList } from 'react-native-gesture-handler';
+import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard'
 
 const CabinetScreen = () => {
 
     const [cabinet, setCabinet] = useState()
     const [filteredCabinet, setFilteredCabinet] = useState()
     const [loading, setLoading] = useState(false)
+    const [visible, setVisible] = useState(false)
 
     const [text, setText] = useState("")
 
@@ -18,13 +20,14 @@ const CabinetScreen = () => {
         setLoading(true)
         Request.get(Routes.getCabinetURL, {})
             .then(response => { setCabinet(response), setLoading(false), setFilteredCabinet(response), setText("")})
+        setVisible(false)
     };
-    
+
     const searchCabinetItem = (text) => {
         let data = cabinet['response'].filter(cabinet => {
             return cabinet.title.toLocaleLowerCase().includes(text.toLocaleLowerCase())
         })
-        
+
         setFilteredCabinet({ 'response' : data })
     }
 
@@ -34,18 +37,18 @@ const CabinetScreen = () => {
 
     return (
         <View style={ styles.mainContent }>
-            { loading ?                 
+            { loading ?
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <ActivityIndicator size={'large'} />
                 </View>  : (
                 <View style={{ width: '100%', height: '100%' }}>
                     <BaseSearchComponent value={text} setValue={setText} searchItem={searchCabinetItem}/>
                     {
-                        Platform.OS == 'ios' ? 
+                        Platform.OS == 'ios' ?
                         (
                             <FlatGestureList
                                 refreshControl={
-                                    <RefreshControl 
+                                    <RefreshControl
                                         refreshing={loading}
                                         onRefresh={() => getCabinetData()}
                                     />
@@ -53,6 +56,7 @@ const CabinetScreen = () => {
                                 style={{
                                     width: '100%',
                                 }}
+                                onEndReached={() => setVisible(true)}
                                 data={filteredCabinet && filteredCabinet['response']}
                                 showsVerticalScrollIndicator={false}
                                 keyExtractor={(item) => item.id}
@@ -66,7 +70,7 @@ const CabinetScreen = () => {
                         (
                             <FlatList
                                 refreshControl={
-                                    <RefreshControl 
+                                    <RefreshControl
                                         refreshing={loading}
                                         onRefresh={() => getCabinetData()}
                                     />
@@ -74,6 +78,7 @@ const CabinetScreen = () => {
                                 style={{
                                     width: '100%',
                                 }}
+                                onEndReached={() => setVisible(true)}
                                 data={filteredCabinet && filteredCabinet['response']}
                                 showsVerticalScrollIndicator={false}
                                 keyExtractor={(item) => item.id}
@@ -85,6 +90,7 @@ const CabinetScreen = () => {
                             />
                         )
                     }
+                    <BottomIssueCard show={visible}/>
                 </View>
             )}
         </View>

@@ -2,19 +2,18 @@ import React, { Component } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import { MultiPlatform } from '../../MultiPlatform';
 
-const BottomIssueCard = () => {
+const BottomIssueCard = ({ show = false }) => {
 
     const navigation = useNavigation()
 
     return (
-        <View style={ styles.mainContent }> 
+        <View style={{ ...styles.mainContent, flex: show ? 0 : 1, opacity: show ? 1 : 0 }}>
             <TouchableOpacity
                 onPress={() => navigation.navigate("ModalScreen")}
             >
-                <LinearGradient 
+                <LinearGradient
                         style={ styles.gradientOptions }
                         colors={['#F29F7C', '#F27C83' ]}
                         start={{ x: 0, y: 0.3 }}
@@ -24,19 +23,18 @@ const BottomIssueCard = () => {
                             <Image style={{ width: MultiPlatform.AdaptivePixelsSize(45), height: MultiPlatform.AdaptivePixelsSize(45) }} source={ require('../../../images/shevron_gradient.png') }/>
                         </View>
                 </LinearGradient>
-            </TouchableOpacity>  
-        </View> 
+            </TouchableOpacity>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     mainContent: {
         width: '100%',
-        paddingLeft: MultiPlatform.AdaptivePixelsSize(16),
-        paddingRight: MultiPlatform.AdaptivePixelsSize(16),
-        paddingBottom: 3,
-        paddingTop: 5,
-        backgroundColor: '#FFF',
+        paddingLeft: MultiPlatform.AdaptivePixelsSize(10),
+        paddingRight: MultiPlatform.AdaptivePixelsSize(10),
+        paddingBottom: MultiPlatform.AdaptivePixelsSize(10),
+        backgroundColor: '#FFF'
     },
     gradientOptions: {
         paddingTop: MultiPlatform.AdaptivePixelsSize(13),

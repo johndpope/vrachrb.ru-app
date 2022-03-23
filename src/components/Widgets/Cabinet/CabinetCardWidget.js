@@ -27,10 +27,10 @@ const CabinetCardWidget = ({ data }) => {
                         <Text numberOfLines={2} ellipsizeMode='tail' style={ styles.descriptionText }>{ data.title }</Text>
                         <Text numberOfLines={1} ellipsizeMode='tail' style={{ ...styles.descriptionText, fontSize: MultiPlatform.AdaptivePixelsSize(13), fontWeight: '400' }}>{ data.description }</Text>
                     </View>
-                    <Image 
+                    <Image
                         style={{
-                            width: MultiPlatform.AdaptivePixelsSize(12), 
-                            height: MultiPlatform.AdaptivePixelsSize(19),
+                            width: MultiPlatform.AdaptivePixelsSize(12),
+                            height: MultiPlatform.AdaptivePixelsSize(21),
                             right: MultiPlatform.AdaptivePercentSize(1)
                         }}
                         source={ require('../../../images/shevron.png') }

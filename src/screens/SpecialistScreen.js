@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import BaseSearchComponent from '../components/HeaderComponent/BaseSearchComponent';
 import Routes from "../requests/Routes";
 import { FlatList as FlatGestureList } from 'react-native-gesture-handler';
-
+import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard'
 
 const SpecialistScreen = () => {
 
@@ -16,12 +16,14 @@ const SpecialistScreen = () => {
     const specialistRoute = useSelector(state => state.SpecSlice.specialistRoute)
     const specialistData = useSelector(state => state.SpecSlice.specialistData)
 
+    const [visible, setVisible] = useState(false)
     const [text, setText] = useState("")
 
     const getSpecialistData = (route = Routes.getSpecialistsURL, data= {}) => {
         setLoading(true)
         Request.get(route, data)
             .then(response => { setSpecialist(response), setLoading(false), setFilteredSpecialist(response), setText("")})
+        setVisible(false)
     };
 
     const searchCabinetItem = (text) => {
@@ -62,6 +64,7 @@ const SpecialistScreen = () => {
                                 style={{
                                     width: '100%',
                                 }}
+                                onEndReached={() => setVisible(true)}
                                 data={filteredSpecialist && filteredSpecialist['response']}
                                 keyExtractor={(item) => item.id}
                                 renderItem={({ item }) => {
@@ -82,6 +85,7 @@ const SpecialistScreen = () => {
                                 style={{
                                     width: '100%',
                                 }}
+                                onEndReached={() => setVisible(true)}
                                 initialNumToRender={10}
                                 data={filteredSpecialist && filteredSpecialist['response']}
                                 keyExtractor={(item) => item.id}
@@ -93,6 +97,7 @@ const SpecialistScreen = () => {
                             />
                         )
                     }
+                    <BottomIssueCard show={visible}/>
                 </View>
             )}
         </View>
