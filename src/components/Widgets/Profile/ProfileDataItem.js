@@ -4,9 +4,9 @@ import { MultiPlatform } from '../../MultiPlatform';
 
 const ProfileDataItem = ({ data, header }) => {
     return (
-        <View style={{ margin: MultiPlatform.AdaptivePixelsSize(20) }}>
+        <View style={{ marginTop: MultiPlatform.AdaptivePixelsSize(20), marginLeft: MultiPlatform.AdaptivePixelsSize(20), marginRight: MultiPlatform.AdaptivePixelsSize(20) }}>
             <Text style={{ color: '#AAB2BD', textTransform: 'uppercase', fontSize: MultiPlatform.AdaptivePixelsSize(15) }}>{ header }</Text>
-            <Text style={{ color: '#434A53', fontSize: MultiPlatform.AdaptivePixelsSize(19) }}>{ data }</Text>
+            <Text style={{ color: '#434A53', fontSize: MultiPlatform.AdaptivePixelsSize(17) }}>{ data }</Text>
         </View>
     )
 }
