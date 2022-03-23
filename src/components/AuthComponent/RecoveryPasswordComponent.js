@@ -65,7 +65,7 @@ const RecoveryPasswordComponent = () => {
 const styles = StyleSheet.create({
     mainBlock: {
         backgroundColor: 'white',
-        flex: 0.5,
+        flex: 0.7,
         width: '100%',
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,

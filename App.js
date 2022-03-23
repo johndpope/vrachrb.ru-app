@@ -19,7 +19,6 @@ import ModalScreen from './src/screens/ModalScreen';
 import QuestionsScreen from './src/screens/AnamnezScreens/QuestionsScreen';
 import SplashScreen from './src/screens/SplashScreen';
 import CancelButton from './src/components/HeaderComponent/CancelButton';
-import BackButton from './src/components/HeaderComponent/BackButton';
 import ChatScreen from './src/screens/ChatScreen'
 import MainNavigationScreen from './src/screens/MainNavigationScreen';
 import RegisterScreen from "./src/screens/RegisterScreen";
@@ -28,7 +27,7 @@ import DisplayAnamnezScreen from './src/screens/AnamnezScreens/DisplayAnamnezScr
 import OutpatientCardScreen from './src/screens/AnamnezScreens/OutpatientCardScreen'
 import NextAppleAuth from "./src/screens/NextAppleAuth";
 import { Text, TextInput } from 'react-native'
-import {colors} from './src/styles/colors'
+import { colors } from './src/styles/colors'
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;

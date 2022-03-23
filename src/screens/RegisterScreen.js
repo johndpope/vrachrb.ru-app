@@ -5,13 +5,15 @@ import RegisterFormComponent from "../components/RegisterComponent/RegisterFormC
 
 const RegisterScreen = () => {
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{
-            flex: 1,
-            width: '100%',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            backgroundColor: "#F3F4F6"
-        }}>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={MultiPlatform.AdaptivePixelsSize(65)}
+            style={{
+                flex: 1,
+                width: '100%',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                backgroundColor: "#F3F4F6"}}>
             {
                 Platform.OS === 'ios' &&
                 <StatusBar backgroundColor={"#F3F4F6"}/>

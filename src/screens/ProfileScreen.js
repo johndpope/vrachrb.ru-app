@@ -74,11 +74,12 @@ const ProfileScreen = () => {
                                 justifyContent: selectData.isSpecialist ? 'space-around' : 'flex-start',
                             }}
                         >
-                            <View style={{ backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20)}}>
+                            <View style={{ alignItems: 'center', backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20)}}>
                                 <Text style={{
+
                                     color: '#434A53',
                                     fontSize: MultiPlatform.AdaptivePixelsSize(19),
-                                    margin: MultiPlatform.AdaptivePixelsSize(20)
+                                    margin: MultiPlatform.AdaptivePixelsSize(20),
                                 }}>{userNameState}</Text>
                             </View>
                             {
