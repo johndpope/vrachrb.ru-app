@@ -60,7 +60,7 @@ const AgreementComponent = ({ setValue }) => {
 const styles = StyleSheet.create({
     checkboxContainer: {
         flexDirection: "row",
-        alignItems: 'center',
+        alignItems: 'flex-start',
         marginBottom: 10,
         width: '100%'
     },

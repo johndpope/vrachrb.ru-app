@@ -8,11 +8,11 @@ const MainAuthButton = ({text, nav}) => {
     const navigation = useNavigation();
 
     return (
-        <TouchableOpacity 
+        <TouchableOpacity
             style={ styles.btnStyle }
             onPress={() => navigation.navigate(nav)}
         >
-            <Text style={ styles.textStyle }>{text}</Text>
+            <Text allowFontScaling={false} style={ styles.textStyle }>{text}</Text>
         </TouchableOpacity>
     )
 }

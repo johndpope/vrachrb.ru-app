@@ -1,7 +1,6 @@
 import React from 'react'
 import {Image, KeyboardAvoidingView, View} from 'react-native'
 import AppleFormComponent from "../components/AuthComponent/AppleFormComponent";
-import BackButton from '../components/HeaderComponent/BackButton';
 import {MultiPlatform} from "../components/MultiPlatform";
 
 const NextAppleAuth = ({ route }) => {
@@ -18,9 +17,6 @@ const NextAppleAuth = ({ route }) => {
                 Platform.OS == 'ios' &&
                 <StatusBar backgroundColor={"#F3F4F6"}/>
             }
-            <View style={{ width: '100%', paddingLeft: 15, paddingTop: 5 }}>
-                <BackButton />
-            </View>
             <View style={{
                 flex: 0.3,
                 justifyContent: 'center',

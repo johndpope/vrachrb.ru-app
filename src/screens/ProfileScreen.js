@@ -87,16 +87,19 @@ const ProfileScreen = () => {
                             }
                             <View style={{ backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20), marginTop: 10 }}>
                                 {
-                                    selectData?.email &&
+                                    selectData?.email ?
                                         <ProfileDataItem header="Ваш Email" data={selectData.email}/>
+                                        : <Text></Text>
                                 }
                                 {
-                                    selectData.birth_date &&
+                                    selectData.birth_date ?
                                         <ProfileDataItem header="Ваш дата рождения" data={selectData.birth_date.split(" ")[0].split("-").reverse().join("-")}/>
+                                        : <Text></Text>
                                 }
                                 {
-                                    selectData.phone &&
+                                    selectData.phone ?
                                         <ProfileDataItem header="Ваш номер телефона" data={selectData.phone}/>
+                                        : <Text></Text>
                                 }
                             </View>
                         </ScrollView>

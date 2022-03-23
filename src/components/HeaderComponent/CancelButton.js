@@ -8,17 +8,17 @@ const CancelButton = () => {
     const navigation = useNavigation()
 
     return (
-        <TouchableOpacity 
+        <TouchableOpacity
             onPress={() => {
                 navigation.reset({
                         index: 0,
                         routes: [{ name: 'MainNavigationScreen' }],
-                    }) 
+                    })
                 }}
             style={{ paddingLeft: 30, paddingTop: 10, paddingBottom: 10 }}
         >
             <Text style={{
-                fontSize: MultiPlatform.AdaptivePixelsSize(21),
+                fontSize: MultiPlatform.AdaptivePixelsSize(19),
                 color: '#434A53',
                 fontWeight: '400'
             }}>Отмена</Text>

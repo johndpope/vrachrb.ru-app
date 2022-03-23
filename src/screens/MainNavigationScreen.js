@@ -85,13 +85,13 @@ const MainNavigationScreen = () => {
             case "review":
                 Linking.openURL(Routes.reviewURL)
                 break;
-            default: 
+            default:
                 console.log("default")
         }
     }
 
-    useEffect(() => { 
-        Notifications.registerRemoteNotifications();  
+    useEffect(() => {
+        Notifications.registerRemoteNotifications();
 
         global.countSended == 0 &&
         Notifications.events().registerRemoteNotificationsRegistered((event) => {
@@ -102,7 +102,7 @@ const MainNavigationScreen = () => {
             })
             global.countSended += 1
         })
-        
+
         Notifications.events().registerNotificationOpened((notification, completion, action) => {
             if (notification?.payload){
                 navigateToSrcreenType(notification)
@@ -213,7 +213,7 @@ const MainNavigationScreen = () => {
                         return (
                             <TouchableOpacity
                                 onPress={() => logOut()}
-                                style={{ paddingRight: 12 }}
+                                style={{ padding: MultiPlatform.AdaptivePixelsSize(12) }}
                             >
                                 <Image
                                     style={{

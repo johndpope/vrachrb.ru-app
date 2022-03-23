@@ -2,7 +2,7 @@ import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import CabinetScreen from './CabinetScreen';
 import SpecialistScreen from './SpecialistScreen';
-import { View, StatusBar } from 'react-native';
+import {View, StatusBar, TextInput} from 'react-native';
 import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard';
 import { MultiPlatform } from '../components/MultiPlatform';
 
@@ -15,23 +15,24 @@ const MainScreen = (props) => {
                 Platform.OS == 'ios' &&
                 <StatusBar backgroundColor={"#F3F4F6"}/>
             }
-            <Tab.Navigator 
-                tabBarOptions={{ 
+            <Tab.Navigator
+                tabBarOptions={{
                     tabBarActiveTintColor: "black",
-                    tabBarInactiveTintColor: "#FFFFFF",  
-                    labelStyle: { 
+                    tabBarInactiveTintColor: "#FFFFFF",
+                    allowFontScaling: false,
+                    labelStyle: {
                         fontSize: MultiPlatform.AdaptivePixelsSize(17),
                         color: '#AAB2BD',
                     },
-                    style: { 
+                    style: {
                         backgroundColor: '#F3F4F6',
-                    },               
-                    tabStyle: { 
+                    },
+                    tabStyle: {
                         margin: 5,
                     },
-                    indicatorStyle: { 
-                        backgroundColor: '#54B9D1', 
-                        height: 4, 
+                    indicatorStyle: {
+                        backgroundColor: '#54B9D1',
+                        height: 4,
                         borderRadius: 3,
                         marginLeft: 11,
                         width: '45%',
@@ -40,7 +41,7 @@ const MainScreen = (props) => {
             >
                 <Tab.Screen name="Кабинет" component={ CabinetScreen } />
                 <Tab.Screen name="Специалист" component={ SpecialistScreen } />
-            </Tab.Navigator> 
+            </Tab.Navigator>
             <BottomIssueCard />
         </View>
     )

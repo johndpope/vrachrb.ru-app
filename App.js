@@ -27,6 +27,12 @@ import RecoveryPasswordScreen from "./src/screens/RecoveryPasswordScreen";
 import DisplayAnamnezScreen from './src/screens/AnamnezScreens/DisplayAnamnezScreen';
 import OutpatientCardScreen from './src/screens/AnamnezScreens/OutpatientCardScreen'
 import NextAppleAuth from "./src/screens/NextAppleAuth";
+import { Text, TextInput } from 'react-native'
+
+Text.defaultProps = Text.defaultProps || {};
+Text.defaultProps.allowFontScaling = false;
+TextInput.defaultProps = TextInput.defaultProps || {};
+TextInput.defaultProps.allowFontScaling = false;
 
 const Stack = createNativeStackNavigator();
 
@@ -45,12 +51,12 @@ const App = () => {
                     type: Platform.OS == 'ios' ? 1 : 2
                 })
                 global.count += 1
-            } 
+            }
         })
 
         setTimeout(() => {
             Platform.OS == 'android' && remoteNotify.remove()
-        }, 1) 
+        }, 1)
 
         NotificationAgent.registerNotificationEvents(true)
 
@@ -76,22 +82,78 @@ const App = () => {
                     />
                     <Stack.Screen
                         name="RegisterScreen"
-                        options={{headerShown: false}}
+                        options={{
+                            headerBackVisible: true,
+                            title: "",
+                            headerStyle: {
+                                backgroundColor: '#F3F4F6',
+                                padding: 20
+                            },
+                            headerTitleStyle: {
+                                fontSize: MultiPlatform.AdaptivePixelsSize(21),
+                                color: '#434A53',
+                                fontWeight: '400'
+                            },
+                            headerShadowVisible: false,
+                            headerTitleAlign: 'center',
+                        }}
                         component={RegisterScreen}
                     />
                     <Stack.Screen
                         name="RecoveryPasswordScreen"
-                        options={{headerShown: false}}
+                        options={{
+                            headerBackVisible: true,
+                            title: "",
+                            headerStyle: {
+                                backgroundColor: '#F3F4F6',
+                                padding: 20
+                            },
+                            headerTitleStyle: {
+                                fontSize: MultiPlatform.AdaptivePixelsSize(21),
+                                color: '#434A53',
+                                fontWeight: '400'
+                            },
+                            headerShadowVisible: false,
+                            headerTitleAlign: 'center',
+                        }}
                         component={RecoveryPasswordScreen}
                     />
                     <Stack.Screen
                         name="MailLoginScreen"
-                        options={{headerShown: false}}
+                        options={{
+                            headerBackVisible: true,
+                            title: "",
+                            headerStyle: {
+                                backgroundColor: '#F3F4F6',
+                                padding: 20
+                            },
+                            headerTitleStyle: {
+                                fontSize: MultiPlatform.AdaptivePixelsSize(21),
+                                color: '#434A53',
+                                fontWeight: '400'
+                            },
+                            headerShadowVisible: false,
+                            headerTitleAlign: 'center',
+                        }}
                         component={MailLoginScreen}
                     />
                     <Stack.Screen
                         name={"NextAppleAuth"}
-                        options={{headerShown: false}}
+                        options={{
+                            headerBackVisible: true,
+                            title: "",
+                            headerStyle: {
+                                backgroundColor: '#F3F4F6',
+                                padding: 20
+                            },
+                            headerTitleStyle: {
+                                fontSize: MultiPlatform.AdaptivePixelsSize(21),
+                                color: '#434A53',
+                                fontWeight: '400'
+                            },
+                            headerShadowVisible: false,
+                            headerTitleAlign: 'center',
+                        }}
                         component={NextAppleAuth}
                     />
                     <Stack.Screen
@@ -102,35 +164,33 @@ const App = () => {
                     <Stack.Screen
                         name={"ChatScreen"}
                         options={{
+                            headerBackVisible: true,
                             title: "Консультации",
-                            headerStyle: {
-                                backgroundColor: '#FFFFFF'
-                            },
-                            headerTitleAlign: 'center',
-                            headerTitleStyle: {
-                                color: "#434A53",
-                                fontWeight: '500',
-                                fontSize: MultiPlatform.AdaptivePixelsSize(19),
-                            },
-                            headerBackVisible: false,
-                            headerLeft: () => (
-                                <BackButton/>
-                            ),
-                        }}
-                        component={ChatScreen}
-                    />
-                    <Stack.Screen
-                        name="StartScreen"
-                        // options={{ header: props => <AnamnezHeader page={1} /> }}
-                        options={{
-                            title: '1/2',
-                            headerBackVisible: false,
                             headerStyle: {
                                 backgroundColor: '#FFFFFF',
                                 padding: 20
                             },
                             headerTitleStyle: {
-                                fontSize: MultiPlatform.AdaptivePixelsSize(21),
+                                fontSize: MultiPlatform.AdaptivePixelsSize(17),
+                                color: '#434A53',
+                                fontWeight: '400'
+                            },
+                            headerShadowVisible: false,
+                            headerTitleAlign: 'center',
+                        }}
+                        component={ChatScreen}
+                    />
+                    <Stack.Screen
+                        name="StartScreen"
+                        options={{
+                            headerBackVisible: true,
+                            title: "1/2",
+                            headerStyle: {
+                                backgroundColor: '#FFFFFF',
+                                padding: 20
+                            },
+                            headerTitleStyle: {
+                                fontSize: MultiPlatform.AdaptivePixelsSize(19),
                                 color: '#434A53',
                                 fontWeight: '400'
                             },
@@ -139,16 +199,13 @@ const App = () => {
                             headerRight: () => (
                                 <CancelButton/>
                             ),
-                            headerLeft: () => (
-                                <BackButton/>
-                            )
                         }}
                         component={StartScreen}
                     />
                     <Stack.Screen
                         name="ModalScreen"
                         options={{
-                            headerBackVisible: false,
+                            headerBackVisible: true,
                             title: "",
                             headerStyle: {
                                 backgroundColor: '#FFFFFF',
@@ -161,9 +218,6 @@ const App = () => {
                             },
                             headerShadowVisible: false,
                             headerTitleAlign: 'center',
-                            headerLeft: () => (
-                                <BackButton/>
-                            )
                         }}
                         component={ModalScreen}
                     />
@@ -171,20 +225,18 @@ const App = () => {
                         name="OutpatientCardScreen"
                         options={{
                             title: 'Амбулаторная карта',
-                            headerBackVisible: false,
+                            headerBackVisible: true,
                             headerStyle: {
                                 backgroundColor: '#FFFFFF',
+                                padding: 20
                             },
                             headerTitleStyle: {
-                                fontSize: MultiPlatform.AdaptivePixelsSize(21),
+                                fontSize: MultiPlatform.AdaptivePixelsSize(18),
                                 color: '#434A53',
-                                fontWeight: '500'
+                                fontWeight: '400'
                             },
                             headerShadowVisible: false,
                             headerTitleAlign: 'center',
-                            headerLeft: () => (
-                                <BackButton/>
-                            )
                         }}
                         component={OutpatientCardScreen}
                     />
@@ -192,34 +244,31 @@ const App = () => {
                         name="DisplayAnamnezScreen"
                         options={{
                             title: 'Анамнез',
-                            headerBackVisible: false,
+                            headerBackVisible: true,
                             headerStyle: {
                                 backgroundColor: '#FFFFFF',
                             },
                             headerTitleStyle: {
-                                fontSize: MultiPlatform.AdaptivePixelsSize(21),
+                                fontSize: MultiPlatform.AdaptivePixelsSize(17),
                                 color: '#434A53',
                                 fontWeight: '500'
                             },
                             headerShadowVisible: false,
                             headerTitleAlign: 'center',
-                            headerLeft: () => (
-                                <BackButton/>
-                            )
                         }}
                         component={DisplayAnamnezScreen}
                     />
                     <Stack.Screen
                         name="QuestionsScreen"
-                        // options={{ header: props => <AnamnezHeader page={2} /> }}
                         options={{
-                            title: '2/2',
-                            headerBackVisible: false,
+                            headerBackVisible: true,
+                            title: "2/2",
                             headerStyle: {
                                 backgroundColor: '#FFFFFF',
+                                padding: 20
                             },
                             headerTitleStyle: {
-                                fontSize: MultiPlatform.AdaptivePixelsSize(21),
+                                fontSize: MultiPlatform.AdaptivePixelsSize(19),
                                 color: '#434A53',
                                 fontWeight: '400'
                             },
@@ -228,9 +277,6 @@ const App = () => {
                             headerRight: () => (
                                 <CancelButton/>
                             ),
-                            headerLeft: () => (
-                                <BackButton/>
-                            )
                         }}
                         component={QuestionsScreen}
                     />

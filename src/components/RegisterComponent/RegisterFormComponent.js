@@ -147,7 +147,7 @@ const RegisterFormComponent = () => {
 
 const styles = StyleSheet.create({
     mainBlock: {
-        flex: 1,
+        flex: 1.1,
         width: '100%',
         backgroundColor: 'white',
         flexDirection: 'column',
