@@ -220,7 +220,7 @@ const ChatScreen = ({ route }) => {
                     <OverflowMenu
                         OverflowIcon={({ color }) =>
                             <Image
-                                style={{ width: MultiPlatform.AdaptivePixelsSize(25), height: MultiPlatform.AdaptivePixelsSize(25) }}
+                                style={{ width: MultiPlatform.AdaptivePixelsSize(19), height: MultiPlatform.AdaptivePixelsSize(19) }}
                                 source={ require('../images/dots.png') }
                             />}
                     >

@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
+import { MultiPlatform } from '../MultiPlatform'
 
 const BaseSearchComponent = ({ searchItem, value, setValue }) => {
     return (
@@ -20,13 +21,14 @@ const styles = StyleSheet.create({
         width: '100%', 
         justifyContent: 'flex-start', 
         alignItems: 'center', 
-        marginTop: 10,
-        marginBottom: 10
+        marginTop: MultiPlatform.AdaptivePixelsSize(10),
+        paddingLeft: MultiPlatform.AdaptivePixelsSize(13),
+        paddingRight: MultiPlatform.AdaptivePixelsSize(13)
     },
     textInputStyle: { 
         backgroundColor: '#F3F4F6', 
-        paddingLeft: 15, 
-        width: '95%',
+        paddingLeft: MultiPlatform.AdaptivePixelsSize(15), 
+        width: '100%',
         height: 40, 
         borderRadius: 30, 
         color: '#434A53', 

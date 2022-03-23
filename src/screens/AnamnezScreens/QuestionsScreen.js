@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {addAnamnezAnswer, resetAllValues} from '../../store/reducers/AnamnezSlice'
 import IsAnonimusBase from "../../components/AnamnezBaseComponent/IsAnonimusBase";
 import Routes from "../../requests/Routes";
+import { MultiPlatform } from '../../components/MultiPlatform';
 
 
 const QuestionsScreen = () => {
@@ -135,7 +136,7 @@ const QuestionsScreen = () => {
             {
                 loading ? <ActivityIndicator size={"large"}/> : (
                     <View style={{
-                        width: '90%',
+                        width: '100%', paddingLeft: MultiPlatform.AdaptivePixelsSize(15), paddingRight: MultiPlatform.AdaptivePixelsSize(15),
                     }}>
                         <FlatList
                             data={anamnezData}

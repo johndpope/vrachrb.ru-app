@@ -147,6 +147,7 @@ const MainNavigationScreen = () => {
                         tabBarInactiveTintColor: "#AAB2BD",
                         headerTitle: "Консультация врача",
                         headerShadowVisible: false,
+                        headerTitleAlign: 'left',
                         tabBarLabelStyle: {
                             fontSize: MultiPlatform.AdaptivePixelsSize(13)
                         },

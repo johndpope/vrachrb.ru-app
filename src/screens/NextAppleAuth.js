@@ -1,5 +1,5 @@
 import React from 'react'
-import {Image, KeyboardAvoidingView, View} from 'react-native'
+import {Image, KeyboardAvoidingView, StatusBar, View} from 'react-native'
 import AppleFormComponent from "../components/AuthComponent/AppleFormComponent";
 import {MultiPlatform} from "../components/MultiPlatform";
 

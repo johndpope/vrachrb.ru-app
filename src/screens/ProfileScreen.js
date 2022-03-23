@@ -74,11 +74,11 @@ const ProfileScreen = () => {
                                 justifyContent: selectData.isSpecialist ? 'space-around' : 'flex-start',
                             }}
                         >
-                            <View style={{alignItems: 'center', backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20)}}>
+                            <View style={{ backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20)}}>
                                 <Text style={{
                                     color: '#434A53',
                                     fontSize: MultiPlatform.AdaptivePixelsSize(19),
-                                    margin: 20
+                                    margin: MultiPlatform.AdaptivePixelsSize(20)
                                 }}>{userNameState}</Text>
                             </View>
                             {
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F3F4F6', 
         borderRadius: MultiPlatform.AdaptivePixelsSize(20), 
         marginTop: MultiPlatform.AdaptivePixelsSize(10), 
-        paddingBottom: Platform.OS == 'ios' ? 0 : MultiPlatform.AdaptivePixelsSize(20) 
+        paddingBottom: MultiPlatform.AdaptivePixelsSize(20) 
     }
 })
 

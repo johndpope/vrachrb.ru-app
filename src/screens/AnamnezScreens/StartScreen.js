@@ -7,8 +7,6 @@ import BaseTextInput from "../../components/Widgets/BaseTextInput";
 import NoticeService from "../../components/Widgets/NoticeService";
 import BaseSendButton from "../../components/AuthComponent/BaseSendButton";
 import {MultiPlatform} from "../../components/MultiPlatform";
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
-import {colors} from "../../styles/colors";
 
 const StartScreen = (props) => {
 
@@ -60,7 +58,8 @@ const StartScreen = (props) => {
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={ styles.mainContent }>
             <ScrollView 
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{flexGrow: 1, justifyContent: 'center', width: '85%'}}
+                contentContainerStyle={{flexGrow: 1, justifyContent: 'center', 
+                paddingLeft: MultiPlatform.AdaptivePixelsSize(13), paddingRight: MultiPlatform.AdaptivePixelsSize(13)}}
             >    
                 <View>
                     <Text style={{
@@ -110,8 +109,6 @@ const StartScreen = (props) => {
 const styles = StyleSheet.create({
     mainContent: {
       flex: 1,
-      width: '100%',
-      height: '100%',
       backgroundColor: '#FFFFFF',
       justifyContent: 'center',
       alignItems: 'center',
@@ -142,7 +139,6 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         marginLeft: 3 
     },
-
     questionBodyStyle: {
         width: '100%',
         height: MultiPlatform.AdaptivePixelsSize(120),

@@ -16,19 +16,6 @@ const RegisterScreen = () => {
                 Platform.OS === 'ios' &&
                 <StatusBar backgroundColor={"#F3F4F6"}/>
             }
-            <View style={{
-                flex: 0.3,
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <Image
-                    style={{
-                        width: MultiPlatform.AdaptivePixelsSize(250),
-                        height: MultiPlatform.AdaptivePixelsSize(83)
-                    }}
-                    source={require("../images/logo.png")}
-                />
-            </View>
             <RegisterFormComponent/>
         </KeyboardAvoidingView>
     )

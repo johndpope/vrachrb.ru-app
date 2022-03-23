@@ -117,7 +117,7 @@ const SendButtonBase = () => {
                     qsh_anamnes: JSON.stringify(sendAnamnezData),
                     q_specialist_id: selectedSpecialistID,
                     q_specialty_id: selectedSpecialtyID,
-                    anonymoxus: anonymous,
+                    anonymous: anonymous,
                     user_about: JSON.stringify(userAbout)
                 }
             } else {

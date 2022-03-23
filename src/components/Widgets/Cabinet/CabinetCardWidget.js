@@ -18,32 +18,28 @@ const CabinetCardWidget = ({ data }) => {
     }
 
     return (
-        // <View>
             <TouchableOpacity style={ styles.mainContent } onPress={() => setCabinet()}>
                 <View style={ styles.wrapperBlock }>
                     <View style={{
-                        width: MultiPlatform.AdaptivePercentSize(30)
+                        width: MultiPlatform.AdaptivePercentSize(42)
                     }}>
                         <Text numberOfLines={2} ellipsizeMode='tail' style={ styles.descriptionText }>{ data.title }</Text>
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={{ ...styles.descriptionText, fontSize: MultiPlatform.AdaptivePixelsSize(13), fontWeight: '400' }}>{ data.description }</Text>
                     </View>
                     <Image
                         style={{
                             width: MultiPlatform.AdaptivePixelsSize(12),
                             height: MultiPlatform.AdaptivePixelsSize(21),
-                            right: MultiPlatform.AdaptivePercentSize(1)
                         }}
                         source={ require('../../../images/shevron.png') }
                     />
                 </View>
             </TouchableOpacity>
-        // </View>
     )
 }
 
 const styles = StyleSheet.create({
     mainContent: {
-        height: MultiPlatform.AdaptivePixelsSize(100),
+        height: MultiPlatform.AdaptivePixelsSize(75),
     },
     descriptionText: {
         color: '#434A53',
@@ -64,7 +60,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: '#E6E9ED',
         paddingRight: MultiPlatform.AdaptivePixelsSize(15),
-        paddingLeft: MultiPlatform.AdaptivePixelsSize(25)
+        paddingLeft: MultiPlatform.AdaptivePixelsSize(15),
     }
 });
 

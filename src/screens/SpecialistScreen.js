@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, ActivityIndicator, RefreshControl, FlatList } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, RefreshControl, FlatList, StatusBar, Platform } from 'react-native';
 import SpecialistCardWidget from '../components/Widgets/Specialist/SpecialistCardWidget';
 import Request from '../requests/Request'
 import {useSelector} from "react-redux";
@@ -41,6 +41,10 @@ const SpecialistScreen = () => {
 
     return (
         <View style={ styles.mainContent }>
+            {
+                Platform.OS == 'ios' &&
+                <StatusBar backgroundColor={"#F3F4F6"} />
+            }
             { loading ? 
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <ActivityIndicator size={'large'} />

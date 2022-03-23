@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     buttonChoiceStyle: {
         width: '100%',
         marginBottom: 10,
-        padding: MultiPlatform.AdaptivePixelsSize(18),
+        padding: MultiPlatform.AdaptivePixelsSize(15),
         borderColor: '#CCD1D9',
         borderWidth: 2,
         borderRadius: MultiPlatform.AdaptivePixelsSize(8),

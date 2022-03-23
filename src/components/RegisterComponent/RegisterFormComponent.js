@@ -151,8 +151,6 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: 'white',
         flexDirection: 'column',
-        borderTopLeftRadius: 24,
-        borderTopRightRadius: 24,
         justifyContent: 'space-between',
         alignItems: 'center',
     },

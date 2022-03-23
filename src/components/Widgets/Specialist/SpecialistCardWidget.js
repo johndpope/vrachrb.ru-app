@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         width: '100%',
         borderBottomWidth: 1,
         borderColor: '#E6E9ED',
-        paddingLeft: MultiPlatform.AdaptivePixelsSize(20),
+        paddingLeft: MultiPlatform.AdaptivePixelsSize(15),
         paddingRight: MultiPlatform.AdaptivePixelsSize(15)
     }
 });

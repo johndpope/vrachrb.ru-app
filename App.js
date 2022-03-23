@@ -28,6 +28,7 @@ import DisplayAnamnezScreen from './src/screens/AnamnezScreens/DisplayAnamnezScr
 import OutpatientCardScreen from './src/screens/AnamnezScreens/OutpatientCardScreen'
 import NextAppleAuth from "./src/screens/NextAppleAuth";
 import { Text, TextInput } from 'react-native'
+import {colors} from './src/styles/colors'
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
@@ -86,9 +87,12 @@ const App = () => {
                             headerBackVisible: true,
                             title: "",
                             headerStyle: {
-                                backgroundColor: '#F3F4F6',
-                                padding: 20
+                                backgroundColor: '#FFFFFF',
+                                padding: 20,
+                                
                             },
+                            headerBackTitle: "",
+                            headerTintColor: colors.HARD_GRAY_COLOR,
                             headerTitleStyle: {
                                 fontSize: MultiPlatform.AdaptivePixelsSize(21),
                                 color: '#434A53',
@@ -104,6 +108,8 @@ const App = () => {
                         options={{
                             headerBackVisible: true,
                             title: "",
+                            headerBackTitle: "",
+                            headerTintColor: colors.HARD_GRAY_COLOR,
                             headerStyle: {
                                 backgroundColor: '#F3F4F6',
                                 padding: 20
@@ -123,6 +129,8 @@ const App = () => {
                         options={{
                             headerBackVisible: true,
                             title: "",
+                            headerBackTitle: "",
+                            headerTintColor: colors.HARD_GRAY_COLOR,
                             headerStyle: {
                                 backgroundColor: '#F3F4F6',
                                 padding: 20
@@ -142,6 +150,8 @@ const App = () => {
                         options={{
                             headerBackVisible: true,
                             title: "",
+                            headerBackTitle: "",
+                            headerTintColor: colors.HARD_GRAY_COLOR,
                             headerStyle: {
                                 backgroundColor: '#F3F4F6',
                                 padding: 20
@@ -166,6 +176,8 @@ const App = () => {
                         options={{
                             headerBackVisible: true,
                             title: "Консультации",
+                            headerBackTitle: "",
+                            headerTintColor: colors.HARD_GRAY_COLOR,
                             headerStyle: {
                                 backgroundColor: '#FFFFFF',
                                 padding: 20
@@ -185,6 +197,8 @@ const App = () => {
                         options={{
                             headerBackVisible: true,
                             title: "1/2",
+                            headerBackTitle: "",
+                            headerTintColor: colors.HARD_GRAY_COLOR,
                             headerStyle: {
                                 backgroundColor: '#FFFFFF',
                                 padding: 20
@@ -207,6 +221,8 @@ const App = () => {
                         options={{
                             headerBackVisible: true,
                             title: "",
+                            headerBackTitle: "",
+                            headerTintColor: colors.HARD_GRAY_COLOR,
                             headerStyle: {
                                 backgroundColor: '#FFFFFF',
                                 padding: 20
@@ -226,6 +242,8 @@ const App = () => {
                         options={{
                             title: 'Амбулаторная карта',
                             headerBackVisible: true,
+                            headerBackTitle: "",
+                            headerTintColor: colors.HARD_GRAY_COLOR,
                             headerStyle: {
                                 backgroundColor: '#FFFFFF',
                                 padding: 20
@@ -244,6 +262,8 @@ const App = () => {
                         name="DisplayAnamnezScreen"
                         options={{
                             title: 'Анамнез',
+                            headerBackTitle: "",
+                            headerTintColor: colors.HARD_GRAY_COLOR,
                             headerBackVisible: true,
                             headerStyle: {
                                 backgroundColor: '#FFFFFF',
@@ -251,7 +271,7 @@ const App = () => {
                             headerTitleStyle: {
                                 fontSize: MultiPlatform.AdaptivePixelsSize(17),
                                 color: '#434A53',
-                                fontWeight: '500'
+                                fontWeight: '400'
                             },
                             headerShadowVisible: false,
                             headerTitleAlign: 'center',
@@ -263,6 +283,8 @@ const App = () => {
                         options={{
                             headerBackVisible: true,
                             title: "2/2",
+                            headerBackTitle: "",
+                            headerTintColor: colors.HARD_GRAY_COLOR,
                             headerStyle: {
                                 backgroundColor: '#FFFFFF',
                                 padding: 20

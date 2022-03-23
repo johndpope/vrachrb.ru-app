@@ -9,7 +9,8 @@ const BottomIssueCard = ({ show = false }) => {
     const navigation = useNavigation()
 
     return (
-        <View style={{ ...styles.mainContent, flex: show ? 0 : 1, opacity: show ? 1 : 0 }}>
+        <View style={{ ...styles.mainContent, flex: show ? 0 : 1, opacity: show ? 1 : 0, 
+            paddingBottom: show ? MultiPlatform.AdaptivePixelsSize(10) : 0, }}>
             <TouchableOpacity
                 onPress={() => navigation.navigate("ModalScreen")}
             >
@@ -33,7 +34,6 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingLeft: MultiPlatform.AdaptivePixelsSize(10),
         paddingRight: MultiPlatform.AdaptivePixelsSize(10),
-        paddingBottom: MultiPlatform.AdaptivePixelsSize(10),
         backgroundColor: '#FFF'
     },
     gradientOptions: {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, ActivityIndicator, RefreshControl, FlatList, Platform } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, RefreshControl, FlatList, Platform, StatusBar } from 'react-native';
 import BaseSearchComponent from '../components/HeaderComponent/BaseSearchComponent';
 import CabinetCardWidget from '../components/Widgets/Cabinet/CabinetCardWidget';
 import Request from '../requests/Request'
@@ -37,6 +37,10 @@ const CabinetScreen = () => {
 
     return (
         <View style={ styles.mainContent }>
+            {
+                Platform.OS == 'ios' &&
+                <StatusBar backgroundColor={"#F3F4F6"} />
+            }
             { loading ?
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <ActivityIndicator size={'large'} />

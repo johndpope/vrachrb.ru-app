@@ -10,14 +10,14 @@ const MailLoginScreen = () => {
             width: '100%',
             justifyContent: 'flex-end',
             alignItems: 'center',
-            backgroundColor: "#F3F4F6"
+            backgroundColor: "#F3F4F6",
         }}>
             {
                 Platform.OS == 'ios' &&
                 <StatusBar backgroundColor={"#F3F4F6"}/>
             }
             <View style={{
-                flex: 0.6,
+                flex: 0.35,
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
