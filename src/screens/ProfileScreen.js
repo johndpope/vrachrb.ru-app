@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useDispatch, useSelector} from 'react-redux';
 import ProfileDataItem from '../components/Widgets/Profile/ProfileDataItem';
 import { MultiPlatform } from '../components/MultiPlatform';
@@ -29,36 +29,40 @@ const ProfileScreen = () => {
 
     return (
         <View style={styles.mainContent}>
-            <View style={{
-                flex: 1,
-                backgroundColor: '#E5E5E5',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-                <View style={{
-                    width: width * 40,
-                    height: width * 40,
-                    borderRadius: 200,
-                    backgroundColor: '#AAB2BD',
-                    paddingTop: 20,
-                    overflow: 'hidden'
-                }}>
-                    <Image
-                        style={{
-                            width: width * 40,
-                            height: width * 40,
-                        }}
-                        source={ !selectData?.photo ? require('../images/user.png') : { uri: Routes.imageURL + selectData.photo }}
-                    />
-                </View>
-            </View>
+            {
+                selectData.isSpecialist ?
+                    <View style={{
+                        flex: 1,
+                        backgroundColor: '#E5E5E5',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>
+                     
+                            <View style={{
+                                width: width * 40,
+                                height: width * 40,
+                                borderRadius: 200,
+                                backgroundColor: '#AAB2BD',
+                                paddingTop: 20,
+                                overflow: 'hidden'
+                            }}>
+                                <Image
+                                    style={{
+                                        width: width * 40,
+                                        height: width * 40,
+                                    }}
+                                    source={ !selectData?.photo ? require('../images/user.png') : { uri: Routes.imageURL + selectData.photo }}
+                                />
+                            </View> 
+                    </View> : <View></View>
+                }
                 <View style={{
                     flex: 2.2,
                     backgroundColor: '#FFFFFF',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderTopLeftRadius: 20,
-                    borderTopRightRadius: 20,
+                    borderTopLeftRadius: selectData.isSpecialist ? 20 : 0,
+                    borderTopRightRadius: selectData.isSpecialist ? 20 : 0,
                 }}>
                     <View style={{width: '100%', height: '100%'}}>
                         <ScrollView
@@ -67,10 +71,10 @@ const ProfileScreen = () => {
                                 flexGrow: 1,
                                 width: '100%',
                                 padding: MultiPlatform.AdaptivePixelsSize(20),
-                                justifyContent: 'space-around',
+                                justifyContent: selectData.isSpecialist ? 'space-around' : 'flex-start',
                             }}
                         >
-                            <View style={{alignItems: 'center', backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20), marginTop: 10,}}>
+                            <View style={{alignItems: 'center', backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20)}}>
                                 <Text style={{
                                     color: '#434A53',
                                     fontSize: MultiPlatform.AdaptivePixelsSize(19),
@@ -79,26 +83,26 @@ const ProfileScreen = () => {
                             </View>
                             {
                                 selectData.isSpecialist && (
-                                    <View style={{ backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20), marginTop: 10, justifyContent: 'space-around', flexDirection: 'row' }}>
+                                    <View style={{ backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20), marginTop: MultiPlatform.AdaptivePixelsSize(10), justifyContent: 'space-around', flexDirection: 'row' }}>
                                         <SpecialistDataItem imageType='star' count={selectData.rating} item={"Рейтинг"} />
                                         <SpecialistDataItem imageType='edit' count={selectData.answers_count} item={"Консультаций"} />
                                     </View>
                                 )
                             }
-                            <View style={{ backgroundColor: '#F3F4F6', borderRadius: MultiPlatform.AdaptivePixelsSize(20), marginTop: 10 }}>
+                            <View style={ styles.userInfo }>
                                 {
                                     selectData?.email ?
-                                        <ProfileDataItem header="Ваш Email" data={selectData.email}/>
+                                        <ProfileDataItem header="Email" data={selectData.email}/>
                                         : <Text></Text>
                                 }
                                 {
                                     selectData.birth_date ?
-                                        <ProfileDataItem header="Ваш дата рождения" data={selectData.birth_date.split(" ")[0].split("-").reverse().join("-")}/>
+                                        <ProfileDataItem header="Дата рождения" data={selectData.birth_date.split(" ")[0].split("-").reverse().join("-")}/>
                                         : <Text></Text>
                                 }
                                 {
                                     selectData.phone ?
-                                        <ProfileDataItem header="Ваш номер телефона" data={selectData.phone}/>
+                                        <ProfileDataItem header="Номер телефона" data={selectData.phone}/>
                                         : <Text></Text>
                                 }
                             </View>
@@ -114,6 +118,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#E5E5E5',
         width: '100%',
+    },
+    userInfo: { 
+        backgroundColor: '#F3F4F6', 
+        borderRadius: MultiPlatform.AdaptivePixelsSize(20), 
+        marginTop: MultiPlatform.AdaptivePixelsSize(10), 
+        paddingBottom: Platform.OS == 'ios' ? 0 : MultiPlatform.AdaptivePixelsSize(20) 
     }
 })
 
