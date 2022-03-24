@@ -37,8 +37,8 @@ const MailLoginScreen = () => {
                 >
                     <Image
                         style={{
-                            width: MultiPlatform.AdaptivePixelsSize(250),
-                            height: MultiPlatform.AdaptivePixelsSize(83)
+                            height: MultiPlatform.AdaptivePixelsSize(83),
+                            resizeMode: 'contain',
                         }}
                         source={require("../images/logo.png")}
                     />

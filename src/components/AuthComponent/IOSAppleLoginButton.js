@@ -67,22 +67,8 @@ const IOSAppleLoginButton = () => {
                             username: jwt?.sub
                         })
                 } else if(response?.userData) {
-                    let user = response.userData;
-                    let newUser = {
-                        auth: user?.auth,
-                        isSpecialist: user?.isSpecialist,
-                        first_name: user?.first_name,
-                        second_name: user?.second_name,
-                        middle_name: user?.middle_name,
-                        username: user?.first_name + " " + user?.second_name,
-                        gender: user?.gender,
-                        birth_date: user?.birth_date + " .",
-                        email: user?.email,
-                        phone: user?.phone,
-                        photo: user?.photo
-                    }
-                    dispatch(saveUserData(newUser))
-                    await Storage.save("userData", newUser)
+                    dispatch(saveUserData(response.userData))
+                    await Storage.save("userData", response.userData)
                     navigation.reset({
                         index: 0,
                         routes: [{name: 'MainNavigationScreen'}],
@@ -101,7 +87,7 @@ const IOSAppleLoginButton = () => {
     }
 
     return (
-        <TouchableOpacity style={ {...styles.container, marginBottom: MultiPlatform.AdaptivePixelsSize(10)} }
+        <TouchableOpacity style={ {...styles.container, marginTop: MultiPlatform.AdaptivePixelsSize(10)} }
                           onPress={() => { onAppleButtonPress() }}>
             <View style={ styles.btnStyle }>
                 <Image style={ styles.imageStyle} source={appleImage}/>

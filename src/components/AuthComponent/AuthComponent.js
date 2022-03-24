@@ -9,12 +9,12 @@ import appleAuth from "@invertase/react-native-apple-authentication";
 const AuthComponent = () => {
     return (
         <View style={ styles.centerComponent }>
+            <VkLoginButton />
             { Platform.OS === "ios" && appleAuth.isSupported && (
                 <IOSAppleLoginButton/>
             )}
-            <VkLoginButton />
             <MainAuthButton text={"Электронная почта"} nav={"MailLoginScreen"} />
-            <SecondAuthButton text={"Регистрация"} nav={"RegisterScreen"} />
+            <SecondAuthButton text={"Зарегистрироваться"} nav={"RegisterScreen"} />
         </View>
     )
 }

@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { MultiPlatform } from '../MultiPlatform';
 import {useDispatch} from "react-redux";
@@ -9,19 +9,25 @@ import { colors } from '../../styles/colors';
 const IsAnonimusBase = () => {
 
     const dispatch = useDispatch();
+    const [bool, setBool] = useState();
+
+    function onPress(value){
+        dispatch(selectAnonymous(value))
+        setBool(value)
+    }
 
     return (
         <View style={styles.checkboxContainer}>
             <BouncyCheckbox
+                style={styles.checkbox}
                 size={MultiPlatform.AdaptivePixelsSize(35)}
                 fillColor="#58BE3F"
                 unfillColor="#FFFFFF"
+                text={"Задать вопрос Анонимно?"}
+                textStyle={styles.label}
                 iconStyle={{ borderColor: "#58BE3F" }}
-                onPress={(isChecked) => { dispatch(selectAnonymous(isChecked)) }}
+                onPress={(isChecked) => onPress(isChecked)}
             />
-            <Text style={styles.label}>
-                Задать вопрос Анонимно?
-            </Text>
         </View>
     )
 }
@@ -34,11 +40,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     checkbox: {
-        alignSelf: "center",
+        marginLeft: MultiPlatform.AdaptivePixelsSize(2),
     },
     label: {
-        paddingRight: 40,
-        color: colors.HARD_GRAY_COLOR
+        fontSize: MultiPlatform.AdaptivePixelsSize(14),
+        color: colors.HARD_GRAY_COLOR,
+        textDecorationLine: "none",
     },
 })
 

@@ -27,8 +27,8 @@ const CabinetCardWidget = ({ data }) => {
                     </View>
                     <Image
                         style={{
-                            width: MultiPlatform.AdaptivePixelsSize(12),
-                            height: MultiPlatform.AdaptivePixelsSize(21),
+                            width: MultiPlatform.AdaptivePixelsSize(8),
+                            resizeMode: 'contain',
                         }}
                         source={ require('../../../images/shevron.png') }
                     />

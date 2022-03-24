@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   imageStyle: {
-    width: MultiPlatform.AdaptivePixelsSize(250),
-    height: MultiPlatform.AdaptivePixelsSize(83)
+    height: MultiPlatform.AdaptivePixelsSize(83),
+    resizeMode: 'contain',
   }
 });
 

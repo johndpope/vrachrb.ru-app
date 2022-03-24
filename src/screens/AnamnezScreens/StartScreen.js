@@ -72,7 +72,7 @@ const StartScreen = (props) => {
                         <TouchableOpacity
                             style={{...styles.buttonStyle,
                                 marginBottom: choice === 2 ? 8 : 0,
-                                borderWidth: choice === 1 ? 0 : 2,
+                                borderWidth: choice === 1 ? 0 : 1,
                                 backgroundColor: choice === 1 ?
                                 colors.selectedButtonAccentType : colors.deselectAccentType,
                             }}
@@ -85,7 +85,7 @@ const StartScreen = (props) => {
                         <TouchableOpacity
                             style={{
                                 ...styles.buttonStyle,
-                                borderWidth: choice === 2 ? 0 : 2,
+                                borderWidth: choice === 2 ? 0 : 1,
                                 marginTop: choice === 1 ? 8 : 0,
                                 backgroundColor: choice === 2 ? colors.selectedButtonAccentType
                                     : colors.deselectAccentType,}}

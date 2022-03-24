@@ -37,7 +37,7 @@ const BaseTextInput = ({ customStyle, idDispatch, is_required=true, hint="Вве
 
     return (
         <TextInput
-            style={ require ? {...styles.textInputStyle, backgroundColor: '#FFFFFF', borderColor: '#F27C83', borderWidth: 2, ...customStyle }
+            style={ require ? {...styles.textInputStyle, backgroundColor: '#FFFFFF', borderColor: '#F27C83', borderWidth: 1, ...customStyle }
                 : { ...styles.textInputStyle, ...customStyle} }
             multiline={ multiline }
             textAlign='left'

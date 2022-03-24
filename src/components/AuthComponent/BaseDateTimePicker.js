@@ -19,8 +19,15 @@ const BaseDateTimePicker = ({ response, setValue, hint }) => {
         setDatePickerVisibility(false);
     };
     const handleConfirm = (date) => {
-        setText(date.getUTCDate()+"."+(date.getUTCMonth()+1)+"."+date.getUTCFullYear())
-        console.log("Выбранная дата : ", date.toString());
+        let day = date.getUTCDate(),
+            month = date.getUTCMonth()+1,
+            year = date.getUTCFullYear();
+        day = day < 10 ? "0"+day : day;
+        month = month < 10 ? "0"+month : month;
+        let dateRU = day+"."+month+"."+year
+
+        setText(dateRU)
+        console.log("Выбранная дата : ", dateRU);
         setValue(date)
         hideDatePicker();
     };
@@ -61,10 +68,15 @@ const BaseDateTimePicker = ({ response, setValue, hint }) => {
                 </TouchableOpacity>
             }
             <DateTimePickerModal
+                date={new Date()}
                 isVisible={isDatePickerVisible}
-                mode="date"
+                mode={"date"}
                 onConfirm={handleConfirm}
                 onCancel={hideDatePicker}
+                cancelTextIOS={"Закрыть"}
+                confirmTextIOS={"Подтвердить"}
+                display={Platform.OS === 'ios' ? "inline" : "default"}
+                locale={"en_GB"}
             />
         </View>
         // <View style={styles.container}>

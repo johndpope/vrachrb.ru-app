@@ -8,13 +8,22 @@ const SecondAuthButton = ({text, nav}) => {
     const navigation = useNavigation();
 
     return (
-        <TouchableOpacity style={{ paddingTop: 30, paddingLeft: 30, paddingRight: 30, width: '100%', justifyContent: 'center', alignItems: 'center' }} onPress={() => navigation.navigate(nav)}>
+        <TouchableOpacity style={styles.btnStyle }
+            onPress={() => navigation.navigate(nav)}>
             <Text allowFontScaling={false} style={ styles.textStyle }>{text}</Text>
         </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
+    btnStyle: {
+        paddingTop: 30,
+        paddingLeft: 30,
+        paddingRight: 30,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     textStyle: {
         color: colors.BLUE_ACCENT_COLOR,
         fontSize: MultiPlatform.AdaptivePixelsSize(17)

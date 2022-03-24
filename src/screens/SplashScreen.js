@@ -6,6 +6,7 @@ import Request from '../requests/Request';
 import { useDispatch } from "react-redux";
 import {saveUserData, setAgreements} from "../store/reducers/LoginSlice";
 import Storage from "../storage/Storage";
+import {MultiPlatform} from "../components/MultiPlatform";
 
 const SplashScreen = () => {
 
@@ -43,8 +44,8 @@ const SplashScreen = () => {
         <View style={styles.mainContent}>
             <Image 
                 style={{
-                    width: 243,
-                    height: 83
+                    height: MultiPlatform.AdaptivePixelsSize(83),
+                    resizeMode: 'contain',
                 }}
                 source={ require('../images/logo.png') }
             />

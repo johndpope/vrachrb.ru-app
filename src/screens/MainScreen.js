@@ -1,10 +1,9 @@
 import React from 'react'
+import { View, StatusBar } from 'react-native';
+import { MultiPlatform } from '../components/MultiPlatform';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import CabinetScreen from './CabinetScreen';
 import SpecialistScreen from './SpecialistScreen';
-import {View, StatusBar, TextInput} from 'react-native';
-import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard';
-import { MultiPlatform } from '../components/MultiPlatform';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -23,6 +22,8 @@ const MainScreen = (props) => {
                     labelStyle: {
                         fontSize: MultiPlatform.AdaptivePixelsSize(17),
                         color: '#AAB2BD',
+                        textTransform: "none",
+                        fontWeight: "500",
                     },
                     style: {
                         backgroundColor: '#F3F4F6',
@@ -38,8 +39,9 @@ const MainScreen = (props) => {
                         width: '45%',
                     }
                 }}
+                tabBarLabelStyle={{fontSize: 12}}
             >
-                <Tab.Screen name="Кабинет" component={ CabinetScreen } />
+                <Tab.Screen name="Кабинет" component={ CabinetScreen } options={{tabBarLabel:'Кабинет'}} />
                 <Tab.Screen name="Специалист" component={ SpecialistScreen } />
             </Tab.Navigator>
         </View>

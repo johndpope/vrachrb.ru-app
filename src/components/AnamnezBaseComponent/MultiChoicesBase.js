@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         padding: MultiPlatform.AdaptivePixelsSize(15),
         borderColor: '#CCD1D9',
-        borderWidth: 2,
+        borderWidth: 1,
         borderRadius: MultiPlatform.AdaptivePixelsSize(8),
     },
     textStyle: { 

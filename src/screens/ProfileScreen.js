@@ -94,17 +94,17 @@ const ProfileScreen = () => {
                                 {
                                     selectData?.email ?
                                         <ProfileDataItem header="Email" data={selectData.email}/>
-                                        : <Text></Text>
+                                        : null
                                 }
                                 {
                                     selectData.birth_date ?
                                         <ProfileDataItem header="Дата рождения" data={selectData.birth_date.split(" ")[0].split("-").reverse().join("-")}/>
-                                        : <Text></Text>
+                                        : null
                                 }
                                 {
                                     selectData.phone ?
                                         <ProfileDataItem header="Номер телефона" data={selectData.phone}/>
-                                        : <Text></Text>
+                                        : null
                                 }
                             </View>
                         </ScrollView>
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F3F4F6', 
         borderRadius: MultiPlatform.AdaptivePixelsSize(20), 
         marginTop: MultiPlatform.AdaptivePixelsSize(10), 
-        paddingBottom: MultiPlatform.AdaptivePixelsSize(20) 
+        paddingBottom: MultiPlatform.AdaptivePixelsSize(20)
     }
 })
 

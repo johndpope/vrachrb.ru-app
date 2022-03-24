@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 16,
         borderColor: colors.EMAIL_LOGIN_BORDER_COLOR,
-        borderWidth: 2,
+        borderWidth: 1,
         marginTop: MultiPlatform.AdaptivePixelsSize(10)
     }
 })

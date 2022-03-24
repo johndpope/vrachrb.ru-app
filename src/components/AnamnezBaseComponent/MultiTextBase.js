@@ -56,7 +56,7 @@ const MultiTextBase = ({ data = [], index = 0, starred = false }) => {
 
     return (
         <TextInput
-            style={ require && data.is_required == "1" ? {...styles.textInputStyle, backgroundColor: '#FFFFFF', borderColor: '#F27C83', borderWidth: 2 } : styles.textInputStyle }
+            style={ require && data.is_required == "1" ? {...styles.textInputStyle, backgroundColor: '#FFFFFF', borderColor: '#F27C83', borderWidth: 1 } : styles.textInputStyle }
             multiline={true}
             textAlign='left'
             textAlignVertical='top'
