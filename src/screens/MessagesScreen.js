@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View, Text, ScrollView } from 'react-native';
 import MessageCard from '../components/Widgets/Chat/MessageCard'
 import Request from '../requests/Request';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { MultiPlatform } from '../components/MultiPlatform';
 import { useNavigation } from '@react-navigation/native';
 import Routes from "../requests/Routes";
+import { setBottomNavigationEnd } from '../store/reducers/UtilitySlice';
 
 const MessagesScreen = () => {
 
@@ -15,6 +16,8 @@ const MessagesScreen = () => {
     const isSpecialist = useSelector(state => state.LoginSlice.userData.isSpecialist)
     const route = isSpecialist ? Routes.getSpecialistQuestionsURL : Routes.getUserQuestionsURL
     
+    const dispatch = useDispatch()
+
     const navigation = useNavigation()
 
     const getChats = async () => {
@@ -62,6 +65,7 @@ const MessagesScreen = () => {
 
         setResponse(response)
         setUserChats(DATA)
+        dispatch(setBottomNavigationEnd(false))
         setLoading(false)
     }
 
@@ -100,10 +104,27 @@ const MessagesScreen = () => {
                             />
                         }
                         keyExtractor={(item) => item.id}
+                        onScroll={(e) => {
+                            if ((e.nativeEvent.contentOffset.y + MultiPlatform.AdaptivePixelsSize(900)) > e.nativeEvent.contentSize.height){
+                                dispatch(setBottomNavigationEnd(true))
+                            } else {
+                                dispatch(setBottomNavigationEnd(false))
+                            }
+                        }}
                         showsVerticalScrollIndicator={false}
-                        renderItem={({ item }) => {
+                        renderItem={({ item, index }) => {
                             return(
-                                <MessageCard outPatient={false} item={ item }/>
+                                <View>
+                                    <MessageCard outPatient={false} item={ item }/>
+                                    {
+                                        (index + 1) == userChats.length &&
+                                        <View 
+                                            style={{ 
+                                                height: MultiPlatform.AdaptivePixelsSize(110),
+                                            }}
+                                        />
+                                    }
+                                </View>
                             )
                         }}
                     />

@@ -35,14 +35,15 @@ const styles = StyleSheet.create({
         paddingLeft: MultiPlatform.AdaptivePixelsSize(10),
         paddingRight: MultiPlatform.AdaptivePixelsSize(10),
         backgroundColor: '#FFF',
-        marginBottom: -120
     },
     gradientOptions: {
         paddingTop: MultiPlatform.AdaptivePixelsSize(13),
         paddingBottom: MultiPlatform.AdaptivePixelsSize(13),
         borderRadius: 16,
         justifyContent: 'center',
-        marginBottom: 80
+        marginBottom: 80,
+        marginTop: 10,
+        bottom: 0
         // position: 'absolute',
         // bottom: -40,
         // left: 0, 

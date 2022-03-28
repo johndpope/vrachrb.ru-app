@@ -6,35 +6,35 @@ import Request from '../requests/Request'
 import Routes from "../requests/Routes";
 import { FlatList as FlatGestureList } from 'react-native-gesture-handler';
 import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard'
-import Animated from 'react-native-reanimated';
+import { useDispatch } from 'react-redux';
+import { setBottomNavigationEnd } from '../store/reducers/UtilitySlice';
+import { MultiPlatform } from '../components/MultiPlatform';
 
 const CabinetScreen = () => {
 
     const [cabinet, setCabinet] = useState()
     const [filteredCabinet, setFilteredCabinet] = useState()
     const [loading, setLoading] = useState(false)
-    const [visible, setVisible] = useState(false)
     const [text, setText] = useState("")
 
-    const animateCardItem = new Animated.Value(0)
-    const minimizeY = animateCardItem.interpolate({
-        inputRange: [0, 15],
-        outputRange: [0, 1]
-    })
+    const dispatch = useDispatch()
 
     const getCabinetData = () => {
         setLoading(true)
         Request.get(Routes.getCabinetURL, {})
-            .then(response => { setCabinet(response), setLoading(false), setFilteredCabinet(response), setText("")})
-        setVisible(false)
+            .then(response => { setCabinet(response), setFilteredCabinet(response), setText(""), setLoading(false)})
+        dispatch(setBottomNavigationEnd(false))
     };
 
     const searchCabinetItem = (text) => {
-        let data = cabinet['response'].filter(cabinet => {
-            return cabinet.title.toLocaleLowerCase().includes(text.toLocaleLowerCase())
-        })
-
-        setFilteredCabinet({ 'response' : data })
+        if (text !== ""){
+            let data = cabinet['response'].filter(cabinet => {
+                return cabinet.title.toLocaleLowerCase().includes(text.toLocaleLowerCase())
+            })
+            setFilteredCabinet({ 'response' : data })
+        } else {
+            setFilteredCabinet(cabinet)
+        }
     }
 
     useEffect(() => {
@@ -65,14 +65,26 @@ const CabinetScreen = () => {
                                 }
                                 style={{
                                     width: '100%',
+                                }}                                
+                                onScroll={(e) => {
+                                    if ((e.nativeEvent.contentOffset.y + MultiPlatform.AdaptivePixelsSize(780)) > (filteredCabinet['response'].length * MultiPlatform.AdaptivePixelsSize(75) + 135)){
+                                        dispatch(setBottomNavigationEnd(true))
+                                    } else {
+                                        dispatch(setBottomNavigationEnd(false))
+                                    }
                                 }}
-                                onEndReached={() => setVisible(true)}
                                 data={filteredCabinet && filteredCabinet['response']}
                                 showsVerticalScrollIndicator={false}
                                 keyExtractor={(item) => item.id}
-                                renderItem={({ item }) => {
+                                renderItem={({ item, index }) => {
                                     return(
-                                        <CabinetCardWidget data={ item }/>
+                                        <View>
+                                            <CabinetCardWidget data={ item }/>
+                                            {
+                                                (index + 1) == filteredCabinet['response'].length &&
+                                                <BottomIssueCard />
+                                            }
+                                        </View>
                                     )
                                 }}
                             />
@@ -88,27 +100,31 @@ const CabinetScreen = () => {
                                 style={{
                                     width: '100%',
                                 }}
-                                onEndReached={() => setVisible(true)}
                                 data={filteredCabinet && filteredCabinet['response']}
                                 showsVerticalScrollIndicator={false}
                                 onScroll={(e) => {
-                                    animateCardItem.setValue(-e.nativeEvent.contentOffset.y),
-                                    console.log(e.nativeEvent.contentOffset.y)
+                                    if ((e.nativeEvent.contentOffset.y + MultiPlatform.AdaptivePixelsSize(780)) > (filteredCabinet['response'].length * MultiPlatform.AdaptivePixelsSize(75) + 135)){
+                                        dispatch(setBottomNavigationEnd(true))
+                                    } else {
+                                        dispatch(setBottomNavigationEnd(false))
+                                    }
                                 }}
                                 keyExtractor={(item) => item.id}
-                                renderItem={({ item }) => {
+                                removeClippedSubviews={false}
+                                renderItem={({ item, index }) => {
                                     return(
-                                        <CabinetCardWidget data={ item }/>
+                                        <View>
+                                            <CabinetCardWidget data={ item }/>
+                                            {
+                                                (index + 1) == filteredCabinet['response'].length &&
+                                                <BottomIssueCard />
+                                            }
+                                        </View>
                                     )
                                 }}
                             />
                         )
                     }
-                    <Animated.View style={{
-                        transform: [{ translateY: minimizeY }]
-                    }}>
-                        <BottomIssueCard />
-                    </Animated.View>
                 </View>
             )}
         </View>

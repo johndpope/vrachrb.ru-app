@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, ActivityIndicator, RefreshControl, FlatList, StatusBar, Platform } from 'react-native';
 import SpecialistCardWidget from '../components/Widgets/Specialist/SpecialistCardWidget';
 import Request from '../requests/Request'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import BaseSearchComponent from '../components/HeaderComponent/BaseSearchComponent';
 import Routes from "../requests/Routes";
 import { FlatList as FlatGestureList } from 'react-native-gesture-handler';
-import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard'
+import { setBottomNavigationEnd } from '../store/reducers/UtilitySlice';
+import { MultiPlatform } from '../components/MultiPlatform';
+import { useNavigation } from '@react-navigation/native';
 
 const SpecialistScreen = () => {
 
@@ -16,28 +18,37 @@ const SpecialistScreen = () => {
     const specialistRoute = useSelector(state => state.SpecSlice.specialistRoute)
     const specialistData = useSelector(state => state.SpecSlice.specialistData)
 
-    const [visible, setVisible] = useState(false)
     const [text, setText] = useState("")
+
+    const dispatch = useDispatch()
+    const navigation = useNavigation()
 
     const getSpecialistData = (route = Routes.getSpecialistsURL, data= {}) => {
         setLoading(true)
         Request.get(route, data)
-            .then(response => { setSpecialist(response), setLoading(false), setFilteredSpecialist(response), setText("")})
-        setVisible(false)
+            .then(response => { setSpecialist(response), setFilteredSpecialist(response), setText(""), setLoading(false)})
     };
 
     const searchCabinetItem = (text) => {
-        let data = specialist['response'].filter(specialist => {
-            return (specialist.User.first_name + " " + specialist.User.second_name + " " + specialist.User.middle_name).toLocaleLowerCase().includes(text.toLocaleLowerCase())
-        })
-
-        setFilteredSpecialist({ 'response' : data })
+        if (text !== ""){
+            let data = specialist['response'].filter(specialist => {
+                return (specialist.User.first_name + " " + specialist.User.second_name + " " + specialist.User.middle_name).toLocaleLowerCase().includes(text.toLocaleLowerCase())
+            })
+            setFilteredSpecialist({ 'response' : data })
+        } else {
+            setFilteredSpecialist(specialist)
+        }
     }
 
     useEffect(() => {
+        navigation.addListener(
+            'focus',
+            payload => {
+                dispatch(setBottomNavigationEnd(false))
+            }
+        );
         getSpecialistData(specialistRoute, specialistData)
     }, [specialistData])
-
 
     return (
         <View style={ styles.mainContent }>
@@ -68,12 +79,26 @@ const SpecialistScreen = () => {
                                 style={{
                                     width: '100%',
                                 }}
-                                onEndReached={() => setVisible(true)}
+                                onScroll={(e) => {
+                                    if ((e.nativeEvent.contentOffset.y + MultiPlatform.AdaptivePixelsSize(800)) > (filteredCabinet['response'].length * MultiPlatform.AdaptivePixelsSize(75) + 135)){
+                                        dispatch(setBottomNavigationEnd(true))
+                                    } else {
+                                        dispatch(setBottomNavigationEnd(false))
+                                    }
+                                }}
                                 data={filteredSpecialist && filteredSpecialist['response']}
                                 keyExtractor={(item) => item.id}
-                                renderItem={({ item }) => {
+                                renderItem={({ item, index }) => {
                                     return(
-                                        <SpecialistCardWidget data={ item }/>
+                                        <View>
+                                            <SpecialistCardWidget data={ item }/>
+                                            {
+                                                (index + 1) == filteredSpecialist['response'].length &&
+                                                <View style={{
+                                                    height: MultiPlatform.AdaptivePixelsSize(120),
+                                                }}/>
+                                            }
+                                        </View>
                                     )
                                 }} 
                             />
@@ -88,20 +113,33 @@ const SpecialistScreen = () => {
                                 }
                                 style={{
                                     width: '100%',
-                                }}
-                                onEndReached={() => setVisible(true)}
-                                initialNumToRender={10}
+                                }}            
+                                onScroll={(e) => {
+                                    if ((e.nativeEvent.contentOffset.y + MultiPlatform.AdaptivePixelsSize(810)) > (filteredSpecialist['response'].length * MultiPlatform.AdaptivePixelsSize(120) + 110)){
+                                        dispatch(setBottomNavigationEnd(true))
+                                    } else {
+                                        dispatch(setBottomNavigationEnd(false))
+                                    }
+                                }}                    
                                 data={filteredSpecialist && filteredSpecialist['response']}
                                 keyExtractor={(item) => item.id}
-                                renderItem={({ item }) => {
+                                removeClippedSubviews={false}
+                                renderItem={({ item, index }) => {
                                     return(
-                                        <SpecialistCardWidget data={ item }/>
+                                        <View>
+                                            <SpecialistCardWidget data={ item }/>
+                                            {
+                                                (index + 1) == filteredSpecialist['response'].length &&
+                                                <View style={{
+                                                    height: MultiPlatform.AdaptivePixelsSize(110),
+                                                }}/>
+                                            }
+                                        </View>
                                     )
                                 }} 
                             />
                         )
                     }
-                    <BottomIssueCard show={visible}/>
                 </View>
             )}
         </View>

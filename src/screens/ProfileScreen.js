@@ -8,6 +8,8 @@ import { saveUserData } from '../store/reducers/LoginSlice';
 import Storage from '../storage/Storage';
 import SpecialistDataItem from '../components/Widgets/Profile/SpecialistDataItem';
 import Routes from "../requests/Routes";
+import { setBottomNavigationEnd } from '../store/reducers/UtilitySlice';
+import { useNavigation } from '@react-navigation/native';
 
 const ProfileScreen = () => {
 
@@ -17,6 +19,9 @@ const ProfileScreen = () => {
     const [userNameState, setUserName] = useState("")
 
     const selectData = useSelector(state => state.LoginSlice.userData)
+    const dispatch = useDispatch()
+
+    const navigation = useNavigation()
 
     useEffect(() => {
         let userName = ""
@@ -24,6 +29,13 @@ const ProfileScreen = () => {
         selectData.first_name == null ? userName = userName + "" : userName = userName + selectData.first_name
         selectData.second_name == null ? userName = userName + "" : userName = userName + " " + selectData.second_name
         selectData.middle_name == null ? userName = userName + "" : userName = userName + " " + selectData.middle_name
+        
+        navigation.addListener(
+            'focus',
+            payload => {
+                dispatch(setBottomNavigationEnd(false))
+            }
+        );
         setUserName(userName)
     }, [selectData])
 
@@ -124,6 +136,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F3F4F6', 
         borderRadius: MultiPlatform.AdaptivePixelsSize(20), 
         marginTop: MultiPlatform.AdaptivePixelsSize(10), 
+        marginBottom: MultiPlatform.AdaptivePixelsSize(50),
         paddingBottom: MultiPlatform.AdaptivePixelsSize(20)
     }
 })

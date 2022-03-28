@@ -13,7 +13,7 @@ import Storage from '../storage/Storage';
 import Routes from "../requests/Routes";
 import { Notifications } from 'react-native-notifications';
 import LoginSlice from '../store/reducers/LoginSlice';
-import CustomNavigationComponent from '../components/NavigationComponent/CustomNavigationComponent';
+import UtilitySlice from '../store/reducers/UtilitySlice';
 
 const BottomTab = createBottomTabNavigator()
 
@@ -24,6 +24,7 @@ const MainNavigationScreen = () => {
 
     const isSpecialist = useSelector(state => state.LoginSlice.userData.isSpecialist)
     const userData = useSelector(state => state.LoginSlice.userData)
+    const setBottomNavigationEnd = useSelector(state => state.UtilitySlice.bottomNavigationEnd)
 
     const dispatch = useDispatch();
     const navigation = useNavigation()
@@ -134,12 +135,11 @@ const MainNavigationScreen = () => {
                     shadowColor: "#000",
                     shadowOffset: {
                         width: 0,
-                        height: 0,
+                        height: setBottomNavigationEnd ? 0 : 9,
                     },
-                    shadowOpacity: 0,
-                    shadowRadius: 0,
-                    elevation: 0,
-                    borderTopWidth: 0,
+                    shadowOpacity: setBottomNavigationEnd ? 0 : 0.48,
+                    shadowRadius: setBottomNavigationEnd ? 0 : 11.95,
+                    elevation: setBottomNavigationEnd ? 0 : 18,
                 }
             }}
             // tabBar={(props) => <CustomNavigationComponent {...props} />}
