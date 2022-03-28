@@ -6,6 +6,7 @@ import Request from '../requests/Request'
 import Routes from "../requests/Routes";
 import { FlatList as FlatGestureList } from 'react-native-gesture-handler';
 import BottomIssueCard from '../components/Widgets/Specialist/BottomIssueCard'
+import Animated from 'react-native-reanimated';
 
 const CabinetScreen = () => {
 
@@ -13,8 +14,13 @@ const CabinetScreen = () => {
     const [filteredCabinet, setFilteredCabinet] = useState()
     const [loading, setLoading] = useState(false)
     const [visible, setVisible] = useState(false)
-
     const [text, setText] = useState("")
+
+    const animateCardItem = new Animated.Value(0)
+    const minimizeY = animateCardItem.interpolate({
+        inputRange: [0, 15],
+        outputRange: [0, 1]
+    })
 
     const getCabinetData = () => {
         setLoading(true)
@@ -85,6 +91,10 @@ const CabinetScreen = () => {
                                 onEndReached={() => setVisible(true)}
                                 data={filteredCabinet && filteredCabinet['response']}
                                 showsVerticalScrollIndicator={false}
+                                onScroll={(e) => {
+                                    animateCardItem.setValue(-e.nativeEvent.contentOffset.y),
+                                    console.log(e.nativeEvent.contentOffset.y)
+                                }}
                                 keyExtractor={(item) => item.id}
                                 renderItem={({ item }) => {
                                     return(
@@ -94,7 +104,11 @@ const CabinetScreen = () => {
                             />
                         )
                     }
-                    <BottomIssueCard show={visible}/>
+                    <Animated.View style={{
+                        transform: [{ translateY: minimizeY }]
+                    }}>
+                        <BottomIssueCard />
+                    </Animated.View>
                 </View>
             )}
         </View>

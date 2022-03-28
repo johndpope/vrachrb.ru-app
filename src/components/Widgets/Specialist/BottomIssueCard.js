@@ -3,14 +3,14 @@ import { useNavigation } from '@react-navigation/native'
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
 import { MultiPlatform } from '../../MultiPlatform';
+import Animated from 'react-native-reanimated';
 
-const BottomIssueCard = ({ show = false }) => {
+const BottomIssueCard = () => {
 
     const navigation = useNavigation()
 
     return (
-        <View style={{ ...styles.mainContent, flex: show ? 0 : 1, opacity: show ? 1 : 0, 
-            paddingBottom: show ? MultiPlatform.AdaptivePixelsSize(10) : 0, }}>
+        <Animated.View style={{ ...styles.mainContent }}>
             <TouchableOpacity
                 onPress={() => navigation.navigate("ModalScreen")}
             >
@@ -25,7 +25,7 @@ const BottomIssueCard = ({ show = false }) => {
                         </View>
                 </LinearGradient>
             </TouchableOpacity>
-        </View>
+        </Animated.View>
     )
 }
 
@@ -34,13 +34,19 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingLeft: MultiPlatform.AdaptivePixelsSize(10),
         paddingRight: MultiPlatform.AdaptivePixelsSize(10),
-        backgroundColor: '#FFF'
+        backgroundColor: '#FFF',
+        marginBottom: -120
     },
     gradientOptions: {
         paddingTop: MultiPlatform.AdaptivePixelsSize(13),
         paddingBottom: MultiPlatform.AdaptivePixelsSize(13),
         borderRadius: 16,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom: 80
+        // position: 'absolute',
+        // bottom: -40,
+        // left: 0, 
+        // right: 0
     },
     wrapView: {
         justifyContent: 'space-around',

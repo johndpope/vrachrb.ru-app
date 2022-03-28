@@ -13,6 +13,7 @@ import Storage from '../storage/Storage';
 import Routes from "../requests/Routes";
 import { Notifications } from 'react-native-notifications';
 import LoginSlice from '../store/reducers/LoginSlice';
+import CustomNavigationComponent from '../components/NavigationComponent/CustomNavigationComponent';
 
 const BottomTab = createBottomTabNavigator()
 
@@ -123,9 +124,25 @@ const MainNavigationScreen = () => {
             screenOptions={{
                 tabBarShowLabel: false,
                 tabBarStyle: {
-                    height: MultiPlatform.AdaptivePixelsSize(50),
-                },
+                    position: 'absolute',
+                    backgroundColor: '#FFF',
+                    left: MultiPlatform.AdaptivePixelsSize(120),
+                    right: MultiPlatform.AdaptivePixelsSize(120),
+                    bottom: 15,
+                    borderRadius: 75,
+                    borderTopWidth: 0,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                        width: 0,
+                        height: 0,
+                    },
+                    shadowOpacity: 0,
+                    shadowRadius: 0,
+                    elevation: 0,
+                    borderTopWidth: 0,
+                }
             }}
+            // tabBar={(props) => <CustomNavigationComponent {...props} />}
         >
             {   !isSpecialist &&
                 (<BottomTab.Screen
@@ -154,9 +171,9 @@ const MainNavigationScreen = () => {
                         tabBarIcon: ({ focused }) => {
                             return (
                                 <Image
-                                    style={{ width: MultiPlatform.AdaptivePixelsSize(22),
-                                        height: MultiPlatform.AdaptivePixelsSize(22), tintColor: focused ? "#54B9D1" : "#AAB2BD" }}
-                                    source={ require('../images/notepad.png') }
+                                    style={{ width: MultiPlatform.AdaptivePixelsSize(23),
+                                        height: MultiPlatform.AdaptivePixelsSize(23), tintColor: focused ? "#54B9D1" : "#AAB2BD" }}
+                                    source={ require('../images/navigation/notepad.png') }
                                 />
                             )
                         },
@@ -186,8 +203,9 @@ const MainNavigationScreen = () => {
                     tabBarIcon: ({ focused }) => {
                         return (
                             <Image
-                                style={{ width: MultiPlatform.AdaptivePixelsSize(18), height: MultiPlatform.AdaptivePixelsSize(24), tintColor: focused ? "#54B9D1" : "#AAB2BD"  }}
-                                source={ require('../images/notification.png') }/>
+                                style={{ width: MultiPlatform.AdaptivePixelsSize(25), 
+                                    height: MultiPlatform.AdaptivePixelsSize(24), tintColor: focused ? "#54B9D1" : "#AAB2BD"  }}
+                                source={ require('../images/navigation/messages.png') }/>
                         )
                     },
                     tabBarIconStyle: {
@@ -237,7 +255,7 @@ const MainNavigationScreen = () => {
                         return (
                             <Image
                                 style={ !userData?.photo ? { ...styles.imageStyle, tintColor: focused ? "#54B9D1" : "#AAB2BD" } : {...styles.imageStyle}}
-                                source={ !userData?.photo ? require('../images/user.png') : { uri: Routes.imageURL + userData.photo }} />
+                                source={ !userData?.photo ? require('../images/navigation/profile.png') : { uri: Routes.imageURL + userData.photo }} />
                         )
                     },
                     tabBarIconStyle: {
@@ -252,9 +270,8 @@ const MainNavigationScreen = () => {
 
 const styles = StyleSheet.create({
     imageStyle: {
-        width: MultiPlatform.AdaptivePixelsSize(26),
-        height: MultiPlatform.AdaptivePixelsSize(26),
-        borderRadius: 100,
+        width: MultiPlatform.AdaptivePixelsSize(24),
+        height: MultiPlatform.AdaptivePixelsSize(24),
     }
 })
 
