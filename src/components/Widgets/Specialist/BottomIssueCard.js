@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         paddingBottom: MultiPlatform.AdaptivePixelsSize(13),
         borderRadius: 16,
         justifyContent: 'center',
-        marginBottom: 80,
+        marginBottom: MultiPlatform.AdaptivePixelsSize(90),
         marginTop: 10,
         bottom: 0
         // position: 'absolute',

@@ -67,7 +67,7 @@ const CabinetScreen = () => {
                                     width: '100%',
                                 }}                                
                                 onScroll={(e) => {
-                                    if ((e.nativeEvent.contentOffset.y + MultiPlatform.AdaptivePixelsSize(780)) > (filteredCabinet['response'].length * MultiPlatform.AdaptivePixelsSize(75) + 135)){
+                                    if ((e.nativeEvent.contentOffset.y + MultiPlatform.AdaptivePixelsSize(350)) > (filteredCabinet['response'].length * MultiPlatform.AdaptivePixelsSize(75))){
                                         dispatch(setBottomNavigationEnd(true))
                                     } else {
                                         dispatch(setBottomNavigationEnd(false))

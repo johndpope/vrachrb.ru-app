@@ -80,7 +80,7 @@ const SpecialistScreen = () => {
                                     width: '100%',
                                 }}
                                 onScroll={(e) => {
-                                    if ((e.nativeEvent.contentOffset.y + MultiPlatform.AdaptivePixelsSize(800)) > (filteredCabinet['response'].length * MultiPlatform.AdaptivePixelsSize(75) + 135)){
+                                    if ((e.nativeEvent.contentOffset.y + MultiPlatform.AdaptivePixelsSize(550)) > (filteredSpecialist['response'].length * MultiPlatform.AdaptivePixelsSize(120) + 120)){
                                         dispatch(setBottomNavigationEnd(true))
                                     } else {
                                         dispatch(setBottomNavigationEnd(false))

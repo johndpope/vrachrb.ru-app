@@ -127,8 +127,9 @@ const MainNavigationScreen = () => {
                 tabBarStyle: {
                     position: 'absolute',
                     backgroundColor: '#FFF',
-                    left: MultiPlatform.AdaptivePixelsSize(120),
-                    right: MultiPlatform.AdaptivePixelsSize(120),
+                    height: MultiPlatform.AdaptivePixelsSize(60),
+                    left: '25%',
+                    right: '25%',
                     bottom: 15,
                     borderRadius: 75,
                     borderTopWidth: 0,

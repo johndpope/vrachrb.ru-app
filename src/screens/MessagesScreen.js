@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View, Text, ScrollView } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View, Text, ScrollView, Platform } from 'react-native';
 import MessageCard from '../components/Widgets/Chat/MessageCard'
 import Request from '../requests/Request';
 import {useDispatch, useSelector} from "react-redux";
@@ -7,6 +7,7 @@ import { MultiPlatform } from '../components/MultiPlatform';
 import { useNavigation } from '@react-navigation/native';
 import Routes from "../requests/Routes";
 import { setBottomNavigationEnd } from '../store/reducers/UtilitySlice';
+import { FlatList as FlatListGesture } from 'react-native-gesture-handler';
 
 const MessagesScreen = () => {
 
@@ -95,6 +96,40 @@ const MessagesScreen = () => {
             }
             { loading ? <ActivityIndicator size={'large'} /> :
                 (
+                    Platform.OS == 'ios' ?
+                    <FlatListGesture 
+                    data={userChats}
+                        refreshControl={
+                            <RefreshControl 
+                                refreshing={loading}
+                                onRefresh={() => getChats()}
+                            />
+                        }
+                        keyExtractor={(item) => item.id}
+                        onScroll={(e) => {
+                            if ((e.nativeEvent.contentOffset.y + MultiPlatform.AdaptivePixelsSize(650)) > (userChats.length * MultiPlatform.AdaptivePixelsSize(110) + 110)){
+                                dispatch(setBottomNavigationEnd(true))
+                            } else {
+                                dispatch(setBottomNavigationEnd(false))
+                            }
+                        }}
+                        showsVerticalScrollIndicator={false}
+                        renderItem={({ item, index }) => {
+                            return(
+                                <View>
+                                    <MessageCard outPatient={false} item={ item }/>
+                                    {
+                                        (index + 1) == userChats.length &&
+                                        <View 
+                                            style={{ 
+                                                height: MultiPlatform.AdaptivePixelsSize(110),
+                                            }}
+                                        />
+                                    }
+                                </View>
+                            )
+                        }}
+                    /> :
                     <FlatList 
                         data={userChats}
                         refreshControl={
@@ -105,7 +140,7 @@ const MessagesScreen = () => {
                         }
                         keyExtractor={(item) => item.id}
                         onScroll={(e) => {
-                            if ((e.nativeEvent.contentOffset.y + MultiPlatform.AdaptivePixelsSize(900)) > e.nativeEvent.contentSize.height){
+                            if ((e.nativeEvent.contentOffset.y + MultiPlatform.AdaptivePixelsSize(900)) > (userChats.length * MultiPlatform.AdaptivePixelsSize(110) + 110)){
                                 dispatch(setBottomNavigationEnd(true))
                             } else {
                                 dispatch(setBottomNavigationEnd(false))
