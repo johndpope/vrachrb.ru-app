@@ -76,7 +76,7 @@ const BaseDateTimePicker = ({ response, setValue, hint }) => {
                 cancelTextIOS={"Закрыть"}
                 confirmTextIOS={"Подтвердить"}
                 display={Platform.OS === 'ios' ? "inline" : "default"}
-                locale={"en_GB"}
+                locale={"ru_Ru"}
             />
         </View>
         // <View style={styles.container}>
