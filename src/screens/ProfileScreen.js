@@ -30,12 +30,6 @@ const ProfileScreen = () => {
         selectData.second_name == null ? userName = userName + "" : userName = userName + " " + selectData.second_name
         selectData.middle_name == null ? userName = userName + "" : userName = userName + " " + selectData.middle_name
         
-        navigation.addListener(
-            'focus',
-            payload => {
-                dispatch(setBottomNavigationEnd(false))
-            }
-        );
         setUserName(userName)
     }, [selectData])
 
@@ -78,6 +72,9 @@ const ProfileScreen = () => {
                 }}>
                     <View style={{width: '100%', height: '100%'}}>
                         <ScrollView
+                            onScroll={(e) => {
+                                dispatch(setBottomNavigationEnd(false))
+                            }}
                             showsVerticalScrollIndicator={false}
                             contentContainerStyle={{
                                 flexGrow: 1,
@@ -136,7 +133,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F3F4F6', 
         borderRadius: MultiPlatform.AdaptivePixelsSize(20), 
         marginTop: MultiPlatform.AdaptivePixelsSize(10), 
-        marginBottom: MultiPlatform.AdaptivePixelsSize(50),
+        marginBottom: MultiPlatform.AdaptivePixelsSize(80),
         paddingBottom: MultiPlatform.AdaptivePixelsSize(20)
     }
 })

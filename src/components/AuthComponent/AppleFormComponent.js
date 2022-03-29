@@ -50,6 +50,13 @@ const AppleFormComponent = ({ email, username }) => {
         let request = await Request.post(Routes.signWithApple, data);
         setResponse(request)
 
+        let day = birth_date.getUTCDate(),
+            month = birth_date.getUTCMonth()+1,
+            year = birth_date.getUTCFullYear();
+        day = day < 10 ? "0"+day : day;
+        month = month < 10 ? "0"+month : month;
+        let dateRU = year+"-"+month+"-"+day
+
         if(request?.userData){
             let newUser = {
                 auth: true,
@@ -59,7 +66,7 @@ const AppleFormComponent = ({ email, username }) => {
                 middle_name: "",
                 username: fullname?.givenName + " " + fullname?.familyName,
                 gender: gender,
-                birth_date: dateBirth + " .",
+                birth_date: dateRU,
                 email: email,
                 phone: request?.userData?.phone,
                 photo: request?.userData?.photo

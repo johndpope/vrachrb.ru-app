@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, ActivityIndicator, RefreshControl, FlatList, Platform, StatusBar } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, RefreshControl, FlatList, Platform, StatusBar, Dimensions } from 'react-native';
 import BaseSearchComponent from '../components/HeaderComponent/BaseSearchComponent';
 import CabinetCardWidget from '../components/Widgets/Cabinet/CabinetCardWidget';
 import Request from '../requests/Request'
@@ -102,7 +102,8 @@ const CabinetScreen = () => {
                                 }}
                                 data={filteredCabinet && filteredCabinet['response']}
                                 showsVerticalScrollIndicator={false}
-                                onScroll={(e) => {
+                                onScroll={(e) => {                                    
+                                    // console.log(e.nativeEvent., e.nativeEvent.contentSize.height)
                                     if ((e.nativeEvent.contentOffset.y + MultiPlatform.AdaptivePixelsSize(780)) > (filteredCabinet['response'].length * MultiPlatform.AdaptivePixelsSize(75) + 135)){
                                         dispatch(setBottomNavigationEnd(true))
                                     } else {

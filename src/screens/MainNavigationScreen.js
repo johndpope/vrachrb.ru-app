@@ -143,7 +143,6 @@ const MainNavigationScreen = () => {
                     elevation: setBottomNavigationEnd ? 0 : 18,
                 }
             }}
-            // tabBar={(props) => <CustomNavigationComponent {...props} />}
         >
             {   !isSpecialist &&
                 (<BottomTab.Screen
@@ -204,8 +203,8 @@ const MainNavigationScreen = () => {
                     tabBarIcon: ({ focused }) => {
                         return (
                             <Image
-                                style={{ width: MultiPlatform.AdaptivePixelsSize(25), 
-                                    height: MultiPlatform.AdaptivePixelsSize(24), tintColor: focused ? "#54B9D1" : "#AAB2BD"  }}
+                                style={{ width: MultiPlatform.AdaptivePixelsSize(24), 
+                                    height: MultiPlatform.AdaptivePixelsSize(24), tintColor: focused ? "#54B9D1" : "#AAB2BD" }}
                                 source={ require('../images/navigation/messages.png') }/>
                         )
                     },
@@ -255,7 +254,7 @@ const MainNavigationScreen = () => {
                     tabBarIcon: ({ focused }) => {
                         return (
                             <Image
-                                style={ !userData?.photo ? { ...styles.imageStyle, tintColor: focused ? "#54B9D1" : "#AAB2BD" } : {...styles.imageStyle}}
+                                style={ !userData?.photo ? { ...styles.imageStyle, tintColor: focused ? "#54B9D1" : "#AAB2BD" } : {width: 25, height: 25, borderRadius: 100}}
                                 source={ !userData?.photo ? require('../images/navigation/profile.png') : { uri: Routes.imageURL + userData.photo }} />
                         )
                     },

@@ -56,6 +56,13 @@ const RegisterFormComponent = () => {
 
         setResponse(request)
 
+        let day = birth_date.getUTCDate(),
+            month = birth_date.getUTCMonth()+1,
+            year = birth_date.getUTCFullYear();
+        day = day < 10 ? "0"+day : day;
+        month = month < 10 ? "0"+month : month;
+        let dateRU = year+"-"+month+"-"+day
+
         let newUser = {
             auth: true,
             isSpecialist: false,
@@ -64,7 +71,7 @@ const RegisterFormComponent = () => {
             middle_name: last_name,
             username: email,
             gender: gender,
-            birth_date: dateBirth + " .",
+            birth_date: dateRU,
             email: email,
             phone: phone,
             photo: ""
